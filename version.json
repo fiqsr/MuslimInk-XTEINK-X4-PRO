@@ -1,6 +1,6 @@
 {
-  "version": "2.1.0",
-  "build": 210,
+  "version": "1.0.0",
+  "build": 100,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -8,7 +8,7 @@
   "release_date": "2026-11-06",
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
-  "size_bytes": 370416,
+  "size_bytes": 395952,
   "changelog_id": [
     "Khusus perangkat Xteink X4 Pro (API 2.0 / Touch / Net)",
     "Pembaruan desain Modern Material 3 E-Ink 480x800",

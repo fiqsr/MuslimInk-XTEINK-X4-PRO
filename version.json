@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "build": 100,
+  "version": "1.1.0",
+  "build": 110,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -8,23 +8,21 @@
   "release_date": "2026-11-06",
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
-  "size_bytes": 395952,
+  "size_bytes": 410080,
   "changelog_id": [
-    "Khusus perangkat Xteink X4 Pro (API 2.0 / Touch / Net)",
-    "Pembaruan desain Modern Material 3 E-Ink 480x800",
-    "Pilihan 6 Font Jam & Counter Tasbih (Modern Bulat, Klasik Serif, Tegas Bold, Geometris Slab, Artistik Inline, dan Angka Arab)",
-    "Modal popup visual interaktif untuk preview contoh font jam secara langsung",
-    "Rotasi ayat Al-Qur'an & Hadits bilingual (Bahasa Indonesia & Sahih International English)",
-    "Tombol uji rotasi ayat manual langsung dari modal pengaturan",
-    "Penyelarasan bahasa otomatis dan tipografi kartu responsif anti-terpotong"
+    "Fitur Baru: Input Koordinat Manual (Latitude, Longitude & Timezone)",
+    "Papan tombol sentuh virtual (Touch Numpad 4x4) khusus layar E-Ink untuk input koordinat presisi",
+    "Fitur Auto UTC untuk deteksi zona waktu otomatis berbasis derajat bujur",
+    "Pilihan 6 standar hisab astronomis dunia (Kemenag, MWL, Umm Al-Qura, Mesir, ISNA, Karachi)",
+    "Kalkulasi jadwal shalat offline instan 1 bulan penuh tanpa butuh koneksi internet",
+    "Sinkronisasi otomatis arah dan jarak kompas kiblat ke Ka'bah dari titik koordinat kustom"
   ],
   "changelog_en": [
-    "Exclusively for Xteink X4 Pro (API 2.0 / Touch / Net)",
-    "Modern Material 3 E-Ink 480x800 UI overhaul",
-    "6 Digital Clock & Tasbih Counter font styles (Modern Rounded, Classic Serif, Bold Geometric, Geometric Slab, Artistic Inline, Arabic Numerals)",
-    "Interactive visual modal with live clock preview gallery",
-    "Bilingual Quran & Hadith rotation (Indonesian & Sahih International English)",
-    "Instant manual quote refresh test button in Settings modal",
-    "Seamless language synchronization and responsive typography"
+    "New Feature: Manual GPS Coordinates Input (Latitude, Longitude & Timezone)",
+    "On-screen 4x4 touch numpad tailored for 480x800 E-ink touchscreen input",
+    "Auto UTC timezone estimation from longitude degree coordinates",
+    "6 Astronomical calculation methods (Kemenag, MWL, Umm Al-Qura, Egyptian, ISNA, Karachi)",
+    "Instant 100% offline 1-month prayer schedule generation without internet connection",
+    "Automatic Qibla compass azimuth & distance alignment to Kaaba from custom coordinates"
   ]
 }

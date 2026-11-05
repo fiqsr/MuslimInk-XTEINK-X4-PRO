@@ -28,10 +28,10 @@ Dikembangkan oleh **fiqsr** ([github.com/fiqsr](https://github.com/fiqsr)).
 | :---: | :---: | :---: | :---: |
 | <img src="docs/preview/05-tasbih-digital.png" width="175" alt="Tasbih Digital"> | <img src="docs/preview/06-doa-harian.png" width="175" alt="Doa Harian"> | <img src="docs/preview/07-kalender-hijriah.png" width="175" alt="Kalender Hijriah"> | <img src="docs/preview/08-kompas-kiblat.png" width="175" alt="Kompas Kiblat"> |
 
-### 3. Pengaturan & Fitur Pembaruan Otomatis (Auto-Update)
-| Layar Pengaturan (Row 8) | Modal Pembaruan & Changelog | Unduhan Selesai di SD Card | Pemilih Font Jam Interaktif |
+### 3. Pengaturan, Wilayah & Fitur Pembaruan Otomatis (Auto-Update)
+| Layar Pengaturan | Pilihan Negara & Kustom | Input Koordinat GPS & Numpad | Modal Pembaruan & Changelog |
 | :---: | :---: | :---: | :---: |
-| <img src="docs/preview/11-pengaturan.png" width="175" alt="Pengaturan & Update"> | <img src="docs/preview/13-update-modal.png" width="175" alt="Modal Pembaruan"> | <img src="docs/preview/14-update-done.png" width="175" alt="Unduhan Selesai"> | <img src="docs/preview/09-font-jam-modal.png" width="175" alt="Modal Font Jam"> |
+| <img src="docs/preview/11-pengaturan.png" width="175" alt="Pengaturan & Update"> | <img src="docs/preview/10-pilih-negara.png" width="175" alt="Pilih Negara"> | <img src="docs/preview/15-koordinat-manual.png" width="175" alt="Input Koordinat GPS"> | <img src="docs/preview/13-update-modal.png" width="175" alt="Modal Pembaruan"> |
 
 ---
 
@@ -106,6 +106,20 @@ Aplikasi menyediakan 6 variasi tipografi TrueType resolusi tinggi untuk jam lock
   4. *Offline Saja* — Rotasi dari 30 ayat pilihan built-in tanpa koneksi internet.
 - **Uji Coba Manual Instan**: Tombol **"Ganti Ayat Sekarang (Test)"** di dalam modal untuk mencoba rotasi ayat secara langsung tanpa perlu menunggu jadwal waktu.
 - **Dukungan Bilingual Penuh (ID / EN)**: Tersedia dalam Bahasa Indonesia dan Bahasa Inggris (*Sahih International translation*). Dilengkapi filter cerdas otomatis sehingga teks bahasa Inggris tidak akan bocor dengan teks bahasa Indonesia.
+
+### 📌 Input Koordinat Manual (Latitude, Longitude & Timezone)
+- **Dukungan Lokasi Global Tanpa Batas**: Sangat cocok bagi pengguna di daerah pelosok, perkebunan, pertambangan, perairan/laut lepas, atau di negara mana pun di dunia yang tidak tercantum dalam daftar kota.
+- **Papan Tombol Sentuh Virtual (Touch Numpad 4×4)**: Papan tombol sentuh khusus berukuran besar yang nyaman diketuk untuk input angka desimal, tanda minus `+/-`, tombol `Hapus`, `Clear`, dan navigasi `Tab`.
+- **Fitur Auto UTC**: Menghitung estimasi zona waktu (UTC offset) secara otomatis berdasarkan koordinat bujur ($(\text{lon} + 7.5) / 15$).
+- **Pilihan 6 Standar Hisab Astronomis Dunia**:
+  1. *Kemenag RI / MABIMS* (Subuh 20°, Isya 18°)
+  2. *Muslim World League / MWL* (Subuh 18°, Isya 17°)
+  3. *Umm Al-Qura Makkah* (Subuh 18.5°, Isya +90 menit)
+  4. *Egyptian General Authority of Survey* (Subuh 19.5°, Isya 17.5°)
+  5. *ISNA North America* (Subuh 15°, Isya 15°)
+  6. *Univ. of Islamic Sciences Karachi* (Subuh 18°, Isya 18°, Ashar faktor bayangan 2×)
+- **100% Offline Generation**: Jadwal shalat 1 bulan penuh langsung dikalkulasi dan disimpan secara lokal dalam hitungan milidetik.
+- **Integrasi Penuh Kompas Kiblat**: Titik koordinat kustom otomatis disinkronkan ke layar Kompas Kiblat untuk menghitung sudut azimuth Ka'bah dan jarak tempuh secara presisi.
 
 ---
 

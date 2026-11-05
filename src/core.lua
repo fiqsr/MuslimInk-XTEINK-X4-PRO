@@ -1695,8 +1695,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.0.0'
-S.APP_BUILD = 100
+S.APP_VERSION = '1.1.0'
+S.APP_BUILD = 110
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 
 function S.parse_version_json(str)

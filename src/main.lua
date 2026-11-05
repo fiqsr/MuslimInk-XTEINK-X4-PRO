@@ -4,7 +4,7 @@ local W, H = S.W, S.H
 local API_BASE = 'https://equran.id/api/v2/shalat'
 
 local cfg = S.load_cfg()
--- screen: 'main' | 'tasbih' | 'doa' | 'hijri' | 'kiblat' | 'settings' | 'country' | 'city' | 'prov' | 'kab' | 'month'
+-- screen: 'main' | 'tasbih' | 'doa' | 'hijri' | 'kiblat' | 'settings' | 'country' | 'city' | 'prov' | 'kab' | 'month' | 'custom_coords'
 local screen = 'main'
 local prev_screen = 'main'
 local hijri_modal = false
@@ -17,6 +17,15 @@ local update_err = nil
 local about_expanded = false
 local settings_scroll_y = 0
 local touch_down_y = nil
+
+local coords_state = {
+  lat = '-6.2088',
+  lon = '106.8456',
+  tz = '+7',
+  active_field = 1,
+  method_idx = 1,
+  status_err = nil,
+}
 
 local tsb = nil
 local doa_idx = 1
@@ -169,6 +178,23 @@ end
 
 local function fetch_month(y, m, prov, kab, after_fn)
   local L = S.L(cfg)
+  local is_custom = (cfg.country == 'GPS Manual' or cfg.country == 'Kustom' or cfg.prov == 'GPS Manual')
+  if is_custom then
+    local days = S.generate_month(y, m, cfg)
+    if days then
+      local want = (prov or '') .. '|' .. (kab or '')
+      local body = 'loc=' .. want .. '\n'
+      for d = 1, #days do
+        local r = days[d]
+        body = body .. string.format('%d=%s,%s,%s,%s,%s,%s,%s,%s\n',
+          d, r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8])
+      end
+      S.write(S.cache_name(y, m), body)
+      status = (cfg.lang == 'en' and 'Calculated (Offline): ' or 'Dihitung (Offline): ') .. S.short(kab or '', 22)
+      if after_fn then after_fn() end
+    end
+    return
+  end
   local is_id = (cfg.country == 'Indonesia' or not cfg.country)
   if is_id then
     local body_req = string.format(
@@ -285,10 +311,31 @@ end
 local function open_country_list()
   country_names = {}
   for i, c in ipairs(F.WORLD_COUNTRIES) do
-    country_names[#country_names + 1] = c.name .. '  •  ' .. c.cities_count
+    local c_name = (cfg.lang == 'en' and c.name_en) or c.name
+    country_names[#country_names + 1] = c_name .. '  •  ' .. c.cities_count
   end
   page = 1
   screen = 'country'
+  status = nil
+  refresh()
+end
+
+local function open_custom_coords_screen()
+  coords_state.lat = string.format('%.4f', cfg.lat or -6.2088)
+  coords_state.lon = string.format('%.4f', cfg.lon or 106.8456)
+  local tz_val = math.floor(cfg.tz or 7)
+  coords_state.tz = (tz_val >= 0 and '+' or '') .. tostring(tz_val)
+  coords_state.active_field = 1
+  coords_state.status_err = nil
+  coords_state.method_idx = 1
+  for i, m in ipairs(F.CUSTOM_METHODS) do
+    if m.mid == cfg.method_id or m.name == cfg.method then
+      coords_state.method_idx = i
+      break
+    end
+  end
+  prev_screen = screen
+  screen = 'custom_coords'
   status = nil
   refresh()
 end
@@ -604,8 +651,15 @@ local function draw_main_screen(gg)
     S.center_text(gg, W // 2, 676, msg, 'small', W - 24)
   else
     local is_id = (cfg.country == 'Indonesia' or not cfg.country)
-    local f_text = is_id and (cfg.lang == 'en' and 'Source: Kemenag RI (equran.id) • Offline' or 'Sumber: Kemenag RI (equran.id) • Offline')
-      or (cfg.lang == 'en' and 'Source: Aladhan API • Meeus Solar Offline' or 'Sumber: Aladhan API • Hisab Astronomi Offline')
+    local is_custom = (cfg.country == 'GPS Manual' or cfg.country == 'Kustom' or cfg.prov == 'GPS Manual')
+    local f_text
+    if is_custom then
+      f_text = (cfg.lang == 'en' and ('Meeus Solar Offline (' .. (cfg.method or 'GPS') .. ')') or ('Hisab Astronomi Offline (' .. (cfg.method or 'GPS') .. ')'))
+    elseif is_id then
+      f_text = (cfg.lang == 'en' and 'Source: Kemenag RI (equran.id) • Offline' or 'Sumber: Kemenag RI (equran.id) • Offline')
+    else
+      f_text = (cfg.lang == 'en' and 'Source: Aladhan API • Meeus Solar Offline' or 'Sumber: Aladhan API • Hisab Astronomi Offline')
+    end
     S.center_text(gg, W // 2, 676, f_text, 'small', W - 24)
   end
 
@@ -735,6 +789,8 @@ function on_draw(c, gg)
     local now_info = S.now(cfg)
     if screen == 'country' then
       draw_list_screen(gg, cfg.lang == 'en' and 'Select Country' or 'Pilih Negara', country_names, now_info)
+    elseif screen == 'custom_coords' then
+      F.draw_custom_coords_screen(gg, cfg, now_info, coords_state, draw_btn)
     elseif screen == 'city' then
       local c_title = selected_country and selected_country.name or (cfg.lang == 'en' and 'Select City' or 'Pilih Kota')
       draw_list_screen(gg, c_title, city_names, now_info)
@@ -1504,6 +1560,187 @@ local function handle_tap_month(x, y)
   end
 end
 
+local function handle_tap_custom_coords(x, y)
+  -- Top-right Hamburger ☰ button
+  if y >= 2 and y <= 52 and x >= W - 64 then
+    drawer_open = true
+    return
+  end
+  -- Top-right Clock text cycles TrueType clock fonts
+  if y >= 2 and y <= 52 and x >= W - 144 and x < W - 64 then
+    cfont_modal = true
+    return
+  end
+
+  -- Card 1: Latitude
+  if y >= 60 and y <= 122 and x >= 20 and x <= W - 20 then
+    coords_state.active_field = 1
+    coords_state.status_err = nil
+    refresh()
+    return
+  end
+
+  -- Card 2: Longitude
+  if y >= 128 and y <= 190 and x >= 20 and x <= W - 20 then
+    coords_state.active_field = 2
+    coords_state.status_err = nil
+    refresh()
+    return
+  end
+
+  -- Card 3: Timezone
+  if y >= 196 and y <= 252 and x >= 20 and x <= W - 20 then
+    coords_state.active_field = 3
+    coords_state.status_err = nil
+    refresh()
+    return
+  end
+
+  -- Card 4: Calculation Method
+  if y >= 258 and y <= 306 and x >= 20 and x <= W - 20 then
+    local total_m = #F.CUSTOM_METHODS
+    coords_state.method_idx = (coords_state.method_idx % total_m) + 1
+    coords_state.status_err = nil
+    refresh()
+    return
+  end
+
+  -- Helper to get active key
+  local cur_key = (coords_state.active_field == 1 and 'lat')
+               or (coords_state.active_field == 2 and 'lon')
+               or 'tz'
+
+  -- Numpad (y = 344..696)
+  if y >= 344 and y <= 696 and x >= 16 and x <= W - 16 then
+    local r = nil
+    if y < 428 then r = 1
+    elseif y < 516 then r = 2
+    elseif y < 604 then r = 3
+    else r = 4 end
+
+    local c = nil
+    if x < 124 then c = 1
+    elseif x < 236 then c = 2
+    elseif x < 348 then c = 3
+    else c = 4 end
+
+    if r and c then
+      local val = coords_state[cur_key] or ''
+      coords_state.status_err = nil
+
+      if r == 1 then
+        if c == 1 then if #val < 10 then coords_state[cur_key] = val .. '1' end
+        elseif c == 2 then if #val < 10 then coords_state[cur_key] = val .. '2' end
+        elseif c == 3 then if #val < 10 then coords_state[cur_key] = val .. '3' end
+        elseif c == 4 then -- Backspace
+          if #val > 0 then coords_state[cur_key] = val:sub(1, -2) end
+        end
+      elseif r == 2 then
+        if c == 1 then if #val < 10 then coords_state[cur_key] = val .. '4' end
+        elseif c == 2 then if #val < 10 then coords_state[cur_key] = val .. '5' end
+        elseif c == 3 then if #val < 10 then coords_state[cur_key] = val .. '6' end
+        elseif c == 4 then -- Plus/Minus toggle
+          if val:sub(1, 1) == '-' then
+            coords_state[cur_key] = val:sub(2)
+          else
+            coords_state[cur_key] = '-' .. val
+          end
+        end
+      elseif r == 3 then
+        if c == 1 then if #val < 10 then coords_state[cur_key] = val .. '7' end
+        elseif c == 2 then if #val < 10 then coords_state[cur_key] = val .. '8' end
+        elseif c == 3 then if #val < 10 then coords_state[cur_key] = val .. '9' end
+        elseif c == 4 then -- Dot
+          if not val:find('%.') and #val < 10 then
+            coords_state[cur_key] = (val == '' and '0' or val) .. '.'
+          end
+        end
+      elseif r == 4 then
+        if c == 1 then -- Tab
+          coords_state.active_field = (coords_state.active_field % 3) + 1
+        elseif c == 2 then -- Zero
+          if #val < 10 then coords_state[cur_key] = val .. '0' end
+        elseif c == 3 then -- Clear
+          coords_state[cur_key] = ''
+        elseif c == 4 then -- Auto UTC
+          local lon_n = tonumber(coords_state.lon) or 0
+          local calc_tz = math.floor((lon_n + 7.5) / 15.0)
+          if calc_tz < -12 then calc_tz = -12 elseif calc_tz > 14 then calc_tz = 14 end
+          coords_state.tz = (calc_tz >= 0 and '+' or '') .. tostring(calc_tz)
+        end
+      end
+      refresh()
+      return
+    end
+  end
+
+  -- Bottom Action Bar (y = 712..780)
+  if y >= 712 and y <= 780 then
+    if x >= 16 and x <= 152 then -- Cancel
+      screen = prev_screen or 'country'
+      refresh()
+      return
+    elseif x >= 160 and x <= W - 16 then -- Save & Compute
+      local is_en = (cfg.lang == 'en')
+      local lat_n = tonumber(coords_state.lat)
+      local lon_n = tonumber(coords_state.lon)
+      local tz_n = tonumber(coords_state.tz)
+
+      if not lat_n or lat_n < -90 or lat_n > 90 then
+        coords_state.status_err = is_en and 'Invalid Latitude (-90 to +90)' or 'Lintang tidak valid (-90 s.d +90)'
+        refresh()
+        return
+      end
+      if not lon_n or lon_n < -180 or lon_n > 180 then
+        coords_state.status_err = is_en and 'Invalid Longitude (-180 to +180)' or 'Bujur tidak valid (-180 s.d +180)'
+        refresh()
+        return
+      end
+      if not tz_n or tz_n < -12 or tz_n > 14 then
+        coords_state.status_err = is_en and 'Invalid Timezone (-12 to +14)' or 'Zona waktu tidak valid (-12 s.d +14)'
+        refresh()
+        return
+      end
+
+      local m_idx = coords_state.method_idx or 1
+      local m_info = F.CUSTOM_METHODS[m_idx] or F.CUSTOM_METHODS[1]
+
+      cfg.country = 'GPS Manual'
+      cfg.prov = 'GPS Manual'
+      cfg.kab = string.format('%.2f°, %.2f°', lat_n, lon_n)
+      cfg.lat = lat_n
+      cfg.lon = lon_n
+      cfg.tz = tz_n
+      cfg.fajr_ang = m_info.fajr
+      cfg.isha_ang = m_info.isha or 18.0
+      cfg.asr_factor = m_info.asr or 1.0
+      cfg.isha_fixed_min = m_info.isha_fixed
+      cfg.method = m_info.name
+      cfg.method_id = m_info.mid
+      cfg.has_saved = true
+      S.save_cfg(cfg)
+
+      local now_info = S.now(cfg)
+      local days = S.generate_month(now_info.y, now_info.m, cfg)
+      if days then
+        local want = cfg.prov .. '|' .. cfg.kab
+        local body = 'loc=' .. want .. '\n'
+        for d = 1, #days do
+          local r = days[d]
+          body = body .. string.format('%d=%s,%s,%s,%s,%s,%s,%s,%s\n',
+            d, r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8])
+        end
+        S.write(S.cache_name(now_info.y, now_info.m), body)
+      end
+
+      screen = 'main'
+      status = is_en and 'Custom coordinates saved!' or 'Koordinat kustom berhasil disimpan!'
+      refresh()
+      return
+    end
+  end
+end
+
 local function key_ok(ev)
   if ev.phase and ev.phase ~= 'down' and ev.phase ~= 'press' then return false end
   if ev.repeat_count and tonumber(ev.repeat_count) and tonumber(ev.repeat_count) > 0 then return false end
@@ -1553,14 +1790,16 @@ function on_input(c, ev)
         if screen == 'country' then
           handle_tap_list(x, y, country_names, function(item, idx)
             local c = F.WORLD_COUNTRIES[idx]
-          if c then
-            if c.is_id then
-              open_prov_list()
-            else
-              open_city_list(c)
+            if c then
+              if c.is_id then
+                open_prov_list()
+              elseif c.is_custom then
+                open_custom_coords_screen()
+              else
+                open_city_list(c)
+              end
             end
-          end
-        end)
+          end)
       elseif screen == 'city' then
         handle_tap_list(x, y, city_names, function(item, idx)
           if selected_country and selected_country.cities[idx] then
@@ -1617,6 +1856,8 @@ function on_input(c, ev)
         end)
       elseif screen == 'month' then
         handle_tap_month(x, y)
+      elseif screen == 'custom_coords' then
+        handle_tap_custom_coords(x, y)
       elseif screen == 'settings' then
         handle_tap_settings(x, y)
       else
@@ -1688,6 +1929,10 @@ end
         return true
       elseif screen == 'country' then
         screen = prev_screen or 'main'
+        refresh()
+        return true
+      elseif screen == 'custom_coords' then
+        screen = prev_screen or 'country'
         refresh()
         return true
       elseif screen ~= 'main' then

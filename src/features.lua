@@ -374,12 +374,28 @@ F.PROV_COORDS = {
   ['Papua Selatan'] = { -8.49, 140.40 },
 }
 
+F.CUSTOM_METHODS = {
+  { name = 'Kemenag / MABIMS', fajr = 20.0, isha = 18.0, asr = 1.0, mid = 20, desc = 'Subuh 20°, Isya 18°' },
+  { name = 'Muslim World League (MWL)', fajr = 18.0, isha = 17.0, asr = 1.0, mid = 3, desc = 'Subuh 18°, Isya 17°' },
+  { name = 'Umm Al-Qura (Makkah)', fajr = 18.5, isha_fixed = 90, asr = 1.0, mid = 4, desc = 'Subuh 18.5°, Isya +90m' },
+  { name = 'Egyptian Gen. Authority', fajr = 19.5, isha = 17.5, asr = 1.0, mid = 5, desc = 'Subuh 19.5°, Isya 17.5°' },
+  { name = 'ISNA (North America)', fajr = 15.0, isha = 15.0, asr = 1.0, mid = 2, desc = 'Subuh 15°, Isya 15°' },
+  { name = 'Univ. Karachi (Hanafi)', fajr = 18.0, isha = 18.0, asr = 2.0, mid = 1, desc = 'Subuh 18°, Isya 18°, Ashar 2x' },
+}
+
 F.WORLD_COUNTRIES = {
   {
     name = 'Indonesia',
     is_id = true,
     method_id = 20,
     cities_count = '38 Provinsi',
+    cities = {}
+  },
+  {
+    name = 'Koordinat Manual (GPS)',
+    name_en = 'Manual GPS Coordinates',
+    is_custom = true,
+    cities_count = 'Lat/Long',
     cities = {}
   },
   {
@@ -1902,6 +1918,111 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, dra
     draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, btn_dl, true, 'medium')
     draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Later' or 'Nanti', false, 'medium')
   end
+end
+
+------------------------------------------------------------------ Manual GPS Coordinates Input Screen (Touch Numpad)
+
+function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
+  local W, H = S.W, S.H
+  local is_en = (cfg.lang == 'en')
+  local title = is_en and 'Manual GPS Coordinates' or 'Koordinat Manual (GPS)'
+
+  -- Top App Bar: Title on Left, Clock + Hamburger on Right
+  gg:text(20, 18, S.fit_text(title, 'large', W - 144), { font = S.font('large') })
+  if now_info and now_info.hhmm then
+    gg:text(W - 128, 20, now_info.hhmm, { font = S.font('medium') })
+  end
+  S.draw_hamburger_btn(gg, W - 50, 20)
+
+  local cur_act = state.active_field or 1
+
+  -- Field 1: Latitude (-90 to +90)
+  local f1_active = (cur_act == 1)
+  S.round_rect(gg, 20, 60, W - 40, 62, 10, nil, true, 0)
+  S.round_rect(gg, 20, 60, W - 40, 62, 10, f1_active and 3 or 1)
+  if f1_active then
+    gg:rect(28, 64, 6, 54, { fill = true, radius = 3 })
+  end
+  local l_lat = is_en and 'Latitude / Lintang (-90.0 s.d +90.0)' or 'Lintang / Latitude (-90.0 s.d +90.0)'
+  gg:text(42, 66, l_lat, { font = S.font('small') })
+  local lat_display = (state.lat == '' and '0.0000' or state.lat) .. (f1_active and ' |' or '')
+  gg:text(42, 88, lat_display, { font = S.font('medium') })
+
+  -- Field 2: Longitude (-180 to +180)
+  local f2_active = (cur_act == 2)
+  S.round_rect(gg, 20, 128, W - 40, 62, 10, nil, true, 0)
+  S.round_rect(gg, 20, 128, W - 40, 62, 10, f2_active and 3 or 1)
+  if f2_active then
+    gg:rect(28, 132, 6, 54, { fill = true, radius = 3 })
+  end
+  local l_lon = is_en and 'Longitude / Bujur (-180.0 s.d +180.0)' or 'Bujur / Longitude (-180.0 s.d +180.0)'
+  gg:text(42, 134, l_lon, { font = S.font('small') })
+  local lon_display = (state.lon == '' and '0.0000' or state.lon) .. (f2_active and ' |' or '')
+  gg:text(42, 156, lon_display, { font = S.font('medium') })
+
+  -- Field 3: Timezone UTC (-12 to +14)
+  local f3_active = (cur_act == 3)
+  S.round_rect(gg, 20, 196, W - 40, 56, 10, nil, true, 0)
+  S.round_rect(gg, 20, 196, W - 40, 56, 10, f3_active and 3 or 1)
+  if f3_active then
+    gg:rect(28, 200, 6, 48, { fill = true, radius = 3 })
+  end
+  local l_tz = is_en and 'Timezone / Zona Waktu (UTC: +7, +8, +3, -5)' or 'Zona Waktu / Timezone (UTC: +7, +8, +3, -5)'
+  gg:text(42, 200, l_tz, { font = S.font('small') })
+  local tz_display = 'UTC ' .. (state.tz == '' and '+7' or state.tz) .. (f3_active and ' |' or '')
+  gg:text(42, 222, tz_display, { font = S.font('medium') })
+
+  -- Field 4: Calculation Method (Tappable Cycle Card)
+  local m_idx = state.method_idx or 1
+  local m_info = F.CUSTOM_METHODS[m_idx] or F.CUSTOM_METHODS[1]
+  S.round_rect(gg, 20, 258, W - 40, 48, 10, nil, true, 0)
+  S.round_rect(gg, 20, 258, W - 40, 48, 10, 1)
+  local m_title = (is_en and 'Method: ' or 'Metode: ') .. m_info.name .. ' ›'
+  gg:text(36, 264, S.fit_text(m_title, 'small', W - 72), { font = S.font('small') })
+  gg:text(36, 284, m_info.desc .. (is_en and ' (Tap to cycle)' or ' (Ketuk untuk ganti)'), { font = S.font('small') })
+
+  -- Status / Error line
+  if state.status_err then
+    S.round_rect(gg, 20, 310, W - 40, 28, 6, nil, true, 0)
+    S.round_rect(gg, 20, 310, W - 40, 28, 6, 1)
+    S.center_text(gg, W // 2, 314, '(! ) ' .. state.status_err, 'small', W - 50)
+  else
+    local helper_txt = is_en
+      and 'Tap box to edit • Auto UTC from longitude'
+      or 'Ketuk kotak untuk edit • Auto UTC dari bujur'
+    S.center_text(gg, W // 2, 314, helper_txt, 'small', W - 40)
+  end
+
+  -- Touch Numpad Grid (y = 344..696, h = 344)
+  local col_x = { 16, 128, 240, 352 }
+  local col_w = { 104, 104, 104, 112 }
+  local row_y = { 344, 432, 520, 608 }
+  local row_h = 80
+
+  local keys = {
+    { { lbl = '1', fn = 'large' }, { lbl = '2', fn = 'large' }, { lbl = '3', fn = 'large' }, { lbl = 'Hapus', fn = 'small' } },
+    { { lbl = '4', fn = 'large' }, { lbl = '5', fn = 'large' }, { lbl = '6', fn = 'large' }, { lbl = '+/-', fn = 'medium' } },
+    { { lbl = '7', fn = 'large' }, { lbl = '8', fn = 'large' }, { lbl = '9', fn = 'large' }, { lbl = '.', fn = 'large' } },
+    { { lbl = 'Tab', fn = 'small' }, { lbl = '0', fn = 'large' }, { lbl = 'Clear', fn = 'small' }, { lbl = 'Auto UTC', fn = 'small' } }
+  }
+
+  for r = 1, 4 do
+    for c = 1, 4 do
+      local k = keys[r][c]
+      local bx = col_x[c]
+      local by = row_y[r]
+      local bw = col_w[c]
+      local bh = row_h
+      S.round_rect(gg, bx, by, bw, bh, 10, nil, true, 0)
+      S.round_rect(gg, bx, by, bw, bh, 10, 2)
+      local ty_off = (k.fn == 'large') and 24 or ((k.fn == 'medium') and 28 or 30)
+      S.center_text(gg, bx + bw // 2, by + ty_off, k.lbl, k.fn, bw - 8)
+    end
+  end
+
+  -- Bottom Action Bar (y = 716..776, h = 60)
+  draw_btn(gg, 16, 716, 136, 60, is_en and 'Cancel' or 'Batal', false, 'medium')
+  draw_btn(gg, 160, 716, W - 176, 60, is_en and 'Simpan & Hitung' or 'Simpan & Hitung', true, 'medium')
 end
 
 return F

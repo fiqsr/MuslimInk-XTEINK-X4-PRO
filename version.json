@@ -8,21 +8,23 @@
   "release_date": "2026-11-06",
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
-  "size_bytes": 410080,
+  "size_bytes": 421856,
   "changelog_id": [
     "Fitur Baru: Input Koordinat Manual (Latitude, Longitude & Timezone)",
     "Papan tombol sentuh virtual (Touch Numpad 4x4) khusus layar E-Ink untuk input koordinat presisi",
     "Fitur Auto UTC untuk deteksi zona waktu otomatis berbasis derajat bujur",
+    "Pembaruan Auto-Updater: Notifikasi 'Sudah Versi Terbaru' & popup non-overflow anti-terpotong",
+    "Pembaruan Auto-Updater: Penyimpanan langsung ke direktori utama SD Card (/sdcard/muslimink.xtapp)",
     "Pilihan 6 standar hisab astronomis dunia (Kemenag, MWL, Umm Al-Qura, Mesir, ISNA, Karachi)",
-    "Kalkulasi jadwal shalat offline instan 1 bulan penuh tanpa butuh koneksi internet",
-    "Sinkronisasi otomatis arah dan jarak kompas kiblat ke Ka'bah dari titik koordinat kustom"
+    "Kalkulasi jadwal shalat offline instan 1 bulan penuh tanpa butuh koneksi internet"
   ],
   "changelog_en": [
     "New Feature: Manual GPS Coordinates Input (Latitude, Longitude & Timezone)",
     "On-screen 4x4 touch numpad tailored for 480x800 E-ink touchscreen input",
     "Auto UTC timezone estimation from longitude degree coordinates",
+    "Auto-Updater enhancement: 'Up to Date' status notification & responsive modal UI",
+    "Auto-Updater enhancement: Direct shallow saving to SD Card root (/sdcard/muslimink.xtapp)",
     "6 Astronomical calculation methods (Kemenag, MWL, Umm Al-Qura, Egyptian, ISNA, Karachi)",
-    "Instant 100% offline 1-month prayer schedule generation without internet connection",
-    "Automatic Qibla compass azimuth & distance alignment to Kaaba from custom coordinates"
+    "Instant 100% offline 1-month prayer schedule generation without internet connection"
   ]
 }

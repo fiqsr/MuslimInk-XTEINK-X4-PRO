@@ -94,8 +94,8 @@ Aplikasi menyediakan 6 variasi tipografi TrueType resolusi tinggi untuk jam lock
 ### 🔄 Fitur Pembaruan Otomatis (In-App Auto-Updater via GitHub)
 - **Pengecekan Versi Online Cepat**: Aplikasi memeriksa versi terbaru langsung dari repositori GitHub secara berkala atau manual saat menekan tombol `[ Cek > ]` pada baris ke-8 menu Pengaturan.
 - **Modal Interaktif & Catatan Rilis (Changelog)**: Menampilkan versi baru, tanggal rilis, estimasi ukuran file, dan poin-poin fitur baru dalam bahasa aktif (ID/EN).
-- **Download Langsung ke SD Card**: Berkas paket `.xtapp` diunduh langsung lewat koneksi Wi-Fi perangkat dan disimpan secara aman ke partisi SD Card:
-  $$\texttt{/sdcard/XTApps/muslimink/files/muslimink\_update.xtapp}$$
+- **Download Langsung ke Root SD Card**: Berkas paket `.xtapp` diunduh langsung lewat koneksi Wi-Fi perangkat dan disimpan langsung ke direktori utama (root) kartu SD perangkat agar sangat mudah ditemukan:
+  $$\texttt{/sdcard/muslimink.xtapp}$$
 - **Panduan Pemasangan Sekali Klik**: Setelah unduhan selesai, aplikasi menampilkan panduan ringkas dan tombol `[ Keluar Aplikasi & Pasang ]` untuk memudahkan pengguna langsung membuka *All Files* dan memasang pembaruan.
 
 ### 📖 Pengaturan Rotasi Ayat & Hadits Bilingual

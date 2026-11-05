@@ -1987,9 +1987,46 @@ end
 
 local update_downloading = false
 
+function S.save_update_package(filename, body)
+  local saved_path = nil
+  local candidates = {
+    '/sdcard/' .. filename,
+    '/sdcard/XTApps/' .. filename,
+    '../../' .. filename,
+    '../' .. filename,
+  }
+
+  -- 1. Try standard Lua file I/O for shallow SD card root access
+  for _, path in ipairs(candidates) do
+    local ok = pcall(function()
+      local f = io and io.open and io.open(path, 'wb')
+      if f then
+        f:write(body)
+        f:close()
+        saved_path = path
+      end
+    end)
+    if ok and saved_path then break end
+  end
+
+  -- 2. Fallback to XTOS ctx.storage API
+  if not saved_path then
+    if ctx and ctx.storage and ctx.storage.write then
+      local ok = pcall(function()
+        ctx.storage:write(filename, body)
+      end)
+      if ok then
+        saved_path = 'XTApps/muslimink/files/' .. filename
+      end
+    end
+  end
+
+  return saved_path
+end
+
 function S.download_update(update_info, on_progress, on_done)
   if update_downloading then
-    if on_done then on_done(false, 'Sedang mengunduh...') end
+    if on_done then on_done(false, nil, 'Sedang mengunduh...') end
     return
   end
   update_downloading = true
@@ -2000,29 +2037,31 @@ function S.download_update(update_info, on_progress, on_done)
     end
   end)
 
-  local function finish(ok, err)
+  local function finish(ok, path, err)
     update_downloading = false
     if on_done then
-      pcall(function() on_done(ok, err) end)
+      pcall(function() on_done(ok, path, err) end)
     end
   end
 
   if not (ctx and ctx.net and ctx.net.request) then
-    finish(false, 'Modul jaringan tidak tersedia')
+    finish(false, nil, 'Modul jaringan tidak tersedia')
     return
   end
 
-  local target_url = (update_info and update_info.raw_package_url)
-    or (update_info and update_info.download_url)
-  if not target_url or target_url == '' then
-    finish(false, 'URL berkas tidak ditemukan')
+  local raw_url = (update_info and update_info.raw_package_url) or ''
+  local rel_url = (update_info and update_info.download_url) or ''
+  local primary_url = (raw_url ~= '') and raw_url or rel_url
+
+  if primary_url == '' then
+    finish(false, nil, 'URL berkas pembaruan tidak ditemukan')
     return
   end
 
-  local function do_fetch(url, depth)
+  local function do_fetch(url, depth, is_fallback)
     depth = depth or 0
-    if depth > 3 then
-      finish(false, 'Terlalu banyak redirect')
+    if depth > 4 then
+      finish(false, nil, 'Terlalu banyak pengalihan (redirect)')
       return
     end
 
@@ -2030,52 +2069,97 @@ function S.download_update(update_info, on_progress, on_done)
       url = url,
       method = 'GET',
       headers = {
-        ['User-Agent'] = 'MuslimInk-X4Pro/' .. S.APP_VERSION,
+        ['Accept'] = '*/*',
+        ['Accept-Encoding'] = 'identity',
+        ['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) MuslimInk/' .. S.APP_VERSION,
       },
       timeout_ms = 60000,
     }
 
     ctx.net:request(req_opts, function(c, resp)
       if type(resp) ~= 'table' then
-        finish(false, 'Koneksi gagal atau terputus')
+        if not is_fallback and rel_url ~= '' and rel_url ~= url then
+          do_fetch(rel_url, 0, true)
+          return
+        end
+        finish(false, nil, 'Koneksi gagal atau terputus')
         return
       end
 
-      -- Check 301/302 Redirect
-      if (resp.status == 301 or resp.status == 302 or resp.status == 307 or resp.status == 308) and resp.headers then
-        local loc = resp.headers['Location'] or resp.headers['location']
+      -- Case-insensitive redirect detection (301, 302, 307, 308)
+      if (resp.status == 301 or resp.status == 302 or resp.status == 307 or resp.status == 308) and type(resp.headers) == 'table' then
+        local loc = nil
+        for k, v in pairs(resp.headers) do
+          if tostring(k):lower() == 'location' then
+            loc = v
+            break
+          end
+        end
         if loc and loc ~= '' then
-          do_fetch(loc, depth + 1)
+          do_fetch(loc, depth + 1, is_fallback)
           return
         end
       end
 
       if resp.status and resp.status ~= 200 then
-        finish(false, 'HTTP Error ' .. tostring(resp.status))
+        if not is_fallback and rel_url ~= '' and rel_url ~= url then
+          do_fetch(rel_url, 0, true)
+          return
+        end
+        finish(false, nil, 'HTTP Error ' .. tostring(resp.status))
         return
       end
 
       local body = resp.body
       if type(body) ~= 'string' or #body < 1000 then
-        finish(false, 'Berkas unduhan tidak lengkap')
+        if not is_fallback and rel_url ~= '' and rel_url ~= url then
+          do_fetch(rel_url, 0, true)
+          return
+        end
+        finish(false, nil, 'Berkas unduhan kosong atau tidak lengkap')
         return
       end
 
-      -- Save binary to SD Card app files
-      local ok, write_err = pcall(function()
-        ctx.storage:write('muslimink_update.xtapp', body)
-      end)
-
-      if not ok then
-        finish(false, 'Gagal menyimpan ke SD Card: ' .. tostring(write_err))
+      -- Check HTML error pages disguised as 200 OK
+      if body:find('<html') or body:find('<!DOCTYPE') or body:find('<HTML') then
+        if not is_fallback and rel_url ~= '' and rel_url ~= url then
+          do_fetch(rel_url, 0, true)
+          return
+        end
+        finish(false, nil, 'Server mengirim halaman web/HTML, bukan berkas .xtapp')
         return
       end
 
-      finish(true, nil)
+      -- CRITICAL: Verify Licorice .xtapp Magic Header ("XTAP")
+      if body:sub(1, 4) ~= 'XTAP' then
+        if not is_fallback and rel_url ~= '' and rel_url ~= url then
+          do_fetch(rel_url, 0, true)
+          return
+        end
+        finish(false, nil, 'Berkas corrupt: header tidak valid (bukan paket XTAP)')
+        return
+      end
+
+      -- CRITICAL: Verify minimum package size
+      local exp_sz = (update_info and update_info.size_bytes) or 380000
+      local min_sz = math.floor(exp_sz * 0.9)
+      if #body < min_sz then
+        finish(false, nil, 'Ukuran berkas tidak lengkap: ' .. math.floor(#body / 1024) .. ' KB (seharusnya ~' .. math.floor(exp_sz / 1024) .. ' KB)')
+        return
+      end
+
+      -- Save binary cleanly to shallow path on SD Card
+      local saved_path = S.save_update_package('muslimink.xtapp', body)
+      if not saved_path then
+        finish(false, nil, 'Gagal menyimpan berkas ke SD Card')
+        return
+      end
+
+      finish(true, saved_path, nil)
     end)
   end
 
-  pcall(function() do_fetch(target_url, 0) end)
+  pcall(function() do_fetch(primary_url, 0, false) end)
 end
 
 return S

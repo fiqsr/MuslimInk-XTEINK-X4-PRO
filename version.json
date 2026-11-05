@@ -8,7 +8,7 @@
   "release_date": "2026-11-06",
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
-  "size_bytes": 421856,
+  "size_bytes": 422080,
   "changelog_id": [
     "Fitur Baru: Input Koordinat Manual (Latitude, Longitude & Timezone)",
     "Papan tombol sentuh virtual (Touch Numpad 4x4) khusus layar E-Ink untuk input koordinat presisi",

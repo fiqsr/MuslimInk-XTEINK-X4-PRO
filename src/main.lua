@@ -10,6 +10,10 @@ local prev_screen = 'main'
 local hijri_modal = false
 local cfont_modal = false
 local quote_modal = false
+local update_modal = false
+local update_info = nil
+local update_state = 'idle'
+local update_err = nil
 local about_expanded = false
 local settings_scroll_y = 0
 local touch_down_y = nil
@@ -772,6 +776,10 @@ function on_draw(c, gg)
       F.draw_quote_modal(gg, cfg, draw_btn)
     end
 
+    if update_modal then
+      F.draw_update_modal(gg, cfg, update_info, update_state, update_err, draw_btn)
+    end
+
     -- Draw sliding navigation drawer if open
     if drawer_open then
       draw_drawer(gg)
@@ -962,6 +970,129 @@ local function check_quote_modal_tap(x, y)
   return true
 end
 
+local function check_update_modal_tap(x, y)
+  if not update_modal then return false end
+  local mx, my, mw, mh = 20, 60, W - 40, 630
+
+  -- Close button (✕) at top right
+  if x >= mx + mw - 50 and x <= mx + mw and y >= my + 8 and y <= my + 50 then
+    if update_state ~= 'downloading' then
+      update_modal = false
+      refresh()
+      return true
+    end
+  end
+
+  if update_state == 'idle' then
+    -- Button 1: [ Unduh & Simpan ke SD Card ]
+    local b1_y = my + mh - 110
+    if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_state = 'downloading'
+      update_err = nil
+      local is_en = (cfg.lang == 'en')
+      status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
+      refresh()
+      S.download_update(update_info, nil, function(ok, err)
+        if ok then
+          update_state = 'done'
+          status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
+          pcall(function()
+            if ctx and ctx.system and ctx.system.open then
+              ctx.system:open('muslimink_update.xtapp')
+            end
+          end)
+        else
+          update_state = 'error'
+          update_err = err or (is_en and 'Download failed' or 'Gagal mengunduh')
+          status = update_err
+        end
+        refresh()
+      end)
+      return true
+    end
+
+    -- Button 2: [ Nanti ]
+    local b2_y = my + mh - 56
+    if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      refresh()
+      return true
+    end
+
+  elseif update_state == 'downloading' then
+    -- Cancel button
+    local b_cancel_y = my + mh - 56
+    if y >= b_cancel_y and y <= b_cancel_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      status = (cfg.lang == 'en') and 'Download cancelled.' or 'Unduhan dibatalkan.'
+      refresh()
+      return true
+    end
+
+  elseif update_state == 'done' then
+    -- Button 1: [ Keluar Aplikasi & Pasang ]
+    local b1_y = my + mh - 110
+    if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      pcall(function()
+        if ctx and ctx.system and ctx.system.open then
+          ctx.system:open('muslimink_update.xtapp')
+        end
+      end)
+      pcall(function() ctx:quit() end)
+      return true
+    end
+
+    -- Button 2: [ Tutup ]
+    local b2_y = my + mh - 56
+    if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      refresh()
+      return true
+    end
+
+  elseif update_state == 'error' then
+    -- Button 1: [ Coba Unduh Lagi ]
+    local b1_y = my + mh - 110
+    if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_state = 'downloading'
+      update_err = nil
+      local is_en = (cfg.lang == 'en')
+      status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
+      refresh()
+      S.download_update(update_info, nil, function(ok, err)
+        if ok then
+          update_state = 'done'
+          status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
+        else
+          update_state = 'error'
+          update_err = err or (is_en and 'Download failed' or 'Gagal mengunduh')
+          status = update_err
+        end
+        refresh()
+      end)
+      return true
+    end
+
+    -- Button 2: [ Tutup ]
+    local b2_y = my + mh - 56
+    if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      refresh()
+      return true
+    end
+  end
+
+  -- Tap outside modal dismisses
+  if (x < mx or x > mx + mw or y < my or y > my + mh) and update_state ~= 'downloading' then
+    update_modal = false
+    refresh()
+    return true
+  end
+
+  return true
+end
+
 local function handle_tap_settings(x, y)
   -- 1. Top App Bar (y = 0..56)
   if y <= 56 then
@@ -992,8 +1123,8 @@ local function handle_tap_settings(x, y)
   -- 3. Middle Scrollable Content (y = 57..725)
   local cy = y + settings_scroll_y
 
-  -- 7 Setting Rows in Apple Inset Grouped card 1 (y = 66..542, row_h = 68)
-  if cy >= 66 and cy < 66 + 476 and x >= 20 and x <= W - 20 then
+  -- 8 Setting Rows in Apple Inset Grouped card 1 (y = 66..610, row_h = 68)
+  if cy >= 66 and cy < 66 + 544 and x >= 20 and x <= W - 20 then
     local i = (cy - 66) // 68 + 1
     if i == 1 then
       -- Segmented control [ ID | EN ] (x = W - 142, w = 106)
@@ -1041,17 +1172,36 @@ local function handle_tap_settings(x, y)
       end
     elseif i == 7 then
       quote_modal = true
+    elseif i == 8 then
+      local is_en = (cfg.lang == 'en')
+      status = is_en and 'Checking for updates on GitHub...' or 'Memeriksa pembaruan di GitHub...'
+      refresh()
+      S.check_for_updates(cfg, function(has_update, u_info, err)
+        if has_update and u_info then
+          update_info = u_info
+          update_state = 'idle'
+          update_err = nil
+          update_modal = true
+          status = is_en and ('New version available: v' .. u_info.version) or ('Versi baru tersedia: v' .. u_info.version)
+        elseif err then
+          status = is_en and ('Update check failed: ' .. tostring(err)) or ('Gagal cek pembaruan: ' .. tostring(err))
+        else
+          local cur_v = S.APP_VERSION
+          status = is_en and ('MuslimInk is up to date (v' .. cur_v .. ').') or ('MuslimInk sudah versi terbaru (v' .. cur_v .. ').')
+        end
+        refresh()
+      end)
     end
     return
   end
 
-  -- Apple Disclosure Group / Accordion tap toggle (Card 2 Header, y = 554..618)
-  if cy >= 554 and cy <= 554 + 64 and x >= 20 and x <= W - 20 then
+  -- Apple Disclosure Group / Accordion tap toggle (Card 2 Header, y = 622..686)
+  if cy >= 622 and cy <= 622 + 64 and x >= 20 and x <= W - 20 then
     about_expanded = not about_expanded
     if not about_expanded then
       settings_scroll_y = 0
     else
-      settings_scroll_y = 160
+      settings_scroll_y = 180
     end
     return
   end
@@ -1377,13 +1527,14 @@ function on_input(c, ev)
       local x, y = tonumber(ev.x) or 0, tonumber(ev.y) or 0
       local ok, err = pcall(function()
         if check_drawer_tap(x, y) then return end
+        if check_update_modal_tap(x, y) then return end
         if check_cfont_modal_tap(x, y) then return end
         if check_quote_modal_tap(x, y) then return end
         if check_hijri_modal_tap(x, y) then return end
 
         if screen == 'settings' then
           local is_exp = (about_expanded == true)
-          local max_scroll = is_exp and 370 or 0
+          local max_scroll = is_exp and 420 or 0
           if max_scroll > 0 and touch_down_y and math.abs(touch_down_y - y) > 25 then
             local delta = touch_down_y - y
             settings_scroll_y = math.max(0, math.min(max_scroll, settings_scroll_y + delta))
@@ -1495,6 +1646,12 @@ end
       if drawer_open then
         drawer_open = false
         refresh()
+        return true
+      elseif update_modal then
+        if update_state ~= 'downloading' then
+          update_modal = false
+          refresh()
+        end
         return true
       elseif cfont_modal then
         cfont_modal = false

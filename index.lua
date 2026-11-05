@@ -1868,6 +1868,216 @@ function S.draw_quote(gg, y, day, cfg, max_w)
   gg:text(math.floor((S.W - rw) / 2), ry, ref or '', { font = S.font('small') })
 end
 
+------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
+
+S.APP_VERSION = '2.1.0'
+S.APP_BUILD = 210
+S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
+
+function S.parse_version_json(str)
+  if type(str) ~= 'string' or #str == 0 then return nil end
+  if ctx and ctx.json and ctx.json.decode then
+    local ok, res = pcall(function() return ctx.json:decode(str) end)
+    if ok and type(res) == 'table' and res.version then
+      return res
+    end
+  end
+
+  -- Pure Lua fallback pattern parser
+  local t = {}
+  t.version = str:match('"version"%s*:%s*"([^"]+)"')
+  local b = str:match('"build"%s*:%s*(%d+)')
+  t.build = b and tonumber(b) or 0
+  t.release_date = str:match('"release_date"%s*:%s*"([^"]+)"')
+  t.download_url = str:match('"download_url"%s*:%s*"([^"]+)"')
+  t.raw_package_url = str:match('"raw_package_url"%s*:%s*"([^"]+)"')
+  local sz = str:match('"size_bytes"%s*:%s*(%d+)')
+  t.size_bytes = sz and tonumber(sz) or 370416
+
+  local function parse_array(key)
+    local arr = {}
+    local blk = str:match('"' .. key .. '"%s*:%s*%[([^%]]+)%]')
+    if blk then
+      for item in blk:gmatch('"([^"]+)"') do
+        local clean = item:gsub('\\"', '"'):gsub('\\\\', '\\')
+        arr[#arr + 1] = clean
+      end
+    end
+    return arr
+  end
+
+  t.changelog_id = parse_array('changelog_id')
+  t.changelog_en = parse_array('changelog_en')
+
+  if t.version then return t end
+  return nil
+end
+
+function S.compare_versions(v_rem, v_loc)
+  if not v_rem or not v_loc then return false end
+  local r_maj, r_min, r_pat = tostring(v_rem):match('(%d+)%.(%d+)%.?(%d*)')
+  local l_maj, l_min, l_pat = tostring(v_loc):match('(%d+)%.(%d+)%.?(%d*)')
+  r_maj, r_min, r_pat = tonumber(r_maj) or 0, tonumber(r_min) or 0, tonumber(r_pat) or 0
+  l_maj, l_min, l_pat = tonumber(l_maj) or 0, tonumber(l_min) or 0, tonumber(l_pat) or 0
+
+  if r_maj ~= l_maj then return r_maj > l_maj end
+  if r_min ~= l_min then return r_min > l_min end
+  return r_pat > l_pat
+end
+
+local update_checking = false
+
+function S.check_for_updates(cfg, on_done)
+  if update_checking then
+    if on_done then on_done(false, nil, 'Sedang memeriksa...') end
+    return
+  end
+  update_checking = true
+
+  pcall(function()
+    if ctx and ctx.net and ctx.net.keep_wifi then
+      pcall(function() ctx.net:keep_wifi(120000) end)
+    end
+  end)
+
+  local function finish(has_up, u_info, err)
+    update_checking = false
+    if on_done then
+      pcall(function() on_done(has_up, u_info, err) end)
+    end
+  end
+
+  if not (ctx and ctx.net and ctx.net.request) then
+    finish(false, nil, 'Modul jaringan tidak tersedia')
+    return
+  end
+
+  local req_opts = {
+    url = S.UPDATE_URL,
+    method = 'GET',
+    headers = {
+      ['Accept'] = 'application/json',
+      ['User-Agent'] = 'MuslimInk-X4Pro/' .. S.APP_VERSION,
+    },
+    timeout_ms = 15000,
+  }
+
+  pcall(function()
+    ctx.net:request(req_opts, function(c, resp)
+      if type(resp) ~= 'table' or type(resp.body) ~= 'string' or #resp.body == 0 then
+        finish(false, nil, 'Respon server kosong')
+        return
+      end
+
+      local info = S.parse_version_json(resp.body)
+      if not info or not info.version then
+        finish(false, nil, 'Format version.json tidak valid')
+        return
+      end
+
+      local is_newer = S.compare_versions(info.version, S.APP_VERSION)
+      if not is_newer and info.build and info.build > S.APP_BUILD then
+        is_newer = true
+      end
+
+      finish(is_newer, info, nil)
+    end)
+  end)
+end
+
+local update_downloading = false
+
+function S.download_update(update_info, on_progress, on_done)
+  if update_downloading then
+    if on_done then on_done(false, 'Sedang mengunduh...') end
+    return
+  end
+  update_downloading = true
+
+  pcall(function()
+    if ctx and ctx.net and ctx.net.keep_wifi then
+      pcall(function() ctx.net:keep_wifi(300000) end)
+    end
+  end)
+
+  local function finish(ok, err)
+    update_downloading = false
+    if on_done then
+      pcall(function() on_done(ok, err) end)
+    end
+  end
+
+  if not (ctx and ctx.net and ctx.net.request) then
+    finish(false, 'Modul jaringan tidak tersedia')
+    return
+  end
+
+  local target_url = (update_info and update_info.raw_package_url)
+    or (update_info and update_info.download_url)
+  if not target_url or target_url == '' then
+    finish(false, 'URL berkas tidak ditemukan')
+    return
+  end
+
+  local function do_fetch(url, depth)
+    depth = depth or 0
+    if depth > 3 then
+      finish(false, 'Terlalu banyak redirect')
+      return
+    end
+
+    local req_opts = {
+      url = url,
+      method = 'GET',
+      headers = {
+        ['User-Agent'] = 'MuslimInk-X4Pro/' .. S.APP_VERSION,
+      },
+      timeout_ms = 60000,
+    }
+
+    ctx.net:request(req_opts, function(c, resp)
+      if type(resp) ~= 'table' then
+        finish(false, 'Koneksi gagal atau terputus')
+        return
+      end
+
+      -- Check 301/302 Redirect
+      if (resp.status == 301 or resp.status == 302 or resp.status == 307 or resp.status == 308) and resp.headers then
+        local loc = resp.headers['Location'] or resp.headers['location']
+        if loc and loc ~= '' then
+          do_fetch(loc, depth + 1)
+          return
+        end
+      end
+
+      if resp.status and resp.status ~= 200 then
+        finish(false, 'HTTP Error ' .. tostring(resp.status))
+        return
+      end
+
+      local body = resp.body
+      if type(body) ~= 'string' or #body < 1000 then
+        finish(false, 'Berkas unduhan tidak lengkap')
+        return
+      end
+
+      -- Save binary to SD Card app files
+      local ok, write_err = pcall(function()
+        ctx.storage:write('muslimink_update.xtapp', body)
+      end)
+
+      if not ok then
+        finish(false, 'Gagal menyimpan ke SD Card: ' .. tostring(write_err))
+        return
+      end
+
+      finish(true, nil)
+    end)
+  end
+
+  pcall(function() do_fetch(target_url, 0) end)
+end
+
 return S
 end)()
 
@@ -3184,7 +3394,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   local is_exp = (about_expanded == true)
   local ab_body_h = is_exp and 448 or 0
   local ab_h = 64 + ab_body_h
-  local total_content_bottom = 554 + ab_h + 20
+  local total_content_bottom = 622 + ab_h + 20
   local viewport_bottom = 726
   local max_scroll = math.max(0, total_content_bottom - viewport_bottom)
 
@@ -3192,13 +3402,13 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   -- 1. Scrollable Content Layer (offset by scroll_y)
   -- ==============================================================
 
-  -- Grouped Card 1: Core Settings (y = 66..542, h = 476, 7 rows)
+  -- Grouped Card 1: Core Settings (y = 66..610, h = 544, 8 rows)
   local card1_y = 66 - scroll_y
-  S.round_rect(gg, 20, card1_y, W - 40, 476, 14, nil, true, 0)
-  S.round_rect(gg, 20, card1_y, W - 40, 476, 14, 2)
+  S.round_rect(gg, 20, card1_y, W - 40, 544, 14, nil, true, 0)
+  S.round_rect(gg, 20, card1_y, W - 40, 544, 14, 2)
 
   -- 1px Hairline dividers between grouped rows
-  for i = 1, 6 do
+  for i = 1, 7 do
     gg:line(36, card1_y + i * 68, W - 36, card1_y + i * 68, { line_width = 1 })
   end
 
@@ -3259,13 +3469,20 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   gg:text(36, ry7 + 38, qref_sub, { font = S.font('small') })
   draw_btn(gg, W - 124, ry7 + 15, 88, 38, is_en and 'Select >' or 'Pilih >', false, 'small')
 
+  -- Row 8: App Auto-Update (GitHub Releases)
+  local ry8 = card1_y + 476
+  gg:text(36, ry8 + 12, is_en and 'App Auto-Update' or 'Pembaruan Aplikasi', { font = S.font('medium') })
+  local up_sub = is_en and ('Version ' .. S.APP_VERSION .. ' • Check GitHub') or ('Versi ' .. S.APP_VERSION .. ' • Cek rilis GitHub')
+  gg:text(36, ry8 + 38, S.fit_text(up_sub, 'small', 250), { font = S.font('small') })
+  draw_btn(gg, W - 124, ry8 + 15, 88, 38, is_en and 'Check >' or 'Cek >', false, 'small')
+
   -- Grouped Card 2: Accordion About MuslimInk
-  local card2_y = 554 - scroll_y
+  local card2_y = 622 - scroll_y
   S.card(gg, 20, card2_y, W - 40, ab_h, 2, is_exp)
 
   -- Header Row of About Accordion
   local title_ab = is_en and 'About MuslimInk' or 'Tentang MuslimInk'
-  local sub_ab = is_en and 'Version 2.2.0 • By fiqsr' or 'Versi 2.2.0 • Oleh fiqsr'
+  local sub_ab = is_en and ('Version ' .. S.APP_VERSION .. ' • By fiqsr') or ('Versi ' .. S.APP_VERSION .. ' • Oleh fiqsr')
   gg:text(36, card2_y + 12, title_ab, { font = S.font('medium') })
   gg:text(36, card2_y + 38, sub_ab, { font = S.font('small') })
 
@@ -3591,6 +3808,186 @@ function F.draw_quote_modal(gg, cfg, draw_btn)
   draw_btn(gg, mx + 20, my + mh - 50, mw - 40, 42, is_en and 'Close' or 'Tutup', true, 'medium')
 end
 
+------------------------------------------------------------------ Modal: App Auto-Update (GitHub Releases)
+
+function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, draw_btn)
+  local W, H = S.W, S.H
+  local is_en = (cfg.lang == 'en')
+  local mx, my, mw, mh = 20, 60, W - 40, 630
+
+  -- E-ink scrim background overlay
+  for dy = 0, H, 4 do
+    gg:line(0, dy, W - 1, dy, { line_width = 1 })
+  end
+
+  -- Modal Sheet Card (Material 3 Surface)
+  S.round_rect(gg, mx, my, mw, mh, 16, nil, true, 0)
+  S.round_rect(gg, mx, my, mw, mh, 16, 2)
+
+  -- Top grab handle
+  gg:line(W // 2 - 20, my + 10, W // 2 + 20, my + 10, { line_width = 3 })
+
+  -- Close button (✕)
+  local cx, cy = mx + mw - 32, my + 28
+  gg:line(cx - 7, cy - 7, cx + 7, cy + 7, { line_width = 2 })
+  gg:line(cx - 7, cy + 7, cx + 7, cy - 7, { line_width = 2 })
+
+  -- Title & Subtitle
+  local u_ver = (update_info and update_info.version) or S.APP_VERSION
+  local m_title = (update_state == 'done')
+    and (is_en and 'Update Ready!' or 'Pembaruan Siap!')
+    or (is_en and 'App Auto-Update' or 'Pembaruan Aplikasi')
+  gg:text(mx + 20, my + 20, m_title, { font = S.font('large') })
+
+  local m_sub = is_en
+    and ('MuslimInk v' .. u_ver .. ' • Target: X4 Pro')
+    or ('MuslimInk v' .. u_ver .. ' • Khusus X4 Pro')
+  gg:text(mx + 20, my + 46, m_sub, { font = S.font('small') })
+
+  -- Hairline divider
+  gg:line(mx + 16, my + 68, mx + mw - 16, my + 68, { line_width = 1 })
+
+  if update_state == 'downloading' then
+    -- Downloading State View
+    local bx, by, bw, bh = mx + 16, my + 100, mw - 32, 280
+    S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
+    S.round_rect(gg, bx, by, bw, bh, 12, 1)
+
+    gg:text(bx + 20, by + 28, is_en and 'DOWNLOADING PACKAGE' or 'SEDANG MENGUNDUH PAKET', { font = S.font('medium') })
+    local sz_kb = math.floor(((update_info and update_info.size_bytes) or 370416) / 1024)
+    local sub_dl = is_en
+      and ('Fetching muslimink.xtapp (~' .. sz_kb .. ' KB)...')
+      or ('Mengunduh muslimink.xtapp (~' .. sz_kb .. ' KB)...')
+    gg:text(bx + 20, by + 58, sub_dl, { font = S.font('small') })
+
+    -- Progress bar container
+    local p_w, p_h = bw - 40, 18
+    local px, py = bx + 20, by + 100
+    S.round_rect(gg, px, py, p_w, p_h, 9, nil, true, 0)
+    S.round_rect(gg, px, py, p_w, p_h, 9, 2)
+    -- Progress pattern stripes
+    for sx = px + 4, px + p_w - 4, 12 do
+      gg:line(sx, py + 2, sx + 4, py + p_h - 3, { line_width = 2 })
+    end
+
+    local note1 = is_en and 'Saving directly to device SD Card partition:' or 'Menyimpan langsung ke kartu memori SD Card:'
+    local note2 = 'XTApps/muslimink/files/muslimink_update.xtapp'
+    local note3 = is_en and 'Please keep device connected to Wi-Fi...' or 'Mohon tunggu, jangan matikan Wi-Fi...'
+    gg:text(bx + 20, by + 140, note1, { font = S.font('small') })
+    gg:text(bx + 20, by + 162, S.fit_text(note2, 'small', bw - 40), { font = S.font('small') })
+    gg:text(bx + 20, by + 194, note3, { font = S.font('small') })
+
+    -- Cancel button
+    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Cancel' or 'Batal', false, 'medium')
+
+  elseif update_state == 'done' then
+    -- Download Completed View
+    local bx, by, bw, bh = mx + 16, my + 84, mw - 32, 380
+    S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
+    S.round_rect(gg, bx, by, bw, bh, 12, 2)
+
+    -- Success Badge Header
+    S.round_rect(gg, bx + 16, by + 16, bw - 32, 38, 8, nil, true, 0)
+    S.round_rect(gg, bx + 16, by + 16, bw - 32, 38, 8, 1)
+    local succ_title = is_en and '[ OK ] Download Complete!' or '[ OK ] Unduhan Berhasil Disimpan!'
+    S.center_text(gg, bx + bw // 2, by + 25, succ_title, 'medium')
+
+    local lines = {
+      is_en and 'Latest package saved to SD Card:' or 'Paket terbaru tersimpan di SD Card:',
+      'XTApps/muslimink/files/',
+      'muslimink_update.xtapp',
+      '',
+      is_en and 'Steps to Install on X4 Pro:' or 'Langkah Pemasangan di X4 Pro:',
+      is_en and '1. Open side drawer (≡) -> All Files' or '1. Buka menu samping (≡) -> All Files',
+      is_en and '2. Open folder XTApps/muslimink/files' or '2. Buka folder XTApps/muslimink/files',
+      is_en and '3. Tap "muslimink_update.xtapp"' or '3. Klik berkas "muslimink_update.xtapp"',
+      is_en and '4. Confirm "Install this package?" -> OK' or '4. Tekan OK saat muncul konfirmasi',
+      is_en and '5. Reopen MuslimInk from Ink App' or '5. Buka kembali aplikasi dari Ink App',
+    }
+
+    local ty = by + 66
+    for _, line in ipairs(lines) do
+      if line ~= '' then
+        gg:text(bx + 16, ty, line, { font = S.font('small') })
+      end
+      ty = ty + 22
+    end
+
+    -- Bottom action buttons
+    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Exit App & Install' or 'Keluar Aplikasi & Pasang', true, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
+
+  elseif update_state == 'error' then
+    -- Error View
+    local bx, by, bw, bh = mx + 16, my + 100, mw - 32, 220
+    S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
+    S.round_rect(gg, bx, by, bw, bh, 12, 1)
+
+    local err_title = is_en and 'Download Failed' or 'Gagal Mengunduh'
+    gg:text(bx + 20, by + 20, err_title, { font = S.font('medium') })
+    local msg = update_err or (is_en and 'Network connection error.' or 'Terjadi kesalahan jaringan.')
+    local w_lines = S.wrap_lines(msg, bw - 40, 'small')
+    for i = 1, #w_lines do
+      gg:text(bx + 20, by + 50 + (i - 1) * 20, w_lines[i], { font = S.font('small') })
+    end
+
+    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Retry Download' or 'Coba Unduh Lagi', true, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
+
+  else
+    -- Idle State View: Changelog and Download Action
+    local cur_v = S.APP_VERSION
+    local rem_v = (update_info and update_info.version) or cur_v
+    local sz_kb = math.floor(((update_info and update_info.size_bytes) or 370416) / 1024)
+    local rel_date = (update_info and update_info.release_date) or '2026-11-06'
+
+    -- Info Card
+    local ix, iy, iw, ih = mx + 16, my + 78, mw - 32, 60
+    S.round_rect(gg, ix, iy, iw, ih, 10, nil, true, 0)
+    S.round_rect(gg, ix, iy, iw, ih, 10, 1)
+
+    local t_line1 = is_en
+      and ('Latest: v' .. rem_v .. '  (Current: v' .. cur_v .. ')')
+      or ('Versi Baru: v' .. rem_v .. '  (Saat ini: v' .. cur_v .. ')')
+    local t_line2 = is_en
+      and ('Date: ' .. rel_date .. ' • Size: ~' .. sz_kb .. ' KB')
+      or ('Rilis: ' .. rel_date .. ' • Ukuran: ~' .. sz_kb .. ' KB')
+    gg:text(ix + 16, iy + 10, t_line1, { font = S.font('medium') })
+    gg:text(ix + 16, iy + 34, t_line2, { font = S.font('small') })
+
+    -- Changelog Box
+    local cx, cy, cw, ch = mx + 16, my + 148, mw - 32, 280
+    S.round_rect(gg, cx, cy, cw, ch, 10, nil, true, 0)
+    S.round_rect(gg, cx, cy, cw, ch, 10, 1)
+
+    gg:text(cx + 14, cy + 12, is_en and 'WHAT\'S NEW / CHANGELOG:' or 'CATATAN RILIS TERBARU:', { font = S.font('small') })
+    gg:line(cx + 14, cy + 32, cx + cw - 14, cy + 32, { line_width = 1 })
+
+    local logs = is_en
+      and (update_info and update_info.changelog_en or { 'Bug fixes and performance improvements' })
+      or (update_info and update_info.changelog_id or { 'Perbaikan bug dan peningkatan performa' })
+
+    local ly = cy + 40
+    for _, item in ipairs(logs) do
+      if ly + 28 <= cy + ch then
+        local w_sub = S.wrap_lines('• ' .. item, cw - 28, 'small')
+        for _, sub in ipairs(w_sub) do
+          if ly + 18 <= cy + ch then
+            gg:text(cx + 14, ly, sub, { font = S.font('small') })
+            ly = ly + 18
+          end
+        end
+        ly = ly + 4
+      end
+    end
+
+    -- Bottom action buttons
+    local btn_dl = is_en and 'Download & Save to SD Card' or 'Unduh & Simpan ke SD Card'
+    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, btn_dl, true, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Later' or 'Nanti', false, 'medium')
+  end
+end
+
 return F
 end)()
 
@@ -3606,6 +4003,10 @@ local prev_screen = 'main'
 local hijri_modal = false
 local cfont_modal = false
 local quote_modal = false
+local update_modal = false
+local update_info = nil
+local update_state = 'idle'
+local update_err = nil
 local about_expanded = false
 local settings_scroll_y = 0
 local touch_down_y = nil
@@ -4368,6 +4769,10 @@ function on_draw(c, gg)
       F.draw_quote_modal(gg, cfg, draw_btn)
     end
 
+    if update_modal then
+      F.draw_update_modal(gg, cfg, update_info, update_state, update_err, draw_btn)
+    end
+
     -- Draw sliding navigation drawer if open
     if drawer_open then
       draw_drawer(gg)
@@ -4558,6 +4963,129 @@ local function check_quote_modal_tap(x, y)
   return true
 end
 
+local function check_update_modal_tap(x, y)
+  if not update_modal then return false end
+  local mx, my, mw, mh = 20, 60, W - 40, 630
+
+  -- Close button (✕) at top right
+  if x >= mx + mw - 50 and x <= mx + mw and y >= my + 8 and y <= my + 50 then
+    if update_state ~= 'downloading' then
+      update_modal = false
+      refresh()
+      return true
+    end
+  end
+
+  if update_state == 'idle' then
+    -- Button 1: [ Unduh & Simpan ke SD Card ]
+    local b1_y = my + mh - 110
+    if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_state = 'downloading'
+      update_err = nil
+      local is_en = (cfg.lang == 'en')
+      status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
+      refresh()
+      S.download_update(update_info, nil, function(ok, err)
+        if ok then
+          update_state = 'done'
+          status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
+          pcall(function()
+            if ctx and ctx.system and ctx.system.open then
+              ctx.system:open('muslimink_update.xtapp')
+            end
+          end)
+        else
+          update_state = 'error'
+          update_err = err or (is_en and 'Download failed' or 'Gagal mengunduh')
+          status = update_err
+        end
+        refresh()
+      end)
+      return true
+    end
+
+    -- Button 2: [ Nanti ]
+    local b2_y = my + mh - 56
+    if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      refresh()
+      return true
+    end
+
+  elseif update_state == 'downloading' then
+    -- Cancel button
+    local b_cancel_y = my + mh - 56
+    if y >= b_cancel_y and y <= b_cancel_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      status = (cfg.lang == 'en') and 'Download cancelled.' or 'Unduhan dibatalkan.'
+      refresh()
+      return true
+    end
+
+  elseif update_state == 'done' then
+    -- Button 1: [ Keluar Aplikasi & Pasang ]
+    local b1_y = my + mh - 110
+    if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      pcall(function()
+        if ctx and ctx.system and ctx.system.open then
+          ctx.system:open('muslimink_update.xtapp')
+        end
+      end)
+      pcall(function() ctx:quit() end)
+      return true
+    end
+
+    -- Button 2: [ Tutup ]
+    local b2_y = my + mh - 56
+    if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      refresh()
+      return true
+    end
+
+  elseif update_state == 'error' then
+    -- Button 1: [ Coba Unduh Lagi ]
+    local b1_y = my + mh - 110
+    if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_state = 'downloading'
+      update_err = nil
+      local is_en = (cfg.lang == 'en')
+      status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
+      refresh()
+      S.download_update(update_info, nil, function(ok, err)
+        if ok then
+          update_state = 'done'
+          status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
+        else
+          update_state = 'error'
+          update_err = err or (is_en and 'Download failed' or 'Gagal mengunduh')
+          status = update_err
+        end
+        refresh()
+      end)
+      return true
+    end
+
+    -- Button 2: [ Tutup ]
+    local b2_y = my + mh - 56
+    if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_modal = false
+      refresh()
+      return true
+    end
+  end
+
+  -- Tap outside modal dismisses
+  if (x < mx or x > mx + mw or y < my or y > my + mh) and update_state ~= 'downloading' then
+    update_modal = false
+    refresh()
+    return true
+  end
+
+  return true
+end
+
 local function handle_tap_settings(x, y)
   -- 1. Top App Bar (y = 0..56)
   if y <= 56 then
@@ -4588,8 +5116,8 @@ local function handle_tap_settings(x, y)
   -- 3. Middle Scrollable Content (y = 57..725)
   local cy = y + settings_scroll_y
 
-  -- 7 Setting Rows in Apple Inset Grouped card 1 (y = 66..542, row_h = 68)
-  if cy >= 66 and cy < 66 + 476 and x >= 20 and x <= W - 20 then
+  -- 8 Setting Rows in Apple Inset Grouped card 1 (y = 66..610, row_h = 68)
+  if cy >= 66 and cy < 66 + 544 and x >= 20 and x <= W - 20 then
     local i = (cy - 66) // 68 + 1
     if i == 1 then
       -- Segmented control [ ID | EN ] (x = W - 142, w = 106)
@@ -4637,17 +5165,36 @@ local function handle_tap_settings(x, y)
       end
     elseif i == 7 then
       quote_modal = true
+    elseif i == 8 then
+      local is_en = (cfg.lang == 'en')
+      status = is_en and 'Checking for updates on GitHub...' or 'Memeriksa pembaruan di GitHub...'
+      refresh()
+      S.check_for_updates(cfg, function(has_update, u_info, err)
+        if has_update and u_info then
+          update_info = u_info
+          update_state = 'idle'
+          update_err = nil
+          update_modal = true
+          status = is_en and ('New version available: v' .. u_info.version) or ('Versi baru tersedia: v' .. u_info.version)
+        elseif err then
+          status = is_en and ('Update check failed: ' .. tostring(err)) or ('Gagal cek pembaruan: ' .. tostring(err))
+        else
+          local cur_v = S.APP_VERSION
+          status = is_en and ('MuslimInk is up to date (v' .. cur_v .. ').') or ('MuslimInk sudah versi terbaru (v' .. cur_v .. ').')
+        end
+        refresh()
+      end)
     end
     return
   end
 
-  -- Apple Disclosure Group / Accordion tap toggle (Card 2 Header, y = 554..618)
-  if cy >= 554 and cy <= 554 + 64 and x >= 20 and x <= W - 20 then
+  -- Apple Disclosure Group / Accordion tap toggle (Card 2 Header, y = 622..686)
+  if cy >= 622 and cy <= 622 + 64 and x >= 20 and x <= W - 20 then
     about_expanded = not about_expanded
     if not about_expanded then
       settings_scroll_y = 0
     else
-      settings_scroll_y = 160
+      settings_scroll_y = 180
     end
     return
   end
@@ -4973,13 +5520,14 @@ function on_input(c, ev)
       local x, y = tonumber(ev.x) or 0, tonumber(ev.y) or 0
       local ok, err = pcall(function()
         if check_drawer_tap(x, y) then return end
+        if check_update_modal_tap(x, y) then return end
         if check_cfont_modal_tap(x, y) then return end
         if check_quote_modal_tap(x, y) then return end
         if check_hijri_modal_tap(x, y) then return end
 
         if screen == 'settings' then
           local is_exp = (about_expanded == true)
-          local max_scroll = is_exp and 370 or 0
+          local max_scroll = is_exp and 420 or 0
           if max_scroll > 0 and touch_down_y and math.abs(touch_down_y - y) > 25 then
             local delta = touch_down_y - y
             settings_scroll_y = math.max(0, math.min(max_scroll, settings_scroll_y + delta))
@@ -5091,6 +5639,12 @@ end
       if drawer_open then
         drawer_open = false
         refresh()
+        return true
+      elseif update_modal then
+        if update_state ~= 'downloading' then
+          update_modal = false
+          refresh()
+        end
         return true
       elseif cfont_modal then
         cfont_modal = false

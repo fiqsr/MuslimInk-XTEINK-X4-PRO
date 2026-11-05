@@ -28,10 +28,10 @@ Dikembangkan oleh **fiqsr** ([github.com/fiqsr](https://github.com/fiqsr)).
 | :---: | :---: | :---: | :---: |
 | <img src="docs/preview/05-tasbih-digital.png" width="175" alt="Tasbih Digital"> | <img src="docs/preview/06-doa-harian.png" width="175" alt="Doa Harian"> | <img src="docs/preview/07-kalender-hijriah.png" width="175" alt="Kalender Hijriah"> | <img src="docs/preview/08-kompas-kiblat.png" width="175" alt="Kompas Kiblat"> |
 
-### 3. Pengaturan & Kustomisasi Visual
-| Pemilih Font Jam Interaktif | Pengaturan Rotasi Ayat & Test | Layar Pengaturan Lengkap | Side Drawer Navigasi |
+### 3. Pengaturan & Fitur Pembaruan Otomatis (Auto-Update)
+| Layar Pengaturan (Row 8) | Modal Pembaruan & Changelog | Unduhan Selesai di SD Card | Pemilih Font Jam Interaktif |
 | :---: | :---: | :---: | :---: |
-| <img src="docs/preview/09-font-jam-modal.png" width="175" alt="Modal Font Jam"> | <img src="docs/preview/10-rotasi-ayat-modal.png" width="175" alt="Modal Rotasi Ayat"> | <img src="docs/preview/11-pengaturan.png" width="175" alt="Pengaturan & Info"> | <img src="docs/preview/12-navigasi-drawer.png" width="175" alt="Side Drawer"> |
+| <img src="docs/preview/11-pengaturan.png" width="175" alt="Pengaturan & Update"> | <img src="docs/preview/13-update-modal.png" width="175" alt="Modal Pembaruan"> | <img src="docs/preview/14-update-done.png" width="175" alt="Unduhan Selesai"> | <img src="docs/preview/09-font-jam-modal.png" width="175" alt="Modal Font Jam"> |
 
 ---
 
@@ -90,6 +90,13 @@ Aplikasi menyediakan 6 variasi tipografi TrueType resolusi tinggi untuk jam lock
 6. **Angka Arab Timur (٠١٢٣٤٥٦٧٨٩)** — Tampilan angka Arab murni untuk nuansa Islami autentik.
 
 > 💡 **Modal Pratinjau Visual Interaktif**: Saat memilih font di menu Pengaturan, muncul modal popup yang menampilkan contoh visual seluruh angka jam `12:45` secara nyata dan dapat diklik langsung untuk mengganti gaya font seketika.
+
+### 🔄 Fitur Pembaruan Otomatis (In-App Auto-Updater via GitHub)
+- **Pengecekan Versi Online Cepat**: Aplikasi memeriksa versi terbaru langsung dari repositori GitHub secara berkala atau manual saat menekan tombol `[ Cek > ]` pada baris ke-8 menu Pengaturan.
+- **Modal Interaktif & Catatan Rilis (Changelog)**: Menampilkan versi baru, tanggal rilis, estimasi ukuran file, dan poin-poin fitur baru dalam bahasa aktif (ID/EN).
+- **Download Langsung ke SD Card**: Berkas paket `.xtapp` diunduh langsung lewat koneksi Wi-Fi perangkat dan disimpan secara aman ke partisi SD Card:
+  $$\texttt{/sdcard/XTApps/muslimink/files/muslimink\_update.xtapp}$$
+- **Panduan Pemasangan Sekali Klik**: Setelah unduhan selesai, aplikasi menampilkan panduan ringkas dan tombol `[ Keluar Aplikasi & Pasang ]` untuk memudahkan pengguna langsung membuka *All Files* dan memasang pembaruan.
 
 ### 📖 Pengaturan Rotasi Ayat & Hadits Bilingual
 - **Frekuensi Rotasi**:

@@ -1868,6 +1868,216 @@ function S.draw_quote(gg, y, day, cfg, max_w)
   gg:text(math.floor((S.W - rw) / 2), ry, ref or '', { font = S.font('small') })
 end
 
+------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
+
+S.APP_VERSION = '2.1.0'
+S.APP_BUILD = 210
+S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
+
+function S.parse_version_json(str)
+  if type(str) ~= 'string' or #str == 0 then return nil end
+  if ctx and ctx.json and ctx.json.decode then
+    local ok, res = pcall(function() return ctx.json:decode(str) end)
+    if ok and type(res) == 'table' and res.version then
+      return res
+    end
+  end
+
+  -- Pure Lua fallback pattern parser
+  local t = {}
+  t.version = str:match('"version"%s*:%s*"([^"]+)"')
+  local b = str:match('"build"%s*:%s*(%d+)')
+  t.build = b and tonumber(b) or 0
+  t.release_date = str:match('"release_date"%s*:%s*"([^"]+)"')
+  t.download_url = str:match('"download_url"%s*:%s*"([^"]+)"')
+  t.raw_package_url = str:match('"raw_package_url"%s*:%s*"([^"]+)"')
+  local sz = str:match('"size_bytes"%s*:%s*(%d+)')
+  t.size_bytes = sz and tonumber(sz) or 370416
+
+  local function parse_array(key)
+    local arr = {}
+    local blk = str:match('"' .. key .. '"%s*:%s*%[([^%]]+)%]')
+    if blk then
+      for item in blk:gmatch('"([^"]+)"') do
+        local clean = item:gsub('\\"', '"'):gsub('\\\\', '\\')
+        arr[#arr + 1] = clean
+      end
+    end
+    return arr
+  end
+
+  t.changelog_id = parse_array('changelog_id')
+  t.changelog_en = parse_array('changelog_en')
+
+  if t.version then return t end
+  return nil
+end
+
+function S.compare_versions(v_rem, v_loc)
+  if not v_rem or not v_loc then return false end
+  local r_maj, r_min, r_pat = tostring(v_rem):match('(%d+)%.(%d+)%.?(%d*)')
+  local l_maj, l_min, l_pat = tostring(v_loc):match('(%d+)%.(%d+)%.?(%d*)')
+  r_maj, r_min, r_pat = tonumber(r_maj) or 0, tonumber(r_min) or 0, tonumber(r_pat) or 0
+  l_maj, l_min, l_pat = tonumber(l_maj) or 0, tonumber(l_min) or 0, tonumber(l_pat) or 0
+
+  if r_maj ~= l_maj then return r_maj > l_maj end
+  if r_min ~= l_min then return r_min > l_min end
+  return r_pat > l_pat
+end
+
+local update_checking = false
+
+function S.check_for_updates(cfg, on_done)
+  if update_checking then
+    if on_done then on_done(false, nil, 'Sedang memeriksa...') end
+    return
+  end
+  update_checking = true
+
+  pcall(function()
+    if ctx and ctx.net and ctx.net.keep_wifi then
+      pcall(function() ctx.net:keep_wifi(120000) end)
+    end
+  end)
+
+  local function finish(has_up, u_info, err)
+    update_checking = false
+    if on_done then
+      pcall(function() on_done(has_up, u_info, err) end)
+    end
+  end
+
+  if not (ctx and ctx.net and ctx.net.request) then
+    finish(false, nil, 'Modul jaringan tidak tersedia')
+    return
+  end
+
+  local req_opts = {
+    url = S.UPDATE_URL,
+    method = 'GET',
+    headers = {
+      ['Accept'] = 'application/json',
+      ['User-Agent'] = 'MuslimInk-X4Pro/' .. S.APP_VERSION,
+    },
+    timeout_ms = 15000,
+  }
+
+  pcall(function()
+    ctx.net:request(req_opts, function(c, resp)
+      if type(resp) ~= 'table' or type(resp.body) ~= 'string' or #resp.body == 0 then
+        finish(false, nil, 'Respon server kosong')
+        return
+      end
+
+      local info = S.parse_version_json(resp.body)
+      if not info or not info.version then
+        finish(false, nil, 'Format version.json tidak valid')
+        return
+      end
+
+      local is_newer = S.compare_versions(info.version, S.APP_VERSION)
+      if not is_newer and info.build and info.build > S.APP_BUILD then
+        is_newer = true
+      end
+
+      finish(is_newer, info, nil)
+    end)
+  end)
+end
+
+local update_downloading = false
+
+function S.download_update(update_info, on_progress, on_done)
+  if update_downloading then
+    if on_done then on_done(false, 'Sedang mengunduh...') end
+    return
+  end
+  update_downloading = true
+
+  pcall(function()
+    if ctx and ctx.net and ctx.net.keep_wifi then
+      pcall(function() ctx.net:keep_wifi(300000) end)
+    end
+  end)
+
+  local function finish(ok, err)
+    update_downloading = false
+    if on_done then
+      pcall(function() on_done(ok, err) end)
+    end
+  end
+
+  if not (ctx and ctx.net and ctx.net.request) then
+    finish(false, 'Modul jaringan tidak tersedia')
+    return
+  end
+
+  local target_url = (update_info and update_info.raw_package_url)
+    or (update_info and update_info.download_url)
+  if not target_url or target_url == '' then
+    finish(false, 'URL berkas tidak ditemukan')
+    return
+  end
+
+  local function do_fetch(url, depth)
+    depth = depth or 0
+    if depth > 3 then
+      finish(false, 'Terlalu banyak redirect')
+      return
+    end
+
+    local req_opts = {
+      url = url,
+      method = 'GET',
+      headers = {
+        ['User-Agent'] = 'MuslimInk-X4Pro/' .. S.APP_VERSION,
+      },
+      timeout_ms = 60000,
+    }
+
+    ctx.net:request(req_opts, function(c, resp)
+      if type(resp) ~= 'table' then
+        finish(false, 'Koneksi gagal atau terputus')
+        return
+      end
+
+      -- Check 301/302 Redirect
+      if (resp.status == 301 or resp.status == 302 or resp.status == 307 or resp.status == 308) and resp.headers then
+        local loc = resp.headers['Location'] or resp.headers['location']
+        if loc and loc ~= '' then
+          do_fetch(loc, depth + 1)
+          return
+        end
+      end
+
+      if resp.status and resp.status ~= 200 then
+        finish(false, 'HTTP Error ' .. tostring(resp.status))
+        return
+      end
+
+      local body = resp.body
+      if type(body) ~= 'string' or #body < 1000 then
+        finish(false, 'Berkas unduhan tidak lengkap')
+        return
+      end
+
+      -- Save binary to SD Card app files
+      local ok, write_err = pcall(function()
+        ctx.storage:write('muslimink_update.xtapp', body)
+      end)
+
+      if not ok then
+        finish(false, 'Gagal menyimpan ke SD Card: ' .. tostring(write_err))
+        return
+      end
+
+      finish(true, nil)
+    end)
+  end
+
+  pcall(function() do_fetch(target_url, 0) end)
+end
+
 return S
 end)()
 

@@ -1018,8 +1018,10 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
     end
   end
 
-  -- TableView Results (y = 220..704, h = 484)
-  local per_page = 5
+  -- TableView Results: In saved tab, start immediately at y = 104 with 6 items (NO GAP!)
+  local is_saved_tab = (cur_tab == 'saved')
+  local per_page = is_saved_tab and 6 or 5
+  local base_y = is_saved_tab and 104 or 222
   local cur_page = state.page or 1
   local total_pages = math.max(1, (#items + per_page - 1) // per_page)
   if cur_page > total_pages then cur_page = total_pages end
@@ -1029,22 +1031,23 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
 
   if #items == 0 then
     -- Clean Empty State
-    S.card(gg, 20, 226, W - 40, 260, 2, true)
-    if cur_tab == 'saved' then
-      S.center_text(gg, W // 2, 270, is_en and 'No Saved Duas Yet' or 'Belum Ada Doa Tersimpan', 'large', W - 64)
-      S.center_text(gg, W // 2, 310, is_en and 'Search supplications in the search tab' or 'Cari doa di tab pencarian dan tekan', 'small', W - 64)
-      S.center_text(gg, W // 2, 332, is_en and 'and tap "Save" to keep them offline.' or 'tombol "Simpan" untuk membaca offline.', 'small', W - 64)
+    local empty_y = is_saved_tab and 110 or 226
+    S.card(gg, 20, empty_y, W - 40, 260, 2, true)
+    if is_saved_tab then
+      S.center_text(gg, W // 2, empty_y + 44, is_en and 'No Saved Duas Yet' or 'Belum Ada Doa Tersimpan', 'large', W - 64)
+      S.center_text(gg, W // 2, empty_y + 84, is_en and 'Search supplications in the search tab' or 'Cari doa di tab pencarian dan tekan', 'small', W - 64)
+      S.center_text(gg, W // 2, empty_y + 106, is_en and 'and tap "Save" to keep them offline.' or 'tombol "Simpan" untuk membaca offline.', 'small', W - 64)
     else
-      S.center_text(gg, W // 2, 270, is_en and 'No Supplications Found' or 'Doa Tidak Ditemukan', 'large', W - 64)
+      S.center_text(gg, W // 2, empty_y + 44, is_en and 'No Supplications Found' or 'Doa Tidak Ditemukan', 'large', W - 64)
       local q_info = '"' .. (state.query or '') .. '"'
-      S.center_text(gg, W // 2, 310, is_en and ('No results for ' .. q_info) or ('Tidak ada hasil untuk ' .. q_info), 'small', W - 64)
-      S.center_text(gg, W // 2, 332, is_en and 'Try: prayer, sleep, meals, travel, parents' or 'Coba kata kunci: sholat, tidur, makan, sakit', 'small', W - 64)
+      S.center_text(gg, W // 2, empty_y + 84, is_en and ('No results for ' .. q_info) or ('Tidak ada hasil untuk ' .. q_info), 'small', W - 64)
+      S.center_text(gg, W // 2, empty_y + 106, is_en and 'Try: prayer, sleep, meals, travel, parents' or 'Coba kata kunci: sholat, tidur, makan, sakit', 'small', W - 64)
     end
   else
     for i = start_idx, end_idx do
       local it = items[i]
       local slot = i - start_idx
-      local ry = 222 + slot * 96
+      local ry = base_y + slot * 96
       if state.keyboard and ry >= 440 then break end
       local is_saved = (it.id and state.saved_set and state.saved_set[it.id])
 
@@ -1054,15 +1057,15 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       -- ID & Category Capsule Pill (y = ry + 8..ry + 28)
       local cat_name = is_en and (it.grup_en or it.g_en or it.grup_id or it.g_id or '') or (it.grup_id or it.g_id or '')
       local pill_str = '#' .. tostring(it.id or '') .. ' • ' .. cat_name
-      local max_pw = is_saved and (W - 138) or (W - 96)
+      local max_pw = is_saved and (W - 146) or (W - 96)
       local pw = math.min(S.text_w(pill_str, 'small') + 18, max_pw)
       S.round_rect(gg, 32, ry + 8, pw, 20, 6, nil, true, 0)
       S.round_rect(gg, 32, ry + 8, pw, 20, 6, 1)
       gg:text(38, ry + 9, S.fit_text(pill_str, 'small', pw - 10), { font = S.font('small') })
 
       if is_saved then
-        local bw = is_en and 54 or 62
-        local bx = W - bw - 38
+        local bw = is_en and 56 or 74
+        local bx = W - bw - 36
         S.round_rect(gg, bx, ry + 8, bw, 20, 6, nil, true, 0)
         S.round_rect(gg, bx, ry + 8, bw, 20, 6, 1)
         S.center_text(gg, bx + bw // 2, ry + 10, is_en and 'SAVED' or 'SIMPAN', 'small', bw - 6)
@@ -1527,7 +1530,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   local is_exp = (about_expanded == true)
   local ab_body_h = is_exp and 680 or 0
   local ab_h = 64 + ab_body_h
-  local total_content_bottom = 690 + ab_h + 20
+  local total_content_bottom = 66 + ab_h + 16 + 612 + 20
   local viewport_bottom = 726
   local max_scroll = math.max(0, total_content_bottom - viewport_bottom)
 
@@ -1554,8 +1557,107 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   -- 1. Scrollable Content Layer (offset by scroll_y)
   -- ==============================================================
   if not modal_open then
-  -- Grouped Card 1: Core Settings (y = 66..678, h = 612, 9 rows)
-  local card1_y = 66 - scroll_y
+
+  -- Grouped Card 1: Accordion About MuslimInk (Placed at the very top)
+  local card_ab_y = 66 - scroll_y
+  if (card_ab_y + ab_h) >= 60 and card_ab_y <= 726 then
+    S.card(gg, 20, card_ab_y, W - 40, ab_h, 2, is_exp)
+  end
+
+  -- Header Row of About Accordion
+  local title_ab = is_en and 'About MuslimInk' or 'Tentang MuslimInk'
+  local sub_ab = is_en and ('Version ' .. S.APP_VERSION .. ' • By fiqsr') or ('Versi ' .. S.APP_VERSION .. ' • Oleh fiqsr')
+  vtext(36, card_ab_y + 12, title_ab, { font = S.font('medium') })
+  vtext(36, card_ab_y + 38, sub_ab, { font = S.font('small') })
+
+  -- Dropdown Triangle Indicator
+  if card_ab_y >= 40 and card_ab_y <= 680 then
+    local tx, ty = W - 44, card_ab_y + 32
+    if is_exp then
+      -- Downward triangle ▼
+      gg:polygon({ tx - 6, ty - 3, tx + 6, ty - 3, tx, ty + 5 }, { fill = true })
+    else
+      -- Rightward triangle ▶
+      gg:polygon({ tx - 4, ty - 6, tx + 4, ty, tx - 4, ty + 6 }, { fill = true })
+    end
+  end
+
+  if is_exp then
+    local dy = card_ab_y + 64
+    vdivider(dy)
+
+    -- Section 1: Developer & GitHub Repository
+    dy = dy + 10
+    vtext(36, dy, is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK', { font = S.font('small') })
+    dy = dy + 22
+    vtext(36, dy, 'Developer : fiqsr (Syafiq)', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, 'GitHub    : github.com/fiqsr', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, 'Repo      : MuslimInk-XTEINK-X4-PRO', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, 'License   : Open Source (MIT)', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, (is_en and 'App Vers. : v' or 'Versi App : v') .. S.APP_VERSION, { font = S.font('small') })
+
+    -- Section 2: Calculation Engine & Astronomics
+    dy = dy + 26
+    vdivider(dy - 8)
+    vtext(36, dy, is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS', { font = S.font('small') })
+    dy = dy + 22
+    vtext(36, dy, 'Indonesia : Kemenag RI (514 Kab/Kota)', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, 'Global/LN : Aladhan API (230+ Kota)', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, is_en and 'Methods   : Ummul Quro, MWL, MUIS, etc' or 'Metode LN : Ummul Quro, MWL, MUIS, dll', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, 'Offline   : Hisab Meeus & MABIMS', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, is_en and 'GPS Coords: Custom Lat/Lon/TZ' or 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)', { font = S.font('small') })
+
+    -- Section 3: Hardware & Runtime Status
+    dy = dy + 26
+    vdivider(dy - 8)
+    vtext(36, dy, is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT', { font = S.font('small') })
+    dy = dy + 22
+    vtext(36, dy, is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, 'Display   : 480x800 1-bit E-ink', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, is_en and 'Auto-Updt : 64 KB Chunked Downloader' or 'Updater   : Chunked Range 64 KB (Aman)', { font = S.font('small') })
+    dy = dy + 20
+    vtext(36, dy, 'Status    : ' .. S.short(loc_sub, 26), { font = S.font('small') })
+
+    -- Section 4: GitHub Repository QR Code
+    dy = dy + 26
+    vdivider(dy - 8)
+    vtext(36, dy, is_en and 'GITHUB REPOSITORY (SCAN QR)' or 'REPOSITORI GITHUB (PINDAI QR)', { font = S.font('small') })
+    dy = dy + 20
+    local qr_tip = is_en and 'Scan with phone camera to open GitHub repo:' or 'Pindai dengan kamera HP untuk buka proyek:'
+    vtext(36, dy, qr_tip, { font = S.font('small') })
+    dy = dy + 30
+
+    -- Center QR Code (140x140)
+    local qr_sz = 140
+    if (dy - 10) >= 60 and (dy + qr_sz + 10) <= 720 then
+      S.draw_qr(gg, S.PROJECT_GITHUB_URL, W // 2, dy, qr_sz)
+    end
+    dy = dy + qr_sz + 18
+
+    local gh_lbl = 'github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
+    vcenter_text(W // 2, dy, gh_lbl, 'small')
+    dy = dy + 22
+
+    local gh_note = 'Source Code • Panduan • Rilis • Dukungan'
+    vcenter_text(W // 2, dy, gh_note, 'small')
+  end
+
+  -- Grouped Card 2: Core Settings (y = card1_y, h = 612, 9 rows)
+  local card1_y = card_ab_y + ab_h + 16
   if (card1_y + 612) >= 60 and card1_y <= 726 then
     S.round_rect(gg, 20, card1_y, W - 40, 612, 14, nil, true, 0)
     S.round_rect(gg, 20, card1_y, W - 40, 612, 14, 2)
@@ -1658,103 +1760,6 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     draw_btn(gg, W - 124, ry9 + 15, 88, 38, is_en and 'Manage >' or 'Kelola >', false, 'small')
   end
 
-  -- Grouped Card 2: Accordion About MuslimInk
-  local card2_y = 690 - scroll_y
-  if (card2_y + ab_h) >= 60 and card2_y <= 726 then
-    S.card(gg, 20, card2_y, W - 40, ab_h, 2, is_exp)
-  end
-
-  -- Header Row of About Accordion
-  local title_ab = is_en and 'About MuslimInk' or 'Tentang MuslimInk'
-  local sub_ab = is_en and ('Version ' .. S.APP_VERSION .. ' • By fiqsr') or ('Versi ' .. S.APP_VERSION .. ' • Oleh fiqsr')
-  vtext(36, card2_y + 12, title_ab, { font = S.font('medium') })
-  vtext(36, card2_y + 38, sub_ab, { font = S.font('small') })
-
-  -- Dropdown Triangle Indicator
-  if card2_y >= 40 and card2_y <= 680 then
-    local tx, ty = W - 44, card2_y + 32
-    if is_exp then
-      -- Downward triangle ▼
-      gg:polygon({ tx - 6, ty - 3, tx + 6, ty - 3, tx, ty + 5 }, { fill = true })
-    else
-      -- Rightward triangle ▶
-      gg:polygon({ tx - 4, ty - 6, tx + 4, ty, tx - 4, ty + 6 }, { fill = true })
-    end
-  end
-
-  if is_exp then
-    local dy = card2_y + 64
-    vdivider(dy)
-
-    -- Section 1: Developer & GitHub Repository
-    dy = dy + 10
-    vtext(36, dy, is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK', { font = S.font('small') })
-    dy = dy + 22
-    vtext(36, dy, 'Developer : fiqsr (Syafiq)', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, 'GitHub    : github.com/fiqsr', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, 'Repo      : MuslimInk-XTEINK-X4-PRO', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, 'License   : Open Source (MIT)', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, (is_en and 'App Vers. : v' or 'Versi App : v') .. S.APP_VERSION, { font = S.font('small') })
-
-    -- Section 2: Calculation Engine & Astronomics
-    dy = dy + 26
-    vdivider(dy - 8)
-    vtext(36, dy, is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS', { font = S.font('small') })
-    dy = dy + 22
-    vtext(36, dy, 'Indonesia : Kemenag RI (514 Kab/Kota)', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, 'Global/LN : Aladhan API (230+ Kota)', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, is_en and 'Methods   : Ummul Quro, MWL, MUIS, etc' or 'Metode LN : Ummul Quro, MWL, MUIS, dll', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, 'Offline   : Hisab Meeus & MABIMS', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, is_en and 'GPS Coords: Custom Lat/Lon/TZ' or 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)', { font = S.font('small') })
-
-    -- Section 3: Hardware & Runtime Status
-    dy = dy + 26
-    vdivider(dy - 8)
-    vtext(36, dy, is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT', { font = S.font('small') })
-    dy = dy + 22
-    vtext(36, dy, is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, 'Display   : 480x800 1-bit E-ink', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, is_en and 'Auto-Updt : 64 KB Chunked Downloader' or 'Updater   : Chunked Range 64 KB (Aman)', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, 'Status    : ' .. S.short(loc_sub, 26), { font = S.font('small') })
-
-    -- Section 4: GitHub Repository QR Code
-    dy = dy + 26
-    vdivider(dy - 8)
-    vtext(36, dy, is_en and 'GITHUB REPOSITORY (SCAN QR)' or 'REPOSITORI GITHUB (PINDAI QR)', { font = S.font('small') })
-    dy = dy + 20
-    local qr_tip = is_en and 'Scan with phone camera to open GitHub repo:' or 'Pindai dengan kamera HP untuk buka proyek:'
-    vtext(36, dy, qr_tip, { font = S.font('small') })
-    dy = dy + 30
-
-    -- Center QR Code (140x140)
-    local qr_sz = 140
-    if (dy - 10) >= 60 and (dy + qr_sz + 10) <= 720 then
-      S.draw_qr(gg, S.PROJECT_GITHUB_URL, W // 2, dy, qr_sz)
-    end
-    dy = dy + qr_sz + 18
-
-    local gh_lbl = 'github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
-    vcenter_text(W // 2, dy, gh_lbl, 'small')
-    dy = dy + 22
-
-    local gh_note = 'Source Code • Panduan • Rilis • Dukungan'
-    vcenter_text(W // 2, dy, gh_note, 'small')
-  end
   end
 
   -- ==============================================================

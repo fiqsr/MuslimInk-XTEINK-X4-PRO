@@ -536,15 +536,17 @@ local function draw_drawer(gg)
     local iy = start_y + (i - 1) * item_h
     local is_act = (screen == it.id)
     if is_act then
-      -- Active item rounded pill highlight
-      S.round_rect(gg, DX + 14, iy, DW - 28, 48, 10, 2)
-      S.round_rect(gg, DX + 16, iy + 2, DW - 32, 44, 8, 1)
+      -- Active item rounded pill highlight: Full black with white icon & text
+      S.round_rect(gg, DX + 14, iy, DW - 28, 48, 10, nil, true, 1)
+      S.draw_menu_icon(gg, it.icon, DX + 36, iy + 24, 0)
+      local lbl = is_en and it.en_lbl or it.id_lbl
+      gg:text(DX + 58, iy + 12, S.fit_text(lbl, 'medium', DW - 74), { font = S.font('medium'), color = 0 })
+    else
+      -- Inactive item
+      S.draw_menu_icon(gg, it.icon, DX + 36, iy + 24, 1)
+      local lbl = is_en and it.en_lbl or it.id_lbl
+      gg:text(DX + 58, iy + 12, S.fit_text(lbl, 'medium', DW - 74), { font = S.font('medium') })
     end
-    -- Icon
-    S.draw_menu_icon(gg, it.icon, DX + 36, iy + 24)
-    -- Label
-    local lbl = is_en and it.en_lbl or it.id_lbl
-    gg:text(DX + 58, iy + 12, S.fit_text(lbl, 'medium', DW - 74), { font = S.font('medium') })
   end
 
   -- Drawer Quick Status Card (y = 436..714, h = 278) to eliminate dead space
@@ -1526,10 +1528,23 @@ local function handle_tap_settings(x, y)
 
   -- 3. Middle Scrollable Content (y = 57..725)
   local cy = y + settings_scroll_y
+  local is_exp = (about_expanded == true)
+  local ab_body_h = is_exp and 680 or 0
+  local ab_h = 64 + ab_body_h
 
-  -- 9 Setting Rows in Apple Inset Grouped card 1 (y = 66..678, row_h = 68)
-  if cy >= 66 and cy < 66 + 612 and x >= 20 and x <= W - 20 then
-    local i = (cy - 66) // 68 + 1
+  -- Card 1: Apple Disclosure Group / Accordion tap toggle (y = 66..130)
+  if cy >= 66 and cy <= 66 + 64 and x >= 20 and x <= W - 20 then
+    about_expanded = not about_expanded
+    if not about_expanded then
+      settings_scroll_y = 0
+    end
+    return
+  end
+
+  -- Card 2: 9 Setting Rows in Apple Inset Grouped card (y = 66 + ab_h + 16, h = 612, row_h = 68)
+  local card_set_y = 66 + ab_h + 16
+  if cy >= card_set_y and cy < card_set_y + 612 and x >= 20 and x <= W - 20 then
+    local i = (cy - card_set_y) // 68 + 1
     if i == 1 then
       -- Segmented control [ ID | EN ] (x = W - 142, w = 106)
       if x >= W - 142 and x < W - 142 + 53 then
@@ -1607,17 +1622,6 @@ local function handle_tap_settings(x, y)
       end)
     elseif i == 9 then
       storage_modal = true
-    end
-    return
-  end
-
-  -- Apple Disclosure Group / Accordion tap toggle (Card 2 Header, y = 690..754)
-  if cy >= 690 and cy <= 690 + 64 and x >= 20 and x <= W - 20 then
-    about_expanded = not about_expanded
-    if not about_expanded then
-      settings_scroll_y = 0
-    else
-      settings_scroll_y = 180
     end
     return
   end
@@ -1870,13 +1874,16 @@ local function handle_tap_doa(x, y)
     end
   end
 
-  local active_list = (doa_state.tab == 'saved') and doa_state.saved_items or doa_state.filtered_items
-  local per_page = 5
+  local is_saved_tab = (doa_state.tab == 'saved')
+  local active_list = is_saved_tab and doa_state.saved_items or doa_state.filtered_items
+  local per_page = is_saved_tab and 6 or 5
+  local base_y = is_saved_tab and 104 or 222
   local cur_page = doa_state.page or 1
   local total_pages = math.max(1, (#active_list + per_page - 1) // per_page)
 
-  if y >= 222 and y <= 700 and x >= 20 and x <= W - 20 then
-    local slot = (y - 222) // 96
+  local max_list_y = base_y + per_page * 96
+  if y >= base_y and y <= max_list_y and x >= 20 and x <= W - 20 then
+    local slot = (y - base_y) // 96
     local target_i = (cur_page - 1) * per_page + slot + 1
     if target_i >= 1 and target_i <= #active_list then
       open_doa_detail(active_list[target_i])
@@ -2281,7 +2288,7 @@ function on_input(c, ev)
 
         if screen == 'settings' then
           local is_exp = (about_expanded == true)
-          local max_scroll = is_exp and 660 or 0
+          local max_scroll = is_exp and 740 or 70
           if max_scroll > 0 and touch_down_y and math.abs(touch_down_y - y) > 25 then
             local delta = touch_down_y - y
             settings_scroll_y = math.max(0, math.min(max_scroll, settings_scroll_y + delta))
@@ -2463,7 +2470,7 @@ end
       return false
     elseif screen == 'settings' then
       local is_exp = (about_expanded == true)
-      local max_scroll = is_exp and 660 or 0
+      local max_scroll = is_exp and 740 or 70
       if ev.key == 'down' or ev.key == 'right' then
         settings_scroll_y = math.min(max_scroll, settings_scroll_y + 160)
         refresh()

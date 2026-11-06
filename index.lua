@@ -638,14 +638,13 @@ local sx=math.floor(x+(i - 1)*seg_w)
 local sw=math.floor(x+i*seg_w)- sx
 if i==active_idx then
 local pr=(h - 4)//2
-S.round_rect(gg,sx+2,y+2,sw - 4,h - 4,pr,nil,true,0)
-S.round_rect(gg,sx+2,y+2,sw - 4,h - 4,pr,2)
-S.center_text(gg,sx+sw//2,y+(h - 18)//2,seg,'small',sw - 6)
+S.round_rect(gg,sx+2,y+2,sw - 4,h - 4,pr,nil,true,1)
+S.center_text(gg,sx+sw//2,y+(h - 18)//2,seg,'small',sw - 6,0)
 else
 if i<n and(i+1)~=active_idx and i~=active_idx then
 gg:line(sx+sw,y+6,sx+sw,y+h - 6,{line_width=1})
 end
-S.center_text(gg,sx+sw//2,y+(h - 18)//2,seg,'small',sw - 6)
+S.center_text(gg,sx+sw//2,y+(h - 18)//2,seg,'small',sw - 6,1)
 end
 end
 end
@@ -702,41 +701,43 @@ gg:line(x,ly,x+w,ly,{line_width=3})
 gg:line(x,ly+8,x+w,ly+8,{line_width=3})
 gg:line(x,ly+16,x+w,ly+16,{line_width=3})
 end
-function S.draw_menu_icon(gg,kind,cx,cy)
+function S.draw_menu_icon(gg,kind,cx,cy,color)
+local col=(color==nil)and 1 or color
+local inv_col=(col==1)and 0 or 1
 if kind=='shalat' then
-gg:rect(cx - 9,cy+2,18,8,{fill=true})
-gg:circle(cx,cy+2,6,{fill=true})
-gg:line(cx,cy - 8,cx,cy - 4,{line_width=1})
-gg:rect(cx - 3,cy+4,6,6,{fill=true,color=0})
+gg:rect(cx - 9,cy+2,18,8,{fill=true,color=col})
+gg:circle(cx,cy+2,6,{fill=true,color=col})
+gg:line(cx,cy - 8,cx,cy - 4,{line_width=1,color=col})
+gg:rect(cx - 3,cy+4,6,6,{fill=true,color=inv_col})
 elseif kind=='tasbih' then
 for deg=0,315,45 do
 local rad=deg*math.pi/180.0
 local bx=cx+math.floor(8*math.cos(rad)+0.5)
 local by=cy+math.floor(8*math.sin(rad)+0.5)
-gg:circle(bx,by,2,{fill=true})
+gg:circle(bx,by,2,{fill=true,color=col})
 end
 elseif kind=='doa' then
-gg:rect(cx - 9,cy - 6,8,12,{line_width=1})
-gg:rect(cx+1,cy - 6,8,12,{line_width=1})
-gg:line(cx - 7,cy - 2,cx - 3,cy - 2)
-gg:line(cx - 7,cy+2,cx - 3,cy+2)
-gg:line(cx+3,cy - 2,cx+7,cy - 2)
-gg:line(cx+3,cy+2,cx+7,cy+2)
+gg:rect(cx - 9,cy - 6,8,12,{line_width=1,color=col})
+gg:rect(cx+1,cy - 6,8,12,{line_width=1,color=col})
+gg:line(cx - 7,cy - 2,cx - 3,cy - 2,{line_width=1,color=col})
+gg:line(cx - 7,cy+2,cx - 3,cy+2,{line_width=1,color=col})
+gg:line(cx+3,cy - 2,cx+7,cy - 2,{line_width=1,color=col})
+gg:line(cx+3,cy+2,cx+7,cy+2,{line_width=1,color=col})
 elseif kind=='hijri' then
-gg:rect(cx - 8,cy - 7,16,15,{line_width=1})
-gg:line(cx - 8,cy - 2,cx+8,cy - 2,{line_width=1})
-gg:line(cx - 4,cy - 9,cx - 4,cy - 7,{line_width=2})
-gg:line(cx+4,cy - 9,cx+4,cy - 7,{line_width=2})
-gg:circle(cx,cy+4,2,{fill=true})
+gg:rect(cx - 8,cy - 7,16,15,{line_width=1,color=col})
+gg:line(cx - 8,cy - 2,cx+8,cy - 2,{line_width=1,color=col})
+gg:line(cx - 4,cy - 9,cx - 4,cy - 7,{line_width=2,color=col})
+gg:line(cx+4,cy - 9,cx+4,cy - 7,{line_width=2,color=col})
+gg:circle(cx,cy+4,2,{fill=true,color=col})
 elseif kind=='kiblat' then
-gg:circle(cx,cy,9,{line_width=1})
-gg:line(cx - 4,cy+4,cx+4,cy - 4,{line_width=2})
-gg:polygon({cx+4,cy - 4,cx+1,cy - 1,cx+4,cy - 1},{fill=true})
+gg:circle(cx,cy,9,{line_width=1,color=col})
+gg:line(cx - 4,cy+4,cx+4,cy - 4,{line_width=2,color=col})
+gg:polygon({cx+4,cy - 4,cx+1,cy - 1,cx+4,cy - 1},{fill=true,color=col})
 elseif kind=='settings' then
-gg:circle(cx,cy,6,{line_width=2})
-gg:circle(cx,cy,2,{fill=true})
-gg:line(cx,cy - 9,cx,cy+9,{line_width=2})
-gg:line(cx - 9,cy,cx+9,cy,{line_width=2})
+gg:circle(cx,cy,6,{line_width=2,color=col})
+gg:circle(cx,cy,2,{fill=true,color=col})
+gg:line(cx,cy - 9,cx,cy+9,{line_width=2,color=col})
+gg:line(cx - 9,cy,cx+9,cy,{line_width=2,color=col})
 end
 end
 local BLACK={fill=true}
@@ -1969,43 +1970,46 @@ S.round_rect(gg,cx,cy,cw,28,8,is_active and 2 or 1)
 S.center_text(gg,cx+cw//2,cy+5,ch_label,'small',cw - 8)
 end
 end
-local per_page=5
+local is_saved_tab=(cur_tab=='saved')
+local per_page=is_saved_tab and 6 or 5
+local base_y=is_saved_tab and 104 or 222
 local cur_page=state.page or 1
 local total_pages=math.max(1,(#items+per_page - 1)//per_page)
 if cur_page>total_pages then cur_page=total_pages end
 local start_idx=(cur_page - 1)*per_page+1
 local end_idx=math.min(#items,start_idx+per_page - 1)
 if #items==0 then
-S.card(gg,20,226,W - 40,260,2,true)
-if cur_tab=='saved' then
-S.center_text(gg,W//2,270,is_en and 'No Saved Duas Yet' or 'Belum Ada Doa Tersimpan','large',W - 64)
-S.center_text(gg,W//2,310,is_en and 'Search supplications in the search tab' or 'Cari doa di tab pencarian dan tekan','small',W - 64)
-S.center_text(gg,W//2,332,is_en and 'and tap "Save" to keep them offline.' or 'tombol "Simpan" untuk membaca offline.','small',W - 64)
+local empty_y=is_saved_tab and 110 or 226
+S.card(gg,20,empty_y,W - 40,260,2,true)
+if is_saved_tab then
+S.center_text(gg,W//2,empty_y+44,is_en and 'No Saved Duas Yet' or 'Belum Ada Doa Tersimpan','large',W - 64)
+S.center_text(gg,W//2,empty_y+84,is_en and 'Search supplications in the search tab' or 'Cari doa di tab pencarian dan tekan','small',W - 64)
+S.center_text(gg,W//2,empty_y+106,is_en and 'and tap "Save" to keep them offline.' or 'tombol "Simpan" untuk membaca offline.','small',W - 64)
 else
-S.center_text(gg,W//2,270,is_en and 'No Supplications Found' or 'Doa Tidak Ditemukan','large',W - 64)
+S.center_text(gg,W//2,empty_y+44,is_en and 'No Supplications Found' or 'Doa Tidak Ditemukan','large',W - 64)
 local q_info='"'..(state.query or '')..'"'
-S.center_text(gg,W//2,310,is_en and('No results for '..q_info)or('Tidak ada hasil untuk '..q_info),'small',W - 64)
-S.center_text(gg,W//2,332,is_en and 'Try: prayer, sleep, meals, travel, parents' or 'Coba kata kunci: sholat, tidur, makan, sakit','small',W - 64)
+S.center_text(gg,W//2,empty_y+84,is_en and('No results for '..q_info)or('Tidak ada hasil untuk '..q_info),'small',W - 64)
+S.center_text(gg,W//2,empty_y+106,is_en and 'Try: prayer, sleep, meals, travel, parents' or 'Coba kata kunci: sholat, tidur, makan, sakit','small',W - 64)
 end
 else
 for i=start_idx,end_idx do
 local it=items[i]
 local slot=i - start_idx
-local ry=222+slot*96
+local ry=base_y+slot*96
 if state.keyboard and ry>=440 then break end
 local is_saved=(it.id and state.saved_set and state.saved_set[it.id])
 S.round_rect(gg,20,ry,W - 40,90,12,nil,true,0)
 S.round_rect(gg,20,ry,W - 40,90,12,1)
 local cat_name=is_en and(it.grup_en or it.g_en or it.grup_id or it.g_id or '')or(it.grup_id or it.g_id or '')
 local pill_str='#'..tostring(it.id or '')..' • '..cat_name
-local max_pw=is_saved and(W - 138)or(W - 96)
+local max_pw=is_saved and(W - 146)or(W - 96)
 local pw=math.min(S.text_w(pill_str,'small')+18,max_pw)
 S.round_rect(gg,32,ry+8,pw,20,6,nil,true,0)
 S.round_rect(gg,32,ry+8,pw,20,6,1)
 gg:text(38,ry+9,S.fit_text(pill_str,'small',pw - 10),{font=S.font('small')})
 if is_saved then
-local bw=is_en and 54 or 62
-local bx=W - bw - 38
+local bw=is_en and 56 or 74
+local bx=W - bw - 36
 S.round_rect(gg,bx,ry+8,bw,20,6,nil,true,0)
 S.round_rect(gg,bx,ry+8,bw,20,6,1)
 S.center_text(gg,bx+bw//2,ry+10,is_en and 'SAVED' or 'SIMPAN','small',bw - 6)
@@ -2367,7 +2371,7 @@ end
 local is_exp=(about_expanded==true)
 local ab_body_h=is_exp and 680 or 0
 local ab_h=64+ab_body_h
-local total_content_bottom=690+ab_h+20
+local total_content_bottom=66+ab_h+16+612+20
 local viewport_bottom=726
 local max_scroll=math.max(0,total_content_bottom - viewport_bottom)
 local function vtext(x,y,s,opts)
@@ -2386,7 +2390,84 @@ gg:line(x1 or 36,y,x2 or(W - 36),y,{line_width=1})
 end
 end
 if not modal_open then
-local card1_y=66 - scroll_y
+local card_ab_y=66 - scroll_y
+if(card_ab_y+ab_h)>=60 and card_ab_y<=726 then
+S.card(gg,20,card_ab_y,W - 40,ab_h,2,is_exp)
+end
+local title_ab=is_en and 'About MuslimInk' or 'Tentang MuslimInk'
+local sub_ab=is_en and('Version '..S.APP_VERSION..' • By fiqsr')or('Versi '..S.APP_VERSION..' • Oleh fiqsr')
+vtext(36,card_ab_y+12,title_ab,{font=S.font('medium')})
+vtext(36,card_ab_y+38,sub_ab,{font=S.font('small')})
+if card_ab_y>=40 and card_ab_y<=680 then
+local tx,ty=W - 44,card_ab_y+32
+if is_exp then
+gg:polygon({tx - 6,ty - 3,tx+6,ty - 3,tx,ty+5},{fill=true})
+else
+gg:polygon({tx - 4,ty - 6,tx+4,ty,tx - 4,ty+6},{fill=true})
+end
+end
+if is_exp then
+local dy=card_ab_y+64
+vdivider(dy)
+dy=dy+10
+vtext(36,dy,is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK',{font=S.font('small')})
+dy=dy+22
+vtext(36,dy,'Developer : fiqsr (Syafiq)',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,'GitHub    : github.com/fiqsr',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,'Repo      : MuslimInk-XTEINK-X4-PRO',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,'License   : Open Source (MIT)',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,(is_en and 'App Vers. : v' or 'Versi App : v')..S.APP_VERSION,{font=S.font('small')})
+dy=dy+26
+vdivider(dy - 8)
+vtext(36,dy,is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS',{font=S.font('small')})
+dy=dy+22
+vtext(36,dy,'Indonesia : Kemenag RI (514 Kab/Kota)',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,'Global/LN : Aladhan API (230+ Kota)',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,is_en and 'Methods   : Ummul Quro, MWL, MUIS, etc' or 'Metode LN : Ummul Quro, MWL, MUIS, dll',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,'Offline   : Hisab Meeus & MABIMS',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,is_en and 'GPS Coords: Custom Lat/Lon/TZ' or 'Koordinat : GPS Input Manual Numpad',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)',{font=S.font('small')})
+dy=dy+26
+vdivider(dy - 8)
+vtext(36,dy,is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT',{font=S.font('small')})
+dy=dy+22
+vtext(36,dy,is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,'Display   : 480x800 1-bit E-ink',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,is_en and 'Auto-Updt : 64 KB Chunked Downloader' or 'Updater   : Chunked Range 64 KB (Aman)',{font=S.font('small')})
+dy=dy+20
+vtext(36,dy,'Status    : '..S.short(loc_sub,26),{font=S.font('small')})
+dy=dy+26
+vdivider(dy - 8)
+vtext(36,dy,is_en and 'GITHUB REPOSITORY (SCAN QR)' or 'REPOSITORI GITHUB (PINDAI QR)',{font=S.font('small')})
+dy=dy+20
+local qr_tip=is_en and 'Scan with phone camera to open GitHub repo:' or 'Pindai dengan kamera HP untuk buka proyek:'
+vtext(36,dy,qr_tip,{font=S.font('small')})
+dy=dy+30
+local qr_sz=140
+if(dy - 10)>=60 and(dy+qr_sz+10)<=720 then
+S.draw_qr(gg,S.PROJECT_GITHUB_URL,W//2,dy,qr_sz)
+end
+dy=dy+qr_sz+18
+local gh_lbl='github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
+vcenter_text(W//2,dy,gh_lbl,'small')
+dy=dy+22
+local gh_note='Source Code • Panduan • Rilis • Dukungan'
+vcenter_text(W//2,dy,gh_note,'small')
+end
+local card1_y=card_ab_y+ab_h+16
 if(card1_y+612)>=60 and card1_y<=726 then
 S.round_rect(gg,20,card1_y,W - 40,612,14,nil,true,0)
 S.round_rect(gg,20,card1_y,W - 40,612,14,2)
@@ -2467,83 +2548,6 @@ local stor_sub=is_en and 'Manage offline data & Doa cache' or 'Kelola data offli
 vtext(36,ry9+38,S.fit_text(stor_sub,'small',250),{font=S.font('small')})
 if ry9>=40 and ry9<=680 then
 draw_btn(gg,W - 124,ry9+15,88,38,is_en and 'Manage >' or 'Kelola >',false,'small')
-end
-local card2_y=690 - scroll_y
-if(card2_y+ab_h)>=60 and card2_y<=726 then
-S.card(gg,20,card2_y,W - 40,ab_h,2,is_exp)
-end
-local title_ab=is_en and 'About MuslimInk' or 'Tentang MuslimInk'
-local sub_ab=is_en and('Version '..S.APP_VERSION..' • By fiqsr')or('Versi '..S.APP_VERSION..' • Oleh fiqsr')
-vtext(36,card2_y+12,title_ab,{font=S.font('medium')})
-vtext(36,card2_y+38,sub_ab,{font=S.font('small')})
-if card2_y>=40 and card2_y<=680 then
-local tx,ty=W - 44,card2_y+32
-if is_exp then
-gg:polygon({tx - 6,ty - 3,tx+6,ty - 3,tx,ty+5},{fill=true})
-else
-gg:polygon({tx - 4,ty - 6,tx+4,ty,tx - 4,ty+6},{fill=true})
-end
-end
-if is_exp then
-local dy=card2_y+64
-vdivider(dy)
-dy=dy+10
-vtext(36,dy,is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK',{font=S.font('small')})
-dy=dy+22
-vtext(36,dy,'Developer : fiqsr (Syafiq)',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,'GitHub    : github.com/fiqsr',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,'Repo      : MuslimInk-XTEINK-X4-PRO',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,'License   : Open Source (MIT)',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,(is_en and 'App Vers. : v' or 'Versi App : v')..S.APP_VERSION,{font=S.font('small')})
-dy=dy+26
-vdivider(dy - 8)
-vtext(36,dy,is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS',{font=S.font('small')})
-dy=dy+22
-vtext(36,dy,'Indonesia : Kemenag RI (514 Kab/Kota)',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,'Global/LN : Aladhan API (230+ Kota)',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,is_en and 'Methods   : Ummul Quro, MWL, MUIS, etc' or 'Metode LN : Ummul Quro, MWL, MUIS, dll',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,'Offline   : Hisab Meeus & MABIMS',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,is_en and 'GPS Coords: Custom Lat/Lon/TZ' or 'Koordinat : GPS Input Manual Numpad',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)',{font=S.font('small')})
-dy=dy+26
-vdivider(dy - 8)
-vtext(36,dy,is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT',{font=S.font('small')})
-dy=dy+22
-vtext(36,dy,is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,'Display   : 480x800 1-bit E-ink',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,is_en and 'Auto-Updt : 64 KB Chunked Downloader' or 'Updater   : Chunked Range 64 KB (Aman)',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,'Status    : '..S.short(loc_sub,26),{font=S.font('small')})
-dy=dy+26
-vdivider(dy - 8)
-vtext(36,dy,is_en and 'GITHUB REPOSITORY (SCAN QR)' or 'REPOSITORI GITHUB (PINDAI QR)',{font=S.font('small')})
-dy=dy+20
-local qr_tip=is_en and 'Scan with phone camera to open GitHub repo:' or 'Pindai dengan kamera HP untuk buka proyek:'
-vtext(36,dy,qr_tip,{font=S.font('small')})
-dy=dy+30
-local qr_sz=140
-if(dy - 10)>=60 and(dy+qr_sz+10)<=720 then
-S.draw_qr(gg,S.PROJECT_GITHUB_URL,W//2,dy,qr_sz)
-end
-dy=dy+qr_sz+18
-local gh_lbl='github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
-vcenter_text(W//2,dy,gh_lbl,'small')
-dy=dy+22
-local gh_note='Source Code • Panduan • Rilis • Dukungan'
-vcenter_text(W//2,dy,gh_note,'small')
 end
 end
 gg:rect(0,0,W,56,{fill=true,color=0})
@@ -3546,12 +3550,15 @@ for i,it in ipairs(DRAWER_ITEMS)do
 local iy=start_y+(i - 1)*item_h
 local is_act=(screen==it.id)
 if is_act then
-S.round_rect(gg,DX+14,iy,DW - 28,48,10,2)
-S.round_rect(gg,DX+16,iy+2,DW - 32,44,8,1)
-end
-S.draw_menu_icon(gg,it.icon,DX+36,iy+24)
+S.round_rect(gg,DX+14,iy,DW - 28,48,10,nil,true,1)
+S.draw_menu_icon(gg,it.icon,DX+36,iy+24,0)
+local lbl=is_en and it.en_lbl or it.id_lbl
+gg:text(DX+58,iy+12,S.fit_text(lbl,'medium',DW - 74),{font=S.font('medium'),color=0})
+else
+S.draw_menu_icon(gg,it.icon,DX+36,iy+24,1)
 local lbl=is_en and it.en_lbl or it.id_lbl
 gg:text(DX+58,iy+12,S.fit_text(lbl,'medium',DW - 74),{font=S.font('medium')})
+end
 end
 local qx,qy,qw,qh=DX+14,436,DW - 28,278
 S.round_rect(gg,qx,qy,qw,qh,12,nil,true,0)
@@ -4359,8 +4366,19 @@ end
 return
 end
 local cy=y+settings_scroll_y
-if cy>=66 and cy<66+612 and x>=20 and x<=W - 20 then
-local i=(cy - 66)//68+1
+local is_exp=(about_expanded==true)
+local ab_body_h=is_exp and 680 or 0
+local ab_h=64+ab_body_h
+if cy>=66 and cy<=66+64 and x>=20 and x<=W - 20 then
+about_expanded=not about_expanded
+if not about_expanded then
+settings_scroll_y=0
+end
+return
+end
+local card_set_y=66+ab_h+16
+if cy>=card_set_y and cy<card_set_y+612 and x>=20 and x<=W - 20 then
+local i=(cy - card_set_y)//68+1
 if i==1 then
 if x>=W - 142 and x<W - 142+53 then
 if cfg.lang~='id' then toggle_lang()end
@@ -4434,15 +4452,6 @@ refresh()
 end)
 elseif i==9 then
 storage_modal=true
-end
-return
-end
-if cy>=690 and cy<=690+64 and x>=20 and x<=W - 20 then
-about_expanded=not about_expanded
-if not about_expanded then
-settings_scroll_y=0
-else
-settings_scroll_y=180
 end
 return
 end
@@ -4665,12 +4674,15 @@ end
 end
 end
 end
-local active_list=(doa_state.tab=='saved')and doa_state.saved_items or doa_state.filtered_items
-local per_page=5
+local is_saved_tab=(doa_state.tab=='saved')
+local active_list=is_saved_tab and doa_state.saved_items or doa_state.filtered_items
+local per_page=is_saved_tab and 6 or 5
+local base_y=is_saved_tab and 104 or 222
 local cur_page=doa_state.page or 1
 local total_pages=math.max(1,(#active_list+per_page - 1)//per_page)
-if y>=222 and y<=700 and x>=20 and x<=W - 20 then
-local slot=(y - 222)//96
+local max_list_y=base_y+per_page*96
+if y>=base_y and y<=max_list_y and x>=20 and x<=W - 20 then
+local slot=(y - base_y)//96
 local target_i=(cur_page - 1)*per_page+slot+1
 if target_i>=1 and target_i<=#active_list then
 open_doa_detail(active_list[target_i])
@@ -5019,7 +5031,7 @@ if check_quote_modal_tap(x,y)then return end
 if check_hijri_modal_tap(x,y)then return end
 if screen=='settings' then
 local is_exp=(about_expanded==true)
-local max_scroll=is_exp and 660 or 0
+local max_scroll=is_exp and 740 or 70
 if max_scroll>0 and touch_down_y and math.abs(touch_down_y - y)>25 then
 local delta=touch_down_y - y
 settings_scroll_y=math.max(0,math.min(max_scroll,settings_scroll_y+delta))
@@ -5199,7 +5211,7 @@ end
 return false
 elseif screen=='settings' then
 local is_exp=(about_expanded==true)
-local max_scroll=is_exp and 660 or 0
+local max_scroll=is_exp and 740 or 70
 if ev.key=='down' or ev.key=='right' then
 settings_scroll_y=math.min(max_scroll,settings_scroll_y+160)
 refresh()

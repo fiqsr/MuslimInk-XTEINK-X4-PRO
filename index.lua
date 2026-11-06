@@ -4186,6 +4186,165 @@ draw_btn(gg,16,726,138,52,L.btn_back,false,'medium')
 draw_btn(gg,162,726,156,52,mo_lbl,false,'small')
 draw_btn(gg,326,726,138,52,L.btn_download,false,'medium')
 end
+local function ensure_doa_ready()
+if not doa_state.index then
+local raw_idx=S.read('doa_index.txt')
+if raw_idx and raw_idx ~='' then
+local ok,res=pcall(function()return ctx.json:decode(raw_idx)end)
+if ok and type(res)=='table' and res.data and #res.data>0 then
+doa_state.index=res.data
+end
+end
+if not doa_state.index then
+doa_state.index=F.SEED_DOA_INDEX
+end
+end
+if not doa_state.saved_loaded then
+doa_state.saved_loaded=true
+doa_state.saved_set={}
+local raw_saved=S.read('saved_duas.txt')
+if raw_saved and raw_saved ~='' then
+for id_str in raw_saved:gmatch('%d+')do
+local id_num=tonumber(id_str)
+if id_num then doa_state.saved_set[id_num]=true end
+end
+else
+for _,sid in ipairs({1,20,40,50,90,100})do
+doa_state.saved_set[sid]=true
+end
+end
+end
+doa_state.saved_items={}
+for _,it in ipairs(doa_state.index)do
+if doa_state.saved_set[it.id] then
+doa_state.saved_items[#doa_state.saved_items+1]=it
+end
+end
+doa_state.filtered_items=F.filter_duas(doa_state.index,doa_state.query)
+end
+local function sync_doa_index_online()
+if doa_state.synced then return end
+doa_state.synced=true
+pcall(function()
+ctx.net:request({
+url='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/doa_index.json',
+method='GET',
+headers={['Accept']='application/json'},
+timeout_ms=15000,
+},function(c,resp)
+pcall(function()
+if type(resp)~='table' or type(resp.body)~='string' then return end
+local ok,res=pcall(function()return ctx.json:decode(resp.body)end)
+if ok and type(res)=='table' and res.data and #res.data>0 then
+doa_state.index=res.data
+S.write('doa_index.txt',resp.body)
+ensure_doa_ready()
+refresh()
+end
+end)
+end)
+end)
+end
+local function toggle_save_doa(id)
+if not id then return end
+if doa_state.saved_set[id] then
+doa_state.saved_set[id]=nil
+else
+doa_state.saved_set[id]=true
+end
+local ids={}
+for sid in pairs(doa_state.saved_set)do
+ids[#ids+1]=tostring(sid)
+end
+S.write('saved_duas.txt',table.concat(ids,','))
+ensure_doa_ready()
+refresh()
+end
+local function open_doa_detail(it)
+if not it then return end
+if doa_state.cache[it.id] then
+doa_state.viewing=doa_state.cache[it.id]
+return
+end
+local raw_d=S.read('doa_' .. tostring(it.id).. '.txt')
+if raw_d and raw_d ~='' then
+local ok,res=pcall(function()return ctx.json:decode(raw_d)end)
+if ok and type(res)=='table' and res.id then
+doa_state.cache[it.id]=res
+doa_state.viewing=res
+return
+end
+end
+doa_state.viewing={
+id=it.id,
+nama_id=it.n_id,
+nama_en=it.n_en,
+grup_id=it.g_id,
+grup_en=it.g_en,
+latin='Menghubungkan ke API...',
+arti_id='Sedang mengunduh teks doa...',
+arti_en='Downloading supplication...',
+src='Hisnul Muslim',
+}
+doa_state.fetching=true
+pcall(function()
+local url1='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/doa/' .. tostring(it.id).. '.json'
+ctx.net:request({
+url=url1,
+method='GET',
+headers={['Accept']='application/json'},
+timeout_ms=12000,
+},function(c,resp)
+doa_state.fetching=false
+pcall(function()
+if type(resp)=='table' and type(resp.body)=='string' then
+local ok,res=pcall(function()return ctx.json:decode(resp.body)end)
+if ok and type(res)=='table' and res.id then
+doa_state.cache[it.id]=res
+doa_state.viewing=res
+S.write('doa_' .. tostring(it.id).. '.txt',resp.body)
+refresh()
+return
+end
+end
+ctx.net:request({
+url='https://equran.id/api/doa/' .. tostring(it.id),
+method='GET',
+timeout_ms=12000,
+},function(c2,resp2)
+pcall(function()
+if type(resp2)=='table' and type(resp2.body)=='string' then
+local ok2,res2=pcall(function()return ctx.json:decode(resp2.body)end)
+if ok2 and type(res2)=='table' and res2.data then
+local d2=res2.data
+local parsed={
+id=d2.id,
+nama_id=d2.nama,
+nama_en=it.n_en or d2.nama,
+grup_id=d2.grup,
+grup_en=it.g_en or d2.grup,
+ar=d2.ar,
+tr=d2.tr,
+arti_id=d2.idn,
+arti_en=it.n_en or d2.idn,
+src=d2.tentang or 'Hisnul Muslim',
+}
+doa_state.cache[it.id]=parsed
+doa_state.viewing=parsed
+pcall(function()
+if ctx and ctx.json and ctx.json.encode then
+S.write('doa_' .. tostring(it.id).. '.txt',ctx.json:encode(parsed))
+end
+end)
+refresh()
+end
+end
+end)
+end)
+end)
+end)
+end)
+end
 function on_draw(c,gg)
 if not gg then return end
 local ok,err=pcall(function()
@@ -4719,161 +4878,6 @@ end
 if(y>=220 and y<=545)or(y>=640 and y<=780)then
 inc_tasbih()
 end
-end
-local function ensure_doa_ready()
-if not doa_state.index then
-local raw_idx=S.read('doa_index.txt')
-if raw_idx and raw_idx ~='' then
-local ok,res=pcall(function()return ctx.json:decode(raw_idx)end)
-if ok and type(res)=='table' and res.data and #res.data>0 then
-doa_state.index=res.data
-end
-end
-if not doa_state.index then
-doa_state.index=F.SEED_DOA_INDEX
-end
-end
-if not doa_state.saved_loaded then
-doa_state.saved_loaded=true
-doa_state.saved_set={}
-local raw_saved=S.read('saved_duas.txt')
-if raw_saved and raw_saved ~='' then
-for id_str in raw_saved:gmatch('%d+')do
-local id_num=tonumber(id_str)
-if id_num then doa_state.saved_set[id_num]=true end
-end
-else
-for _,sid in ipairs({1,20,40,50,90,100})do
-doa_state.saved_set[sid]=true
-end
-end
-end
-doa_state.saved_items={}
-for _,it in ipairs(doa_state.index)do
-if doa_state.saved_set[it.id] then
-doa_state.saved_items[#doa_state.saved_items+1]=it
-end
-end
-doa_state.filtered_items=F.filter_duas(doa_state.index,doa_state.query)
-end
-local function sync_doa_index_online()
-if doa_state.synced then return end
-doa_state.synced=true
-pcall(function()
-ctx.net:request({
-url='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/doa_index.json',
-method='GET',
-headers={['Accept']='application/json'},
-timeout_ms=15000,
-},function(c,resp)
-pcall(function()
-if type(resp)~='table' or type(resp.body)~='string' then return end
-local ok,res=pcall(function()return ctx.json:decode(resp.body)end)
-if ok and type(res)=='table' and res.data and #res.data>0 then
-doa_state.index=res.data
-S.write('doa_index.txt',resp.body)
-ensure_doa_ready()
-refresh()
-end
-end)
-end)
-end)
-end
-local function toggle_save_doa(id)
-if not id then return end
-if doa_state.saved_set[id] then
-doa_state.saved_set[id]=nil
-else
-doa_state.saved_set[id]=true
-end
-local ids={}
-for sid in pairs(doa_state.saved_set)do
-ids[#ids+1]=tostring(sid)
-end
-S.write('saved_duas.txt',table.concat(ids,','))
-ensure_doa_ready()
-refresh()
-end
-local function open_doa_detail(it)
-if not it then return end
-if doa_state.cache[it.id] then
-doa_state.viewing=doa_state.cache[it.id]
-return
-end
-local raw_d=S.read('doa_' .. tostring(it.id).. '.txt')
-if raw_d and raw_d ~='' then
-local ok,res=pcall(function()return ctx.json:decode(raw_d)end)
-if ok and type(res)=='table' and res.id then
-doa_state.cache[it.id]=res
-doa_state.viewing=res
-return
-end
-end
-doa_state.viewing={
-id=it.id,
-nama_id=it.n_id,
-nama_en=it.n_en,
-grup_id=it.g_id,
-grup_en=it.g_en,
-latin='Menghubungkan ke API...',
-arti_id='Sedang mengunduh teks doa...',
-arti_en='Downloading supplication...',
-src='Hisnul Muslim',
-}
-doa_state.fetching=true
-pcall(function()
-local url1='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/doa/' .. tostring(it.id).. '.json'
-ctx.net:request({
-url=url1,
-method='GET',
-headers={['Accept']='application/json'},
-timeout_ms=12000,
-},function(c,resp)
-doa_state.fetching=false
-pcall(function()
-if type(resp)=='table' and type(resp.body)=='string' then
-local ok,res=pcall(function()return ctx.json:decode(resp.body)end)
-if ok and type(res)=='table' and res.id then
-doa_state.cache[it.id]=res
-doa_state.viewing=res
-S.write('doa_' .. tostring(it.id).. '.txt',resp.body)
-refresh()
-return
-end
-end
-ctx.net:request({
-url='https://equran.id/api/doa/' .. tostring(it.id),
-method='GET',
-timeout_ms=12000,
-},function(c2,resp2)
-pcall(function()
-if type(resp2)=='table' and type(resp2.body)=='string' then
-local ok2,res2=pcall(function()return ctx.json:decode(resp2.body)end)
-if ok2 and type(res2)=='table' and res2.data then
-local d2=res2.data
-local parsed={
-id=d2.id,
-nama_id=d2.nama,
-nama_en=it.n_en or d2.nama,
-grup_id=d2.grup,
-grup_en=it.g_en or d2.grup,
-ar=d2.ar,
-tr=d2.tr,
-arti_id=d2.idn,
-arti_en=it.n_en or d2.idn,
-src=d2.tentang or 'Hisnul Muslim',
-}
-doa_state.cache[it.id]=parsed
-doa_state.viewing=parsed
-S.write('doa_' .. tostring(it.id).. '.txt',ctx.json:encode(parsed))
-refresh()
-end
-end
-end)
-end)
-end)
-end)
-end)
 end
 local function handle_tap_doa(x,y)
 ensure_doa_ready()

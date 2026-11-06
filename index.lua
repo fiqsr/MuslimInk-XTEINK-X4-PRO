@@ -1507,8 +1507,8 @@ local ry=base_y+(n - 1)*lh+ref_gap
 local rw=S.text_w(ref or '','small')
 gg:text(math.floor((S.W - rw)/ 2),ry,ref or '',{font=S.font('small')})
 end
-S.APP_VERSION='1.1.7'
-S.APP_BUILD=117
+S.APP_VERSION='1.1.8'
+S.APP_BUILD=118
 S.UPDATE_URL='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'

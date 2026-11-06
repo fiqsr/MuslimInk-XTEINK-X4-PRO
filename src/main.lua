@@ -641,6 +641,7 @@ local function draw_main_screen(gg)
   gg:text(20, 86, S.fit_text(h_label, 'small', W - 40), { font = S.font('small') })
   gg:text(20, 110, S.fit_text(loc_str, 'small', W - 40), { font = S.font('small') })
 
+  if not (cfont_modal or quote_modal or update_modal or storage_modal) then
   if not info.has_data then
     S.card(gg, 20, 140, W - 40, 240, 2, true)
     S.center_text(gg, W // 2, 186, L.no_data_title, 'large', W - 70)
@@ -675,6 +676,7 @@ local function draw_main_screen(gg)
       f_text = (cfg.lang == 'en' and 'Source: Aladhan API • Meeus Solar Offline' or 'Sumber: Aladhan API • Hisab Astronomi Offline')
     end
     S.center_text(gg, W // 2, 676, f_text, 'small', W - 24)
+  end
   end
 
   -- 4 Shalat Action Pills (y = 716, h = 60, bottom margin 24px)
@@ -2541,29 +2543,35 @@ function on_load(c)
     pcall(function() ctx:set_tick_rate(30000) end)
     ensure_schedules(false)
 
-    -- Auto cleanup legacy individual doa_*.txt files from storage
-    pcall(function()
-      local migrated = false
-      for id = 1, 250 do
-        local f = 'doa_' .. tostring(id) .. '.txt'
-        local raw = S.read(f)
-        if raw and #raw > 15 then
-          local ok, res = pcall(function() return ctx.json:decode(raw) end)
-          if ok and type(res) == 'table' and res.id then
-            doa_state.cache = doa_state.cache or {}
-            doa_state.cache[res.id] = res
-            doa_state.cache[tostring(res.id)] = res
-            migrated = true
+    -- Fast boot: Only check legacy doa cleanup once if needed, never block normal startup
+    if not cfg.legacy_cleaned then
+      cfg.legacy_cleaned = true
+      S.save_cfg(cfg)
+      pcall(function()
+        if S.read('doa_1.txt') then
+          local migrated = false
+          for id = 1, 250 do
+            local f = 'doa_' .. tostring(id) .. '.txt'
+            local raw = S.read(f)
+            if raw and #raw > 15 then
+              local ok, res = pcall(function() return ctx.json:decode(raw) end)
+              if ok and type(res) == 'table' and res.id then
+                doa_state.cache = doa_state.cache or {}
+                doa_state.cache[res.id] = res
+                doa_state.cache[tostring(res.id)] = res
+                migrated = true
+              end
+            end
+            S.delete(f)
+          end
+          if migrated then
+            local enc_ok, enc_s = pcall(function() return ctx.json:encode(doa_state.cache) end)
+            if enc_ok and enc_s then S.write('doa_cache.json', enc_s) end
           end
         end
-        S.delete(f)
-      end
-      if migrated then
-        local enc_ok, enc_s = pcall(function() return ctx.json:encode(doa_state.cache) end)
-        if enc_ok and enc_s then S.write('doa_cache.json', enc_s) end
-      end
-      S.delete('doa_cached_ids.txt')
-    end)
+        S.delete('doa_cached_ids.txt')
+      end)
+    end
   end)
 end
 

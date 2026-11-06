@@ -1553,7 +1553,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   -- ==============================================================
   -- 1. Scrollable Content Layer (offset by scroll_y)
   -- ==============================================================
-
+  if not modal_open then
   -- Grouped Card 1: Core Settings (y = 66..678, h = 612, 9 rows)
   local card1_y = 66 - scroll_y
   if (card1_y + 612) >= 60 and card1_y <= 726 then
@@ -1755,6 +1755,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     local gh_note = 'Source Code • Panduan • Rilis • Dukungan'
     vcenter_text(W // 2, dy, gh_note, 'small')
   end
+  end
 
   -- ==============================================================
   -- 2. Fixed Top Header (Apple Minimalist with ☰ and Clock)
@@ -1796,8 +1797,11 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
   local is_en = (cfg.lang == 'en')
   local mx, my, mw, mh = 20, 84, W - 40, 632
 
-  -- Dim background with authentic e-ink scrim (every 4px scanlines)
-  for sy = 0, H, 4 do
+  -- Dim background with authentic e-ink scrim (exposed borders outside modal card)
+  for sy = 0, my - 2, 8 do
+    gg:line(0, sy, W, sy, { line_width = 1 })
+  end
+  for sy = my + mh + 2, H, 8 do
     gg:line(0, sy, W, sy, { line_width = 1 })
   end
 
@@ -1872,8 +1876,8 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
     -- Font Name & Subtitle (Fitted so it never overlaps right badge)
     local fn = fnames[i]
     local fs = is_en and fsubs_en[i] or fsubs_id[i]
-    gg:text(rx + 38, ry + 14, S.fit_text(fn, 'medium', 170), { font = S.font('medium') })
-    gg:text(rx + 38, ry + 40, S.fit_text(fs, 'small', 170), { font = S.font('small') })
+    gg:text(rx + 38, ry + 14, S.fit_text(fn, 'medium', 240), { font = S.font('medium') })
+    gg:text(rx + 38, ry + 40, S.fit_text(fs, 'small', 240), { font = S.font('small') })
 
     -- Live Clock Sample Preview in contained pill badge
     local pw, ph = 106, 42
@@ -1895,8 +1899,11 @@ function F.draw_quote_modal(gg, cfg, draw_btn)
   local is_en = (cfg.lang == 'en')
   local mx, my, mw, mh = 20, 68, W - 40, 636
 
-  -- Dim background with authentic e-ink scrim (every 4px scanlines)
-  for sy = 0, H, 4 do
+  -- Dim background with authentic e-ink scrim (exposed borders outside modal card)
+  for sy = 0, my - 2, 8 do
+    gg:line(0, sy, W, sy, { line_width = 1 })
+  end
+  for sy = my + mh + 2, H, 8 do
     gg:line(0, sy, W, sy, { line_width = 1 })
   end
 

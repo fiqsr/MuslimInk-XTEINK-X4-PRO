@@ -416,7 +416,7 @@ if not fset then
 S.center_text(gg,cx,y+(h - 30)//2,hhmm,'large')
 return
 end
-local raw_pack=(h<50 and fset.sm)or fset.big
+local raw_pack=(h<50 and fset.sm)or(h>=50 and fset.big)
 if not raw_pack then
 S.center_text(gg,cx,y+(h - 26)//2,hhmm,'large')
 return

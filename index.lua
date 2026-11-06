@@ -773,7 +773,7 @@ if not fset then
 S.center_text(gg,cx,y+(h - 30)//2,hhmm,'large')
 return
 end
-local raw_pack=(h<50 and fset.sm)or fset.big
+local raw_pack=(h<50 and fset.sm)or(h>=50 and fset.big)
 if not raw_pack then
 S.center_text(gg,cx,y+(h - 26)//2,hhmm,'large')
 return
@@ -2385,6 +2385,7 @@ if y>=60 and y<=720 then
 gg:line(x1 or 36,y,x2 or(W - 36),y,{line_width=1})
 end
 end
+if not modal_open then
 local card1_y=66 - scroll_y
 if(card1_y+612)>=60 and card1_y<=726 then
 S.round_rect(gg,20,card1_y,W - 40,612,14,nil,true,0)
@@ -2544,6 +2545,7 @@ dy=dy+22
 local gh_note='Source Code • Panduan • Rilis • Dukungan'
 vcenter_text(W//2,dy,gh_note,'small')
 end
+end
 gg:rect(0,0,W,56,{fill=true,color=0})
 gg:line(0,56,W,56,{line_width=1})
 gg:text(24,18,is_en and 'Settings & About' or 'Pengaturan & Info',{font=S.font('large')})
@@ -2567,7 +2569,10 @@ function F.draw_cfont_modal(gg,cfg,now_info,draw_btn)
 local W,H=S.W,S.H
 local is_en=(cfg.lang=='en')
 local mx,my,mw,mh=20,84,W - 40,632
-for sy=0,H,4 do
+for sy=0,my - 2,8 do
+gg:line(0,sy,W,sy,{line_width=1})
+end
+for sy=my+mh+2,H,8 do
 gg:line(0,sy,W,sy,{line_width=1})
 end
 gg:rect(mx,my,mw,mh,{fill=true,color=0})
@@ -2608,8 +2613,8 @@ gg:circle(cir_x,cir_y,5,{fill=true})
 end
 local fn=fnames[i]
 local fs=is_en and fsubs_en[i] or fsubs_id[i]
-gg:text(rx+38,ry+14,S.fit_text(fn,'medium',170),{font=S.font('medium')})
-gg:text(rx+38,ry+40,S.fit_text(fs,'small',170),{font=S.font('small')})
+gg:text(rx+38,ry+14,S.fit_text(fn,'medium',240),{font=S.font('medium')})
+gg:text(rx+38,ry+40,S.fit_text(fs,'small',240),{font=S.font('small')})
 local pw,ph=106,42
 local px=rx+rw - pw - 12
 local py=ry+(rh - ph)//2
@@ -2623,7 +2628,10 @@ function F.draw_quote_modal(gg,cfg,draw_btn)
 local W,H=S.W,S.H
 local is_en=(cfg.lang=='en')
 local mx,my,mw,mh=20,68,W - 40,636
-for sy=0,H,4 do
+for sy=0,my - 2,8 do
+gg:line(0,sy,W,sy,{line_width=1})
+end
+for sy=my+mh+2,H,8 do
 gg:line(0,sy,W,sy,{line_width=1})
 end
 gg:rect(mx,my,mw,mh,{fill=true,color=0})
@@ -3619,6 +3627,7 @@ local loc_str=(cfg.kab or 'Kota Jakarta')..'  •  '..sub_loc
 gg:text(20,58,now_info.date_str,{font=S.font('medium')})
 gg:text(20,86,S.fit_text(h_label,'small',W - 40),{font=S.font('small')})
 gg:text(20,110,S.fit_text(loc_str,'small',W - 40),{font=S.font('small')})
+if not(cfont_modal or quote_modal or update_modal or storage_modal)then
 if not info.has_data then
 S.card(gg,20,140,W - 40,240,2,true)
 S.center_text(gg,W//2,186,L.no_data_title,'large',W - 70)
@@ -3646,6 +3655,7 @@ else
 f_text=(cfg.lang=='en' and 'Source: Aladhan API • Meeus Solar Offline' or 'Sumber: Aladhan API • Hisab Astronomi Offline')
 end
 S.center_text(gg,W//2,676,f_text,'small',W - 24)
+end
 end
 local labels=shalat_action_labels()
 for i=1,4 do
@@ -5264,7 +5274,11 @@ tsb=F.load_tasbih(now_info.day)
 pcall(function()ctx:set_tick(30000)end)
 pcall(function()ctx:set_tick_rate(30000)end)
 ensure_schedules(false)
+if not cfg.legacy_cleaned then
+cfg.legacy_cleaned=true
+S.save_cfg(cfg)
 pcall(function()
+if S.read('doa_1.txt')then
 local migrated=false
 for id=1,250 do
 local f='doa_'..tostring(id)..'.txt'
@@ -5284,8 +5298,10 @@ if migrated then
 local enc_ok,enc_s=pcall(function()return ctx.json:encode(doa_state.cache)end)
 if enc_ok and enc_s then S.write('doa_cache.json',enc_s)end
 end
+end
 S.delete('doa_cached_ids.txt')
 end)
+end
 end)
 end
 function on_leave(c)

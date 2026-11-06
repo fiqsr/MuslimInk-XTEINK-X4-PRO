@@ -2,7 +2,7 @@
 """Bundle Jadwal Sholat (MuslimInk) Lua files, extract lossless TrueType clock fonts,
 compact large static datasets (cities, duas, ayahs), and generate slim <= 256 KB package."""
 
-import os, sys, re, struct, tempfile, shutil
+import os, sys, re, struct, tempfile, shutil, math
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -375,30 +375,50 @@ end
 def make_icon():
     img = Image.new("1", (96, 96), 1)
     d = ImageDraw.Draw(img)
-    d.rounded_rectangle((4, 4, 91, 91), radius=14, outline=0, width=3)
-    d.rounded_rectangle((8, 8, 87, 87), radius=10, outline=0, width=1)
-    d.rectangle((16, 76, 80, 79), fill=0)
-    d.rectangle((20, 72, 76, 75), fill=0)
-    d.rectangle((28, 54, 68, 72), fill=0)
-    d.rectangle((18, 32, 24, 72), fill=0)
-    d.rectangle((16, 42, 26, 44), fill=0)
-    d.ellipse((18, 28, 24, 35), fill=0)
-    d.line((21, 20, 21, 28), fill=0, width=2)
-    d.rectangle((72, 32, 78, 72), fill=0)
-    d.rectangle((70, 42, 80, 44), fill=0)
-    d.ellipse((72, 28, 78, 35), fill=0)
-    d.line((75, 20, 75, 28), fill=0, width=2)
-    d.ellipse((34, 34, 62, 62), fill=0)
-    d.ellipse((26, 46, 38, 58), fill=0)
-    d.ellipse((58, 46, 70, 58), fill=0)
-    d.line((48, 24, 48, 34), fill=0, width=2)
-    d.ellipse((42, 13, 54, 25), fill=0)
-    d.ellipse((46, 11, 56, 21), fill=1)
-    d.rectangle((43, 60, 53, 72), fill=1)
-    d.ellipse((43, 55, 53, 65), fill=1)
+
+    # Outer squircle border
+    d.rounded_rectangle((4, 4, 91, 91), radius=16, outline=0, width=3)
+
+    # Base plinths
+    d.rectangle((16, 78, 79, 81), fill=0)
+    d.rectangle((20, 74, 75, 77), fill=0)
+
+    # Dome: y from 74 down to 28 (height 46) with pointed arch (ogee) curve
+    pts_left = []
+    pts_right = []
+    for y in range(74, 27, -1):
+        t = (74 - y) / 46.0
+        if t < 0.35:
+            u = t / 0.35
+            w = 23 + 3.0 * math.sin(u * math.pi / 2)
+        else:
+            u = (t - 0.35) / 0.65
+            w = 26.0 * ((1.0 - u) ** 1.3)
+        pts_left.append((48 - round(w), y))
+        pts_right.append((48 + round(w), y))
+
+    poly = pts_left + list(reversed(pts_right))
+    d.polygon(poly, fill=0)
+
+    # Negative space arched door (mihrab) at the center
+    d.rectangle((41, 60, 55, 74), fill=1)
+    d.chord((41, 52, 55, 66), 180, 360, fill=1)
+    d.line((48, 57, 48, 74), fill=0, width=1)
+
+    # Spire / finial pole with decorative bead
+    d.line((48, 19, 48, 28), fill=0, width=2)
+    d.ellipse((46, 23, 50, 27), fill=0)
+
+    # Crescent moon (Hilal) at top
+    d.ellipse((43, 10, 53, 20), fill=0)
+    d.ellipse((46, 9, 56, 19), fill=1)
+
+    # Star inside crescent
+    d.rectangle((47, 13, 48, 14), fill=0)
+
     icon_path = os.path.join(HERE, "icon.png")
     img.save(icon_path)
-    print("Generated original mosque icon:", icon_path)
+    print("Generated elegant mosque dome icon:", icon_path)
 
 
 if __name__ == "__main__":

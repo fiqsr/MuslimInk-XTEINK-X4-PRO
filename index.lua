@@ -559,12 +559,15 @@ return s:sub(1,max_len - 2)..'..'
 end
 function S.round_rect(gg,x,y,w,h,r,lw,fill,color)
 r=math.min(r or 10,w//2,h//2)
-if r<=2 then
 if fill then
-gg:rect(x,y,w,h,{fill=true,color=color or 1})
-else
-gg:rect(x,y,w,h,{line_width=lw or 1})
+local opts={fill=true}
+if r>0 then opts.radius=r end
+if color~=nil then opts.color=color end
+gg:rect(x,y,w,h,opts)
+return
 end
+if r<=2 then
+gg:rect(x,y,w,h,{line_width=lw or 1})
 return
 end
 local p={}
@@ -598,11 +601,7 @@ add(cx - r*0.707,cy - r*0.707)
 add(cx - r*0.500,cy - r*0.866)
 add(cx,cy - r)
 add(x+r,y)
-if fill then
-gg:polygon(p,{fill=true,color=color or 1})
-else
 gg:polyline(p,{line_width=lw or 1})
-end
 end
 function S.diamond(gg,cx,cy,r,fill,color)
 local pts={cx,cy - r,cx+r,cy,cx,cy+r,cx - r,cy,cx,cy - r}
@@ -636,15 +635,18 @@ local seg_w=w/n
 for i,seg in ipairs(segments)do
 local sx=math.floor(x+(i - 1)*seg_w)
 local sw=math.floor(x+i*seg_w)- sx
+local cx=sx+sw//2
+local cy=y+(h - 18)//2
 if i==active_idx then
 local pr=(h - 4)//2
-S.round_rect(gg,sx+2,y+2,sw - 4,h - 4,pr,nil,true,1)
-S.center_text(gg,sx+sw//2,y+(h - 18)//2,seg,'small',sw - 6,0)
+S.round_rect(gg,sx+2,y+2,sw - 4,h - 4,pr,2)
+gg:rect(sx+8,y+h - 5,sw - 16,2,{fill=true})
+S.center_text(gg,cx,cy - 1,seg,'medium',sw - 6)
 else
 if i<n and(i+1)~=active_idx and i~=active_idx then
 gg:line(sx+sw,y+6,sx+sw,y+h - 6,{line_width=1})
 end
-S.center_text(gg,sx+sw//2,y+(h - 18)//2,seg,'small',sw - 6,1)
+S.center_text(gg,cx,cy,seg,'small',sw - 6)
 end
 end
 end
@@ -701,43 +703,41 @@ gg:line(x,ly,x+w,ly,{line_width=3})
 gg:line(x,ly+8,x+w,ly+8,{line_width=3})
 gg:line(x,ly+16,x+w,ly+16,{line_width=3})
 end
-function S.draw_menu_icon(gg,kind,cx,cy,color)
-local col=(color==nil)and 1 or color
-local inv_col=(col==1)and 0 or 1
+function S.draw_menu_icon(gg,kind,cx,cy)
 if kind=='shalat' then
-gg:rect(cx - 9,cy+2,18,8,{fill=true,color=col})
-gg:circle(cx,cy+2,6,{fill=true,color=col})
-gg:line(cx,cy - 8,cx,cy - 4,{line_width=1,color=col})
-gg:rect(cx - 3,cy+4,6,6,{fill=true,color=inv_col})
+gg:rect(cx - 9,cy+2,18,8,{fill=true})
+gg:circle(cx,cy+2,6,{fill=true})
+gg:line(cx,cy - 8,cx,cy - 4,{line_width=1})
+gg:rect(cx - 3,cy+4,6,6,{fill=true,color=0})
 elseif kind=='tasbih' then
 for deg=0,315,45 do
 local rad=deg*math.pi/180.0
 local bx=cx+math.floor(8*math.cos(rad)+0.5)
 local by=cy+math.floor(8*math.sin(rad)+0.5)
-gg:circle(bx,by,2,{fill=true,color=col})
+gg:circle(bx,by,2,{fill=true})
 end
 elseif kind=='doa' then
-gg:rect(cx - 9,cy - 6,8,12,{line_width=1,color=col})
-gg:rect(cx+1,cy - 6,8,12,{line_width=1,color=col})
-gg:line(cx - 7,cy - 2,cx - 3,cy - 2,{line_width=1,color=col})
-gg:line(cx - 7,cy+2,cx - 3,cy+2,{line_width=1,color=col})
-gg:line(cx+3,cy - 2,cx+7,cy - 2,{line_width=1,color=col})
-gg:line(cx+3,cy+2,cx+7,cy+2,{line_width=1,color=col})
+gg:rect(cx - 9,cy - 6,8,12,{line_width=1})
+gg:rect(cx+1,cy - 6,8,12,{line_width=1})
+gg:line(cx - 7,cy - 2,cx - 3,cy - 2)
+gg:line(cx - 7,cy+2,cx - 3,cy+2)
+gg:line(cx+3,cy - 2,cx+7,cy - 2)
+gg:line(cx+3,cy+2,cx+7,cy+2)
 elseif kind=='hijri' then
-gg:rect(cx - 8,cy - 7,16,15,{line_width=1,color=col})
-gg:line(cx - 8,cy - 2,cx+8,cy - 2,{line_width=1,color=col})
-gg:line(cx - 4,cy - 9,cx - 4,cy - 7,{line_width=2,color=col})
-gg:line(cx+4,cy - 9,cx+4,cy - 7,{line_width=2,color=col})
-gg:circle(cx,cy+4,2,{fill=true,color=col})
+gg:rect(cx - 8,cy - 7,16,15,{line_width=1})
+gg:line(cx - 8,cy - 2,cx+8,cy - 2,{line_width=1})
+gg:line(cx - 4,cy - 9,cx - 4,cy - 7,{line_width=2})
+gg:line(cx+4,cy - 9,cx+4,cy - 7,{line_width=2})
+gg:circle(cx,cy+4,2,{fill=true})
 elseif kind=='kiblat' then
-gg:circle(cx,cy,9,{line_width=1,color=col})
-gg:line(cx - 4,cy+4,cx+4,cy - 4,{line_width=2,color=col})
-gg:polygon({cx+4,cy - 4,cx+1,cy - 1,cx+4,cy - 1},{fill=true,color=col})
+gg:circle(cx,cy,9,{line_width=1})
+gg:line(cx - 4,cy+4,cx+4,cy - 4,{line_width=2})
+gg:polygon({cx+4,cy - 4,cx+1,cy - 1,cx+4,cy - 1},{fill=true})
 elseif kind=='settings' then
-gg:circle(cx,cy,6,{line_width=2,color=col})
-gg:circle(cx,cy,2,{fill=true,color=col})
-gg:line(cx,cy - 9,cx,cy+9,{line_width=2,color=col})
-gg:line(cx - 9,cy,cx+9,cy,{line_width=2,color=col})
+gg:circle(cx,cy,6,{line_width=2})
+gg:circle(cx,cy,2,{fill=true})
+gg:line(cx,cy - 9,cx,cy+9,{line_width=2})
+gg:line(cx - 9,cy,cx+9,cy,{line_width=2})
 end
 end
 local BLACK={fill=true}
@@ -3549,15 +3549,16 @@ local item_h=58
 for i,it in ipairs(DRAWER_ITEMS)do
 local iy=start_y+(i - 1)*item_h
 local is_act=(screen==it.id)
+local lbl=is_en and it.en_lbl or it.id_lbl
 if is_act then
-S.round_rect(gg,DX+14,iy,DW - 28,48,10,nil,true,1)
-S.draw_menu_icon(gg,it.icon,DX+36,iy+24,0)
-local lbl=is_en and it.en_lbl or it.id_lbl
-gg:text(DX+58,iy+12,S.fit_text(lbl,'medium',DW - 74),{font=S.font('medium'),color=0})
+S.round_rect(gg,DX+14,iy,DW - 28,48,10,2)
+gg:rect(DX+18,iy+10,4,28,{fill=true,radius=2})
+gg:text(DX+DW - 32,iy+12,'>',{font=S.font('medium')})
+S.draw_menu_icon(gg,it.icon,DX+38,iy+24)
+gg:text(DX+60,iy+12,S.fit_text(lbl,'medium',DW - 96),{font=S.font('medium')})
 else
-S.draw_menu_icon(gg,it.icon,DX+36,iy+24,1)
-local lbl=is_en and it.en_lbl or it.id_lbl
-gg:text(DX+58,iy+12,S.fit_text(lbl,'medium',DW - 74),{font=S.font('medium')})
+S.draw_menu_icon(gg,it.icon,DX+38,iy+24)
+gg:text(DX+60,iy+12,S.fit_text(lbl,'medium',DW - 78),{font=S.font('medium')})
 end
 end
 local qx,qy,qw,qh=DX+14,436,DW - 28,278

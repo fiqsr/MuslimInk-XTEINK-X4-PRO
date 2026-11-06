@@ -535,17 +535,18 @@ local function draw_drawer(gg)
   for i, it in ipairs(DRAWER_ITEMS) do
     local iy = start_y + (i - 1) * item_h
     local is_act = (screen == it.id)
+    local lbl = is_en and it.en_lbl or it.id_lbl
     if is_act then
-      -- Active item rounded pill highlight: Full black with white icon & text
-      S.round_rect(gg, DX + 14, iy, DW - 28, 48, 10, nil, true, 1)
-      S.draw_menu_icon(gg, it.icon, DX + 36, iy + 24, 0)
-      local lbl = is_en and it.en_lbl or it.id_lbl
-      gg:text(DX + 58, iy + 12, S.fit_text(lbl, 'medium', DW - 74), { font = S.font('medium'), color = 0 })
+      -- Active item rounded pill highlight: High-contrast framed pill with left accent bar & chevron
+      S.round_rect(gg, DX + 14, iy, DW - 28, 48, 10, 2)
+      gg:rect(DX + 18, iy + 10, 4, 28, { fill = true, radius = 2 })
+      gg:text(DX + DW - 32, iy + 12, '>', { font = S.font('medium') })
+      S.draw_menu_icon(gg, it.icon, DX + 38, iy + 24)
+      gg:text(DX + 60, iy + 12, S.fit_text(lbl, 'medium', DW - 96), { font = S.font('medium') })
     else
       -- Inactive item
-      S.draw_menu_icon(gg, it.icon, DX + 36, iy + 24, 1)
-      local lbl = is_en and it.en_lbl or it.id_lbl
-      gg:text(DX + 58, iy + 12, S.fit_text(lbl, 'medium', DW - 74), { font = S.font('medium') })
+      S.draw_menu_icon(gg, it.icon, DX + 38, iy + 24)
+      gg:text(DX + 60, iy + 12, S.fit_text(lbl, 'medium', DW - 78), { font = S.font('medium') })
     end
   end
 

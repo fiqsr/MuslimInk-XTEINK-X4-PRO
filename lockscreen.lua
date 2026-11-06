@@ -298,12 +298,15 @@ gg:text(math.floor(rx - w),y,s,{font=S.font(fname)})
 end
 function S.round_rect(gg,x,y,w,h,r,lw,fill,color)
 r=math.min(r or 10,w//2,h//2)
-if r<=2 then
 if fill then
-gg:rect(x,y,w,h,{fill=true,color=color or 1})
-else
-gg:rect(x,y,w,h,{line_width=lw or 1})
+local opts={fill=true}
+if r>0 then opts.radius=r end
+if color~=nil then opts.color=color end
+gg:rect(x,y,w,h,opts)
+return
 end
+if r<=2 then
+gg:rect(x,y,w,h,{line_width=lw or 1})
 return
 end
 local p={}
@@ -337,11 +340,7 @@ add(cx - r*0.707,cy - r*0.707)
 add(cx - r*0.500,cy - r*0.866)
 add(cx,cy - r)
 add(x+r,y)
-if fill then
-gg:polygon(p,{fill=true,color=color or 1})
-else
 gg:polyline(p,{line_width=lw or 1})
-end
 end
 function S.card(gg,x,y,w,h,lw,double_border)
 S.round_rect(gg,x,y,w,h,14,nil,true,0)

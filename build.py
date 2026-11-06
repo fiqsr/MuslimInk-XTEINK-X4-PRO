@@ -372,6 +372,15 @@ end
     print(f"Bundled index.lua ({len(min_index)} B) and lockscreen.lua ({len(min_lock)} B)")
 
 
+def draw_star(draw, cx, cy, r_out, r_in, fill=0):
+    pts = []
+    for i in range(10):
+        r = r_out if i % 2 == 0 else r_in
+        angle = -math.pi / 2 + i * math.pi / 5
+        pts.append((cx + r * math.cos(angle), cy + r * math.sin(angle)))
+    draw.polygon(pts, fill=fill)
+
+
 def make_icon():
     img = Image.new("1", (96, 96), 1)
     d = ImageDraw.Draw(img)
@@ -379,46 +388,50 @@ def make_icon():
     # Outer squircle border
     d.rounded_rectangle((4, 4, 91, 91), radius=16, outline=0, width=3)
 
-    # Base plinths
-    d.rectangle((16, 78, 79, 81), fill=0)
-    d.rectangle((20, 74, 75, 77), fill=0)
+    # Base plinths (solid foundation)
+    d.rectangle((16, 82, 79, 85), fill=0)
+    d.rectangle((20, 80, 75, 82), fill=0)
 
-    # Dome: y from 74 down to 28 (height 46) with pointed arch (ogee) curve
+    # Main bulbous dome (solid, no door)
     pts_left = []
     pts_right = []
-    for y in range(74, 27, -1):
-        t = (74 - y) / 46.0
+    for y in range(80, 51, -1):
+        t = (80 - y) / 29.0
         if t < 0.35:
             u = t / 0.35
-            w = 23 + 3.0 * math.sin(u * math.pi / 2)
+            w = 28 + 3.0 * math.sin(u * math.pi / 2)
         else:
             u = (t - 0.35) / 0.65
-            w = 26.0 * ((1.0 - u) ** 1.3)
+            w = 31 * math.cos(u * math.pi * 0.44)
         pts_left.append((48 - round(w), y))
         pts_right.append((48 + round(w), y))
+    d.polygon(pts_left + list(reversed(pts_right)), fill=0)
 
-    poly = pts_left + list(reversed(pts_right))
-    d.polygon(poly, fill=0)
+    # Upper cupola tier
+    pts_c_l = []
+    pts_c_r = []
+    for y in range(52, 41, -1):
+        t = (52 - y) / 11.0
+        w = 10 * math.cos(t * math.pi * 0.45)
+        pts_c_l.append((48 - round(w), y))
+        pts_c_r.append((48 + round(w), y))
+    d.polygon(pts_c_l + list(reversed(pts_c_r)), fill=0)
 
-    # Negative space arched door (mihrab) at the center
-    d.rectangle((41, 60, 55, 74), fill=1)
-    d.chord((41, 52, 55, 66), 180, 360, fill=1)
-    d.line((48, 57, 48, 74), fill=0, width=1)
+    # Spire pole with decorative bead
+    d.line((48, 30, 48, 42), fill=0, width=2)
+    d.ellipse((46, 37, 50, 41), fill=0)
 
-    # Spire / finial pole with decorative bead
-    d.line((48, 19, 48, 28), fill=0, width=2)
-    d.ellipse((46, 23, 50, 27), fill=0)
+    # Big, bold crescent moon (Hilal)
+    d.ellipse((34, 9, 56, 31), fill=0)
+    d.ellipse((40, 9, 58, 29), fill=1)
+    d.rectangle((47, 30, 49, 32), fill=0)
 
-    # Crescent moon (Hilal) at top
-    d.ellipse((43, 10, 53, 20), fill=0)
-    d.ellipse((46, 9, 56, 19), fill=1)
-
-    # Star inside crescent
-    d.rectangle((47, 13, 48, 14), fill=0)
+    # Big 5-pointed star inside the crescent
+    draw_star(d, 50, 19, r_out=5.2, r_in=2.3, fill=0)
 
     icon_path = os.path.join(HERE, "icon.png")
     img.save(icon_path)
-    print("Generated elegant mosque dome icon:", icon_path)
+    print("Generated mosque dome icon:", icon_path)
 
 
 if __name__ == "__main__":

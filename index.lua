@@ -994,35 +994,46 @@ if not fset then
 S.center_text(gg,cx,y+(h - 30)// 2,hhmm,'large')
 return
 end
-local raw_pack=(h>=60)and fset.big or fset.sm
+local raw_pack=fset.big
 if not raw_pack then
 S.center_text(gg,cx,y+(h - 26)// 2,hhmm,'large')
 return
 end
 local pack=unpack_pack(raw_pack)
 if not pack or not pack.g then return end
-local gap=(h>=60)and 8 or 4
+local scale=(h>=60)and 1.0 or(h / pack.h)
+local gap=(h>=60)and 8 or math.max(2,math.floor(6*scale))
 local total_w=0
 for idx=1,#hhmm do
 local ch=hhmm:sub(idx,idx)
 local gl=pack.g[ch]
 if gl then
-total_w=total_w+gl.w
+local gw=(scale==1.0)and gl.w or math.floor(gl.w*scale)
+total_w=total_w+gw
 if idx<#hhmm then total_w=total_w+gap end
 end
 end
 local x=math.floor(cx - total_w / 2)
-local dy=y+(h - pack.h)// 2
+local dy=(scale==1.0)and(y+(h - pack.h)// 2)or y
 for idx=1,#hhmm do
 local ch=hhmm:sub(idx,idx)
 local gl=pack.g[ch]
 if gl then
+local gw=(scale==1.0)and gl.w or math.floor(gl.w*scale)
 local rects=gl.dec or{}
 for r_i=1,#rects do
 local r=rects[r_i]
+if scale==1.0 then
 gg:rect(x+r[1],dy+r[2],r[3],r[4],BLACK)
+else
+local rx=x+math.floor(r[1]*scale)
+local ry=dy+math.floor(r[2]*scale)
+local rw=math.max(1,math.ceil(r[3]*scale))
+local rh=math.max(1,math.ceil(r[4]*scale))
+gg:rect(rx,ry,rw,rh,BLACK)
 end
-x=x+gl.w+gap
+end
+x=x+gw+gap
 end
 end
 end
@@ -1462,8 +1473,8 @@ local ry=base_y+(n - 1)*lh+ref_gap
 local rw=S.text_w(ref or '','small')
 gg:text(math.floor((S.W - rw)/ 2),ry,ref or '',{font=S.font('small')})
 end
-S.APP_VERSION='1.2.3'
-S.APP_BUILD=123
+S.APP_VERSION='1.2.4'
+S.APP_BUILD=124
 S.UPDATE_URL='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
@@ -3037,37 +3048,12 @@ local fn=is_en and fnames_en[i] or fnames_id[i]
 local fs=is_en and fsubs_en[i] or fsubs_id[i]
 gg:text(rx+38,ry+14,fn,{font=S.font('medium')})
 gg:text(rx+38,ry+40,fs,{font=S.font('small')})
-local pw,ph=96,38
-local px=rx+rw - pw - 14
+local pw,ph=106,40
+local px=rx+rw - pw - 12
 local py=ry+(rh - ph)// 2
-local ar_digits={['0']='٠',['1']='١',['2']='٢',['3']='٣',['4']='٤',['5']='٥',['6']='٦',['7']='٧',['8']='٨',['9']='٩'}
-local disp_time=(i==6)and(tostring(sample_time):gsub('%d',ar_digits))or sample_time
-if i==1 then
-S.round_rect(gg,px,py,pw,ph,14,nil,true,0)
-S.round_rect(gg,px,py,pw,ph,14,is_sel and 2 or 1)
-elseif i==2 then
-gg:rect(px,py,pw,ph,{fill=true,color=0})
-gg:rect(px,py,pw,ph,{line_width=is_sel and 2 or 1})
-gg:line(px - 1,py,px+5,py,{line_width=2})
-gg:line(px+pw - 5,py,px+pw+1,py,{line_width=2})
-gg:line(px - 1,py+ph,px+5,py+ph,{line_width=2})
-gg:line(px+pw - 5,py+ph,px+pw+1,py+ph,{line_width=2})
-elseif i==3 then
-S.round_rect(gg,px,py,pw,ph,6,nil,true,0)
-S.round_rect(gg,px,py,pw,ph,6,2)
-elseif i==4 then
-gg:rect(px,py,pw,ph,{fill=true,color=0})
-gg:rect(px,py,pw,ph,{line_width=is_sel and 2 or 1})
-gg:rect(px+2,py+2,pw - 4,ph - 4,{line_width=1})
-elseif i==5 then
 S.round_rect(gg,px,py,pw,ph,8,nil,true,0)
-S.round_rect(gg,px,py,pw,ph,8,1)
-S.round_rect(gg,px+3,py+3,pw - 6,ph - 6,6,1)
-elseif i==6 then
-S.round_rect(gg,px,py,pw,ph,10,nil,true,0)
-S.round_rect(gg,px,py,pw,ph,10,is_sel and 2 or 1)
-end
-S.center_text(gg,px+pw // 2,py+(ph - 24)// 2,disp_time,'medium',pw - 8)
+S.round_rect(gg,px,py,pw,ph,8,is_sel and 2 or 1)
+S.big_clock(gg,sample_time,px+pw // 2,py+(ph - 24)// 2,24,i)
 end
 draw_btn(gg,mx+20,my+mh - 54,mw - 40,44,is_en and 'Close' or 'Tutup',true,'medium')
 end

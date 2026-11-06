@@ -1,6 +1,6 @@
 {
-  "version": "1.2.3",
-  "build": 123,
+  "version": "1.2.4",
+  "build": 124,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,15 +9,15 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 261088,
+  "size_bytes": 260832,
   "changelog_id": [
-    "Perbaikan Modal Gaya Font Jam: Mengatasi crash dan angka jam raksasa yang bertumpukan pada dialog pemilihan font jam. Seluruh 6 gaya font jam kini memiliki pratinjau kartu mini yang rapi, elegan, dan proporsional",
-    "Pratinjau Font Jam Akurat & Aman: Masing-masing font (Modern Bulat, Klasik Serif, Tegas Bold, Geometris Slab, Artistik Inline, dan Angka Arab) tampil dengan badge gaya khas masing-masing tanpa ada elemen yang keluar layar",
-    "Perlindungan Render E-Ink Native: Memperbaiki batas render angka TrueType agar selalu aman pada buffer layar XTEINK dan lockscreen"
+    "Pratinjau Font Jam TrueType Asli (100% Visual): Setiap baris font (Modern Bulat, Klasik Serif, Tegas Bold, Geometris Slab, Artistik Inline, dan Angka Arab) kini menampilkan angka jam waktu nyata sesuai dengan bentuk font aslinya, bukan lagi font sistem standar yang seragam",
+    "Angka Arab Naskh Terlihat Nyata: Memperbaiki pratinjau font ke-6 (Angka Arab) yang sebelumnya kosong, kini menampilkan angka Arab kaligrafi asli yang indah dan jelas",
+    "Proporsional & Presisi: Menggunakan render TrueType berskala dinamis sehingga proporsional di dalam badge pratinjau tanpa merusak tata letak"
   ],
   "changelog_en": [
-    "Clock Font Picker Modal Fix: Resolved crash and gigantic overlapping numbers in the clock font picker modal. All 6 clock font styles now feature neat, elegant, and perfectly proportioned mini preview badges",
-    "Accurate & Safe Font Previews: Each font (Modern Rounded, Classic Serif, Bold Geometric, Geometric Slab, Artistic Inline, and Arabic Numerals) is rendered within its own themed badge with zero screen overflow",
-    "Native E-Ink Render Protection: Fortified TrueType scanline rendering boundaries to remain safe across XTEINK display buffers and lockscreen"
+    "Authentic TrueType Font Previews (100% Visual): Each clock font option (Modern Rounded, Classic Serif, Bold Geometric, Geometric Slab, Artistic Inline, and Arabic Numerals) now displays real-time clock digits matching their actual unique font design instead of identical system text",
+    "Visible Arabic Calligraphy Numerals: Fixed font option #6 (Arabic Numerals) which previously showed a blank box; it now renders crisp, authentic Naskh Arabic numerals",
+    "Proportional & Precise: Dynamic proportional scaling renders every TrueType font sharply within its preview badge without any overflow"
   ]
 }

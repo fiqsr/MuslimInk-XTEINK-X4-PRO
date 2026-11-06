@@ -1801,47 +1801,17 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
     gg:text(rx + 38, ry + 14, fn, { font = S.font('medium') })
     gg:text(rx + 38, ry + 40, fs, { font = S.font('small') })
 
-    -- Live Sample Preview Badge on Right (Safe, Compact, Styled per Font)
-    local pw, ph = 96, 38
-    local px = rx + rw - pw - 14
+    -- Live Sample Preview Badge on Right (Authentic TrueType Scaled Digits)
+    local pw, ph = 106, 40
+    local px = rx + rw - pw - 12
     local py = ry + (rh - ph) // 2
 
-    local ar_digits = { ['0'] = '٠', ['1'] = '١', ['2'] = '٢', ['3'] = '٣', ['4'] = '٤', ['5'] = '٥', ['6'] = '٦', ['7'] = '٧', ['8'] = '٨', ['9'] = '٩' }
-    local disp_time = (i == 6) and (tostring(sample_time):gsub('%d', ar_digits)) or sample_time
+    -- Clean white pill with 2px border if selected, 1px if unselected
+    S.round_rect(gg, px, py, pw, ph, 8, nil, true, 0)
+    S.round_rect(gg, px, py, pw, ph, 8, is_sel and 2 or 1)
 
-    if i == 1 then
-      -- 1. Modern Rounded: Smooth Pill badge
-      S.round_rect(gg, px, py, pw, ph, 14, nil, true, 0)
-      S.round_rect(gg, px, py, pw, ph, 14, is_sel and 2 or 1)
-    elseif i == 2 then
-      -- 2. Classic Serif: Sharp box with serif corner brackets
-      gg:rect(px, py, pw, ph, { fill = true, color = 0 })
-      gg:rect(px, py, pw, ph, { line_width = is_sel and 2 or 1 })
-      gg:line(px - 1, py, px + 5, py, { line_width = 2 })
-      gg:line(px + pw - 5, py, px + pw + 1, py, { line_width = 2 })
-      gg:line(px - 1, py + ph, px + 5, py + ph, { line_width = 2 })
-      gg:line(px + pw - 5, py + ph, px + pw + 1, py + ph, { line_width = 2 })
-    elseif i == 3 then
-      -- 3. Bold Geometric: Solid high-contrast badge
-      S.round_rect(gg, px, py, pw, ph, 6, nil, true, 0)
-      S.round_rect(gg, px, py, pw, ph, 6, 2)
-    elseif i == 4 then
-      -- 4. Geometric Slab: Sharp rectangular slab card with inset
-      gg:rect(px, py, pw, ph, { fill = true, color = 0 })
-      gg:rect(px, py, pw, ph, { line_width = is_sel and 2 or 1 })
-      gg:rect(px + 2, py + 2, pw - 4, ph - 4, { line_width = 1 })
-    elseif i == 5 then
-      -- 5. Artistic Inline: Dual outline effect
-      S.round_rect(gg, px, py, pw, ph, 8, nil, true, 0)
-      S.round_rect(gg, px, py, pw, ph, 8, 1)
-      S.round_rect(gg, px + 3, py + 3, pw - 6, ph - 6, 6, 1)
-    elseif i == 6 then
-      -- 6. Arabic Numerals: Classic Islamic arched badge
-      S.round_rect(gg, px, py, pw, ph, 10, nil, true, 0)
-      S.round_rect(gg, px, py, pw, ph, 10, is_sel and 2 or 1)
-    end
-
-    S.center_text(gg, px + pw // 2, py + (ph - 24) // 2, disp_time, 'medium', pw - 8)
+    -- Real Scaled TrueType Digits (24px height, perfectly centered in badge)
+    S.big_clock(gg, sample_time, px + pw // 2, py + (ph - 24) // 2, 24, i)
   end
 
   -- Bottom Done / Close button

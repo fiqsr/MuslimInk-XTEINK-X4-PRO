@@ -20,6 +20,29 @@ CLOCK_FONTS = [
     ("Arabic", "/system/fonts/NotoNaskhArabic-Bold.ttf", 124, 38, True),
 ]
 
+LOCK_LANGS_DEF = """S.LANGS = {
+  id = {
+    labels = { 'Imsak', 'Subuh', 'Terbit', 'Dhuha', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya' },
+    next_card = 'MENUJU WAKTU SHALAT', next_card_tom = 'MENUJU SHALAT (BESOK)', next_badge = 'Berikutnya',
+    sec_today = 'JADWAL HARI INI', sec_tomorrow = 'JADWAL BESOK', now_prayer = 'Saatnya waktu shalat!',
+    lock_no_data = 'Jadwal Bulan Ini Belum Ada', lock_no_l1 = 'Buka aplikasi Jadwal Sholat & Wi-Fi', lock_no_l2 = 'untuk memilih lokasi dan unduh jadwal.',
+    hari = { 'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu' },
+    bulan = { 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember' },
+    bulan_short = { 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des' },
+    hijri_bulan = { 'Muharram', 'Safar', 'Rabiul Awwal', 'Rabiul Akhir', 'Jumadil Ula', 'Jumadil Akhira', 'Rajab', 'Syaban', 'Ramadhan', 'Syawwal', 'Dzulqadah', 'Dzulhijjah' },
+  },
+  en = {
+    labels = { 'Imsak', 'Fajr', 'Sunrise', 'Dhuha', 'Dhuhr', 'Asr', 'Maghrib', 'Isha' },
+    next_card = 'COUNTDOWN TO PRAYER', next_card_tom = 'COUNTDOWN TO PRAYER (TOMORROW)', next_badge = 'Next Up',
+    sec_today = "TODAY'S SCHEDULE", sec_tomorrow = "TOMORROW'S SCHEDULE", now_prayer = "It's time to pray!",
+    lock_no_data = 'No Prayer Schedule Found', lock_no_l1 = 'Open Jadwal Sholat app & connect Wi-Fi', lock_no_l2 = 'to select location and download schedule.',
+    hari = { 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' },
+    bulan = { 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' },
+    bulan_short = { 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' },
+    hijri_bulan = { 'Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani', 'Jumada al-Ula', 'Jumada al-Akhirah', 'Rajab', 'Shaban', 'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah' },
+  }
+}"""
+
 
 def read_text(rel_path):
     with open(os.path.join(HERE, rel_path), "r", encoding="utf-8") as f:
@@ -99,7 +122,7 @@ def build_packed_fonts(include_sm=True):
 
         def pack_size(h, gmap):
             w_str = "".join(chr(gmap[c][0] + 35) for c in "0123456789:")
-            cnt_str = "".join(chr(len(gmap[c][1]) // 8 + 35) for c in "0123456789:")
+            c_str = "{" + ",".join(str(len(gmap[c][1]) // 8) for c in "0123456789:") + "}"
             r_str = ""
             for c in "0123456789:":
                 hex_s = gmap[c][1]
@@ -108,46 +131,18 @@ def build_packed_fonts(include_sm=True):
                     r_str += chr(int(hex_s[i + 2:i + 4], 16) + 35)
                     r_str += chr(int(hex_s[i + 4:i + 6], 16) + 35)
                     r_str += chr(int(hex_s[i + 6:i + 8], 16) + 35)
-            return h, w_str, cnt_str, r_str
+            return h, w_str, c_str, r_str
 
         b_h, b_w, b_c, b_r = pack_size(bh, bg)
-        f_entry = [f'CF[{idx}] = {{ name = "{name}", big = {{ h = {b_h}, w = [=[{b_w}]=], c = [=[{b_c}]=], r = [=[{b_r}]=] }}']
+        f_entry = [f'CF[{idx}] = {{ name = "{name}", big = {{ h = {b_h}, w = [=[{b_w}]=], c = {b_c}, r = [=[{b_r}]=] }}']
         if include_sm:
             sh, sg = extract_font_size(path, sm_px, is_ar)
             s_h, s_w, s_c, s_r = pack_size(sh, sg)
-            f_entry.append(f', sm = {{ h = {s_h}, w = [=[{s_w}]=], c = [=[{s_c}]=], r = [=[{s_r}]=] }}')
+            f_entry.append(f', sm = {{ h = {s_h}, w = [=[{s_w}]=], c = {s_c}, r = [=[{s_r}]=] }}')
         f_entry.append(' }')
         lines.append("".join(f_entry))
     lines.append('return CF')
     return '\n'.join(lines)
-
-
-FONT_DECODER_LUA = '''
-local function unpack_pack(p)
-  if p.g then return p end
-  local g = {}
-  local r_idx = 1
-  local r_str = p.r or ''
-  for i = 1, 11 do
-    local ch = (i <= 10) and tostring(i - 1) or ':'
-    local gw = p.w:byte(i) - 35
-    local rcount = p.c:byte(i) - 35
-    local rects = {}
-    for j = 1, rcount do
-      rects[j] = {
-        r_str:byte(r_idx) - 35,
-        r_str:byte(r_idx + 1) - 35,
-        r_str:byte(r_idx + 2) - 35,
-        r_str:byte(r_idx + 3) - 35,
-      }
-      r_idx = r_idx + 4
-    end
-    g[ch] = { w = gw, dec = rects }
-  end
-  p.g = g
-  return p
-end
-'''
 
 
 def pack_world_countries(features_content):
@@ -190,25 +185,12 @@ def pack_world_countries(features_content):
     return features_content[:m_start] + "".join(out_lines) + features_content[m_end:]
 
 
-def compact_duas(content):
-    helper = "local function D(ci,ce,ti,te,l,ai,ae,s) return {cat_id=ci,cat_en=ce,title_id=ti,title_en=te,latin=l,arti_id=ai,arti_en=ae,src=s} end\n"
-    pattern = re.compile(
-        r'\{\s*cat_id\s*=\s*([\'\"][^\'\"]+[\'\"]),\s*cat_en\s*=\s*([\'\"][^\'\"]+[\'\"]),\s*title_id\s*=\s*([\'\"][^\'\"]+[\'\"]),\s*title_en\s*=\s*([\'\"][^\'\"]+[\'\"]),\s*latin\s*=\s*([\'\"].*?[\'\"]),\s*arti_id\s*=\s*([\'\"].*?[\'\"]),\s*arti_en\s*=\s*([\'\"].*?[\'\"]),\s*src\s*=\s*([\'\"][^\'\"]+[\'\"])\s*,?\s*\}',
-        re.DOTALL
-    )
-    def repl(m):
-        return f"D({m.group(1)},{m.group(2)},{m.group(3)},{m.group(4)},{m.group(5)},{m.group(6)},{m.group(7)},{m.group(8)})"
-    return helper + pattern.sub(repl, content)
-
-
-def compact_ayahs(content):
-    helper = "local function A(r,i,e) return {ref=r,id=i,en=e} end\n"
-    pattern = re.compile(
-        r'\[(\d+)\]\s*=\s*\{\s*ref\s*=\s*([\'\"][^\'\"]+[\'\"]),\s*id\s*=\s*([\'\"].*?[\'\"]),\s*en\s*=\s*([\'\"].*?[\'\"])\s*\}'
-    )
-    def repl(m):
-        return f"[{m.group(1)}]=A({m.group(2)},{m.group(3)},{m.group(4)})"
-    return helper + pattern.sub(repl, content)
+def strip_function(code, fn_name):
+    pattern = re.compile(r"\nfunction\s+" + re.escape(fn_name) + r"\s*\([^)]*\).*?\nend\s*\n", re.DOTALL)
+    m = pattern.search(code)
+    if m:
+        return code[:m.start()] + "\n" + code[m.end():]
+    return code
 
 
 def tighten_line(line):
@@ -274,76 +256,28 @@ def bundle():
     main_src = read_text("src/main.lua")
     lock_src = read_text("src/lock.lua")
 
-    # Update big_clock to use new fast unpack_pack
-    old_big_clock = '''function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
-  local fset = (CF and CF[cfont_idx or 1]) or (CF and CF[1])
-  if not fset then return end
-  local pack = (h >= 60) and fset.big or fset.sm
-  if not pack or not pack.g then return end
-  local glyphs = pack.g'''
-
-    new_big_clock = FONT_DECODER_LUA + '''
-function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
-  local fset = (CF and CF[cfont_idx or 1]) or (CF and CF[1])
-  if not fset then return end
-  local raw_pack = (h >= 60) and fset.big or (fset.sm or fset.big)
-  if not raw_pack then return end
-  local pack = unpack_pack(raw_pack)
-  local glyphs = pack.g'''
-
-    core_src_packed = core_src.replace(old_big_clock, new_big_clock)
-
-    # Apply data compactors
-    print("Compacting world cities, duas, and daily ayahs...")
+    core_proc = strip_function(core_src, "S.draw_mosque")
     feat_proc = pack_world_countries(feat_src)
-    core_proc = core_src_packed
 
-    # Build lean lock_core: keep essential core functions, drop unused UI, updater, monthly cal
-    core_lines = core_proc.splitlines()
-    kept_lock = []
-    lock_langs_injected = False
-    for i, l in enumerate(core_lines, 1):
-        if 9 <= i <= 145:
-            if not lock_langs_injected:
-                kept_lock.append('''S.LANGS = {
-  id = {
-    labels = { 'Imsak', 'Subuh', 'Terbit', 'Dhuha', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya' },
-    next_card = 'MENUJU WAKTU SHALAT', next_card_tom = 'MENUJU SHALAT (BESOK)', next_badge = 'Berikutnya',
-    sec_today = 'JADWAL HARI INI', sec_tomorrow = 'JADWAL BESOK', now_prayer = 'Saatnya waktu shalat!',
-    lock_no_data = 'Jadwal Bulan Ini Belum Ada', lock_no_l1 = 'Buka aplikasi Jadwal Sholat & Wi-Fi', lock_no_l2 = 'untuk memilih lokasi dan unduh jadwal.',
-    hari = { 'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu' },
-    bulan = { 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember' },
-    bulan_short = { 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des' },
-    hijri_bulan = { 'Muharram', 'Safar', 'Rabiul Awwal', 'Rabiul Akhir', 'Jumadil Ula', 'Jumadil Akhira', 'Rajab', 'Syaban', 'Ramadhan', 'Syawwal', 'Dzulqadah', 'Dzulhijjah' },
-  },
-  en = {
-    labels = { 'Imsak', 'Fajr', 'Sunrise', 'Dhuha', 'Dhuhr', 'Asr', 'Maghrib', 'Isha' },
-    next_card = 'COUNTDOWN TO PRAYER', next_card_tom = 'COUNTDOWN TO PRAYER (TOMORROW)', next_badge = 'Next Up',
-    sec_today = "TODAY'S SCHEDULE", sec_tomorrow = "TOMORROW'S SCHEDULE", now_prayer = "It's time to pray!",
-    lock_no_data = 'No Prayer Schedule Found', lock_no_l1 = 'Open Jadwal Sholat app & connect Wi-Fi', lock_no_l2 = 'to select location and download schedule.',
-    hari = { 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' },
-    bulan = { 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' },
-    bulan_short = { 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' },
-    hijri_bulan = { 'Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani', 'Jumada al-Ula', 'Jumada al-Akhirah', 'Rajab', 'Shaban', 'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah' },
-  }
-}''')
-                lock_langs_injected = True
-            continue
-        if 277 <= i <= 387: continue
-        if 448 <= i <= 458: continue
-        if 493 <= i <= 544: continue
-        if 916 <= i <= 928: continue
-        if 938 <= i <= 942: continue
-        if 950 <= i <= 975: continue
-        if 976 <= i <= 1098: continue
-        if 1143 <= i <= 1189: continue
-        if 1415 <= i <= 1426: continue
-        if 1578 <= i <= 1647: continue
-        if i >= 1758: continue
-        kept_lock.append(l)
+    # Build safe lock_core using semantic block replacements
+    start_langs = core_src.find("S.LANGS = {")
+    end_langs = core_src.find("function S.L(cfg)")
+    lock_core = core_src[:start_langs] + LOCK_LANGS_DEF + "\n" + core_src[end_langs:]
 
-    kept_lock.append('return S')
-    lock_core = '\n'.join(kept_lock)
+    updater_marker = "------------------------------------------------------------------ Auto-Updater Engine"
+    if updater_marker in lock_core:
+        lock_core = lock_core[:lock_core.find(updater_marker)] + "return S\n"
+
+    funcs_to_strip = [
+        "S.generate_hijri_month", "S.parse_htog_json", "S.draw_menu_icon", "S.draw_qr",
+        "S.segmented_control", "S.force_refresh_quote", "S.draw_mosque", "S.draw_modern_logo",
+        "S.draw_crescent", "S.draw_hamburger_btn", "S.draw_settings_btn", "S.ornate_card",
+        "S.parse_hcal_cache_text", "S.load_hijri_month", "S.hijri_event_day", "S.hcal_cache_name",
+        "S.short", "S.sheet_grabber", "S.split_quote_lines",
+        "S.parse_list_json", "S.diamond", "S.save_cfg"
+    ]
+    for fn in funcs_to_strip:
+        lock_core = strip_function(lock_core, fn)
 
     header = "-- MuslimInk optimized build\n"
     fonts_idx_wrap = f"local CF = (function()\n{fonts_idx_lua}\nend)()\n\n"

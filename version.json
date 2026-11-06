@@ -9,7 +9,7 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 258304,
+  "size_bytes": 259360,
   "changelog_id": [
     "Dukungan Penuh OTA Update Mandiri: Mengompresi paket secara lossless menjadi 251 KB (<= 256 KB) sehingga file update dapat ditulis langsung oleh firmware ke penyimpanan",
     "Unduhan Otomatis Tersimpan: Berkas unduhan kini langsung muncul di XTApps/muslimink/files/muslimink_update.xtapp dan siap diinstal",

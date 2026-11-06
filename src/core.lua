@@ -1191,22 +1191,30 @@ end
 -- TrueType clock renderer using lossless pre-extracted scanline rectangles (CF table from build.py)
 local BLACK = { fill = true }
 
-local function decode_glyph(gl)
-  if gl.dec then return gl.dec end
-  local dec = {}
-  local rstr = gl.r or ''
-  local n = #rstr
-  local idx = 1
-  while idx + 7 <= n do
-    local rx = tonumber(rstr:sub(idx, idx + 1), 16) or 0
-    local ry = tonumber(rstr:sub(idx + 2, idx + 3), 16) or 0
-    local rw = tonumber(rstr:sub(idx + 4, idx + 5), 16) or 1
-    local rh = tonumber(rstr:sub(idx + 6, idx + 7), 16) or 1
-    dec[#dec + 1] = { rx, ry, rw, rh }
-    idx = idx + 8
+local function unpack_pack(p)
+  if not p then return nil end
+  if p.g then return p end
+  local g = {}
+  local r_idx = 1
+  local r_str = p.r or ''
+  for i = 1, 11 do
+    local ch = (i <= 10) and tostring(i - 1) or ':'
+    local gw = p.w:byte(i) - 35
+    local rcount = (type(p.c) == 'table' and p.c[i]) or (type(p.c) == 'string' and (p.c:byte(i) - 35)) or 0
+    local rects = {}
+    for j = 1, rcount do
+      rects[j] = {
+        r_str:byte(r_idx) - 35,
+        r_str:byte(r_idx + 1) - 35,
+        r_str:byte(r_idx + 2) - 35,
+        r_str:byte(r_idx + 3) - 35,
+      }
+      r_idx = r_idx + 4
+    end
+    g[ch] = { w = gw, dec = rects }
   end
-  gl.dec = dec
-  return dec
+  p.g = g
+  return p
 end
 
 function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
@@ -1215,7 +1223,10 @@ function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
     S.center_text(gg, cx, y + (h - 30) // 2, hhmm, 'large')
     return
   end
-  local pack = (h >= 60) and fset.big or fset.sm
+  local raw_pack = (h >= 60) and fset.big or (fset.sm or fset.big)
+  if not raw_pack then return end
+  local pack = unpack_pack(raw_pack)
+  if not pack or not pack.g then return end
   local gap = (h >= 60) and 8 or 4
 
   local total_w = 0
@@ -1235,7 +1246,7 @@ function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
     local ch = hhmm:sub(idx, idx)
     local gl = pack.g[ch]
     if gl then
-      local rects = decode_glyph(gl)
+      local rects = gl.dec or {}
       for r_i = 1, #rects do
         local r = rects[r_i]
         gg:rect(x + r[1], dy + r[2], r[3], r[4], BLACK)
@@ -1688,20 +1699,22 @@ function S.get_effective_quote(cfg, day)
   end
 
   if is_en and (not text or text == '' or S.is_indonesian_text(text)) then
-    if pool_idx and S.BUILTIN_AYAHS[pool_idx] then
-      text = S.BUILTIN_AYAHS[pool_idx].en
-      ref = S.BUILTIN_AYAHS[pool_idx].ref
-    else
+    local b_idx = (pool_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[pool_idx] and pool_idx) or (S.BUILTIN_AYAHS and (((day or 0) % #S.BUILTIN_AYAHS) + 1))
+    if b_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[b_idx] then
+      text = S.BUILTIN_AYAHS[b_idx].en
+      ref = S.BUILTIN_AYAHS[b_idx].ref
+    elseif S.LANGS and S.LANGS.en and S.LANGS.en.quotes then
       local L = S.LANGS.en
       local q = L.quotes[((day or 0) % #L.quotes) + 1]
       text = q[1] .. ' ' .. q[2]
       ref = q[3]
     end
   elseif not is_en and (not text or text == '') then
-    if pool_idx and S.BUILTIN_AYAHS[pool_idx] then
-      text = S.BUILTIN_AYAHS[pool_idx].id
-      ref = S.BUILTIN_AYAHS[pool_idx].ref
-    else
+    local b_idx = (pool_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[pool_idx] and pool_idx) or (S.BUILTIN_AYAHS and (((day or 0) % #S.BUILTIN_AYAHS) + 1))
+    if b_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[b_idx] then
+      text = S.BUILTIN_AYAHS[b_idx].id
+      ref = S.BUILTIN_AYAHS[b_idx].ref
+    elseif S.LANGS and S.LANGS.id and S.LANGS.id.quotes then
       local L = S.LANGS.id
       local q = L.quotes[((day or 0) % #L.quotes) + 1]
       text = q[1] .. ' ' .. q[2]

@@ -9,7 +9,7 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 258528,
+  "size_bytes": 258544,
   "changelog_id": [
     "Perbaikan Penuh Gaya Font Jam: Mengembalikan seluruh 6 variasi font TrueType unik (Rounded, Serif, Bold, Slab, Inline, Arabic) yang sebelumnya terpotong oleh minifier",
     "Perbaikan Bug Lockscreen Hari Jumat: Memperbaiki crash pada waktu menjelang shalat Jumat (L.jumat)",

@@ -856,7 +856,7 @@ else
 S.draw_next_card(gg,20,208,S.W - 40,114,info,cfg.cfont)
 S.draw_timeline(gg,20,332,S.W - 40,34,info)
 end
-S.try_fetch_quote(now_info,cfg,info)
+if S.try_fetch_quote then S.try_fetch_quote(now_info,cfg,info)end
 S.divider(gg,614,24,S.W - 24)
 S.draw_quote(gg,624,now_info.day,cfg)
 end)

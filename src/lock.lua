@@ -71,7 +71,7 @@ function on_draw(c, gg)
     end
 
     -- Trigger background online quote sync if scheduled
-    S.try_fetch_quote(now_info, cfg, info)
+    if S.try_fetch_quote then S.try_fetch_quote(now_info, cfg, info) end
 
     -- Bottom Divider & Multi-Line Daily Quote (with 164px+ clean budget)
     S.divider(gg, 614, 24, S.W - 24)

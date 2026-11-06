@@ -30,9 +30,20 @@ local coords_state = {
   status_err = nil,
 }
 
-local tsb = nil
-local doa_idx = 1
-local doa_list_mode = false
+local doa_state = {
+  tab = 'search',
+  query = '',
+  page = 1,
+  viewing = nil,
+  keyboard = false,
+  saved_set = {},
+  saved_items = {},
+  filtered_items = {},
+  cache = {},
+  index = nil,
+  fetching = false,
+  err = nil,
+}
 
 local country_names = {}
 local selected_country = nil
@@ -810,7 +821,8 @@ function on_draw(c, gg)
         ensure_tasbih()
         F.draw_tasbih(gg, cfg, tsb, draw_btn, now_info)
       elseif screen == 'doa' then
-        F.draw_doa(gg, cfg, doa_idx, doa_list_mode, draw_btn, now_info)
+        ensure_doa_ready()
+        F.draw_doa(gg, cfg, doa_state, draw_btn, now_info)
       elseif screen == 'hijri' then
         F.draw_hijri_screen(gg, cfg, now_info, draw_btn)
       elseif screen == 'hijri_cal' then
@@ -882,7 +894,10 @@ local function check_drawer_tap(x, y)
     if y >= iy and y < iy + 52 then
       screen = it.id
       drawer_open = false
-      doa_list_mode = false
+      if screen == 'doa' then
+        ensure_doa_ready()
+        sync_doa_index_online()
+      end
       status = nil
       return true
     end
@@ -1414,8 +1429,173 @@ local function handle_tap_tasbih(x, y)
   end
 end
 
+local function ensure_doa_ready()
+  if not doa_state.index then
+    local raw_idx = S.read('doa_index.txt')
+    if raw_idx and raw_idx ~= '' then
+      local ok, res = pcall(function() return ctx.json:decode(raw_idx) end)
+      if ok and type(res) == 'table' and res.data and #res.data > 0 then
+        doa_state.index = res.data
+      end
+    end
+    if not doa_state.index then
+      doa_state.index = F.SEED_DOA_INDEX
+    end
+  end
+
+  if not doa_state.saved_loaded then
+    doa_state.saved_loaded = true
+    doa_state.saved_set = {}
+    local raw_saved = S.read('saved_duas.txt')
+    if raw_saved and raw_saved ~= '' then
+      for id_str in raw_saved:gmatch('%d+') do
+        local id_num = tonumber(id_str)
+        if id_num then doa_state.saved_set[id_num] = true end
+      end
+    else
+      for _, sid in ipairs({ 1, 20, 40, 50, 90, 100 }) do
+        doa_state.saved_set[sid] = true
+      end
+    end
+  end
+
+  doa_state.saved_items = {}
+  for _, it in ipairs(doa_state.index) do
+    if doa_state.saved_set[it.id] then
+      doa_state.saved_items[#doa_state.saved_items + 1] = it
+    end
+  end
+
+  doa_state.filtered_items = F.filter_duas(doa_state.index, doa_state.query)
+end
+
+local function sync_doa_index_online()
+  if doa_state.synced then return end
+  doa_state.synced = true
+  pcall(function()
+    ctx.net:request({
+      url = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/doa_index.json',
+      method = 'GET',
+      headers = { ['Accept'] = 'application/json' },
+      timeout_ms = 15000,
+    }, function(c, resp)
+      pcall(function()
+        if type(resp) ~= 'table' or type(resp.body) ~= 'string' then return end
+        local ok, res = pcall(function() return ctx.json:decode(resp.body) end)
+        if ok and type(res) == 'table' and res.data and #res.data > 0 then
+          doa_state.index = res.data
+          S.write('doa_index.txt', resp.body)
+          ensure_doa_ready()
+          refresh()
+        end
+      end)
+    end)
+  end)
+end
+
+local function toggle_save_doa(id)
+  if not id then return end
+  if doa_state.saved_set[id] then
+    doa_state.saved_set[id] = nil
+  else
+    doa_state.saved_set[id] = true
+  end
+  local ids = {}
+  for sid in pairs(doa_state.saved_set) do
+    ids[#ids + 1] = tostring(sid)
+  end
+  S.write('saved_duas.txt', table.concat(ids, ','))
+  ensure_doa_ready()
+  refresh()
+end
+
+local function open_doa_detail(it)
+  if not it then return end
+  if doa_state.cache[it.id] then
+    doa_state.viewing = doa_state.cache[it.id]
+    return
+  end
+  local raw_d = S.read('doa_' .. tostring(it.id) .. '.txt')
+  if raw_d and raw_d ~= '' then
+    local ok, res = pcall(function() return ctx.json:decode(raw_d) end)
+    if ok and type(res) == 'table' and res.id then
+      doa_state.cache[it.id] = res
+      doa_state.viewing = res
+      return
+    end
+  end
+
+  doa_state.viewing = {
+    id = it.id,
+    nama_id = it.n_id,
+    nama_en = it.n_en,
+    grup_id = it.g_id,
+    grup_en = it.g_en,
+    latin = 'Menghubungkan ke API...',
+    arti_id = 'Sedang mengunduh teks doa...',
+    arti_en = 'Downloading supplication...',
+    src = 'Hisnul Muslim',
+  }
+  doa_state.fetching = true
+
+  pcall(function()
+    local url1 = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/doa/' .. tostring(it.id) .. '.json'
+    ctx.net:request({
+      url = url1,
+      method = 'GET',
+      headers = { ['Accept'] = 'application/json' },
+      timeout_ms = 12000,
+    }, function(c, resp)
+      doa_state.fetching = false
+      pcall(function()
+        if type(resp) == 'table' and type(resp.body) == 'string' then
+          local ok, res = pcall(function() return ctx.json:decode(resp.body) end)
+          if ok and type(res) == 'table' and res.id then
+            doa_state.cache[it.id] = res
+            doa_state.viewing = res
+            S.write('doa_' .. tostring(it.id) .. '.txt', resp.body)
+            refresh()
+            return
+          end
+        end
+        ctx.net:request({
+          url = 'https://equran.id/api/doa/' .. tostring(it.id),
+          method = 'GET',
+          timeout_ms = 12000,
+        }, function(c2, resp2)
+          pcall(function()
+            if type(resp2) == 'table' and type(resp2.body) == 'string' then
+              local ok2, res2 = pcall(function() return ctx.json:decode(resp2.body) end)
+              if ok2 and type(res2) == 'table' and res2.data then
+                local d2 = res2.data
+                local parsed = {
+                  id = d2.id,
+                  nama_id = d2.nama,
+                  nama_en = it.n_en or d2.nama,
+                  grup_id = d2.grup,
+                  grup_en = it.g_en or d2.grup,
+                  ar = d2.ar,
+                  tr = d2.tr,
+                  arti_id = d2.idn,
+                  arti_en = it.n_en or d2.idn,
+                  src = d2.tentang or 'Hisnul Muslim',
+                }
+                doa_state.cache[it.id] = parsed
+                doa_state.viewing = parsed
+                S.write('doa_' .. tostring(it.id) .. '.txt', ctx.json:encode(parsed))
+                refresh()
+              end
+            end
+          end)
+        end)
+      end)
+    end)
+  end)
+end
+
 local function handle_tap_doa(x, y)
-  local total = #F.DUA_LIST
+  ensure_doa_ready()
+
   -- Top-right Hamburger ☰ button
   if y >= 2 and y <= 52 and x >= W - 64 then
     drawer_open = true
@@ -1426,29 +1606,174 @@ local function handle_tap_doa(x, y)
     cfont_modal = true
     return
   end
-  if doa_list_mode then
-    if y >= 60 and y < 60 + total * 63 and x >= 20 and x <= W - 20 then
-      local idx = (y - 60) // 63 + 1
-      if idx >= 1 and idx <= total then
-        doa_idx = idx
-        doa_list_mode = false
-      end
+
+  if doa_state.viewing then
+    -- Back button (y = 56..94, x = 20..140)
+    if y >= 56 and y <= 94 and x >= 20 and x <= 140 then
+      doa_state.viewing = nil
       return
     end
-    if y >= 706 and y <= 780 then
-      doa_list_mode = false
+    -- Bookmark button (y = 56..94, x = W - 146..W - 20)
+    if y >= 56 and y <= 94 and x >= W - 146 and x <= W - 20 then
+      toggle_save_doa(doa_state.viewing.id)
       return
+    end
+    -- Bottom Prev/Next navigation (y = 712..776)
+    if y >= 712 and y <= 776 then
+      local active_list = (doa_state.tab == 'saved') and doa_state.saved_items or doa_state.filtered_items
+      local cur_idx = 1
+      for i, item in ipairs(active_list) do
+        if item.id == doa_state.viewing.id then cur_idx = i; break end
+      end
+      if x >= 20 and x <= 156 then
+        local prev_i = ((cur_idx - 2) % #active_list) + 1
+        open_doa_detail(active_list[prev_i])
+        return
+      elseif x >= 172 and x <= 308 then
+        doa_state.viewing = nil
+        return
+      elseif x >= 324 and x <= 460 then
+        local next_i = (cur_idx % #active_list) + 1
+        open_doa_detail(active_list[next_i])
+        return
+      end
     end
     return
   end
-  -- Bottom 3 buttons (y = 710..780)
-  if y >= 710 and y <= 780 then
-    if x >= 20 and x < 156 then
-      doa_idx = ((doa_idx - 2) % total) + 1
-    elseif x >= 172 and x < 308 then
-      doa_list_mode = true
-    elseif x >= 324 and x <= 460 then
-      doa_idx = (doa_idx % total) + 1
+
+  if doa_state.keyboard then
+    if y >= 460 and y <= 776 then
+      if y >= 468 and y <= 506 then
+        if x >= 20 and x <= 120 then
+          doa_state.keyboard = false
+          return
+        elseif x >= W - 120 and x <= W - 20 then
+          if #doa_state.query > 0 then
+            doa_state.query = doa_state.query:sub(1, #doa_state.query - 1)
+            doa_state.page = 1
+            ensure_doa_ready()
+          end
+          return
+        end
+      end
+      if y >= 514 and y <= 560 then
+        local r1 = { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' }
+        local k = (x - 16) // 45 + 1
+        if k >= 1 and k <= 10 then
+          doa_state.query = doa_state.query .. r1[k]
+          doa_state.page = 1
+          ensure_doa_ready()
+          return
+        end
+      end
+      if y >= 568 and y <= 614 then
+        local r2 = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' }
+        local k = (x - 38) // 45 + 1
+        if k >= 1 and k <= 9 then
+          doa_state.query = doa_state.query .. r2[k]
+          doa_state.page = 1
+          ensure_doa_ready()
+          return
+        end
+      end
+      if y >= 622 and y <= 668 then
+        if x >= 352 and x <= 460 then
+          if #doa_state.query > 0 then
+            doa_state.query = doa_state.query:sub(1, #doa_state.query - 1)
+            doa_state.page = 1
+            ensure_doa_ready()
+          end
+          return
+        end
+        local r3 = { 'z', 'x', 'c', 'v', 'b', 'n', 'm' }
+        local k = (x - 24) // 46 + 1
+        if k >= 1 and k <= 7 then
+          doa_state.query = doa_state.query .. r3[k]
+          doa_state.page = 1
+          ensure_doa_ready()
+          return
+        end
+      end
+      if y >= 676 and y <= 730 then
+        if x >= 24 and x <= 284 then
+          doa_state.query = doa_state.query .. ' '
+          doa_state.page = 1
+          ensure_doa_ready()
+          return
+        elseif x >= 296 and x <= 460 then
+          doa_state.keyboard = false
+          return
+        end
+      end
+      return
+    end
+  end
+
+  if y >= 56 and y <= 92 and x >= 20 and x <= W - 20 then
+    local seg_w = (W - 40) // 2
+    if x < 20 + seg_w then
+      doa_state.tab = 'search'
+    else
+      doa_state.tab = 'saved'
+    end
+    doa_state.page = 1
+    doa_state.keyboard = false
+    ensure_doa_ready()
+    return
+  end
+
+  if doa_state.tab == 'search' then
+    if y >= 98 and y <= 144 and x >= 20 and x <= W - 20 then
+      if x >= W - 64 and doa_state.query ~= '' then
+        doa_state.query = ''
+        doa_state.page = 1
+        ensure_doa_ready()
+      else
+        doa_state.keyboard = true
+      end
+      return
+    end
+
+    if y >= 150 and y <= 212 and x >= 20 and x <= W - 20 then
+      local row = (y < 182) and 0 or 1
+      local col = (x - 20) // 112
+      if col >= 0 and col <= 3 then
+        local idx = row * 4 + col + 1
+        local chip = F.DOA_CHIPS[idx]
+        if chip then
+          if doa_state.query:lower() == chip.id then
+            doa_state.query = ''
+          else
+            doa_state.query = chip.id
+          end
+          doa_state.page = 1
+          doa_state.keyboard = false
+          ensure_doa_ready()
+          return
+        end
+      end
+    end
+  end
+
+  local active_list = (doa_state.tab == 'saved') and doa_state.saved_items or doa_state.filtered_items
+  local per_page = 5
+  local cur_page = doa_state.page or 1
+  local total_pages = math.max(1, (#active_list + per_page - 1) // per_page)
+
+  if y >= 222 and y <= 700 and x >= 20 and x <= W - 20 then
+    local slot = (y - 222) // 96
+    local target_i = (cur_page - 1) * per_page + slot + 1
+    if target_i >= 1 and target_i <= #active_list then
+      open_doa_detail(active_list[target_i])
+      return
+    end
+  end
+
+  if y >= 714 and y <= 776 then
+    if x >= 20 and x <= 140 and cur_page > 1 then
+      doa_state.page = cur_page - 1
+    elseif x >= W - 140 and x <= W - 20 and cur_page < total_pages then
+      doa_state.page = cur_page + 1
     end
   end
 end
@@ -1984,8 +2309,14 @@ end
         settings_scroll_y = 0
         refresh()
         return true
-      elseif screen == 'doa' and doa_list_mode then
-        doa_list_mode = false
+      elseif screen == 'doa' and (doa_state.keyboard or doa_state.viewing or doa_state.tab == 'saved') then
+        if doa_state.keyboard then
+          doa_state.keyboard = false
+        elseif doa_state.viewing then
+          doa_state.viewing = nil
+        elseif doa_state.tab == 'saved' then
+          doa_state.tab = 'search'
+        end
         refresh()
         return true
       elseif screen == 'kab' then
@@ -2034,15 +2365,31 @@ end
         return true
       end
     elseif screen == 'doa' then
-      local total = #F.DUA_LIST
-      if ev.key == 'down' or ev.key == 'right' or ev.key == 'ok' then
-        doa_idx = (doa_idx % total) + 1
-        refresh()
-        return true
-      elseif ev.key == 'up' or ev.key == 'left' then
-        doa_idx = ((doa_idx - 2) % total) + 1
-        refresh()
-        return true
+      if doa_state.viewing then
+        local active_list = (doa_state.tab == 'saved') and doa_state.saved_items or doa_state.filtered_items
+        local cur_idx = 1
+        for i, item in ipairs(active_list) do
+          if item.id == doa_state.viewing.id then cur_idx = i; break end
+        end
+        if ev.key == 'down' or ev.key == 'right' or ev.key == 'ok' then
+          local next_i = (cur_idx % #active_list) + 1
+          open_doa_detail(active_list[next_i])
+          refresh()
+          return true
+        elseif ev.key == 'up' or ev.key == 'left' then
+          local prev_i = ((cur_idx - 2) % #active_list) + 1
+          open_doa_detail(active_list[prev_i])
+          refresh()
+          return true
+        end
+      else
+        local active_list = (doa_state.tab == 'saved') and doa_state.saved_items or doa_state.filtered_items
+        local total_pages = math.max(1, (#active_list + 4) // 5)
+        if ev.key == 'down' or ev.key == 'right' then
+          if doa_state.page < total_pages then doa_state.page = doa_state.page + 1; refresh(); return true end
+        elseif ev.key == 'up' or ev.key == 'left' then
+          if doa_state.page > 1 then doa_state.page = doa_state.page - 1; refresh(); return true end
+        end
       end
     elseif (ev.key == 'up' or ev.key == 'left') and (screen == 'prov' or screen == 'kab') then
       if page > 1 then page = page - 1; refresh() end

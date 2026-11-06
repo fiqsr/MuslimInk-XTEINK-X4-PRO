@@ -9,21 +9,21 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 258544,
+  "size_bytes": 261408,
   "changelog_id": [
-    "Perbaikan Penuh Gaya Font Jam: Mengembalikan seluruh 6 variasi font TrueType unik (Rounded, Serif, Bold, Slab, Inline, Arabic) yang sebelumnya terpotong oleh minifier",
-    "Perbaikan Bug Lockscreen Hari Jumat: Memperbaiki crash pada waktu menjelang shalat Jumat (L.jumat)",
-    "Dukungan Penuh OTA Update Mandiri: Mengompresi paket secara lossless menjadi 252 KB (<= 256 KB) sehingga file update dapat ditulis langsung oleh firmware ke penyimpanan",
-    "Unduhan Otomatis Tersimpan: Berkas unduhan kini langsung muncul di XTApps/muslimink/files/muslimink_update.xtapp dan siap diinstal",
-    "Perbaikan Tampilan Kutipan Lockscreen: Ayat dan hadist panjang tidak lagi terpotong di bagian bawah berkat perluasan ruang vertikal (+70px)",
-    "Seluruh Fitur 100% Utuh: 514 kota Indonesia, 99 kota dunia, 38 provinsi kiblat, 10 doa harian, 8 tasbih digital, dan 6 gaya jam TrueType tetap lengkap tanpa pemangkasan data"
+    "Mesin Pencari Doa Ala Google: Dilengkapi Search Bar dan Touch Virtual Keyboard (QWERTY) untuk mencari 227+ doa & dzikir Hisnul Muslim secara cerdas",
+    "Pencarian Sinonim & Topik Cepat: Mengetik 'sholat', 'tidur', 'makan', 'sakit', dll langsung menampilkan seluruh doa relevan, didukung 8 chip kategori cepat",
+    "Dukungan Dwibahasa Penuh (ID & EN): Judul doa, kategori, tag pencarian, arti doa, dan hadist rujukan otomatis menyesuaikan pengaturan bahasa aplikasi",
+    "Unduhan On-Demand & Hemat Memori: Teks doa diunduh sesuai permintaan via GitHub Raw API tanpa membebani ukuran aplikasi (ukuran tetap <= 256 KB)",
+    "Tab Tersimpan / Favorit Offline: Doa yang telah dibuka atau dibintangi otomatis tersimpan di memori perangkat dan dapat dibaca kapan saja secara offline",
+    "Perbaikan Penuh 6 Gaya Font Jam TrueType & Lockscreen Bebas Crash: Seluruh 6 font jam dan lockscreen berfungsi normal tanpa terpotong"
   ],
   "changelog_en": [
-    "Clock Font Styles Restored: Fully restored all 6 unique TrueType fonts (Rounded, Serif, Bold, Slab, Inline, Arabic) previously truncated by minifier",
-    "Friday Lockscreen Crash Fix: Resolved bad argument error during countdown to Friday prayer (L.jumat)",
-    "Full Native In-App OTA Update Support: Losslessly slimmed package to 252 KB (<= 256 KB) so firmware single-write limit is never exceeded",
-    "Verified Automatic Update Storage: Downloaded packages are saved directly to XTApps/muslimink/files/muslimink_update.xtapp and verified on disk",
-    "Lockscreen Multi-Line Quote Fix: Long verses and hadith no longer cut off thanks to expanded vertical budget (+70px clean area)",
-    "All 6 Features 100% Preserved: 514 Indonesian cities, 99 world cities, 38 Qibla provinces, 10 duas, 8 dhikr presets, and 6 TrueType clock styles fully intact"
+    "Google-Style Prayer Search Engine: Features a Search Bar with an on-screen QWERTY touch keyboard to smartly search 227+ Hisnul Muslim duas & adhkar",
+    "Synonym & Quick Topic Chips: Typing 'prayer', 'sleep', 'food', 'health', etc surfaces all relevant prayers instantly, aided by 8 quick topic chips",
+    "Full Bilingual Support (ID & EN): Prayer titles, categories, search tags, meanings, and hadith references adapt seamlessly to app language",
+    "On-Demand Download & Slim Binary: Prayer details are fetched on-demand from GitHub Raw API, keeping package size strictly <= 256 KB for OTA",
+    "Offline Bookmarks / Saved Tab: Opened and bookmarked prayers are cached locally and accessible anytime offline under the Saved tab",
+    "All 6 TrueType Clock Styles & Lockscreen Crash Fix: Fully intact with zero font truncation and smooth lockscreen rendering"
   ]
 }

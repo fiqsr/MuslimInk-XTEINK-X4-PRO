@@ -139,110 +139,70 @@ function F.active_dhikr_text(tsb, is_en)
   end
 end
 
------------------------------------------------------------------- 2. Doa & Dzikir Data (10 Pilihan)
+------------------------------------------------------------------ 2. Doa & Dzikir Search Engine & Dataset
 
-F.DUA_LIST = {
-  {
-    cat_id = 'DOA HARIAN UTAMA',
-    cat_en = 'ESSENTIAL DAILY DUA',
-    title_id = '1. Doa Kebaikan Dunia & Akhirat',
-    title_en = '1. Goodness in This World & Hereafter',
-    latin = "Rabbanaa aatinaa fid-dun-yaa hasanah, wa fil-aakhirati hasanah, wa qinaa 'adzaaban-naar.",
-    arti_id = 'Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, serta lindungilah kami dari siksa neraka.',
-    arti_en = 'Our Lord, grant us good in this world and good in the Hereafter, and protect us from the torment of the Fire.',
-    src = 'QS. Al-Baqarah: 201',
-  },
-  {
-    cat_id = 'DZIKIR SESUDAH SHALAT',
-    cat_en = 'POST-PRAYER ADHKAR',
-    title_id = '2. Doa Mohon Bantuan Dzikir & Ibadah',
-    title_en = '2. Dua for Remembrance & Worship',
-    latin = "Allaahumma a'innii 'alaa dzikrika wa syukrika wa husni 'ibaadatik.",
-    arti_id = 'Ya Allah, tolonglah aku untuk senantiasa mengingat-Mu, bersyukur kepada-Mu, dan beribadah dengan baik kepada-Mu.',
-    arti_en = 'O Allah, help me to remember You, to give thanks to You, and to worship You in the best manner.',
-    src = 'HR. Abu Dawud & An-Nasa\'i',
-  },
-  {
-    cat_id = 'DZIKIR SESUDAH SHALAT',
-    cat_en = 'POST-PRAYER ADHKAR',
-    title_id = '3. Dzikir Keselamatan Bakda Salam',
-    title_en = '3. PeaceInvocation After Taslim',
-    latin = 'Allaahumma antas-salaam, wa minkas-salaam, tabaarakta yaa dzal-jalaali wal-ikraam.',
-    arti_id = 'Ya Allah, Engkaulah sumber keselamatan dan dari-Mu datangnya keselamatan. Maha Berkah Engkau wahai Pemilik Keagungan dan Kemuliaan.',
-    arti_en = 'O Allah, You are Peace and from You comes peace. Blessed are You, O Possessor of Majesty and Honor.',
-    src = 'HR. Muslim no. 591',
-  },
-  {
-    cat_id = 'DZIKIR PAGI & PETANG',
-    cat_en = 'MORNING & EVENING ADHKAR',
-    title_id = '4. Sayyidul Istighfar (Penghulu Istighfar)',
-    title_en = '4. Sayyidul Istighfar (Master Supplication)',
-    latin = "Allaahumma anta Rabbii laa ilaaha illaa anta, khalaqtanii wa anaa 'abduka, wa anaa 'alaa 'ahdika wa wa'dika mastatha'tu, a'uudzu bika min syarri maa shana'tu, abuu'u laka bini'matika 'alayya, wa abuu'u bidzanbii faghfir lii.",
-    arti_id = 'Ya Allah, Engkau Tuhanku, tiada Tuhan selain Engkau. Engkau menciptakanku dan aku hamba-Mu. Aku berlindung kepada-Mu dari keburukan perbuatanku, aku mengakui nikmat-Mu dan mengakui dosaku, maka ampunilah aku.',
-    arti_en = 'O Allah, You are my Lord, there is no deity but You. You created me and I am Your servant. I acknowledge Your favor upon me and I confess my sin, so forgive me.',
-    src = 'HR. Bukhari no. 6306',
-  },
-  {
-    cat_id = 'DOA SESUDAH ADZAN',
-    cat_en = 'DUA AFTER ADHAN',
-    title_id = '5. Doa Sesudah Mendengar Adzan',
-    title_en = '5. Supplication After the Call to Prayer',
-    latin = "Allaahumma Rabba haadzihid-da'watit-taammah, wash-shalaatil-qaa'imah, aati Muhammadanil-wasiilata wal-fadhiilah, wab'atshu maqaamam-mahmuudanil-ladzii wa'adtah.",
-    arti_id = 'Ya Allah, pemilik panggilan yang sempurna ini dan shalat yang akan didirikan, berikanlah kepada Nabi Muhammad al-wasilah dan keutamaan, serta bangkitkanlah beliau pada kedudukan terpuji yang telah Engkau janjikan.',
-    arti_en = 'O Allah, Lord of this perfect call and established prayer, grant Muhammad the intercession and favor, and raise him to the praised station You promised him.',
-    src = 'HR. Bukhari no. 614',
-  },
-  {
-    cat_id = 'DOA HARIAN & KELUARGA',
-    cat_en = 'FAMILY & PARENTS DUA',
-    title_id = '6. Doa untuk Kedua Orang Tua',
-    title_en = '6. Supplication for Parents',
-    latin = 'Rabbighfir lii wa liwaalidayya warhamhumaa kamaa rabbayaanii shaghiiraa.',
-    arti_id = 'Ya Tuhanku, ampunilah dosaku dan dosa kedua orang tuaku, serta sayangilah mereka sebagaimana mereka menyayangiku di waktu kecil.',
-    arti_en = 'My Lord, forgive me and my parents, and have mercy on them both as they raised me when I was small.',
-    src = 'QS. Al-Isra\': 24',
-  },
-  {
-    cat_id = 'DZIKIR PAGI &sholat SUBUH',
-    cat_en = 'MORNING & FAJR DUA',
-    title_id = '7. Doa Ilmu, Rezeki & Amal Diterima',
-    title_en = '7. Beneficial Knowledge & Provision',
-    latin = "Allaahumma innii as'aluka 'ilman naafi'an, wa rizqan thayyiban, wa 'amalan mutaqabbalan.",
-    arti_id = 'Ya Allah, sesungguhnya aku memohon kepada-Mu ilmu yang bermanfaat, rezeki yang halal lagi baik, dan amal ibadah yang diterima.',
-    arti_en = 'O Allah, I ask You for beneficial knowledge, pure and wholesome provision, and deeds that are accepted.',
-    src = 'HR. Ibnu Majah no. 925',
-  },
-  {
-    cat_id = 'DOA KETEGUHAN IMAN',
-    cat_en = 'STEADFASTNESS IN FAITH',
-    title_id = '8. Doa Keteguhan Hati di Atas Agama',
-    title_en = '8. Steadfastness of the Heart',
-    latin = "Yaa Muqallibal-quluub, tsabbit qalbii 'alaa diinik. Rabbanaa laa tuzigh quluubanaa ba'da idz hadaitanaa wa hab lanaa mil-ladunka rahmah.",
-    arti_id = 'Wahai Dzat yang membolak-balikkan hati, teguhkanlah hatiku di atas agama-Mu. Ya Tuhan kami, janganlah Engkau condongkan hati kami kepada kesesatan setelah Engkau beri petunjuk.',
-    arti_en = 'O Turner of the hearts, keep my heart firm upon Your religion. Our Lord, let not our hearts deviate after You have guided us.',
-    src = 'HR. Tirmidzi & QS. Ali Imran: 8',
-  },
-  {
-    cat_id = 'DOA KEMUDAHAN URUSAN',
-    cat_en = 'EASE IN DIFFICULTY',
-    title_id = '9. Doa Kelapangan Dada & Kemudahan',
-    title_en = '9. Expansion of the Chest & Ease',
-    latin = 'Rabbisyrah lii shadrii, wa yassir lii amrii, wahlul \'uqdatam-mil-lisaanii, yafqahuu qaulii.',
-    arti_id = 'Ya Tuhanku, lapangkanlah dadaku, mudahkanlah urusanku, dan lepaskanlah kekakuan dari lidahku agar mereka memahami perkataanku.',
-    arti_en = 'My Lord, expand for me my breast, ease for me my task, and untie the knot from my tongue that they may understand my speech.',
-    src = 'QS. Thaha: 25-28',
-  },
-  {
-    cat_id = 'DOA PERJALANAN & RUMAH',
-    cat_en = 'LEAVING HOME & TRAVEL',
-    title_id = '10. Doa Keluar Rumah & Tawakkal',
-    title_en = '10. Leaving Home & Reliance on Allah',
-    latin = "Bismillaahi tawakkaltu 'alallaah, laa haula wa laa quwwata illaa billaah.",
-    arti_id = 'Dengan nama Allah, aku bertawakkal kepada Allah. Tiada daya dan kekuatan kecuali dengan pertolongan Allah.',
-    arti_en = 'In the name of Allah, I place my trust in Allah; there is no power and no strength except through Allah.',
-    src = 'HR. Abu Dawud & Tirmidzi',
-  },
-}
+local function _PDC()
+  local C = {}
+  for s in ("sholat:Sholat:Prayer;tidur:Tidur:Sleep;makan:Makan:Meals;safar:Safar:Travel;sakit:Sakit:Health;ortu:Ortu:Parents;pagi:Pagi:Morning;istighfar:Istighfar:Pardon"):gmatch("[^;]+") do
+    local id, id_t, en_t = s:match("([^:]+):([^:]+):([^:]+)")
+    C[#C + 1] = { id = id, t_id = id_t, t_en = en_t }
+  end
+  return C
+end
+F.DOA_CHIPS = _PDC()
+
+local function _PSI()
+  local list = {}
+  local raw = '1|Doa Sebelum Tidur 1|Before Sleeping (1)|Tidur|Sleep|tidur sleep malam bed;2|Doa Bangun Tidur|Upon Waking Up|Tidur|Sleep|tidur sleep pagi bangun;10|Doa Masuk Kamar Mandi|Entering Restroom|Kamar Mandi|Bathroom|kamar mandi toilet wc;11|Doa Keluar Kamar Mandi|Leaving Restroom|Kamar Mandi|Bathroom|kamar mandi toilet wc;12|Doa Sebelum Wudhu|Before Ablution|Wudhu|Ablution|wudhu sholat prayer bersuci;13|Doa Sesudah Wudhu|After Ablution|Wudhu|Ablution|wudhu sholat prayer bersuci;14|Doa Keluar Rumah|Leaving Home|Rumah|Home|rumah home keluar safar tawakkal;15|Doa Masuk Rumah|Entering Home|Rumah|Home|rumah home masuk salam;16|Doa Menuju Masjid|Going to Mosque|Masjid|Mosque|masjid mosque sholat prayer;17|Doa Masuk Masjid|Entering Mosque|Masjid|Mosque|masjid mosque sholat;18|Doa Keluar Masjid|Leaving Mosque|Masjid|Mosque|masjid mosque sholat;20|Doa Sesudah Adzan|After Hearing Adhan|Adzan|Adhan|adzan sholat prayer wasilah;21|Doa Iftitah Shalat|Opening Supplication|Shalat|Prayer|sholat shalat salat iftitah;24|Doa Ruku Shalat|Supplication in Ruku|Shalat|Prayer|sholat shalat ruku subhana;27|Doa Sujud Shalat|Supplication in Sujud|Shalat|Prayer|sholat shalat sujud subhana;30|Doa Duduk Antara Sujud|Sitting Between Sujud|Shalat|Prayer|sholat shalat duduk ampun;33|Doa Tasyahhud (Tahiyat)|Tashahhud (Tahiyat)|Shalat|Prayer|sholat shalat tahiyat tasyahhud;40|Dzikir Sesudah Shalat|Adhkar After Prayer|Dzikir|Adhkar|sholat dzikir sesudah salam;45|Doa Shalat Istikharah|Istikharah Prayer|Shalat|Prayer|sholat istikharah petunjuk;50|Sayyidul Istighfar|Master Istighfar|Istighfar|Pardon|istighfar ampun taubat dosa pagi petang;60|Doa Sebelum Makan|Before Eating|Makan|Meals|makan food eat bismillah;61|Doa Sesudah Makan|After Eating|Makan|Meals|makan food eat alhamdulillah;70|Doa Naik Kendaraan|Riding a Vehicle|Safar|Travel|safar travel kendaraan perjalanan;80|Doa Menjenguk Orang Sakit|Visiting the Sick|Sakit|Health|sakit sick jenguk demam sembuh;90|Doa Kedua Orang Tua|Supplication for Parents|Ortu|Parents|ortu orang tua parents ibu ayah;100|Doa Kebaikan Dunia Akhirat|Goodness in World & Hereafter|Kebaikan|Goodness|dunia akhirat selamat surga neraka'
+  for s in raw:gmatch('[^;]+') do
+    local i, ni, ne, gi, ge, t = s:match('^(%d+)|([^|]+)|([^|]+)|([^|]+)|([^|]+)|([^|]+)$')
+    if i then list[#list + 1] = { id = tonumber(i), n_id = ni, n_en = ne, g_id = gi, g_en = ge, tags = t } end
+  end
+  return list
+end
+F.SEED_DOA_INDEX = _PSI()
+
+-- Smart Multi-Field & Synonym Search Function
+function F.filter_duas(items, q)
+  if not q or q == '' then return items end
+  local clean = q:lower():gsub('^%s+', ''):gsub('%s+$', '')
+  if clean == '' then return items end
+
+  local syns = {}
+  syns[clean] = true
+  local syn_groups = {
+    'sholat shalat salat solat prayer namaz adzan wudhu sujud ruku masjid iftitah tahiyat',
+    'tidur sleep night malam bed bangun',
+    'makan food eat meal minum',
+    'safar travel journey kendaraan perjalanan',
+    'sakit sick ill health sembuh demam cure',
+    'ortu parents ayah ibu',
+    'pagi morning petang evening dzikir',
+    'istighfar ampun taubat forgive pardon',
+  }
+  for _, g in ipairs(syn_groups) do
+    if (' ' .. g .. ' '):find(' ' .. clean .. ' ', 1, true) then
+      for w in g:gmatch('%S+') do syns[w] = true end
+      break
+    end
+  end
+
+  local res = {}
+  for _, it in ipairs(items) do
+    local blob = (it.n_id .. ' ' .. it.n_en .. ' ' .. it.g_id .. ' ' .. it.g_en .. ' ' .. (it.tags or '')):lower()
+    local matched = false
+    for w in pairs(syns) do
+      if blob:find(w, 1, true) then
+        matched = true
+        break
+      end
+    end
+    if matched then
+      res[#res + 1] = it
+    end
+  end
+  return res
+end
 
 ------------------------------------------------------------------ 3. Kalender Hijriah & Hari Besar Islam (PHBI)
 
@@ -333,55 +293,32 @@ end
 ------------------------------------------------------------------ 4. Kompas Arah Kiblat (38 Provinsi Indonesia)
 
 -- Ka'bah coordinates: 21.4225° N, 39.8262° E
-F.PROV_COORDS = {
-  ['Aceh'] = { 5.55, 95.32 },
-  ['Sumatera Utara'] = { 3.59, 98.67 },
-  ['Sumatera Barat'] = { -0.95, 100.35 },
-  ['Riau'] = { 0.51, 101.45 },
-  ['Kepulauan Riau'] = { 0.92, 104.45 },
-  ['Jambi'] = { -1.61, 103.61 },
-  ['Bengkulu'] = { -3.80, 102.26 },
-  ['Sumatera Selatan'] = { -2.99, 104.76 },
-  ['Kepulauan Bangka Belitung'] = { -2.13, 106.11 },
-  ['Lampung'] = { -5.43, 105.26 },
-  ['Banten'] = { -6.12, 106.15 },
-  ['DKI Jakarta'] = { -6.21, 106.85 },
-  ['Jawa Barat'] = { -6.91, 107.61 },
-  ['Jawa Tengah'] = { -6.97, 110.42 },
-  ['DI Yogyakarta'] = { -7.80, 110.36 },
-  ['Jawa Timur'] = { -7.25, 112.75 },
-  ['Bali'] = { -8.65, 115.22 },
-  ['Nusa Tenggara Barat'] = { -8.58, 116.11 },
-  ['Nusa Tenggara Timur'] = { -10.17, 123.61 },
-  ['Kalimantan Barat'] = { -0.03, 109.34 },
-  ['Kalimantan Tengah'] = { -2.21, 113.92 },
-  ['Kalimantan Selatan'] = { -3.32, 114.59 },
-  ['Kalimantan Timur'] = { -0.50, 117.15 },
-  ['Kalimantan Utara'] = { 2.84, 117.37 },
-  ['Sulawesi Utara'] = { 1.47, 124.84 },
-  ['Gorontalo'] = { 0.54, 123.06 },
-  ['Sulawesi Tengah'] = { -0.90, 119.87 },
-  ['Sulawesi Barat'] = { -2.68, 118.89 },
-  ['Sulawesi Selatan'] = { -5.14, 119.43 },
-  ['Sulawesi Tenggara'] = { -3.98, 122.51 },
-  ['Maluku'] = { -3.70, 128.18 },
-  ['Maluku Utara'] = { 0.79, 127.38 },
-  ['Papua'] = { -2.53, 140.72 },
-  ['Papua Barat'] = { -0.86, 134.06 },
-  ['Papua Barat Daya'] = { -0.88, 131.25 },
-  ['Papua Tengah'] = { -3.36, 135.50 },
-  ['Papua Pegunungan'] = { -4.10, 138.95 },
-  ['Papua Selatan'] = { -8.49, 140.40 },
-}
+local function _PPC()
+  local m, s = {}, "Aceh:5.55:95.32;Sumatera Utara:3.59:98.67;Sumatera Barat:-0.95:100.35;Riau:0.51:101.45;Kepulauan Riau:0.92:104.45;Jambi:-1.61:103.61;Bengkulu:-3.8:102.26;Sumatera Selatan:-2.99:104.76;Kepulauan Bangka Belitung:-2.13:106.11;Lampung:-5.43:105.26;Banten:-6.12:106.15;DKI Jakarta:-6.21:106.85;Jawa Barat:-6.91:107.61;Jawa Tengah:-6.97:110.42;DI Yogyakarta:-7.8:110.36;Jawa Timur:-7.25:112.75;Bali:-8.65:115.22;Nusa Tenggara Barat:-8.58:116.11;Nusa Tenggara Timur:-10.17:123.61;Kalimantan Barat:-0.03:109.34;Kalimantan Tengah:-2.21:113.92;Kalimantan Selatan:-3.32:114.59;Kalimantan Timur:-0.5:117.15;Kalimantan Utara:2.84:117.37;Sulawesi Utara:1.47:124.84;Gorontalo:0.54:123.06;Sulawesi Tengah:-0.9:119.87;Sulawesi Barat:-2.68:118.89;Sulawesi Selatan:-5.14:119.43;Sulawesi Tenggara:-3.98:122.51;Maluku:-3.7:128.18;Maluku Utara:0.79:127.38;Papua:-2.53:140.72;Papua Barat:-0.86:134.06;Papua Barat Daya:-0.88:131.25;Papua Tengah:-3.36:135.5;Papua Pegunungan:-4.1:138.95;Papua Selatan:-8.49:140.4"
+  for item in s:gmatch("[^;]+") do
+    local n, lat, lon = item:match("([^:]+):([^:]+):([^:]+)")
+    if n then m[n] = { tonumber(lat), tonumber(lon) } end
+  end
+  return m
+end
+F.PROV_COORDS = _PPC()
 
-F.CUSTOM_METHODS = {
-  { name = 'Kemenag / MABIMS', fajr = 20.0, isha = 18.0, asr = 1.0, mid = 20, desc = 'Subuh 20°, Isya 18°' },
-  { name = 'Muslim World League (MWL)', fajr = 18.0, isha = 17.0, asr = 1.0, mid = 3, desc = 'Subuh 18°, Isya 17°' },
-  { name = 'Umm Al-Qura (Makkah)', fajr = 18.5, isha_fixed = 90, asr = 1.0, mid = 4, desc = 'Subuh 18.5°, Isya +90m' },
-  { name = 'Egyptian Gen. Authority', fajr = 19.5, isha = 17.5, asr = 1.0, mid = 5, desc = 'Subuh 19.5°, Isya 17.5°' },
-  { name = 'ISNA (North America)', fajr = 15.0, isha = 15.0, asr = 1.0, mid = 2, desc = 'Subuh 15°, Isya 15°' },
-  { name = 'Univ. Karachi (Hanafi)', fajr = 18.0, isha = 18.0, asr = 2.0, mid = 1, desc = 'Subuh 18°, Isya 18°, Ashar 2x' },
-}
+
+local function _PCM()
+  local C = {}
+  local function M(n, f, i, a, m, d, fx)
+    C[#C + 1] = { name = n, fajr = f, isha = i, asr = a, mid = m, desc = d, isha_fixed = fx }
+  end
+  M('Kemenag / MABIMS', 20, 18, 1, 20, 'Subuh 20°, Isya 18°')
+  M('Muslim World League (MWL)', 18, 17, 1, 3, 'Subuh 18°, Isya 17°')
+  M('Umm Al-Qura (Makkah)', 18.5, 0, 1, 4, 'Subuh 18.5°, Isya +90m', 90)
+  M('Egyptian Gen. Authority', 19.5, 17.5, 1, 5, 'Subuh 19.5°, Isya 17.5°')
+  M('ISNA (North America)', 15, 15, 1, 2, 'Subuh 15°, Isya 15°')
+  M('Univ. Karachi (Hanafi)', 18, 18, 2, 1, 'Subuh 18°, Isya 18°, Ashar 2x')
+  return C
+end
+F.CUSTOM_METHODS = _PCM()
+
 
 F.WORLD_COUNTRIES = {
   {
@@ -843,95 +780,231 @@ end
 
 ------------------------------------------------------------------ Drawing: Tab 3 (Doa & Dzikir Pilihan)
 
-function F.draw_doa(gg, cfg, doa_idx, doa_list_mode, draw_btn, now_info)
+function F.draw_doa(gg, cfg, state, draw_btn, now_info)
   local W = S.W
   local is_en = (cfg.lang == 'en')
-  local total = #F.DUA_LIST
-  if doa_idx < 1 or doa_idx > total then doa_idx = 1 end
-  local d = F.DUA_LIST[doa_idx]
+  state = state or {}
 
   -- Top App Bar: App Title on Left, Clock + Hamburger on Right
-  gg:text(20, 18, is_en and 'Daily Duas & Adhkar' or 'Doa & Dzikir Pilihan', { font = S.font('large') })
+  gg:text(20, 18, is_en and 'Islamic Duas & Adhkar' or 'Pencarian Doa & Dzikir', { font = S.font('large') })
   if now_info and now_info.hhmm then
     gg:text(W - 128, 20, now_info.hhmm, { font = S.font('medium') })
   end
   S.draw_hamburger_btn(gg, W - 50, 20)
 
-  if doa_list_mode then
-    -- Apple Inset Grouped TableView Container (10 items, y = 60..690, h = 630, r = 14)
-    local card_h = total * 63
-    S.round_rect(gg, 20, 60, W - 40, card_h, 14, nil, true, 0)
-    S.round_rect(gg, 20, 60, W - 40, card_h, 14, 2)
+  -- VIEW 1: Reading Detail of a Selected Dua
+  if state.viewing then
+    local d = state.viewing
+    local is_saved = state.saved_set and state.saved_set[d.id]
 
-    for i = 1, total do
-      local item = F.DUA_LIST[i]
-      local ry = 60 + (i - 1) * 63
-      local is_sel = (i == doa_idx)
-      if i > 1 then
-        gg:line(36, ry, W - 36, ry, { line_width = 1 })
-      end
-      if is_sel then
-        -- Apple active row subtle selection pill
-        S.round_rect(gg, 24, ry + 4, W - 48, 55, 8, 2)
-      end
-      gg:circle(42, ry + 31, is_sel and 4 or 2, { fill = true })
-      local t_str = is_en and item.title_en or item.title_id
-      local tf = (S.text_w(t_str, 'medium') <= W - 96) and 'medium' or 'small'
-      local ty = (tf == 'medium') and (ry + 18) or (ry + 21)
-      gg:text(56, ty, S.fit_text(t_str, tf, W - 96), { font = S.font(tf) })
-    end
-    draw_btn(gg, 20, 712, W - 40, 58, is_en and 'Close List' or 'Tutup Daftar', false, 'medium')
-  else
-    -- Title Banner (y = 58..140, h = 82)
-    S.card(gg, 20, 58, W - 40, 82, 2, true)
-    S.center_text(gg, W // 2, 68, is_en and d.cat_en or d.cat_id, 'small', W - 64)
+    -- Navigation & Bookmark Bar (y = 56..94, h = 38)
+    draw_btn(gg, 20, 56, 120, 38, is_en and '< Back' or '< Kembali', false, 'small')
+    local bkmk_lbl = is_saved and (is_en and '★ Saved' or '★ Tersimpan') or (is_en and '☆ Save' or '☆ Simpan')
+    draw_btn(gg, W - 146, 56, 126, 38, bkmk_lbl, is_saved, 'small')
 
-    local t_str = is_en and d.title_en or d.title_id
-    local tf = (S.text_w(t_str, 'medium') <= W - 64) and 'medium' or 'small'
-    local t_lines = F.wrap_lines(t_str, tf, W - 64)
-    if #t_lines == 1 then
-      S.center_text(gg, W // 2, 98, t_lines[1], tf, W - 64)
+    -- Title Banner (y = 100..164, h = 64)
+    S.card(gg, 20, 100, W - 40, 64, 2, true)
+    local cat_str = is_en and (d.grup_en or d.grup_id or '') or (d.grup_id or '')
+    S.center_text(gg, W // 2, 106, cat_str, 'small', W - 64)
+    local t_str = is_en and (d.nama_en or d.nama_id or '') or (d.nama_id or '')
+    S.center_text(gg, W // 2, 128, t_str, 'medium', W - 64)
+
+    -- Reading Card Container (y = 172..704, h = 532)
+    S.card(gg, 20, 172, W - 40, 532, 2, 2)
+
+    if state.fetching then
+      S.center_text(gg, W // 2, 340, is_en and 'Downloading supplication...' or 'Mengunduh doa dari API...', 'medium')
+      S.center_text(gg, W // 2, 375, is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...', 'small')
     else
-      S.center_text(gg, W // 2, 92, t_lines[1], tf, W - 64)
-      S.center_text(gg, W // 2, 114, t_lines[2], tf, W - 64)
+      local tr_text = d.tr or d.latin or ''
+      gg:text(38, 186, is_en and 'TRANSLITERATION (LATIN):' or 'BACAAN LATIN:', { font = S.font('small') })
+      local lat_lines = F.wrap_lines(tr_text, 'medium', W - 76)
+      local use_sml = (#lat_lines > 4)
+      if use_sml then lat_lines = F.wrap_lines(tr_text, 'small', W - 76) end
+      local font_n = use_sml and 'small' or 'medium'
+      local lh = use_sml and 22 or 26
+      local ly = 212
+      local max_lat_lines = math.min(#lat_lines, 6)
+      for i = 1, max_lat_lines do
+        gg:text(38, ly, lat_lines[i], { font = S.font(font_n) })
+        ly = ly + lh
+      end
+
+      local div_y = ly + 10
+      S.divider(gg, div_y, 40, W - 40)
+
+      local my = div_y + 12
+      gg:text(38, my, is_en and 'MEANING & TRANSLATION:' or 'ARTINYA:', { font = S.font('small') })
+      local arti_text = is_en and (d.arti_en or d.arti_id or '') or (d.arti_id or '')
+      local arti_lines = F.wrap_lines('"' .. arti_text .. '"', 'small', W - 76)
+      local ay = my + 22
+      local max_arti_lines = math.min(#arti_lines, 8)
+      for i = 1, max_arti_lines do
+        gg:text(38, ay, arti_lines[i], { font = S.font('small') })
+        ay = ay + 20
+      end
+
+      if d.src and d.src ~= '' then
+        local src_s = S.fit_text(d.src:gsub('\r', ' '):gsub('\n', ' '), 'small', W - 76)
+        S.center_text(gg, W // 2, 678, src_s, 'small', W - 64)
+      end
     end
 
-    -- Main Reading Modern Card (y = 148..704, h = 556)
-    S.card(gg, 20, 148, W - 40, 556, 2, 2)
+    -- Bottom Navigation (y = 712, h = 64)
+    draw_btn(gg, 20, 712, 136, 64, is_en and '< Prev' or '< Seb', false, 'medium')
+    draw_btn(gg, 172, 712, 136, 64, is_en and 'All Duas' or 'Daftar Doa', false, 'small')
+    draw_btn(gg, 324, 712, 136, 64, is_en and 'Next >' or 'Ber >', false, 'medium')
+    return
+  end
 
-    gg:text(38, 164, is_en and 'TRANSLITERATION:' or 'BACAAN LATIN:', { font = S.font('small') })
+  -- VIEW 2: Search Engine & Saved Duas List
+  local cur_tab = state.tab or 'search'
+  local saved_count = state.saved_items and #state.saved_items or 0
 
-    local lat_lines_m = F.wrap_lines(d.latin, 'medium', W - 76)
-    local use_sml_lat = (#lat_lines_m > 4)
-    local lat_lines = use_sml_lat and F.wrap_lines(d.latin, 'small', W - 76) or lat_lines_m
-    local lat_font = use_sml_lat and 'small' or 'medium'
-    local lat_lh = use_sml_lat and 24 or 28
+  -- Segmented Control (y = 56..92, h = 36)
+  local segs = {
+    is_en and '🔍 Search Duas' or '🔍 Cari Doa',
+    (is_en and '⭐ Saved (' or '⭐ Tersimpan (') .. tostring(saved_count) .. ')'
+  }
+  S.segmented_control(gg, 20, 56, W - 40, 36, segs, (cur_tab == 'saved') and 2 or 1)
 
-    local ly = 192
-    for _, line in ipairs(lat_lines) do
-      gg:text(38, ly, line, { font = S.font(lat_font) })
-      ly = ly + lat_lh
+  local items = (cur_tab == 'saved') and (state.saved_items or {}) or (state.filtered_items or {})
+
+  if cur_tab == 'search' then
+    -- Google-Style Search Bar (y = 98..144, h = 46)
+    S.round_rect(gg, 20, 98, W - 40, 46, 12, nil, true, 0)
+    S.round_rect(gg, 20, 98, W - 40, 46, 12, 2)
+    -- Magnifying glass icon text
+    gg:text(32, 112, '🔍', { font = S.font('medium') })
+    local q_display = state.query or ''
+    if q_display == '' then
+      local ph = is_en and 'Tap to search (e.g. prayer, sleep, meal)...' or 'Ketuk untuk cari (sholat, tidur, makan)...'
+      gg:text(64, 114, S.fit_text(ph, 'small', W - 118), { font = S.font('small') })
+    else
+      gg:text(64, 112, S.fit_text(q_display, 'medium', W - 128), { font = S.font('medium') })
+      -- Clear (X) icon on right
+      draw_btn(gg, W - 62, 104, 34, 34, '✕', false, 'small')
     end
 
-    local div_y = ly + 12
-    S.divider(gg, div_y, 40, W - 40)
+    -- Quick Suggestion Topic Chips (y = 150..212, h = 62 across 2 rows)
+    for idx, ch in ipairs(F.DOA_CHIPS) do
+      local row = (idx <= 4) and 0 or 1
+      local col = (idx <= 4) and (idx - 1) or (idx - 5)
+      local cx = 20 + col * 112
+      local cy = 150 + row * 32
+      local cw = 104
+      local ch_label = is_en and ch.t_en or ch.t_id
+      local is_active = (state.query:lower() == ch.id or state.query:lower() == ch_label:lower())
+      S.round_rect(gg, cx, cy, cw, 28, 8, nil, true, 0)
+      S.round_rect(gg, cx, cy, cw, 28, 8, is_active and 2 or 1)
+      S.center_text(gg, cx + cw // 2, cy + 5, ch_label, 'small', cw - 8)
+    end
+  end
 
-    local m_y = div_y + 12
-    gg:text(38, m_y, is_en and 'MEANING:' or 'ARTINYA:', { font = S.font('small') })
-    local arti_s = is_en and d.arti_en or d.arti_id
-    local arti_lines = F.wrap_lines('"' .. arti_s .. '"', 'small', W - 76)
-    local ay = m_y + 24
-    for _, line in ipairs(arti_lines) do
-      gg:text(38, ay, line, { font = S.font('small') })
-      ay = ay + 22
+  -- TableView Results (y = 220..704, h = 484)
+  local per_page = 5
+  local cur_page = state.page or 1
+  local total_pages = math.max(1, (#items + per_page - 1) // per_page)
+  if cur_page > total_pages then cur_page = total_pages end
+
+  local start_idx = (cur_page - 1) * per_page + 1
+  local end_idx = math.min(#items, start_idx + per_page - 1)
+
+  if #items == 0 then
+    -- Clean Empty State
+    S.card(gg, 20, 226, W - 40, 260, 2, true)
+    if cur_tab == 'saved' then
+      S.center_text(gg, W // 2, 270, is_en and 'No Saved Duas Yet' or 'Belum Ada Doa Tersimpan', 'large', W - 64)
+      S.center_text(gg, W // 2, 310, is_en and 'Search supplications in the search tab' or 'Cari doa di tab pencarian dan tekan', 'small', W - 64)
+      S.center_text(gg, W // 2, 332, is_en and 'and tap "Save" to keep them offline.' or 'tombol "Simpan" untuk membaca offline.', 'small', W - 64)
+    else
+      S.center_text(gg, W // 2, 270, is_en and 'No Supplications Found' or 'Doa Tidak Ditemukan', 'large', W - 64)
+      local q_info = '"' .. (state.query or '') .. '"'
+      S.center_text(gg, W // 2, 310, is_en and ('No results for ' .. q_info) or ('Tidak ada hasil untuk ' .. q_info), 'small', W - 64)
+      S.center_text(gg, W // 2, 332, is_en and 'Try: prayer, sleep, meals, travel, parents' or 'Coba kata kunci: sholat, tidur, makan, sakit', 'small', W - 64)
+    end
+  else
+    for i = start_idx, end_idx do
+      local it = items[i]
+      local slot = i - start_idx
+      local ry = 222 + slot * 96
+      local is_saved = state.saved_set and state.saved_set[it.id]
+
+      S.round_rect(gg, 20, ry, W - 40, 90, 12, nil, true, 0)
+      S.round_rect(gg, 20, ry, W - 40, 90, 12, 1)
+
+      -- ID & Category Capsule Pill
+      local cat_name = is_en and (it.g_en or it.g_id or '') or (it.g_id or '')
+      local pill_str = '#' .. tostring(it.id) .. ' • ' .. cat_name
+      local pw = math.min(S.text_w(pill_str, 'small') + 18, 220)
+      S.round_rect(gg, 32, ry + 10, pw, 20, 6, nil, true, 0)
+      S.round_rect(gg, 32, ry + 10, pw, 20, 6, 1)
+      gg:text(38, ry + 11, S.fit_text(pill_str, 'small', pw - 10), { font = S.font('small') })
+
+      if is_saved then
+        gg:text(W - 74, ry + 11, '★', { font = S.font('medium') })
+      end
+
+      -- Title Text
+      local title_str = is_en and (it.n_en or it.n_id or '') or (it.n_id or '')
+      gg:text(34, ry + 40, S.fit_text(title_str, 'medium', W - 90), { font = S.font('medium') })
+
+      -- Chevron Arrow >
+      gg:text(W - 44, ry + 40, '›', { font = S.font('large') })
+    end
+  end
+
+  -- Bottom Pagination Bar (y = 714..776, h = 62)
+  draw_btn(gg, 20, 714, 120, 62, is_en and '< Prev' or '< Seb', cur_page > 1, 'medium')
+  local page_info = string.format('%d / %d (%d)', cur_page, total_pages, #items)
+  S.center_text(gg, W // 2, 736, page_info, 'small', 180)
+  draw_btn(gg, W - 140, 714, 120, 62, is_en and 'Next >' or 'Ber >', cur_page < total_pages, 'medium')
+
+  -- VIEW 3: Virtual Touch QWERTY Keyboard Modal (when typing)
+  if state.keyboard then
+    local ky = 460
+    local kh = 320
+    S.round_rect(gg, 10, ky, W - 20, kh, 14, nil, true, 0)
+    S.round_rect(gg, 10, ky, W - 20, kh, 14, 2)
+
+    -- Keyboard Helper Bar (y = 468..506, h = 38)
+    draw_btn(gg, 20, 468, 100, 38, is_en and '✕ Close' or '✕ Tutup', false, 'small')
+    local preview = 'Q: ' .. (state.query or '') .. '|'
+    S.center_text(gg, W // 2, 478, S.fit_text(preview, 'small', 220), 'small', 220)
+    draw_btn(gg, W - 120, 468, 100, 38, is_en and '⌫ Del' or '⌫ Hapus', false, 'small')
+
+    -- Row 1: Q W E R T Y U I O P (10 keys)
+    local r1 = { 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P' }
+    for k = 1, 10 do
+      local kx = 16 + (k - 1) * 45
+      S.round_rect(gg, kx, 514, 41, 46, 6, nil, true, 0)
+      S.round_rect(gg, kx, 514, 41, 46, 6, 1)
+      S.center_text(gg, kx + 20, 526, r1[k], 'medium', 36)
     end
 
-    S.center_text(gg, W // 2, 674, d.src, 'small', W - 64)
+    -- Row 2: A S D F G H J K L (9 keys)
+    local r2 = { 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L' }
+    for k = 1, 9 do
+      local kx = 38 + (k - 1) * 45
+      S.round_rect(gg, kx, 568, 41, 46, 6, nil, true, 0)
+      S.round_rect(gg, kx, 568, 41, 46, 6, 1)
+      S.center_text(gg, kx + 20, 580, r2[k], 'medium', 36)
+    end
 
-    -- Navigation Buttons (y = 714, h = 62, bottom margin 24px)
-    draw_btn(gg, 20, 714, 136, 62, is_en and '< Prev' or '< Seb', false, 'medium')
-    draw_btn(gg, 172, 714, 136, 62, is_en and 'All Duas' or 'Daftar Doa', false, 'small')
-    draw_btn(gg, 324, 714, 136, 62, is_en and 'Next >' or 'Ber >', false, 'medium')
+    -- Row 3: Z X C V B N M (7 keys)
+    local r3 = { 'Z', 'X', 'C', 'V', 'B', 'N', 'M' }
+    for k = 1, 7 do
+      local kx = 24 + (k - 1) * 46
+      S.round_rect(gg, kx, 622, 42, 46, 6, nil, true, 0)
+      S.round_rect(gg, kx, 622, 42, 46, 6, 1)
+      S.center_text(gg, kx + 21, 634, r3[k], 'medium', 36)
+    end
+    -- Backspace Key in Row 3
+    draw_btn(gg, 352, 622, 108, 46, '⌫ Del', false, 'small')
+
+    -- Row 4: Space Bar & Done Button
+    draw_btn(gg, 24, 676, 260, 54, is_en and '␣ Space' or '␣ Spasi', false, 'small')
+    draw_btn(gg, 296, 676, 164, 54, is_en and '🔍 Search' or '🔍 Cari Doa', true, 'medium')
   end
 end
 
@@ -1486,26 +1559,26 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     dy = dy + 20
     vtext(36, dy, 'Repo      : MuslimInk-XTEINK-X4-PRO', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'License   : Open Source (MIT License)' or 'Lisensi   : Open Source (MIT License)', { font = S.font('small') })
+    vtext(36, dy, 'License   : Open Source (MIT)', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and ('App Vers. : v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')') or ('Versi App : v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')'), { font = S.font('small') })
+    vtext(36, dy, (is_en and 'App Vers. : v' or 'Versi App : v') .. S.APP_VERSION, { font = S.font('small') })
 
     -- Section 2: Calculation Engine & Astronomics
     dy = dy + 26
     vdivider(dy - 8)
     vtext(36, dy, is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS', { font = S.font('small') })
     dy = dy + 22
-    vtext(36, dy, is_en and 'Indonesia : Kemenag RI (514 Kab/Kota)' or 'Indonesia : Kemenag RI (514 Kab/Kota)', { font = S.font('small') })
+    vtext(36, dy, 'Indonesia : Kemenag RI (514 Kab/Kota)', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Global/LN : Aladhan API (230+ Kota)' or 'Global/LN : Aladhan API (230+ Kota)', { font = S.font('small') })
+    vtext(36, dy, 'Global/LN : Aladhan API (230+ Kota)', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Methods   : Ummul Quro, MWL, MUIS, dll' or 'Metode LN : Ummul Quro, MWL, MUIS, dll', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Methods   : Ummul Quro, MWL, MUIS, etc' or 'Metode LN : Ummul Quro, MWL, MUIS, dll', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Offline   : Hisab Surya Meeus & MABIMS' or 'Offline   : Hisab Surya Meeus & MABIMS', { font = S.font('small') })
+    vtext(36, dy, 'Offline   : Hisab Meeus & MABIMS', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'GPS Coords: Custom Lat/Lon/TZ Numpad' or 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
+    vtext(36, dy, is_en and 'GPS Coords: Custom Lat/Lon/TZ' or 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle Math)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)', { font = S.font('small') })
 
     -- Section 3: Hardware & Runtime Status
     dy = dy + 26
@@ -1514,7 +1587,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     dy = dy + 22
     vtext(36, dy, is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Display   : 480x800 1-bit E-ink Monokrom' or 'Layar     : 480x800 1-bit E-ink Monokrom', { font = S.font('small') })
+    vtext(36, dy, 'Display   : 480x800 1-bit E-ink', { font = S.font('small') })
     dy = dy + 20
     vtext(36, dy, is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)', { font = S.font('small') })
     dy = dy + 20
@@ -1542,7 +1615,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     vcenter_text(W // 2, dy, gh_lbl, 'small')
     dy = dy + 22
 
-    local gh_note = is_en and 'Source Code • Panduan • Rilis • Dukungan' or 'Source Code • Panduan • Rilis • Dukungan'
+    local gh_note = 'Source Code • Panduan • Rilis • Dukungan'
     vcenter_text(W // 2, dy, gh_note, 'small')
   end
 
@@ -1970,10 +2043,10 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
       end
     end
 
-    local note1 = is_en and 'Target storage path on device:' or 'Lokasi penyimpanan berkas:'
-    local note2 = 'XTApps/muslimink/files/muslimink_update.xtapp'
-    local note3 = is_en and 'Mode: 64 KB chunked transfer (anti-corrupt)' or 'Metode: Unduhan bertahap 64 KB (aman)'
-    local note4 = is_en and 'Please keep device connected to Wi-Fi...' or 'Mohon tunggu, jangan matikan Wi-Fi...'
+    local note1 = is_en and 'Target storage path:' or 'Lokasi penyimpanan:'
+    local note2 = 'XTApps/muslimink/files/'
+    local note3 = is_en and 'Mode: 64 KB chunked transfer' or 'Metode: Unduhan bertahap 64 KB'
+    local note4 = is_en and 'Keep Wi-Fi connected...' or 'Jangan matikan Wi-Fi...'
     gg:text(bx + 20, by + 122, note1, { font = S.font('small') })
     gg:text(bx + 20, by + 144, note2, { font = S.font('small') })
     gg:text(bx + 20, by + 172, note3, { font = S.font('small') })
@@ -2015,23 +2088,18 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     gg:text(bx + 16, ty, is_en and 'Steps to Install on X4 Pro:' or 'Langkah Pemasangan di X4 Pro:', { font = S.font('medium') })
     ty = ty + 24
 
-    local steps = {}
-    if is_root then
-      steps = {
-        is_en and '1. Buka Menu Samping -> All Files' or '1. Buka Menu Samping -> All Files',
-        is_en and '2. Klik berkas "muslimink_update.xtapp"' or '2. Klik berkas "muslimink_update.xtapp"',
-        is_en and '3. Tekan OK untuk konfirmasi pasang' or '3. Tekan OK untuk konfirmasi pasang',
-        is_en and '4. Buka kembali dari menu Ink App' or '4. Buka kembali dari menu Ink App',
-      }
-    else
-      steps = {
-        is_en and '1. Buka Menu Samping -> All Files' or '1. Buka Menu Samping -> All Files',
-        is_en and '2. Buka: XTApps > muslimink > files' or '2. Buka: XTApps > muslimink > files',
-        is_en and '3. Klik berkas "muslimink_update.xtapp"' or '3. Klik berkas "muslimink_update.xtapp"',
-        is_en and '4. Tekan OK untuk konfirmasi pasang' or '4. Tekan OK untuk konfirmasi pasang',
-        is_en and '5. Buka kembali dari menu Ink App' or '5. Buka kembali dari menu Ink App',
-      }
-    end
+    local steps = is_root and {
+      '1. Menu Samping -> All Files',
+      '2. Klik "muslimink_update.xtapp"',
+      '3. Tekan OK untuk pasang',
+      '4. Buka kembali di Ink App',
+    } or {
+      '1. Menu Samping -> All Files',
+      '2. Buka XTApps > muslimink > files',
+      '3. Klik "muslimink_update.xtapp"',
+      '4. Tekan OK untuk pasang',
+      '5. Buka kembali di Ink App',
+    }
 
     for _, s in ipairs(steps) do
       local w_s = S.wrap_lines(s, bw - 32, 'small')
@@ -2049,8 +2117,8 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     gg:text(bx + 16, ty, is_en and 'Quick Install:' or 'Instalasi Cepat:', { font = S.font('medium') })
     ty = ty + 22
     local tip_desc = is_en
-      and 'Tap "Exit App & Install" below. If not opened automatically by OS, follow the 5 manual steps above.'
-      or 'Tekan tombol "Keluar Aplikasi & Pasang" di bawah. Jika sistem tidak otomatis membuka berkas, gunakan 5 langkah manual di atas.'
+      and 'Tap "Exit App & Install" below, or follow the steps above.'
+      or 'Tekan "Keluar Aplikasi & Pasang" atau ikuti langkah di atas.'
     local w_tip = S.wrap_lines(tip_desc, bw - 32, 'small')
     for i = 1, #w_tip do
       gg:text(bx + 16, ty, w_tip[i], { font = S.font('small') })
@@ -2079,8 +2147,8 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
 
     my_y = math.max(my_y + 8, by + 130)
     local tip = is_en
-      and 'Ensure Wi-Fi is active and stable, or scan QR code via phone below.'
-      or 'Pastikan Wi-Fi stabil, atau pindai QR code lewat HP di bawah ini.'
+      and 'Ensure Wi-Fi is active, or scan QR code below.'
+      or 'Pastikan Wi-Fi aktif, atau scan QR code di bawah.'
     local w_tips = S.wrap_lines(tip, bw - 40, 'small')
     for i = 1, #w_tips do
       gg:text(bx + 20, my_y, w_tips[i], { font = S.font('small') })

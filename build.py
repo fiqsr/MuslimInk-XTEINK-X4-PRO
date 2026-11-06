@@ -268,7 +268,7 @@ def minify_lua(source):
 
 def bundle():
     print("Packing TrueType clock fonts...")
-    fonts_idx_lua = build_packed_fonts(include_sm=True)
+    fonts_idx_lua = build_packed_fonts(include_sm=False)
     fonts_lock_lua = build_packed_fonts(include_sm=False)
 
     core_src = pack_ayahs(read_text("src/core.lua"))

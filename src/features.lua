@@ -1742,10 +1742,14 @@ end
 
 ------------------------------------------------------------------ Modal: App Auto-Update (GitHub Releases)
 
-function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn)
+function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress)
   if type(update_saved_path) == 'function' and draw_btn == nil then
     draw_btn = update_saved_path
     update_saved_path = nil
+  end
+  if type(update_err) == 'function' and draw_btn == nil then
+    draw_btn = update_err
+    update_err = nil
   end
 
   local W, H = S.W, S.H
@@ -1783,7 +1787,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
   elseif update_state == 'downloading' then
     m_title = is_en and 'Downloading Update...' or 'Sedang Mengunduh...'
   elseif update_state == 'error' then
-    m_title = is_en and 'Update Notification' or 'Pemberitahuan Pembaruan'
+    m_title = is_en and 'Update Failed' or 'Pembaruan Gagal'
   end
   gg:text(mx + 20, my + 20, S.fit_text(m_title, 'large', mw - 60), { font = S.font('large') })
 
@@ -1873,27 +1877,42 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     S.round_rect(gg, bx, by, bw, bh, 12, 1)
 
     gg:text(bx + 20, by + 24, is_en and 'DOWNLOADING PACKAGE' or 'SEDANG MENGUNDUH PAKET', { font = S.font('medium') })
-    local sz_kb = math.floor(((update_info and update_info.size_bytes) or 410080) / 1024)
-    local sub_dl = is_en
-      and ('Fetching muslimink.xtapp (~' .. sz_kb .. ' KB)...')
-      or ('Mengunduh muslimink.xtapp (~' .. sz_kb .. ' KB)...')
-    gg:text(bx + 20, by + 52, sub_dl, { font = S.font('small') })
-
-    -- Progress bar container
-    local p_w, p_h = bw - 40, 18
-    local px, py = bx + 20, by + 88
-    S.round_rect(gg, px, py, p_w, p_h, 9, nil, true, 0)
-    S.round_rect(gg, px, py, p_w, p_h, 9, 2)
-    for sx = px + 4, px + p_w - 4, 12 do
-      gg:line(sx, py + 2, sx + 4, py + p_h - 3, { line_width = 2 })
+    local cur_b = (update_progress and update_progress.current) or 0
+    local exp_b = (update_progress and update_progress.total) or ((update_info and update_info.size_bytes) or 422144)
+    local cur_kb = math.floor(cur_b / 1024)
+    local exp_kb = math.floor(exp_b / 1024)
+    local pct = 0
+    if exp_b > 0 then
+      pct = math.min(100, math.floor(cur_b * 100 / exp_b))
     end
 
-    local note1 = is_en and 'Directly saving package to SD Card storage:' or 'Menyimpan berkas langsung ke kartu memori SD Card:'
+    local sub_dl = is_en
+      and ('Progress: ' .. cur_kb .. ' / ' .. exp_kb .. ' KB (' .. pct .. '%)')
+      or ('Progres: ' .. cur_kb .. ' / ' .. exp_kb .. ' KB (' .. pct .. '%)')
+    gg:text(bx + 20, by + 52, sub_dl, { font = S.font('medium') })
+
+    -- Progress bar container
+    local p_w, p_h = bw - 40, 20
+    local px, py = bx + 20, by + 86
+    S.round_rect(gg, px, py, p_w, p_h, 10, nil, true, 0)
+    S.round_rect(gg, px, py, p_w, p_h, 10, 2)
+    -- Fill bar proportionally
+    local fill_w = math.floor((p_w - 4) * pct / 100)
+    if fill_w > 0 then
+      S.round_rect(gg, px + 2, py + 2, fill_w, p_h - 4, 8, nil, true, 0)
+      for sx = px + 4, px + fill_w - 2, 8 do
+        gg:line(sx, py + 3, sx + 3, py + p_h - 4, { line_width = 2 })
+      end
+    end
+
+    local note1 = is_en and 'Target storage path on SD Card:' or 'Lokasi penyimpanan di kartu SD:'
     local note2 = '/sdcard/muslimink.xtapp'
-    local note3 = is_en and 'Please keep device connected to Wi-Fi...' or 'Mohon tunggu, jangan matikan Wi-Fi...'
-    gg:text(bx + 20, by + 128, note1, { font = S.font('small') })
-    gg:text(bx + 20, by + 150, note2, { font = S.font('medium') })
-    gg:text(bx + 20, by + 184, note3, { font = S.font('small') })
+    local note3 = is_en and 'Mode: 64 KB chunked transfer (anti-corrupt)' or 'Metode: Unduhan bertahap 64 KB (aman)'
+    local note4 = is_en and 'Please keep device connected to Wi-Fi...' or 'Mohon tunggu, jangan matikan Wi-Fi...'
+    gg:text(bx + 20, by + 122, note1, { font = S.font('small') })
+    gg:text(bx + 20, by + 144, note2, { font = S.font('medium') })
+    gg:text(bx + 20, by + 172, note3, { font = S.font('small') })
+    gg:text(bx + 20, by + 194, note4, { font = S.font('small') })
 
     draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Cancel' or 'Batal', false, 'medium')
 
@@ -1960,18 +1979,25 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
     S.round_rect(gg, bx, by, bw, bh, 12, 1)
 
-    local err_title = is_en and 'Update Notice' or 'Pemberitahuan Pembaruan'
+    local err_title = is_en and '[ ! ] Update Incomplete' or '[ ! ] Unduhan Belum Selesai'
     gg:text(bx + 20, by + 20, err_title, { font = S.font('medium') })
     local msg = update_err or (is_en and 'Network connection error.' or 'Terjadi kesalahan jaringan.')
     local w_lines = S.wrap_lines(msg, bw - 40, 'small')
+    local my_y = by + 52
     for i = 1, #w_lines do
-      gg:text(bx + 20, by + 52 + (i - 1) * 20, w_lines[i], { font = S.font('small') })
+      gg:text(bx + 20, my_y, w_lines[i], { font = S.font('small') })
+      my_y = my_y + 20
     end
 
+    my_y = math.max(my_y + 8, by + 130)
     local tip = is_en
-      and 'Please check your Wi-Fi connection and retry.'
-      or 'Pastikan koneksi Wi-Fi aktif dan stabil lalu coba lagi.'
-    gg:text(bx + 20, by + 140, tip, { font = S.font('small') })
+      and 'Ensure Wi-Fi is active and stable, then tap Retry below.'
+      or 'Pastikan koneksi Wi-Fi aktif dan stabil lalu tekan Coba Lagi.'
+    local w_tips = S.wrap_lines(tip, bw - 40, 'small')
+    for i = 1, #w_tips do
+      gg:text(bx + 20, my_y, w_tips[i], { font = S.font('small') })
+      my_y = my_y + 20
+    end
 
     draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Retry' or 'Coba Lagi', true, 'medium')
     draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')

@@ -1,6 +1,6 @@
 {
-  "version": "1.1.1",
-  "build": 111,
+  "version": "1.1.2",
+  "build": 112,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -8,21 +8,21 @@
   "release_date": "2026-11-06",
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
-  "size_bytes": 422144,
+  "size_bytes": 427680,
   "changelog_id": [
-    "Perbaikan Tampilan: Menghilangkan kotak glyph rusak (▢) pada metode hisab MABIMS",
-    "Perbaikan Tipografi: Judul & badge modal bebas terpotong (anti-truncation)",
-    "Perbaikan Tata Letak: Penyelarasan baris deskripsi pembaruan & petunjuk Auto UTC",
-    "Pembaruan Auto-Updater: Penyimpanan langsung ke direktori utama SD Card (/sdcard/muslimink.xtapp)",
-    "Pembaruan Auto-Updater: Validasi paket XTAP biner utuh anti-corrupt",
-    "Fitur Baru: Input Koordinat Manual (Latitude, Longitude & Timezone) dengan Numpad 4x4"
+    "Pembaruan Auto-Updater: Unduhan bertahap chunked HTTP Range (64 KB) mengatasi batas socket buffer firmware ESP32",
+    "Indikator Progres: Tampilan langsung persentase (%), ukuran terunduh (KB), dan progress bar real-time",
+    "Perbaikan Tipografi: Judul modal saat gagal tidak lagi terpotong ('Pembaruan Gagal')",
+    "Perbaikan Tata Letak: Kalimat petunjuk Wi-Fi dibungkus rapi tanpa terpotong di border",
+    "Peningkatan Stabilitas: Mekanisme auto-retry 3x per-chunk jika koneksi Wi-Fi fluktuatif",
+    "Fitur Sebelumnya: Input Koordinat Manual (GPS), Kompas Kiblat & 6 Gaya Jam TrueType"
   ],
   "changelog_en": [
-    "UI Fix: Removed missing glyph box (▢) on MABIMS method card",
-    "Typography Fix: Zero title & badge text truncation across all screens",
-    "Layout Polish: Proper line wrapping for update notes & Auto UTC guide",
-    "Auto-Updater: Direct shallow download to SD Card root (/sdcard/muslimink.xtapp)",
-    "Auto-Updater: Strict binary container integrity validation (XTAP)",
-    "New Feature: Manual GPS Coordinates Input with 4x4 on-screen touch numpad"
+    "Auto-Updater: 64 KB HTTP Range chunked downloader overcoming ESP32 firmware 128 KB buffer limit",
+    "Live Progress Indicator: Real-time percentage (%), downloaded KB / total KB, and animated progress bar",
+    "Typography Polish: Modal error title zero-truncation ('Update Failed')",
+    "Layout Polish: Proper multi-line text wrapping for Wi-Fi tips without border cut-offs",
+    "Reliability: 3x automatic chunk retry on unstable Wi-Fi connections",
+    "Previous Features: Manual GPS Coordinates Input, Qibla Compass & 6 TrueType Clock Styles"
   ]
 }

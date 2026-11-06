@@ -1695,8 +1695,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.1.1'
-S.APP_BUILD = 111
+S.APP_VERSION = '1.1.2'
+S.APP_BUILD = 112
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 
 function S.parse_version_json(str)
@@ -1883,36 +1883,59 @@ function S.download_update(update_info, on_progress, on_done)
     return
   end
 
-  local function do_fetch(url, depth, is_fallback)
-    depth = depth or 0
-    if depth > 4 then
-      finish(false, nil, 'Terlalu banyak pengalihan (redirect)')
-      return
+  local CHUNK_SIZE = 65536 -- 64 KB per chunk (safely under XTOS 128 KB buffer limit)
+  local chunks = {}
+  local downloaded_bytes = 0
+  local total_bytes = (update_info and update_info.size_bytes) or 422144
+  local current_url = primary_url
+  local chunk_retries = 0
+  local MAX_CHUNK_RETRIES = 3
+  local redirect_count = 0
+
+  local fetch_chunk
+
+  fetch_chunk = function()
+    local end_byte = downloaded_bytes + CHUNK_SIZE - 1
+    if total_bytes and total_bytes > 0 and end_byte >= total_bytes then
+      end_byte = total_bytes - 1
     end
 
     local req_opts = {
-      url = url,
+      url = current_url,
       method = 'GET',
       headers = {
         ['Accept'] = '*/*',
         ['Accept-Encoding'] = 'identity',
+        ['Range'] = 'bytes=' .. downloaded_bytes .. '-' .. end_byte,
         ['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) MuslimInk/' .. S.APP_VERSION,
       },
-      timeout_ms = 60000,
+      timeout_ms = 45000,
     }
 
     ctx.net:request(req_opts, function(c, resp)
       if type(resp) ~= 'table' then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
+        if chunk_retries < MAX_CHUNK_RETRIES then
+          chunk_retries = chunk_retries + 1
+          fetch_chunk()
+          return
+        end
+        if current_url ~= rel_url and rel_url ~= '' then
+          current_url = rel_url
+          chunk_retries = 0
+          fetch_chunk()
           return
         end
         finish(false, nil, 'Koneksi gagal atau terputus')
         return
       end
 
-      -- Case-insensitive redirect detection (301, 302, 307, 308)
+      -- Handle HTTP Redirects (301, 302, 307, 308)
       if (resp.status == 301 or resp.status == 302 or resp.status == 307 or resp.status == 308) and type(resp.headers) == 'table' then
+        redirect_count = redirect_count + 1
+        if redirect_count > 5 then
+          finish(false, nil, 'Terlalu banyak pengalihan (redirect)')
+          return
+        end
         local loc = nil
         for k, v in pairs(resp.headers) do
           if tostring(k):lower() == 'location' then
@@ -1921,14 +1944,18 @@ function S.download_update(update_info, on_progress, on_done)
           end
         end
         if loc and loc ~= '' then
-          do_fetch(loc, depth + 1, is_fallback)
+          current_url = loc
+          fetch_chunk()
           return
         end
       end
 
-      if resp.status and resp.status ~= 200 then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
+      -- Accept both 206 (Partial Content) and 200 (OK)
+      if resp.status ~= 206 and resp.status ~= 200 then
+        if current_url ~= rel_url and rel_url ~= '' then
+          current_url = rel_url
+          chunk_retries = 0
+          fetch_chunk()
           return
         end
         finish(false, nil, 'HTTP Error ' .. tostring(resp.status))
@@ -1936,45 +1963,83 @@ function S.download_update(update_info, on_progress, on_done)
       end
 
       local body = resp.body
-      if type(body) ~= 'string' or #body < 1000 then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
+      if type(body) ~= 'string' or #body == 0 then
+        if chunk_retries < MAX_CHUNK_RETRIES then
+          chunk_retries = chunk_retries + 1
+          fetch_chunk()
           return
         end
-        finish(false, nil, 'Berkas unduhan kosong atau tidak lengkap')
+        finish(false, nil, 'Data unduhan kosong')
         return
       end
 
-      -- Check HTML error pages disguised as 200 OK
-      if body:find('<html') or body:find('<!DOCTYPE') or body:find('<HTML') then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
+      -- If server ignored Range and returned full body in single response (>= min_sz)
+      local min_sz = math.floor(total_bytes * 0.9)
+      if resp.status == 200 and downloaded_bytes == 0 and #body >= min_sz then
+        if body:sub(1, 4) ~= 'XTAP' then
+          finish(false, nil, 'Berkas corrupt: header bukan XTAP')
           return
         end
-        finish(false, nil, 'Server mengirim halaman web/HTML, bukan berkas .xtapp')
+        local saved_path = S.save_update_package('muslimink.xtapp', body)
+        if not saved_path then
+          finish(false, nil, 'Gagal menyimpan berkas ke SD Card')
+          return
+        end
+        if on_progress then
+          pcall(function() on_progress(#body, #body) end)
+        end
+        finish(true, saved_path, nil)
         return
       end
 
-      -- CRITICAL: Verify Licorice .xtapp Magic Header ("XTAP")
-      if body:sub(1, 4) ~= 'XTAP' then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
-          return
+      -- Inspect Content-Range header for exact total size
+      if type(resp.headers) == 'table' then
+        for k, v in pairs(resp.headers) do
+          if tostring(k):lower() == 'content-range' then
+            local tot = tostring(v):match('/(%d+)')
+            if tot then
+              local n_tot = tonumber(tot)
+              if n_tot and n_tot > 0 then
+                total_bytes = n_tot
+              end
+            end
+            break
+          end
         end
+      end
+
+      -- Append chunk data
+      table.insert(chunks, body)
+      downloaded_bytes = downloaded_bytes + #body
+      chunk_retries = 0
+
+      if on_progress then
+        pcall(function() on_progress(downloaded_bytes, total_bytes) end)
+      end
+
+      -- Continue fetching next chunk if more bytes expected
+      if downloaded_bytes < total_bytes and #body > 0 then
+        fetch_chunk()
+        return
+      end
+
+      -- All chunks downloaded! Assemble package
+      local full_body = table.concat(chunks)
+
+      -- Verify Licorice .xtapp Magic Header ("XTAP")
+      if full_body:sub(1, 4) ~= 'XTAP' then
         finish(false, nil, 'Berkas corrupt: header tidak valid (bukan paket XTAP)')
         return
       end
 
-      -- CRITICAL: Verify minimum package size
-      local exp_sz = (update_info and update_info.size_bytes) or 380000
-      local min_sz = math.floor(exp_sz * 0.9)
-      if #body < min_sz then
-        finish(false, nil, 'Ukuran berkas tidak lengkap: ' .. math.floor(#body / 1024) .. ' KB (seharusnya ~' .. math.floor(exp_sz / 1024) .. ' KB)')
+      -- Verify full package size
+      if #full_body < min_sz then
+        finish(false, nil, 'Ukuran berkas tidak lengkap: ' .. math.floor(#full_body / 1024) .. ' KB (seharusnya ~' .. math.floor(total_bytes / 1024) .. ' KB)')
         return
       end
 
       -- Save binary cleanly to shallow path on SD Card
-      local saved_path = S.save_update_package('muslimink.xtapp', body)
+      local saved_path = S.save_update_package('muslimink.xtapp', full_body)
       if not saved_path then
         finish(false, nil, 'Gagal menyimpan berkas ke SD Card')
         return
@@ -1984,7 +2049,7 @@ function S.download_update(update_info, on_progress, on_done)
     end)
   end
 
-  pcall(function() do_fetch(primary_url, 0, false) end)
+  pcall(function() fetch_chunk() end)
 end
 
 return S

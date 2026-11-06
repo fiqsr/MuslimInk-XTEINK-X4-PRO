@@ -1870,8 +1870,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.1.1'
-S.APP_BUILD = 111
+S.APP_VERSION = '1.1.2'
+S.APP_BUILD = 112
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 
 function S.parse_version_json(str)
@@ -2058,36 +2058,59 @@ function S.download_update(update_info, on_progress, on_done)
     return
   end
 
-  local function do_fetch(url, depth, is_fallback)
-    depth = depth or 0
-    if depth > 4 then
-      finish(false, nil, 'Terlalu banyak pengalihan (redirect)')
-      return
+  local CHUNK_SIZE = 65536 -- 64 KB per chunk (safely under XTOS 128 KB buffer limit)
+  local chunks = {}
+  local downloaded_bytes = 0
+  local total_bytes = (update_info and update_info.size_bytes) or 422144
+  local current_url = primary_url
+  local chunk_retries = 0
+  local MAX_CHUNK_RETRIES = 3
+  local redirect_count = 0
+
+  local fetch_chunk
+
+  fetch_chunk = function()
+    local end_byte = downloaded_bytes + CHUNK_SIZE - 1
+    if total_bytes and total_bytes > 0 and end_byte >= total_bytes then
+      end_byte = total_bytes - 1
     end
 
     local req_opts = {
-      url = url,
+      url = current_url,
       method = 'GET',
       headers = {
         ['Accept'] = '*/*',
         ['Accept-Encoding'] = 'identity',
+        ['Range'] = 'bytes=' .. downloaded_bytes .. '-' .. end_byte,
         ['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) MuslimInk/' .. S.APP_VERSION,
       },
-      timeout_ms = 60000,
+      timeout_ms = 45000,
     }
 
     ctx.net:request(req_opts, function(c, resp)
       if type(resp) ~= 'table' then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
+        if chunk_retries < MAX_CHUNK_RETRIES then
+          chunk_retries = chunk_retries + 1
+          fetch_chunk()
+          return
+        end
+        if current_url ~= rel_url and rel_url ~= '' then
+          current_url = rel_url
+          chunk_retries = 0
+          fetch_chunk()
           return
         end
         finish(false, nil, 'Koneksi gagal atau terputus')
         return
       end
 
-      -- Case-insensitive redirect detection (301, 302, 307, 308)
+      -- Handle HTTP Redirects (301, 302, 307, 308)
       if (resp.status == 301 or resp.status == 302 or resp.status == 307 or resp.status == 308) and type(resp.headers) == 'table' then
+        redirect_count = redirect_count + 1
+        if redirect_count > 5 then
+          finish(false, nil, 'Terlalu banyak pengalihan (redirect)')
+          return
+        end
         local loc = nil
         for k, v in pairs(resp.headers) do
           if tostring(k):lower() == 'location' then
@@ -2096,14 +2119,18 @@ function S.download_update(update_info, on_progress, on_done)
           end
         end
         if loc and loc ~= '' then
-          do_fetch(loc, depth + 1, is_fallback)
+          current_url = loc
+          fetch_chunk()
           return
         end
       end
 
-      if resp.status and resp.status ~= 200 then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
+      -- Accept both 206 (Partial Content) and 200 (OK)
+      if resp.status ~= 206 and resp.status ~= 200 then
+        if current_url ~= rel_url and rel_url ~= '' then
+          current_url = rel_url
+          chunk_retries = 0
+          fetch_chunk()
           return
         end
         finish(false, nil, 'HTTP Error ' .. tostring(resp.status))
@@ -2111,45 +2138,83 @@ function S.download_update(update_info, on_progress, on_done)
       end
 
       local body = resp.body
-      if type(body) ~= 'string' or #body < 1000 then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
+      if type(body) ~= 'string' or #body == 0 then
+        if chunk_retries < MAX_CHUNK_RETRIES then
+          chunk_retries = chunk_retries + 1
+          fetch_chunk()
           return
         end
-        finish(false, nil, 'Berkas unduhan kosong atau tidak lengkap')
+        finish(false, nil, 'Data unduhan kosong')
         return
       end
 
-      -- Check HTML error pages disguised as 200 OK
-      if body:find('<html') or body:find('<!DOCTYPE') or body:find('<HTML') then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
+      -- If server ignored Range and returned full body in single response (>= min_sz)
+      local min_sz = math.floor(total_bytes * 0.9)
+      if resp.status == 200 and downloaded_bytes == 0 and #body >= min_sz then
+        if body:sub(1, 4) ~= 'XTAP' then
+          finish(false, nil, 'Berkas corrupt: header bukan XTAP')
           return
         end
-        finish(false, nil, 'Server mengirim halaman web/HTML, bukan berkas .xtapp')
+        local saved_path = S.save_update_package('muslimink.xtapp', body)
+        if not saved_path then
+          finish(false, nil, 'Gagal menyimpan berkas ke SD Card')
+          return
+        end
+        if on_progress then
+          pcall(function() on_progress(#body, #body) end)
+        end
+        finish(true, saved_path, nil)
         return
       end
 
-      -- CRITICAL: Verify Licorice .xtapp Magic Header ("XTAP")
-      if body:sub(1, 4) ~= 'XTAP' then
-        if not is_fallback and rel_url ~= '' and rel_url ~= url then
-          do_fetch(rel_url, 0, true)
-          return
+      -- Inspect Content-Range header for exact total size
+      if type(resp.headers) == 'table' then
+        for k, v in pairs(resp.headers) do
+          if tostring(k):lower() == 'content-range' then
+            local tot = tostring(v):match('/(%d+)')
+            if tot then
+              local n_tot = tonumber(tot)
+              if n_tot and n_tot > 0 then
+                total_bytes = n_tot
+              end
+            end
+            break
+          end
         end
+      end
+
+      -- Append chunk data
+      table.insert(chunks, body)
+      downloaded_bytes = downloaded_bytes + #body
+      chunk_retries = 0
+
+      if on_progress then
+        pcall(function() on_progress(downloaded_bytes, total_bytes) end)
+      end
+
+      -- Continue fetching next chunk if more bytes expected
+      if downloaded_bytes < total_bytes and #body > 0 then
+        fetch_chunk()
+        return
+      end
+
+      -- All chunks downloaded! Assemble package
+      local full_body = table.concat(chunks)
+
+      -- Verify Licorice .xtapp Magic Header ("XTAP")
+      if full_body:sub(1, 4) ~= 'XTAP' then
         finish(false, nil, 'Berkas corrupt: header tidak valid (bukan paket XTAP)')
         return
       end
 
-      -- CRITICAL: Verify minimum package size
-      local exp_sz = (update_info and update_info.size_bytes) or 380000
-      local min_sz = math.floor(exp_sz * 0.9)
-      if #body < min_sz then
-        finish(false, nil, 'Ukuran berkas tidak lengkap: ' .. math.floor(#body / 1024) .. ' KB (seharusnya ~' .. math.floor(exp_sz / 1024) .. ' KB)')
+      -- Verify full package size
+      if #full_body < min_sz then
+        finish(false, nil, 'Ukuran berkas tidak lengkap: ' .. math.floor(#full_body / 1024) .. ' KB (seharusnya ~' .. math.floor(total_bytes / 1024) .. ' KB)')
         return
       end
 
       -- Save binary cleanly to shallow path on SD Card
-      local saved_path = S.save_update_package('muslimink.xtapp', body)
+      local saved_path = S.save_update_package('muslimink.xtapp', full_body)
       if not saved_path then
         finish(false, nil, 'Gagal menyimpan berkas ke SD Card')
         return
@@ -2159,7 +2224,7 @@ function S.download_update(update_info, on_progress, on_done)
     end)
   end
 
-  pcall(function() do_fetch(primary_url, 0, false) end)
+  pcall(function() fetch_chunk() end)
 end
 
 return S
@@ -3910,10 +3975,14 @@ end
 
 ------------------------------------------------------------------ Modal: App Auto-Update (GitHub Releases)
 
-function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn)
+function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress)
   if type(update_saved_path) == 'function' and draw_btn == nil then
     draw_btn = update_saved_path
     update_saved_path = nil
+  end
+  if type(update_err) == 'function' and draw_btn == nil then
+    draw_btn = update_err
+    update_err = nil
   end
 
   local W, H = S.W, S.H
@@ -3951,7 +4020,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
   elseif update_state == 'downloading' then
     m_title = is_en and 'Downloading Update...' or 'Sedang Mengunduh...'
   elseif update_state == 'error' then
-    m_title = is_en and 'Update Notification' or 'Pemberitahuan Pembaruan'
+    m_title = is_en and 'Update Failed' or 'Pembaruan Gagal'
   end
   gg:text(mx + 20, my + 20, S.fit_text(m_title, 'large', mw - 60), { font = S.font('large') })
 
@@ -4041,27 +4110,42 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     S.round_rect(gg, bx, by, bw, bh, 12, 1)
 
     gg:text(bx + 20, by + 24, is_en and 'DOWNLOADING PACKAGE' or 'SEDANG MENGUNDUH PAKET', { font = S.font('medium') })
-    local sz_kb = math.floor(((update_info and update_info.size_bytes) or 410080) / 1024)
-    local sub_dl = is_en
-      and ('Fetching muslimink.xtapp (~' .. sz_kb .. ' KB)...')
-      or ('Mengunduh muslimink.xtapp (~' .. sz_kb .. ' KB)...')
-    gg:text(bx + 20, by + 52, sub_dl, { font = S.font('small') })
-
-    -- Progress bar container
-    local p_w, p_h = bw - 40, 18
-    local px, py = bx + 20, by + 88
-    S.round_rect(gg, px, py, p_w, p_h, 9, nil, true, 0)
-    S.round_rect(gg, px, py, p_w, p_h, 9, 2)
-    for sx = px + 4, px + p_w - 4, 12 do
-      gg:line(sx, py + 2, sx + 4, py + p_h - 3, { line_width = 2 })
+    local cur_b = (update_progress and update_progress.current) or 0
+    local exp_b = (update_progress and update_progress.total) or ((update_info and update_info.size_bytes) or 422144)
+    local cur_kb = math.floor(cur_b / 1024)
+    local exp_kb = math.floor(exp_b / 1024)
+    local pct = 0
+    if exp_b > 0 then
+      pct = math.min(100, math.floor(cur_b * 100 / exp_b))
     end
 
-    local note1 = is_en and 'Directly saving package to SD Card storage:' or 'Menyimpan berkas langsung ke kartu memori SD Card:'
+    local sub_dl = is_en
+      and ('Progress: ' .. cur_kb .. ' / ' .. exp_kb .. ' KB (' .. pct .. '%)')
+      or ('Progres: ' .. cur_kb .. ' / ' .. exp_kb .. ' KB (' .. pct .. '%)')
+    gg:text(bx + 20, by + 52, sub_dl, { font = S.font('medium') })
+
+    -- Progress bar container
+    local p_w, p_h = bw - 40, 20
+    local px, py = bx + 20, by + 86
+    S.round_rect(gg, px, py, p_w, p_h, 10, nil, true, 0)
+    S.round_rect(gg, px, py, p_w, p_h, 10, 2)
+    -- Fill bar proportionally
+    local fill_w = math.floor((p_w - 4) * pct / 100)
+    if fill_w > 0 then
+      S.round_rect(gg, px + 2, py + 2, fill_w, p_h - 4, 8, nil, true, 0)
+      for sx = px + 4, px + fill_w - 2, 8 do
+        gg:line(sx, py + 3, sx + 3, py + p_h - 4, { line_width = 2 })
+      end
+    end
+
+    local note1 = is_en and 'Target storage path on SD Card:' or 'Lokasi penyimpanan di kartu SD:'
     local note2 = '/sdcard/muslimink.xtapp'
-    local note3 = is_en and 'Please keep device connected to Wi-Fi...' or 'Mohon tunggu, jangan matikan Wi-Fi...'
-    gg:text(bx + 20, by + 128, note1, { font = S.font('small') })
-    gg:text(bx + 20, by + 150, note2, { font = S.font('medium') })
-    gg:text(bx + 20, by + 184, note3, { font = S.font('small') })
+    local note3 = is_en and 'Mode: 64 KB chunked transfer (anti-corrupt)' or 'Metode: Unduhan bertahap 64 KB (aman)'
+    local note4 = is_en and 'Please keep device connected to Wi-Fi...' or 'Mohon tunggu, jangan matikan Wi-Fi...'
+    gg:text(bx + 20, by + 122, note1, { font = S.font('small') })
+    gg:text(bx + 20, by + 144, note2, { font = S.font('medium') })
+    gg:text(bx + 20, by + 172, note3, { font = S.font('small') })
+    gg:text(bx + 20, by + 194, note4, { font = S.font('small') })
 
     draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Cancel' or 'Batal', false, 'medium')
 
@@ -4128,18 +4212,25 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
     S.round_rect(gg, bx, by, bw, bh, 12, 1)
 
-    local err_title = is_en and 'Update Notice' or 'Pemberitahuan Pembaruan'
+    local err_title = is_en and '[ ! ] Update Incomplete' or '[ ! ] Unduhan Belum Selesai'
     gg:text(bx + 20, by + 20, err_title, { font = S.font('medium') })
     local msg = update_err or (is_en and 'Network connection error.' or 'Terjadi kesalahan jaringan.')
     local w_lines = S.wrap_lines(msg, bw - 40, 'small')
+    local my_y = by + 52
     for i = 1, #w_lines do
-      gg:text(bx + 20, by + 52 + (i - 1) * 20, w_lines[i], { font = S.font('small') })
+      gg:text(bx + 20, my_y, w_lines[i], { font = S.font('small') })
+      my_y = my_y + 20
     end
 
+    my_y = math.max(my_y + 8, by + 130)
     local tip = is_en
-      and 'Please check your Wi-Fi connection and retry.'
-      or 'Pastikan koneksi Wi-Fi aktif dan stabil lalu coba lagi.'
-    gg:text(bx + 20, by + 140, tip, { font = S.font('small') })
+      and 'Ensure Wi-Fi is active and stable, then tap Retry below.'
+      or 'Pastikan koneksi Wi-Fi aktif dan stabil lalu tekan Coba Lagi.'
+    local w_tips = S.wrap_lines(tip, bw - 40, 'small')
+    for i = 1, #w_tips do
+      gg:text(bx + 20, my_y, w_tips[i], { font = S.font('small') })
+      my_y = my_y + 20
+    end
 
     draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Retry' or 'Coba Lagi', true, 'medium')
     draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
@@ -4326,6 +4417,7 @@ local update_info = nil
 local update_state = 'idle'
 local update_err = nil
 local update_saved_path = nil
+local update_progress = nil
 local about_expanded = false
 local settings_scroll_y = 0
 local touch_down_y = nil
@@ -5145,7 +5237,7 @@ function on_draw(c, gg)
     end
 
     if update_modal then
-      F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn)
+      F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress)
     end
 
     -- Draw sliding navigation drawer if open
@@ -5376,12 +5468,18 @@ local function check_update_modal_tap(x, y)
     if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_state = 'downloading'
       update_err = nil
+      local exp_total = (update_info and update_info.size_bytes) or 422144
+      update_progress = { current = 0, total = exp_total }
       local is_en = (cfg.lang == 'en')
       status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
       refresh()
-      S.download_update(update_info, nil, function(ok, saved_path, err)
+      S.download_update(update_info, function(cur, tot)
+        update_progress = { current = cur, total = tot }
+        refresh()
+      end, function(ok, saved_path, err)
         if ok then
           update_state = 'done'
+          update_progress = { current = exp_total, total = exp_total }
           update_saved_path = saved_path or '/sdcard/muslimink.xtapp'
           status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
           pcall(function()
@@ -5445,12 +5543,18 @@ local function check_update_modal_tap(x, y)
     if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_state = 'downloading'
       update_err = nil
+      local exp_total = (update_info and update_info.size_bytes) or 422144
+      update_progress = { current = 0, total = exp_total }
       local is_en = (cfg.lang == 'en')
       status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
       refresh()
-      S.download_update(update_info, nil, function(ok, saved_path, err)
+      S.download_update(update_info, function(cur, tot)
+        update_progress = { current = cur, total = tot }
+        refresh()
+      end, function(ok, saved_path, err)
         if ok then
           update_state = 'done'
+          update_progress = { current = exp_total, total = exp_total }
           update_saved_path = saved_path or '/sdcard/muslimink.xtapp'
           status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
         else

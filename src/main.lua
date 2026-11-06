@@ -15,6 +15,7 @@ local update_info = nil
 local update_state = 'idle'
 local update_err = nil
 local update_saved_path = nil
+local update_progress = nil
 local about_expanded = false
 local settings_scroll_y = 0
 local touch_down_y = nil
@@ -834,7 +835,7 @@ function on_draw(c, gg)
     end
 
     if update_modal then
-      F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn)
+      F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress)
     end
 
     -- Draw sliding navigation drawer if open
@@ -1065,12 +1066,18 @@ local function check_update_modal_tap(x, y)
     if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_state = 'downloading'
       update_err = nil
+      local exp_total = (update_info and update_info.size_bytes) or 422144
+      update_progress = { current = 0, total = exp_total }
       local is_en = (cfg.lang == 'en')
       status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
       refresh()
-      S.download_update(update_info, nil, function(ok, saved_path, err)
+      S.download_update(update_info, function(cur, tot)
+        update_progress = { current = cur, total = tot }
+        refresh()
+      end, function(ok, saved_path, err)
         if ok then
           update_state = 'done'
+          update_progress = { current = exp_total, total = exp_total }
           update_saved_path = saved_path or '/sdcard/muslimink.xtapp'
           status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
           pcall(function()
@@ -1134,12 +1141,18 @@ local function check_update_modal_tap(x, y)
     if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_state = 'downloading'
       update_err = nil
+      local exp_total = (update_info and update_info.size_bytes) or 422144
+      update_progress = { current = 0, total = exp_total }
       local is_en = (cfg.lang == 'en')
       status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
       refresh()
-      S.download_update(update_info, nil, function(ok, saved_path, err)
+      S.download_update(update_info, function(cur, tot)
+        update_progress = { current = cur, total = tot }
+        refresh()
+      end, function(ok, saved_path, err)
         if ok then
           update_state = 'done'
+          update_progress = { current = exp_total, total = exp_total }
           update_saved_path = saved_path or '/sdcard/muslimink.xtapp'
           status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
         else

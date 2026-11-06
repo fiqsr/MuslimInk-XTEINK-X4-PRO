@@ -1,6 +1,6 @@
 {
-  "version": "1.1.6",
-  "build": 116,
+  "version": "1.1.7",
+  "build": 117,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,17 +9,17 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 441232,
+  "size_bytes": 257200,
   "changelog_id": [
-    "Perbaikan Lockscreen: Mengatasi ayat & hadist panjang yang terpotong di bagian bawah layar lockscreen",
-    "Ekspansi Ruang Vertikal: Merampingkan layout jam, tanggal, kartu sholat berikutnya, dan timeline sehingga area kutipan bertambah +70px (164px+ bersih)",
-    "Penskalaan Teks Adaptif: Jarak baris (line height) dan celah referensi otomatis menyesuaikan jumlah baris secara dinamis",
-    "Proteksi Overflow: Memastikan teks referensi surah/hadist selalu tampil utuh dan aman di dalam batas layar 800px"
+    "Dukungan Penuh OTA Update Mandiri: Mengompresi paket secara lossless menjadi 251 KB (<= 256 KB) sehingga file update dapat ditulis langsung oleh firmware ke penyimpanan",
+    "Unduhan Otomatis Tersimpan: Berkas unduhan kini langsung muncul di XTApps/muslimink/files/muslimink_update.xtapp dan siap diinstal",
+    "Perbaikan Tampilan Kutipan Lockscreen: Ayat dan hadist panjang tidak lagi terpotong di bagian bawah berkat perluasan ruang vertikal (+70px)",
+    "Seluruh Fitur 100% Utuh: 514 kota Indonesia, 99 kota dunia, 38 provinsi kiblat, 10 doa harian, 8 tasbih digital, dan 6 gaya jam TrueType tetap lengkap tanpa pemangkasan data"
   ],
   "changelog_en": [
-    "Lockscreen Quote Fix: Resolved long Quranic verses and hadith cutoff at the bottom of the lockscreen",
-    "Vertical Space Expansion: Re-budgeted clock, capsule, next prayer card, and timeline for +70px extra quote budget (164px+ clean space)",
-    "Adaptive Line Spacing: Line height and reference gap automatically scale dynamically to fit multi-line quotes",
-    "Overflow Protection: Guarantees verse/hadith references are always rendered completely within the 800px display boundary"
+    "Full Native In-App OTA Update Support: Losslessly slimmed package to 251 KB (<= 256 KB) so firmware single-write limit is never exceeded",
+    "Verified Automatic Update Storage: Downloaded packages are saved directly to XTApps/muslimink/files/muslimink_update.xtapp and verified on disk",
+    "Lockscreen Multi-Line Quote Fix: Long verses and hadith no longer cut off thanks to expanded vertical budget (+70px clean area)",
+    "All 6 Features 100% Preserved: 514 Indonesian cities, 99 world cities, 38 Qibla provinces, 10 duas, 8 dhikr presets, and 6 TrueType clock styles fully intact"
   ]
 }

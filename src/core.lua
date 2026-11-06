@@ -1757,8 +1757,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.1.6'
-S.APP_BUILD = 116
+S.APP_VERSION = '1.1.7'
+S.APP_BUILD = 117
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
@@ -1883,62 +1883,55 @@ local update_downloading = false
 function S.save_update_package(filename, body, chunks)
   filename = filename or 'muslimink_update.xtapp'
   local saved_path = nil
-  local base_dir = (ctx and ctx.files and type(ctx.files.path) == 'string' and ctx.files.path ~= '')
-    and ctx.files.path
-    or 'XTApps/muslimink/files'
+  local min_sz = 100000
 
-  -- Strategy 1: ctx.files:append chunk-by-chunk
-  -- This bypasses any single-write 256 KB memory buffer limit by writing 64 KB pieces!
-  if chunks and #chunks > 0 and ctx and ctx.files and ctx.files.append then
-    local app_ok = pcall(function()
-      if ctx.files.remove then pcall(function() ctx.files:remove(filename) end) end
-      for _, ch in ipairs(chunks) do
-        ctx.files:append(filename, ch)
+  -- Strategy 1: ctx.storage:write (Primary - directly targets SD Card XTApps/muslimink/files/)
+  -- Works reliably for slim package <= 256 KB.
+  if ctx and ctx.storage and ctx.storage.write then
+    local res = nil
+    pcall(function()
+      res = ctx.storage:write(filename, body)
+    end)
+    if res then
+      local exists_ok, exists = pcall(function() return ctx.storage:exists(filename) end)
+      local sz_ok, sz = pcall(function() return ctx.storage:size(filename) end)
+      if (not exists_ok or exists) and (not sz_ok or (sz and sz >= min_sz)) then
+        saved_path = 'XTApps/muslimink/files/' .. filename
       end
-    end)
-    if app_ok then
-      saved_path = base_dir .. '/' .. filename
     end
   end
 
-  -- Strategy 2: ctx.storage:write (the classic mechanism)
-  if not saved_path and ctx and ctx.storage and ctx.storage.write then
-    local st_ok = pcall(function()
-      ctx.storage:write(filename, body)
-    end)
-    if st_ok then
-      saved_path = base_dir .. '/' .. filename
-    end
-  end
-
-  -- Strategy 3: ctx.files:write
+  -- Strategy 2: ctx.files:write (Fallback)
   if not saved_path and ctx and ctx.files and ctx.files.write then
-    local fw_ok = pcall(function()
-      ctx.files:write(filename, body)
+    local res = nil
+    pcall(function()
+      res = ctx.files:write(filename, body)
     end)
-    if fw_ok then
+    if res then
+      local base_dir = (type(ctx.files.path) == 'string' and ctx.files.path ~= '')
+        and ctx.files.path
+        or 'XTApps/muslimink/files'
       saved_path = base_dir .. '/' .. filename
     end
   end
 
-  -- Strategy 4: Direct SD Card filesystem (if available via io)
-  if not saved_path then
+  -- Strategy 3: Direct filesystem via io (if available in emulator or dev builds)
+  if not saved_path and io and io.open then
     local candidates = {
-      '/sdcard/' .. filename,
+      'XTApps/muslimink/files/' .. filename,
       '/sdcard/XTApps/' .. filename,
       '../../' .. filename,
       '../' .. filename,
+      filename,
     }
     for _, path in ipairs(candidates) do
-      local ok = pcall(function()
-        local f = io and io.open and io.open(path, 'wb')
-        if f then
-          f:write(body)
-          f:close()
-          saved_path = path
-        end
-      end)
-      if ok and saved_path then break end
+      local f = io.open(path, 'wb')
+      if f then
+        f:write(body)
+        f:close()
+        saved_path = path
+        break
+      end
     end
   end
 

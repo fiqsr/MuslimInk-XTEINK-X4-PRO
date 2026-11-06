@@ -1,6 +1,6 @@
 {
-  "version": "1.1.3",
-  "build": 113,
+  "version": "1.1.4",
+  "build": 114,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,21 +9,19 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 436768,
+  "size_bytes": 438880,
   "changelog_id": [
-    "Fitur Baru: QR Code Rilis Pembaruan di Modal Update untuk pemindaian langsung lewat kamera ponsel (HP)",
-    "Tab Switcher: Pilihan tab [ Catatan Rilis ] dan [ Scan QR HP ] pada jendela pembaruan aplikasi",
-    "Pembaruan Info Aplikasi: Informasi detail hisab Kemenag, Aladhan, Meeus, GPS Numpad, dan spesifikasi X4 Pro",
-    "Fitur Baru: QR Code Repositori GitHub di accordion 'Tentang MuslimInk' untuk akses source code & dokumentasi",
-    "Peningkatan Scroll: Area scroll pengaturan diperluas (780px) untuk navigasi halus seluruh informasi & QR code",
-    "Mesin Pembaruan: Chunked HTTP Range Downloader 64 KB anti-corrupt dan auto-retry 3x per-blok"
+    "Perbaikan Viewport & Clipping Pengaturan: Teks tidak lagi terpotong/bertabrakan dengan garis header saat discroll",
+    "Optimasi Tinggi Accordion Tentang: Menghilangkan ruang kosong berlebih di bagian bawah kartu accordion (presisi 718px)",
+    "Perbaikan Text Overflow QR Tip: Teks panduan scan QR repositori tidak lagi terpotong di tepi kanan layar",
+    "Sinkronisasi Scroll Bounds: Menyesuaikan batas gulir maksimal (640px) agar kartu berhenti pas di atas tombol Selesai",
+    "Penyempurnaan QR Code Repositori: Penyesuaian ukuran QR (140px) untuk pemindaian optimal tanpa distorsi margin"
   ],
   "changelog_en": [
-    "New Feature: Update Release QR Code in modal dialog for seamless smartphone camera scanning",
-    "Tab Switcher: Dual tabs [ Changelog ] and [ Scan QR (Phone) ] inside the app update modal",
-    "Updated App Info: Comprehensive calculation engines, Meeus, MABIMS, GPS Numpad, and hardware specs",
-    "New Feature: GitHub Repository QR Code in 'About MuslimInk' accordion for instant mobile access",
-    "Smooth Scrolling: Expanded scroll viewport (780px) accommodating rich specs and repository QR code",
-    "Update Engine: 64 KB Chunked HTTP Range downloader with 3x retry overcoming ESP32 buffer limits"
+    "Settings Viewport & Clipping Fix: Prevent text slicing and collision with top header divider when scrolled",
+    "About Accordion Height Optimization: Eliminate excessive blank card padding at the bottom (precision 718px)",
+    "QR Tip Text Overflow Fix: Resolved right-margin truncation on GitHub repository scan guide string",
+    "Scroll Bounds Synchronization: Aligned maximum scroll bounds (640px) for tight docked layout above Done button",
+    "Repository QR Polish: Scaled QR code (140px) for enhanced optical scanning contrast without margin clipping"
   ]
 }

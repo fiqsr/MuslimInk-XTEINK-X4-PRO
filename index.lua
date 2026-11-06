@@ -1919,8 +1919,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.1.3'
-S.APP_BUILD = 113
+S.APP_VERSION = '1.1.4'
+S.APP_BUILD = 114
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
@@ -3631,11 +3631,30 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   end
 
   local is_exp = (about_expanded == true)
-  local ab_body_h = is_exp and 800 or 0
+  local ab_body_h = is_exp and 654 or 0
   local ab_h = 64 + ab_body_h
   local total_content_bottom = 622 + ab_h + 20
   local viewport_bottom = 726
   local max_scroll = math.max(0, total_content_bottom - viewport_bottom)
+
+  -- Viewport clipping helpers (ensures no text/elements slice through header or footer)
+  local function vtext(x, y, s, opts)
+    if y >= 64 and y <= 704 then
+      gg:text(x, y, s, opts)
+    end
+  end
+
+  local function vcenter_text(x, y, s, font_name, max_w)
+    if y >= 64 and y <= 704 then
+      S.center_text(gg, x, y, s, font_name, max_w)
+    end
+  end
+
+  local function vdivider(y, x1, x2)
+    if y >= 60 and y <= 720 then
+      gg:line(x1 or 36, y, x2 or (W - 36), y, { line_width = 1 })
+    end
+  end
 
   -- ==============================================================
   -- 1. Scrollable Content Layer (offset by scroll_y)
@@ -3643,168 +3662,195 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
 
   -- Grouped Card 1: Core Settings (y = 66..610, h = 544, 8 rows)
   local card1_y = 66 - scroll_y
-  S.round_rect(gg, 20, card1_y, W - 40, 544, 14, nil, true, 0)
-  S.round_rect(gg, 20, card1_y, W - 40, 544, 14, 2)
+  if (card1_y + 544) >= 60 and card1_y <= 726 then
+    S.round_rect(gg, 20, card1_y, W - 40, 544, 14, nil, true, 0)
+    S.round_rect(gg, 20, card1_y, W - 40, 544, 14, 2)
+  end
 
   -- 1px Hairline dividers between grouped rows
   for i = 1, 7 do
-    gg:line(36, card1_y + i * 68, W - 36, card1_y + i * 68, { line_width = 1 })
+    local ly = card1_y + i * 68
+    if ly >= 60 and ly <= 720 then
+      gg:line(36, ly, W - 36, ly, { line_width = 1 })
+    end
   end
 
   -- Row 1: App Language
   local ry1 = card1_y
-  gg:text(36, ry1 + 12, is_en and 'App Language' or 'Bahasa Aplikasi', { font = S.font('medium') })
-  gg:text(36, ry1 + 38, is_en and 'English (EN)' or 'Bahasa Indonesia (ID)', { font = S.font('small') })
-  local lang_idx = (cfg.lang == 'en') and 2 or 1
-  S.segmented_control(gg, W - 142, ry1 + 15, 106, 38, { 'ID', 'EN' }, lang_idx)
+  vtext(36, ry1 + 12, is_en and 'App Language' or 'Bahasa Aplikasi', { font = S.font('medium') })
+  vtext(36, ry1 + 38, is_en and 'English (EN)' or 'Bahasa Indonesia (ID)', { font = S.font('small') })
+  if ry1 >= 40 and ry1 <= 680 then
+    local lang_idx = (cfg.lang == 'en') and 2 or 1
+    S.segmented_control(gg, W - 142, ry1 + 15, 106, 38, { 'ID', 'EN' }, lang_idx)
+  end
 
   -- Row 2: Prayer Location
   local ry2 = card1_y + 68
-  gg:text(36, ry2 + 12, is_en and 'Prayer Location' or 'Lokasi Wilayah', { font = S.font('medium') })
-  gg:text(36, ry2 + 38, S.fit_text(loc_sub, 'small', 295), { font = S.font('small') })
-  draw_btn(gg, W - 134, ry2 + 15, 98, 38, is_en and 'Change...' or 'Ubah...', false, 'small')
+  vtext(36, ry2 + 12, is_en and 'Prayer Location' or 'Lokasi Wilayah', { font = S.font('medium') })
+  vtext(36, ry2 + 38, S.fit_text(loc_sub, 'small', 295), { font = S.font('small') })
+  if ry2 >= 40 and ry2 <= 680 then
+    draw_btn(gg, W - 134, ry2 + 15, 98, 38, is_en and 'Change...' or 'Ubah...', false, 'small')
+  end
 
   -- Row 3: Clock & Counter Font
   local ry3 = card1_y + 136
-  gg:text(36, ry3 + 12, is_en and 'Clock & Counter Font' or 'Gaya Font Jam', { font = S.font('medium') })
-  gg:text(36, ry3 + 38, cfont_lbl, { font = S.font('small') })
-  draw_btn(gg, W - 124, ry3 + 15, 88, 38, is_en and 'Select >' or 'Pilih >', false, 'small')
+  vtext(36, ry3 + 12, is_en and 'Clock & Counter Font' or 'Gaya Font Jam', { font = S.font('medium') })
+  vtext(36, ry3 + 38, cfont_lbl, { font = S.font('small') })
+  if ry3 >= 40 and ry3 <= 680 then
+    draw_btn(gg, W - 124, ry3 + 15, 88, 38, is_en and 'Select >' or 'Pilih >', false, 'small')
+  end
 
   -- Row 4: Hijri Calibration
   local ry4 = card1_y + 204
-  gg:text(36, ry4 + 12, is_en and 'Hijri Calibration' or 'Koreksi Hijriah', { font = S.font('medium') })
-  gg:text(36, ry4 + 38, S.fit_text(adj_s, 'small', 265), { font = S.font('small') })
-  local adj_idx = (adj == -1 and 1) or (adj == 0 and 2) or (adj == 1 and 3) or 2
-  S.segmented_control(gg, W - 176, ry4 + 15, 140, 38, { '-1', '0', '+1' }, adj_idx)
+  vtext(36, ry4 + 12, is_en and 'Hijri Calibration' or 'Koreksi Hijriah', { font = S.font('medium') })
+  vtext(36, ry4 + 38, S.fit_text(adj_s, 'small', 265), { font = S.font('small') })
+  if ry4 >= 40 and ry4 <= 680 then
+    local adj_idx = (adj == -1 and 1) or (adj == 0 and 2) or (adj == 1 and 3) or 2
+    S.segmented_control(gg, W - 176, ry4 + 15, 140, 38, { '-1', '0', '+1' }, adj_idx)
+  end
 
   -- Row 5: Maghrib Rollover
   local ry5 = card1_y + 272
-  gg:text(36, ry5 + 12, is_en and 'Maghrib Rollover' or 'Ganti Hari Maghrib', { font = S.font('medium') })
+  vtext(36, ry5 + 12, is_en and 'Maghrib Rollover' or 'Ganti Hari Maghrib', { font = S.font('medium') })
   local magh_sub = (cfg.maghrib ~= false)
     and (is_en and 'Active at Maghrib' or 'Aktif saat Maghrib')
     or (is_en and 'At 00:00 (Midnight)' or 'Pukul 00:00 (Tengah Malam)')
-  gg:text(36, ry5 + 38, S.fit_text(magh_sub, 'small', 240), { font = S.font('small') })
-  local magh_idx = (cfg.maghrib ~= false) and 2 or 1
-  local magh_seg = is_en and 'Sunset' or 'Maghrib'
-  S.segmented_control(gg, W - 200, ry5 + 15, 180, 38, { '00:00', magh_seg }, magh_idx)
+  vtext(36, ry5 + 38, S.fit_text(magh_sub, 'small', 240), { font = S.font('small') })
+  if ry5 >= 40 and ry5 <= 680 then
+    local magh_idx = (cfg.maghrib ~= false) and 2 or 1
+    local magh_seg = is_en and 'Sunset' or 'Maghrib'
+    S.segmented_control(gg, W - 200, ry5 + 15, 180, 38, { '00:00', magh_seg }, magh_idx)
+  end
 
   -- Row 6: Prayer Lockscreen
   local ry6 = card1_y + 340
-  gg:text(36, ry6 + 12, is_en and 'Prayer Lockscreen' or 'Mode Lockscreen', { font = S.font('medium') })
+  vtext(36, ry6 + 12, is_en and 'Prayer Lockscreen' or 'Mode Lockscreen', { font = S.font('medium') })
   local lock_sub = cfg.lock
     and (is_en and 'Active on lockscreen' or 'Aktif di layar kunci')
     or (is_en and 'Disabled' or 'Tidak aktif')
-  gg:text(36, ry6 + 38, lock_sub, { font = S.font('small') })
-  local lock_idx = cfg.lock and 2 or 1
-  S.segmented_control(gg, W - 146, ry6 + 15, 110, 38, { 'OFF', 'ON' }, lock_idx)
+  vtext(36, ry6 + 38, lock_sub, { font = S.font('small') })
+  if ry6 >= 40 and ry6 <= 680 then
+    local lock_idx = cfg.lock and 2 or 1
+    S.segmented_control(gg, W - 146, ry6 + 15, 110, 38, { 'OFF', 'ON' }, lock_idx)
+  end
 
   -- Row 7: Lockscreen Ayah Quote Refresh
   local ry7 = card1_y + 408
-  gg:text(36, ry7 + 12, is_en and 'Ayah Quote Refresh' or 'Rotasi Ayat Lockscreen', { font = S.font('medium') })
+  vtext(36, ry7 + 12, is_en and 'Ayah Quote Refresh' or 'Rotasi Ayat Lockscreen', { font = S.font('medium') })
   local qref_names_id = { 'Tiap Hari', 'Tiap Waktu Shalat', 'Tiap Jam', 'Offline Saja' }
   local qref_names_en = { 'Daily', 'Prayer Times', 'Hourly', 'Offline Only' }
   local qref_cur = cfg.qrefresh or 1
   local qref_sub = is_en and qref_names_en[qref_cur] or qref_names_id[qref_cur]
-  gg:text(36, ry7 + 38, qref_sub, { font = S.font('small') })
-  draw_btn(gg, W - 124, ry7 + 15, 88, 38, is_en and 'Select >' or 'Pilih >', false, 'small')
+  vtext(36, ry7 + 38, qref_sub, { font = S.font('small') })
+  if ry7 >= 40 and ry7 <= 680 then
+    draw_btn(gg, W - 124, ry7 + 15, 88, 38, is_en and 'Select >' or 'Pilih >', false, 'small')
+  end
 
   -- Row 8: App Auto-Update (GitHub Releases)
   local ry8 = card1_y + 476
-  gg:text(36, ry8 + 12, is_en and 'App Auto-Update' or 'Pembaruan Aplikasi', { font = S.font('medium') })
+  vtext(36, ry8 + 12, is_en and 'App Auto-Update' or 'Pembaruan Aplikasi', { font = S.font('medium') })
   local up_sub = is_en and ('Version ' .. S.APP_VERSION .. ' • Check GitHub') or ('Versi ' .. S.APP_VERSION .. ' • Cek rilis GitHub')
-  gg:text(36, ry8 + 38, S.fit_text(up_sub, 'small', 250), { font = S.font('small') })
-  draw_btn(gg, W - 124, ry8 + 15, 88, 38, is_en and 'Check >' or 'Cek >', false, 'small')
+  vtext(36, ry8 + 38, S.fit_text(up_sub, 'small', 250), { font = S.font('small') })
+  if ry8 >= 40 and ry8 <= 680 then
+    draw_btn(gg, W - 124, ry8 + 15, 88, 38, is_en and 'Check >' or 'Cek >', false, 'small')
+  end
 
   -- Grouped Card 2: Accordion About MuslimInk
   local card2_y = 622 - scroll_y
-  S.card(gg, 20, card2_y, W - 40, ab_h, 2, is_exp)
+  if (card2_y + ab_h) >= 60 and card2_y <= 726 then
+    S.card(gg, 20, card2_y, W - 40, ab_h, 2, is_exp)
+  end
 
   -- Header Row of About Accordion
   local title_ab = is_en and 'About MuslimInk' or 'Tentang MuslimInk'
   local sub_ab = is_en and ('Version ' .. S.APP_VERSION .. ' • By fiqsr') or ('Versi ' .. S.APP_VERSION .. ' • Oleh fiqsr')
-  gg:text(36, card2_y + 12, title_ab, { font = S.font('medium') })
-  gg:text(36, card2_y + 38, sub_ab, { font = S.font('small') })
+  vtext(36, card2_y + 12, title_ab, { font = S.font('medium') })
+  vtext(36, card2_y + 38, sub_ab, { font = S.font('small') })
 
   -- Dropdown Triangle Indicator
-  local tx, ty = W - 44, card2_y + 32
-  if is_exp then
-    -- Downward triangle ▼
-    gg:polygon({ tx - 6, ty - 3, tx + 6, ty - 3, tx, ty + 5 }, { fill = true })
-  else
-    -- Rightward triangle ▶
-    gg:polygon({ tx - 4, ty - 6, tx + 4, ty, tx - 4, ty + 6 }, { fill = true })
+  if card2_y >= 40 and card2_y <= 680 then
+    local tx, ty = W - 44, card2_y + 32
+    if is_exp then
+      -- Downward triangle ▼
+      gg:polygon({ tx - 6, ty - 3, tx + 6, ty - 3, tx, ty + 5 }, { fill = true })
+    else
+      -- Rightward triangle ▶
+      gg:polygon({ tx - 4, ty - 6, tx + 4, ty, tx - 4, ty + 6 }, { fill = true })
+    end
   end
 
   if is_exp then
     local dy = card2_y + 64
-    S.divider(gg, dy, 36, W - 36)
+    vdivider(dy)
 
     -- Section 1: Developer & GitHub Repository
     dy = dy + 10
-    gg:text(36, dy, is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK', { font = S.font('small') })
+    vtext(36, dy, is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK', { font = S.font('small') })
     dy = dy + 22
-    gg:text(36, dy, 'Developer : fiqsr (Taufiq)', { font = S.font('small') })
+    vtext(36, dy, 'Developer : fiqsr (Taufiq)', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, 'GitHub    : github.com/fiqsr', { font = S.font('small') })
+    vtext(36, dy, 'GitHub    : github.com/fiqsr', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, 'Repo      : MuslimInk-XTEINK-X4-PRO', { font = S.font('small') })
+    vtext(36, dy, 'Repo      : MuslimInk-XTEINK-X4-PRO', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'License   : Open Source (MIT License)' or 'Lisensi   : Open Source (MIT License)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'License   : Open Source (MIT License)' or 'Lisensi   : Open Source (MIT License)', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and ('App Vers. : v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')') or ('Versi App : v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')'), { font = S.font('small') })
+    vtext(36, dy, is_en and ('App Vers. : v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')') or ('Versi App : v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')'), { font = S.font('small') })
 
     -- Section 2: Calculation Engine & Astronomics
-    dy = dy + 28
-    S.divider(gg, dy - 8, 36, W - 36)
-    gg:text(36, dy, is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS', { font = S.font('small') })
+    dy = dy + 26
+    vdivider(dy - 8)
+    vtext(36, dy, is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS', { font = S.font('small') })
     dy = dy + 22
-    gg:text(36, dy, is_en and 'Indonesia : Kemenag RI (514 Kab/Kota)' or 'Indonesia : Kemenag RI (514 Kab/Kota)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Indonesia : Kemenag RI (514 Kab/Kota)' or 'Indonesia : Kemenag RI (514 Kab/Kota)', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Global/LN : Aladhan API (230+ Kota)' or 'Global/LN : Aladhan API (230+ Kota)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Global/LN : Aladhan API (230+ Kota)' or 'Global/LN : Aladhan API (230+ Kota)', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Methods   : Ummul Quro, MWL, MUIS, dll' or 'Metode LN : Ummul Quro, MWL, MUIS, dll', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Methods   : Ummul Quro, MWL, MUIS, dll' or 'Metode LN : Ummul Quro, MWL, MUIS, dll', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Offline   : Hisab Surya Meeus & MABIMS' or 'Offline   : Hisab Surya Meeus & MABIMS', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Offline   : Hisab Surya Meeus & MABIMS' or 'Offline   : Hisab Surya Meeus & MABIMS', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'GPS Coords: Custom Lat/Lon/TZ Numpad' or 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
+    vtext(36, dy, is_en and 'GPS Coords: Custom Lat/Lon/TZ Numpad' or 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle Math)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle Math)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)', { font = S.font('small') })
 
     -- Section 3: Hardware & Runtime Status
-    dy = dy + 28
-    S.divider(gg, dy - 8, 36, W - 36)
-    gg:text(36, dy, is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT', { font = S.font('small') })
+    dy = dy + 26
+    vdivider(dy - 8)
+    vtext(36, dy, is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT', { font = S.font('small') })
     dy = dy + 22
-    gg:text(36, dy, is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Display   : 480x800 1-bit E-ink Monokrom' or 'Layar     : 480x800 1-bit E-ink Monokrom', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Display   : 480x800 1-bit E-ink Monokrom' or 'Layar     : 480x800 1-bit E-ink Monokrom', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Auto-Updt : 64 KB Chunked Downloader' or 'Updater   : Chunked Range 64 KB (Aman)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Auto-Updt : 64 KB Chunked Downloader' or 'Updater   : Chunked Range 64 KB (Aman)', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, 'Status    : ' .. S.short(loc_sub, 26), { font = S.font('small') })
+    vtext(36, dy, 'Status    : ' .. S.short(loc_sub, 26), { font = S.font('small') })
 
     -- Section 4: GitHub Repository QR Code
-    dy = dy + 28
-    S.divider(gg, dy - 8, 36, W - 36)
-    gg:text(36, dy, is_en and 'GITHUB REPOSITORY (SCAN QR)' or 'REPOSITORI GITHUB (PINDAI QR)', { font = S.font('small') })
+    dy = dy + 26
+    vdivider(dy - 8)
+    vtext(36, dy, is_en and 'GITHUB REPOSITORY (SCAN QR)' or 'REPOSITORI GITHUB (PINDAI QR)', { font = S.font('small') })
     dy = dy + 20
-    local qr_tip = is_en and 'Scan with phone camera to open GitHub repo:' or 'Pindai dengan kamera HP untuk buka proyek GitHub:'
-    gg:text(36, dy, qr_tip, { font = S.font('small') })
-    dy = dy + 20
+    local qr_tip = is_en and 'Scan with phone camera to open GitHub repo:' or 'Pindai dengan kamera HP untuk buka proyek:'
+    vtext(36, dy, qr_tip, { font = S.font('small') })
+    dy = dy + 30
 
-    -- Center QR Code (150x150)
-    local qr_sz = 150
-    S.draw_qr(gg, S.PROJECT_GITHUB_URL, W // 2, dy, qr_sz)
-    dy = dy + qr_sz + 16
+    -- Center QR Code (140x140)
+    local qr_sz = 140
+    if (dy - 10) >= 60 and (dy + qr_sz + 10) <= 720 then
+      S.draw_qr(gg, S.PROJECT_GITHUB_URL, W // 2, dy, qr_sz)
+    end
+    dy = dy + qr_sz + 18
 
     local gh_lbl = 'github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
-    S.center_text(gg, W // 2, dy, gh_lbl, 'small')
-    dy = dy + 20
+    vcenter_text(W // 2, dy, gh_lbl, 'small')
+    dy = dy + 22
 
     local gh_note = is_en and 'Source Code • Panduan • Rilis • Dukungan' or 'Source Code • Panduan • Rilis • Dukungan'
-    S.center_text(gg, W // 2, dy, gh_note, 'small')
+    vcenter_text(W // 2, dy, gh_note, 'small')
   end
 
   -- ==============================================================
@@ -6406,7 +6452,7 @@ function on_input(c, ev)
 
         if screen == 'settings' then
           local is_exp = (about_expanded == true)
-          local max_scroll = is_exp and 780 or 0
+          local max_scroll = is_exp and 640 or 0
           if max_scroll > 0 and touch_down_y and math.abs(touch_down_y - y) > 25 then
             local delta = touch_down_y - y
             settings_scroll_y = math.max(0, math.min(max_scroll, settings_scroll_y + delta))
@@ -6578,7 +6624,7 @@ end
       return false
     elseif screen == 'settings' then
       local is_exp = (about_expanded == true)
-      local max_scroll = is_exp and 780 or 0
+      local max_scroll = is_exp and 640 or 0
       if ev.key == 'down' or ev.key == 'right' then
         settings_scroll_y = math.min(max_scroll, settings_scroll_y + 160)
         refresh()

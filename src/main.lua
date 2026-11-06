@@ -1840,7 +1840,7 @@ function on_input(c, ev)
 
         if screen == 'settings' then
           local is_exp = (about_expanded == true)
-          local max_scroll = is_exp and 780 or 0
+          local max_scroll = is_exp and 640 or 0
           if max_scroll > 0 and touch_down_y and math.abs(touch_down_y - y) > 25 then
             local delta = touch_down_y - y
             settings_scroll_y = math.max(0, math.min(max_scroll, settings_scroll_y + delta))
@@ -2012,7 +2012,7 @@ end
       return false
     elseif screen == 'settings' then
       local is_exp = (about_expanded == true)
-      local max_scroll = is_exp and 780 or 0
+      local max_scroll = is_exp and 640 or 0
       if ev.key == 'down' or ev.key == 'right' then
         settings_scroll_y = math.min(max_scroll, settings_scroll_y + 160)
         refresh()

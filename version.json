@@ -1,6 +1,6 @@
 {
-  "version": "1.1.0",
-  "build": 110,
+  "version": "1.1.1",
+  "build": 111,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -8,23 +8,21 @@
   "release_date": "2026-11-06",
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
-  "size_bytes": 422080,
+  "size_bytes": 422144,
   "changelog_id": [
-    "Fitur Baru: Input Koordinat Manual (Latitude, Longitude & Timezone)",
-    "Papan tombol sentuh virtual (Touch Numpad 4x4) khusus layar E-Ink untuk input koordinat presisi",
-    "Fitur Auto UTC untuk deteksi zona waktu otomatis berbasis derajat bujur",
-    "Pembaruan Auto-Updater: Notifikasi 'Sudah Versi Terbaru' & popup non-overflow anti-terpotong",
+    "Perbaikan Tampilan: Menghilangkan kotak glyph rusak (▢) pada metode hisab MABIMS",
+    "Perbaikan Tipografi: Judul & badge modal bebas terpotong (anti-truncation)",
+    "Perbaikan Tata Letak: Penyelarasan baris deskripsi pembaruan & petunjuk Auto UTC",
     "Pembaruan Auto-Updater: Penyimpanan langsung ke direktori utama SD Card (/sdcard/muslimink.xtapp)",
-    "Pilihan 6 standar hisab astronomis dunia (Kemenag, MWL, Umm Al-Qura, Mesir, ISNA, Karachi)",
-    "Kalkulasi jadwal shalat offline instan 1 bulan penuh tanpa butuh koneksi internet"
+    "Pembaruan Auto-Updater: Validasi paket XTAP biner utuh anti-corrupt",
+    "Fitur Baru: Input Koordinat Manual (Latitude, Longitude & Timezone) dengan Numpad 4x4"
   ],
   "changelog_en": [
-    "New Feature: Manual GPS Coordinates Input (Latitude, Longitude & Timezone)",
-    "On-screen 4x4 touch numpad tailored for 480x800 E-ink touchscreen input",
-    "Auto UTC timezone estimation from longitude degree coordinates",
-    "Auto-Updater enhancement: 'Up to Date' status notification & responsive modal UI",
-    "Auto-Updater enhancement: Direct shallow saving to SD Card root (/sdcard/muslimink.xtapp)",
-    "6 Astronomical calculation methods (Kemenag, MWL, Umm Al-Qura, Egyptian, ISNA, Karachi)",
-    "Instant 100% offline 1-month prayer schedule generation without internet connection"
+    "UI Fix: Removed missing glyph box (▢) on MABIMS method card",
+    "Typography Fix: Zero title & badge text truncation across all screens",
+    "Layout Polish: Proper line wrapping for update notes & Auto UTC guide",
+    "Auto-Updater: Direct shallow download to SD Card root (/sdcard/muslimink.xtapp)",
+    "Auto-Updater: Strict binary container integrity validation (XTAP)",
+    "New Feature: Manual GPS Coordinates Input with 4x4 on-screen touch numpad"
   ]
 }

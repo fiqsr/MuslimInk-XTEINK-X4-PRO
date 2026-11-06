@@ -699,7 +699,7 @@ local function draw_list_screen(gg, title, list, now_info)
     end
     if item then
       gg:text(40, ry + 16, S.fit_text(item, 'medium', W - 100), { font = S.font('medium') })
-      S.right_text(gg, W - 38, ry + 16, '›', 'medium')
+      S.right_text(gg, W - 38, ry + 16, '>', 'medium')
     end
   end
 

@@ -1777,7 +1777,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
   if update_state == 'done' then
     m_title = is_en and 'Update Ready!' or 'Pembaruan Siap Dipasang'
   elseif update_state == 'up_to_date' then
-    m_title = is_en and 'MuslimInk is Up to Date' or 'Aplikasi Sudah Versi Terbaru'
+    m_title = is_en and 'MuslimInk Up to Date' or 'Versi Sudah Terbaru'
   elseif update_state == 'checking' then
     m_title = is_en and 'Checking Updates...' or 'Memeriksa Pembaruan...'
   elseif update_state == 'downloading' then
@@ -1833,14 +1833,14 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     -- Success Badge Header
     S.round_rect(gg, bx + 16, by + 16, bw - 32, 36, 8, nil, true, 0)
     S.round_rect(gg, bx + 16, by + 16, bw - 32, 36, 8, 1)
-    local ok_lbl = is_en and '[ OK ] Latest Version Installed' or '[ OK ] Versi Terbaru Sudah Terpasang'
+    local ok_lbl = is_en and '[ OK ] Versi Terbaru Aktif' or '[ OK ] Versi Terbaru Aktif'
     S.center_text(gg, bx + bw // 2, by + 24, ok_lbl, 'medium')
 
     local desc1 = is_en
-      and 'You are already running the latest official release of MuslimInk.'
+      and 'Aplikasi MuslimInk pada perangkat Anda sudah menggunakan versi rilis terbaru dari GitHub.'
       or 'Aplikasi MuslimInk pada perangkat Anda sudah menggunakan versi rilis terbaru dari GitHub.'
     local desc2 = is_en
-      and 'No updates are required at this time.'
+      and 'Tidak ada pembaruan yang diperlukan saat ini.'
       or 'Tidak ada pembaruan yang diperlukan saat ini.'
 
     local w1 = S.wrap_lines(desc1, bw - 40, 'small')
@@ -1850,8 +1850,12 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
       ty = ty + 20
     end
     ty = ty + 4
-    gg:text(bx + 20, ty, desc2, { font = S.font('small') })
-    ty = ty + 28
+    local w2 = S.wrap_lines(desc2, bw - 40, 'small')
+    for i = 1, #w2 do
+      gg:text(bx + 20, ty, w2[i], { font = S.font('small') })
+      ty = ty + 20
+    end
+    ty = ty + 24
 
     local cur_info = is_en
       and ('Active Version: v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')')
@@ -2034,10 +2038,10 @@ end
 function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
   local W, H = S.W, S.H
   local is_en = (cfg.lang == 'en')
-  local title = is_en and 'Manual GPS Coordinates' or 'Koordinat Manual (GPS)'
+  local title = is_en and 'Manual Coordinates' or 'Koordinat Manual'
 
   -- Top App Bar: Title on Left, Clock + Hamburger on Right
-  gg:text(20, 18, S.fit_text(title, 'large', W - 144), { font = S.font('large') })
+  gg:text(20, 18, title, { font = S.font('large') })
   if now_info and now_info.hhmm then
     gg:text(W - 128, 20, now_info.hhmm, { font = S.font('medium') })
   end
@@ -2086,7 +2090,7 @@ function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
   local m_info = F.CUSTOM_METHODS[m_idx] or F.CUSTOM_METHODS[1]
   S.round_rect(gg, 20, 258, W - 40, 48, 10, nil, true, 0)
   S.round_rect(gg, 20, 258, W - 40, 48, 10, 1)
-  local m_title = (is_en and 'Method: ' or 'Metode: ') .. m_info.name .. ' ›'
+  local m_title = (is_en and 'Method: ' or 'Metode: ') .. m_info.name .. ' >'
   gg:text(36, 264, S.fit_text(m_title, 'small', W - 72), { font = S.font('small') })
   gg:text(36, 284, m_info.desc .. (is_en and ' (Tap to cycle)' or ' (Ketuk untuk ganti)'), { font = S.font('small') })
 
@@ -2097,9 +2101,9 @@ function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
     S.center_text(gg, W // 2, 314, '(! ) ' .. state.status_err, 'small', W - 50)
   else
     local helper_txt = is_en
-      and 'Tap box to edit • Auto UTC from longitude'
-      or 'Ketuk kotak untuk edit • Auto UTC dari bujur'
-    S.center_text(gg, W // 2, 314, helper_txt, 'small', W - 40)
+      and 'Tap field to edit • Auto UTC calculation'
+      or 'Pilih kotak edit • Auto UTC dari bujur'
+    S.center_text(gg, W // 2, 314, helper_txt, 'small', W - 32)
   end
 
   -- Touch Numpad Grid (y = 344..696, h = 344)

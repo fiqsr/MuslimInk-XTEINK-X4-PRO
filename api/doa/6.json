@@ -1,14 +1,14 @@
 {
   "id": 6,
   "nama_id": "Doa Bangun Tidur 1",
-  "nama_en": "Supplication Upon Waking Up (6)",
+  "nama_en": "Upon Waking Up (1)",
   "grup_id": "Doa Sebelum dan Sesudah Tidur",
   "grup_en": "Before & After Sleep",
   "ar": "اَلْحَمْدُ لِلَّهِ الَّذِيْ أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُوْرِ",
   "tr": "Alhamdulillaahil-ladzii ahyaanaa ba'da maa amaatanaa wa ilaihin-nusyuur.",
   "arti_id": "Segala puji bagi Allah, yang membangunkan kami setelah ditidurkanNya dan kepadaNya kami dibangitkan.",
-  "arti_en": "Segala puji bagi Allah, yang membangunkan kami setelah ditidurkanNya dan kepadaNya kami dibangitkan.",
-  "src": "HR. Al-Bukhari dalam Fathul Baari 11/113, Muslim 4/2083.\nSumber: Hisnul Muslim.",
+  "arti_en": "All praise is for Allah Who gave us life after having taken it from us, and unto Him is the resurrection.",
+  "src": "HR. Al-Bukhari dalam Fathul Baari 11/113, Muslim 4/2083. - Sumber: Hisnul Muslim.",
   "tags": [
     "bed",
     "dream",

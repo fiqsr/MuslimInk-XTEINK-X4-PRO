@@ -1,14 +1,14 @@
 {
   "id": 8,
   "nama_id": "Doa Masuk Kamar Mandi",
-  "nama_en": "Supplication for Masuk Kamar Mandi (8)",
+  "nama_en": "Entering the Restroom",
   "grup_id": "Doa di Kamar Mandi",
   "grup_en": "Bathroom & Lavatory",
   "ar": "(بِسْمِ اللَّهِ) اَللَّهُمَّ إِنِّيْ أَعُوْذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ",
   "tr": "(Bismillaah) Allaahumma innii a'uudzu bika minal khubutsi wal khobaa-its.",
   "arti_id": "Dengan nama Allah. Ya Allah, sesungguhnya aku berlindung kepadaMu dari godaan setan laki-laki dan perempuan.",
-  "arti_en": "Dengan nama Allah. O Allah, indeed I berlindung kepadaMu dari godaan setan laki-laki dan perempuan.",
-  "src": "HR. Al-Bukhari 1/45 dan Muslim 1/283. Sedang tambahan bismillaah pada permulaan hadits, menurut riwayat Said bin Manshur. Lihat Fathul Baari 1/244.\n\nSumber: Hisnul Muslim.",
+  "arti_en": "In the name of Allah. O Allah, I seek refuge in You from all evil and evil spirits (male and female devils).",
+  "src": "HR. Al-Bukhari 1/45 dan Muslim 1/283. Sedang tambahan bismillaah pada permulaan hadits, menurut riwayat Said bin Manshur. Lihat Fathul Baari 1/244. - Sumber: Hisnul Muslim.",
   "tags": [
     "home",
     "house",

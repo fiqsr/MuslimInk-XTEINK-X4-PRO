@@ -819,7 +819,7 @@ local function ensure_doa_ready()
         if id_num then doa_state.saved_set[id_num] = true end
       end
     else
-      for _, sid in ipairs({ 1, 20, 40, 50, 90, 100 }) do
+      for _, sid in ipairs({ 1, 6, 8, 10, 48, 128, 135, 141, 172, 214 }) do
         doa_state.saved_set[sid] = true
       end
     end
@@ -827,7 +827,7 @@ local function ensure_doa_ready()
 
   doa_state.saved_items = {}
   for _, it in ipairs(doa_state.index) do
-    if doa_state.saved_set[it.id] then
+    if it.id and doa_state.saved_set[it.id] then
       doa_state.saved_items[#doa_state.saved_items + 1] = it
     end
   end
@@ -876,7 +876,8 @@ local function toggle_save_doa(id)
 end
 
 local function open_doa_detail(it)
-  if not it then return end
+  if not it or not it.id then return end
+  local is_en = (cfg.lang == 'en')
   if doa_state.cache[it.id] then
     doa_state.viewing = doa_state.cache[it.id]
     return
@@ -897,9 +898,9 @@ local function open_doa_detail(it)
     nama_en = it.nama_en or it.n_en or '',
     grup_id = it.grup_id or it.g_id or '',
     grup_en = it.grup_en or it.g_en or '',
-    latin = 'Menghubungkan ke API...',
+    latin = is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...',
     arti_id = 'Sedang mengunduh teks doa...',
-    arti_en = 'Downloading supplication...',
+    arti_en = 'Downloading supplication text...',
     src = 'Hisnul Muslim',
   }
   doa_state.fetching = true
@@ -924,40 +925,12 @@ local function open_doa_detail(it)
             return
           end
         end
-        ctx.net:request({
-          url = 'https://equran.id/api/doa/' .. tostring(it.id),
-          method = 'GET',
-          timeout_ms = 12000,
-        }, function(c2, resp2)
-          pcall(function()
-            if type(resp2) == 'table' and type(resp2.body) == 'string' then
-              local ok2, res2 = pcall(function() return ctx.json:decode(resp2.body) end)
-              if ok2 and type(res2) == 'table' and res2.data then
-                local d2 = res2.data
-                local parsed = {
-                  id = d2.id,
-                  nama_id = d2.nama or it.nama_id or it.n_id,
-                  nama_en = it.nama_en or it.n_en or d2.nama,
-                  grup_id = d2.grup or it.grup_id or it.g_id,
-                  grup_en = it.grup_en or it.g_en or d2.grup,
-                  ar = d2.ar,
-                  tr = d2.tr,
-                  arti_id = d2.idn,
-                  arti_en = it.nama_en or it.n_en or d2.idn,
-                  src = d2.tentang or 'Hisnul Muslim',
-                }
-                doa_state.cache[it.id] = parsed
-                doa_state.viewing = parsed
-                pcall(function()
-                  if ctx and ctx.json and ctx.json.encode then
-                    S.write('doa_' .. tostring(it.id) .. '.txt', ctx.json:encode(parsed))
-                  end
-                end)
-                refresh()
-              end
-            end
-          end)
-        end)
+        if doa_state.viewing and doa_state.viewing.id == it.id then
+          doa_state.viewing.latin = is_en and 'Offline: Connect Wi-Fi to load.' or 'Offline: Hubungkan Wi-Fi untuk mengunduh.'
+          doa_state.viewing.arti_en = 'Supplication text will be downloaded when device is connected to Wi-Fi.'
+          doa_state.viewing.arti_id = 'Teks doa akan diunduh saat perangkat terhubung ke Wi-Fi.'
+          refresh()
+        end
       end)
     end)
   end)
@@ -1619,27 +1592,36 @@ local function handle_tap_doa(x, y)
     end
     -- Bookmark button (y = 56..94, x = W - 146..W - 20)
     if y >= 56 and y <= 94 and x >= W - 146 and x <= W - 20 then
-      toggle_save_doa(doa_state.viewing.id)
+      if doa_state.viewing.id then
+        toggle_save_doa(doa_state.viewing.id)
+      end
       return
     end
     -- Bottom Prev/Next navigation (y = 712..776)
     if y >= 712 and y <= 776 then
       local active_list = (doa_state.tab == 'saved') and doa_state.saved_items or doa_state.filtered_items
-      local cur_idx = 1
-      for i, item in ipairs(active_list) do
-        if item.id == doa_state.viewing.id then cur_idx = i; break end
-      end
-      if x >= 20 and x <= 156 then
-        local prev_i = ((cur_idx - 2) % #active_list) + 1
-        open_doa_detail(active_list[prev_i])
-        return
-      elseif x >= 172 and x <= 308 then
-        doa_state.viewing = nil
-        return
-      elseif x >= 324 and x <= 460 then
-        local next_i = (cur_idx % #active_list) + 1
-        open_doa_detail(active_list[next_i])
-        return
+      if #active_list > 0 then
+        local cur_idx = 1
+        for i, item in ipairs(active_list) do
+          if item.id == doa_state.viewing.id then cur_idx = i; break end
+        end
+        if x >= 20 and x <= 156 then
+          local prev_i = ((cur_idx - 2) % #active_list) + 1
+          open_doa_detail(active_list[prev_i])
+          return
+        elseif x >= 172 and x <= 308 then
+          doa_state.viewing = nil
+          return
+        elseif x >= 324 and x <= 460 then
+          local next_i = (cur_idx % #active_list) + 1
+          open_doa_detail(active_list[next_i])
+          return
+        end
+      else
+        if x >= 172 and x <= 308 then
+          doa_state.viewing = nil
+          return
+        end
       end
     end
     return

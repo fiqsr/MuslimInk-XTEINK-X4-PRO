@@ -1,14 +1,14 @@
 {
   "id": 50,
   "nama_id": "Doa Orang Mukim Kepada Musafir",
-  "nama_en": "Supplication for Orang Mukim Kepada Musafir (50)",
+  "nama_en": "Resident's Prayer for the Traveler",
   "grup_id": "Doa Perjalanan",
   "grup_en": "Travel & Journey (Safar)",
   "ar": "أَسْتَوْدِعُ اللَّهَ دِيْنَكَ وَأَمَانَتَكَ وَخَوَاتِيْمَ عَمَلِكَ",
   "tr": "Astaudi'ullaaha diinaka wa amaanataka wa khowaatiima 'amalik.",
   "arti_id": "Aku menitipkan agamamu, amanatmu dan penutup amalmu kepada Allah.",
-  "arti_en": "Aku menitipkan agamamu, amanatmu dan penutup amalmu kepada Allah.",
-  "src": "HR. At-Tirmidzi 2/7, At-Tirmidzi 5/499, dan lihat Shahih At-Tirmidzi 2/155.\n\nSumber: Hisnul Muslim.",
+  "arti_en": "May Allah provide you with piety, forgive your sins, and facilitate goodness for you wherever you are.",
+  "src": "HR. At-Tirmidzi 2/7, At-Tirmidzi 5/499, dan lihat Shahih At-Tirmidzi 2/155. - Sumber: Hisnul Muslim.",
   "tags": [
     "journey",
     "kendaraan",

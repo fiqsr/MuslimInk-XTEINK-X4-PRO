@@ -153,7 +153,7 @@ F.DOA_CHIPS = _PDC()
 
 local function _PSI()
   local list = {}
-  local raw = '1|Doa Sebelum Tidur 1|Before Sleeping (1)|Tidur|Sleep|tidur sleep malam bed;2|Doa Bangun Tidur|Upon Waking Up|Tidur|Sleep|tidur sleep pagi bangun;10|Doa Masuk Kamar Mandi|Entering Restroom|Kamar Mandi|Bathroom|kamar mandi toilet wc;11|Doa Keluar Kamar Mandi|Leaving Restroom|Kamar Mandi|Bathroom|kamar mandi toilet wc;12|Doa Sebelum Wudhu|Before Ablution|Wudhu|Ablution|wudhu sholat prayer bersuci;13|Doa Sesudah Wudhu|After Ablution|Wudhu|Ablution|wudhu sholat prayer bersuci;14|Doa Keluar Rumah|Leaving Home|Rumah|Home|rumah home keluar safar tawakkal;15|Doa Masuk Rumah|Entering Home|Rumah|Home|rumah home masuk salam;16|Doa Menuju Masjid|Going to Mosque|Masjid|Mosque|masjid mosque sholat prayer;17|Doa Masuk Masjid|Entering Mosque|Masjid|Mosque|masjid mosque sholat;18|Doa Keluar Masjid|Leaving Mosque|Masjid|Mosque|masjid mosque sholat;20|Doa Sesudah Adzan|After Hearing Adhan|Adzan|Adhan|adzan sholat prayer wasilah;21|Doa Iftitah Shalat|Opening Supplication|Shalat|Prayer|sholat shalat salat iftitah;24|Doa Ruku Shalat|Supplication in Ruku|Shalat|Prayer|sholat shalat ruku subhana;27|Doa Sujud Shalat|Supplication in Sujud|Shalat|Prayer|sholat shalat sujud subhana;30|Doa Duduk Antara Sujud|Sitting Between Sujud|Shalat|Prayer|sholat shalat duduk ampun;33|Doa Tasyahhud (Tahiyat)|Tashahhud (Tahiyat)|Shalat|Prayer|sholat shalat tahiyat tasyahhud;40|Dzikir Sesudah Shalat|Adhkar After Prayer|Dzikir|Adhkar|sholat dzikir sesudah salam;45|Doa Shalat Istikharah|Istikharah Prayer|Shalat|Prayer|sholat istikharah petunjuk;50|Sayyidul Istighfar|Master Istighfar|Istighfar|Pardon|istighfar ampun taubat dosa pagi petang;60|Doa Sebelum Makan|Before Eating|Makan|Meals|makan food eat bismillah;61|Doa Sesudah Makan|After Eating|Makan|Meals|makan food eat alhamdulillah;70|Doa Naik Kendaraan|Riding a Vehicle|Safar|Travel|safar travel kendaraan perjalanan;80|Doa Menjenguk Orang Sakit|Visiting the Sick|Sakit|Health|sakit sick jenguk demam sembuh;90|Doa Kedua Orang Tua|Supplication for Parents|Ortu|Parents|ortu orang tua parents ibu ayah;100|Doa Kebaikan Dunia Akhirat|Goodness in World & Hereafter|Kebaikan|Goodness|dunia akhirat selamat surga neraka'
+  local raw = '1|Doa Sebelum Tidur 1|Supplication Before Sleeping (1)|Tidur|Before & After Sleep|tidur sleep malam bed;6|Doa Bangun Tidur 1|Upon Waking Up (1)|Tidur|Before & After Sleep|tidur sleep pagi bangun;8|Doa Masuk Kamar Mandi|Entering the Restroom|Kamar Mandi|Bathroom & Lavatory|kamar mandi toilet wc;10|Doa Sebelum Wudhu|Before Ablution (Wudhu)|Wudhu|Ablution (Wudhu)|wudhu sholat prayer bersuci;25|Doa Ketika Sakit|Supplication When Feeling Pain / Sick|Sakit|During Sickness & Pain|sakit sick health sembuh;48|Doa Naik Kendaraan|Riding a Vehicle or Mount|Safar|Travel & Journey (Safar)|safar travel kendaraan perjalanan;68|Doa Memohon Kasih Sayang Untuk Orang Tua|Supplication for Mercy Upon Parents|Ortu|Parents & Family|ortu orang tua parents ibu ayah;128|Doa Keluar Rumah|Supplication Upon Leaving the Home|Rumah|Entering & Leaving Home|rumah home keluar safar tawakkal;135|Doa Sebelum Makan|Supplication Before Eating (Bismillah)|Makan|Food & Dining|makan food eat bismillah;141|Doa Berbuka Puasa|Upon Breaking the Fast (Iftar)|Puasa|Fasting & Iftar|puasa iftar berbuka sahur;172|Doa Sapu Jagad|Rabbana Atina (Goodness in Both Worlds)|Kebaikan|Goodness & Refuge|dunia akhirat selamat surga neraka kebaikan;214|Doa Kafaratul Majelis|Kafaratul Majlis (Expiation of the Gathering)|Majelis|Gatherings & Expiation|majelis kafaratul subhanakallahumma'
   for s in raw:gmatch('[^;]+') do
     local i, ni, ne, gi, ge, t = s:match('^(%d+)|([^|]+)|([^|]+)|([^|]+)|([^|]+)|([^|]+)$')
     if i then
@@ -657,18 +657,21 @@ end
 ------------------------------------------------------------------ Word-wrap helper for Doa screen
 
 function F.wrap_lines(s, fname, max_w)
+  if not s or s == '' then return {} end
+  local str = tostring(s):sub(1, 1200)
   local out = {}
   local line = ''
-  for word in tostring(s or ''):gmatch('%S+') do
+  for word in str:gmatch('%S+') do
     local cand = (line == '') and word or (line .. ' ' .. word)
     if line ~= '' and S.text_w(cand, fname) > max_w then
       out[#out + 1] = line
       line = word
+      if #out >= 10 then break end
     else
       line = cand
     end
   end
-  if line ~= '' then out[#out + 1] = line end
+  if line ~= '' and #out < 10 then out[#out + 1] = line end
   return out
 end
 
@@ -802,7 +805,7 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
   state = state or {}
 
   -- Top App Bar: App Title on Left, Clock + Hamburger on Right
-  gg:text(20, 18, is_en and 'Islamic Duas & Adhkar' or 'Pencarian Doa & Dzikir', { font = S.font('large') })
+  gg:text(20, 18, is_en and 'Daily Duas' or 'Doa & Dzikir', { font = S.font('large') })
   if now_info and now_info.hhmm then
     gg:text(W - 128, 20, now_info.hhmm, { font = S.font('medium') })
   end
@@ -811,35 +814,47 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
   -- VIEW 1: Reading Detail of a Selected Dua
   if state.viewing then
     local d = state.viewing
-    local is_saved = state.saved_set and state.saved_set[d.id]
+    local is_saved = (d.id and state.saved_set and state.saved_set[d.id])
 
     -- Navigation & Bookmark Bar (y = 56..94, h = 38)
     draw_btn(gg, 20, 56, 120, 38, is_en and '< Back' or '< Kembali', false, 'small')
     local bkmk_lbl = is_saved and (is_en and 'Saved' or 'Tersimpan') or (is_en and '+ Save' or '+ Simpan')
     draw_btn(gg, W - 146, 56, 126, 38, bkmk_lbl, is_saved, 'small')
 
-    -- Title Banner (y = 100..164, h = 64)
-    S.card(gg, 20, 100, W - 40, 64, 2, true)
+    -- Title Banner (y = 98..172, h = 74)
+    S.card(gg, 20, 98, W - 40, 74, 2, true)
     local cat_str = is_en and (d.grup_en or d.g_en or d.grup_id or d.g_id or '') or (d.grup_id or d.g_id or '')
-    S.center_text(gg, W // 2, 106, cat_str, 'small', W - 64)
+    S.center_text(gg, W // 2, 104, cat_str, 'small', W - 64)
     local t_str = is_en and (d.nama_en or d.n_en or d.nama_id or d.n_id or '') or (d.nama_id or d.n_id or '')
-    S.center_text(gg, W // 2, 128, t_str, 'medium', W - 64)
+    if S.text_w(t_str, 'medium') <= W - 64 then
+      S.center_text(gg, W // 2, 128, t_str, 'medium', W - 64)
+    else
+      local tlines = F.wrap_lines(t_str, 'small', W - 64)
+      if #tlines == 1 then
+        S.center_text(gg, W // 2, 128, tlines[1], 'small', W - 64)
+      else
+        S.center_text(gg, W // 2, 124, tlines[1], 'small', W - 64)
+        if tlines[2] then
+          S.center_text(gg, W // 2, 144, tlines[2], 'small', W - 64)
+        end
+      end
+    end
 
-    -- Reading Card Container (y = 172..704, h = 532)
-    S.card(gg, 20, 172, W - 40, 532, 2, 2)
+    -- Reading Card Container (y = 178..704, h = 526)
+    S.card(gg, 20, 178, W - 40, 526, 2, 2)
 
     if state.fetching then
       S.center_text(gg, W // 2, 340, is_en and 'Downloading supplication...' or 'Mengunduh doa dari API...', 'medium')
       S.center_text(gg, W // 2, 375, is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...', 'small')
     else
-      local tr_text = d.tr or d.latin or ''
-      gg:text(38, 186, is_en and 'TRANSLITERATION (LATIN):' or 'BACAAN LATIN:', { font = S.font('small') })
+      local tr_text = tostring(d.tr or d.latin or ''):sub(1, 600)
+      gg:text(38, 192, is_en and 'TRANSLITERATION (LATIN):' or 'BACAAN LATIN:', { font = S.font('small') })
       local lat_lines = F.wrap_lines(tr_text, 'medium', W - 76)
       local use_sml = (#lat_lines > 4)
       if use_sml then lat_lines = F.wrap_lines(tr_text, 'small', W - 76) end
       local font_n = use_sml and 'small' or 'medium'
       local lh = use_sml and 22 or 26
-      local ly = 212
+      local ly = 216
       local max_lat_lines = math.min(#lat_lines, 6)
       for i = 1, max_lat_lines do
         gg:text(38, ly, lat_lines[i], { font = S.font(font_n) })
@@ -851,7 +866,8 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
 
       local my = div_y + 12
       gg:text(38, my, is_en and 'MEANING & TRANSLATION:' or 'ARTINYA:', { font = S.font('small') })
-      local arti_text = is_en and (d.arti_en or d.arti_id or '') or (d.arti_id or '')
+      local raw_arti = is_en and (d.arti_en or d.arti_id or '') or (d.arti_id or '')
+      local arti_text = tostring(raw_arti):sub(1, 600)
       local arti_lines = F.wrap_lines('"' .. arti_text .. '"', 'small', W - 76)
       local ay = my + 22
       local max_arti_lines = math.min(#arti_lines, 8)
@@ -861,7 +877,7 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       end
 
       if d.src and d.src ~= '' then
-        local src_s = S.fit_text(d.src:gsub('\r', ' '):gsub('\n', ' '), 'small', W - 76)
+        local src_s = S.fit_text(tostring(d.src):sub(1, 120):gsub('\r', ' '):gsub('\n', ' '), 'small', W - 76)
         S.center_text(gg, W // 2, 678, src_s, 'small', W - 64)
       end
     end
@@ -945,26 +961,41 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       local it = items[i]
       local slot = i - start_idx
       local ry = 222 + slot * 96
-      local is_saved = state.saved_set and state.saved_set[it.id]
+      local is_saved = (it.id and state.saved_set and state.saved_set[it.id])
 
       S.round_rect(gg, 20, ry, W - 40, 90, 12, nil, true, 0)
       S.round_rect(gg, 20, ry, W - 40, 90, 12, 1)
 
-      -- ID & Category Capsule Pill
+      -- ID & Category Capsule Pill (y = ry + 8..ry + 28)
       local cat_name = is_en and (it.grup_en or it.g_en or it.grup_id or it.g_id or '') or (it.grup_id or it.g_id or '')
-      local pill_str = '#' .. tostring(it.id) .. ' • ' .. cat_name
-      local pw = math.min(S.text_w(pill_str, 'small') + 18, 240)
-      S.round_rect(gg, 32, ry + 10, pw, 20, 6, nil, true, 0)
-      S.round_rect(gg, 32, ry + 10, pw, 20, 6, 1)
-      gg:text(38, ry + 11, S.fit_text(pill_str, 'small', pw - 10), { font = S.font('small') })
+      local pill_str = '#' .. tostring(it.id or '') .. ' • ' .. cat_name
+      local pw = math.min(S.text_w(pill_str, 'small') + 18, 250)
+      S.round_rect(gg, 32, ry + 8, pw, 20, 6, nil, true, 0)
+      S.round_rect(gg, 32, ry + 8, pw, 20, 6, 1)
+      gg:text(38, ry + 9, S.fit_text(pill_str, 'small', pw - 10), { font = S.font('small') })
 
       if is_saved then
-        gg:text(W - 74, ry + 11, '*', { font = S.font('medium') })
+        gg:text(W - 74, ry + 9, '*', { font = S.font('medium') })
       end
 
-      -- Title Text
+      -- Title Text (wrapped across 1-2 lines so it never cuts off awkwardly!)
       local title_str = is_en and (it.nama_en or it.n_en or it.nama_id or it.n_id or '') or (it.nama_id or it.n_id or '')
-      gg:text(34, ry + 40, S.fit_text(title_str, 'medium', W - 90), { font = S.font('medium') })
+      local max_tw = W - 92
+      if S.text_w(title_str, 'medium') <= max_tw then
+        gg:text(34, ry + 42, title_str, { font = S.font('medium') })
+      else
+        local tlines = F.wrap_lines(title_str, 'small', max_tw)
+        if #tlines == 1 then
+          gg:text(34, ry + 42, tlines[1], { font = S.font('small') })
+        else
+          gg:text(34, ry + 34, tlines[1], { font = S.font('small') })
+          if tlines[2] then
+            local l2 = tlines[2]
+            if tlines[3] then l2 = S.fit_text(l2 .. ' ' .. tlines[3], 'small', max_tw) end
+            gg:text(34, ry + 56, l2, { font = S.font('small') })
+          end
+        end
+      end
 
       -- Arrow >
       gg:text(W - 44, ry + 36, '>', { font = S.font('medium') })

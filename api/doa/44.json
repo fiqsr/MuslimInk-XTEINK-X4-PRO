@@ -1,14 +1,14 @@
 {
   "id": 44,
   "nama_id": "Doa Kepada Orang Yang Menawarkan Hartanya Untukmu",
-  "nama_en": "Supplication for Kepada Orang Yang Menawarkan Hartanya Untukmu (44)",
+  "nama_en": "For One Who Offers You His Wealth",
   "grup_id": "Doa Terkait Harta dan Hutang",
-  "grup_en": "Wealth, Sustenance & Debt",
+  "grup_en": "Wealth & Debt Relief",
   "ar": "بَارَكَ اللَّهُ لَكَ فِيْ أَهْلِكَ وَمَالِكَ",
   "tr": "Baarokallaahu laka fii ahlika wa maalika.",
   "arti_id": "Semoga Allah memberkahimu dalam keluarga dan hartamu.",
-  "arti_en": "Semoga Allah memberkahimu dalam keluarga dan hartamu.",
-  "src": "HR. Al-Bukhari dengan Fathul Baari 4/88.\n\nSumber: Hisnul Muslim.",
+  "arti_en": "May Allah bless you in your family and your wealth.",
+  "src": "HR. Al-Bukhari dengan Fathul Baari 4/88. - Sumber: Hisnul Muslim.",
   "tags": [
     "debt",
     "harta",

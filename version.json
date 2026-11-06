@@ -1,6 +1,6 @@
 {
-  "version": "1.2.1",
-  "build": 121,
+  "version": "1.2.2",
+  "build": 122,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,21 +9,19 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 262064,
+  "size_bytes": 261888,
   "changelog_id": [
-    "Mesin Pencari Doa Ala Google: Dilengkapi Search Bar dan Touch Virtual Keyboard (QWERTY) untuk mencari 227+ doa & dzikir Hisnul Muslim secara cerdas",
-    "Pencarian Sinonim & Topik Cepat: Mengetik 'sholat', 'tidur', 'makan', 'sakit', dll langsung menampilkan seluruh doa relevan, didukung 8 chip kategori cepat",
-    "Dukungan Dwibahasa Penuh (ID & EN): Judul doa, kategori, tag pencarian, arti doa, dan hadist rujukan otomatis menyesuaikan pengaturan bahasa aplikasi",
-    "Unduhan On-Demand & Hemat Memori: Teks doa diunduh sesuai permintaan via GitHub Raw API tanpa membebani ukuran aplikasi (ukuran tetap <= 256 KB)",
-    "Tab Tersimpan / Favorit Offline: Doa yang telah dibuka atau dibintangi otomatis tersimpan di memori perangkat dan dapat dibaca kapan saja secara offline",
-    "Perbaikan Penuh 6 Gaya Font Jam TrueType & Lockscreen Bebas Crash: Seluruh 6 font jam dan lockscreen berfungsi normal tanpa terpotong"
+    "Perbaikan Penuh Bahasa Inggris (100% Bilingual): Terjemahan arti dan judul 227 doa dalam bahasa Inggris kini telah diterjemahkan sempurna tanpa teks bahasa Indonesia yang tertinggal",
+    "Tampilan Judul Tanpa Terpotong: Judul doa pada daftar kartu dan halaman detail kini mendukung pembungkusan 2 baris otomatis sehingga judul panjang terbaca utuh",
+    "Pencegahan Force Close / Crash: Menghilangkan nested request dan menambahkan pengaman batas saat membuka doa dan navigasi Sebelumnya/Berikutnya",
+    "Penyelarasan Judul Halaman Sederhana: Judul atas kini konsisten dan sederhana ('Daily Duas' / 'Doa & Dzikir'), sesuai dengan label menu samping",
+    "Sinkronisasi ID Doa Akurat: 25 doa seed bawaan kini selaras 100% dengan database API Hisnul Muslim online"
   ],
   "changelog_en": [
-    "Google-Style Prayer Search Engine: Features a Search Bar with an on-screen QWERTY touch keyboard to smartly search 227+ Hisnul Muslim duas & adhkar",
-    "Synonym & Quick Topic Chips: Typing 'prayer', 'sleep', 'food', 'health', etc surfaces all relevant prayers instantly, aided by 8 quick topic chips",
-    "Full Bilingual Support (ID & EN): Prayer titles, categories, search tags, meanings, and hadith references adapt seamlessly to app language",
-    "On-Demand Download & Slim Binary: Prayer details are fetched on-demand from GitHub Raw API, keeping package size strictly <= 256 KB for OTA",
-    "Offline Bookmarks / Saved Tab: Opened and bookmarked prayers are cached locally and accessible anytime offline under the Saved tab",
-    "All 6 TrueType Clock Styles & Lockscreen Crash Fix: Fully intact with zero font truncation and smooth lockscreen rendering"
+    "Complete English Translation (100% Bilingual): Meanings and titles of all 227 duas in English are now fully translated with zero leftover Indonesian words",
+    "No More Truncated Prayer Titles: Card and detail view titles now support automatic 2-line wrapping so long titles are fully readable without cutoff",
+    "Force Close & Crash Prevention: Eliminated nested async requests and added safety bounds when opening prayers or navigating Prev/Next",
+    "Simple & Clean Header Title: Page header is now simple and consistent ('Daily Duas' / 'Doa & Dzikir') matching the drawer menu label",
+    "Accurate Seed Prayer IDs: Seed prayers are now 100% aligned with the online Hisnul Muslim API dataset"
   ]
 }

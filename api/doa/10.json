@@ -1,14 +1,14 @@
 {
   "id": 10,
   "nama_id": "Doa Sebelum Wudhu",
-  "nama_en": "Supplication for Sebelum Wudhu (10)",
+  "nama_en": "Before Ablution (Wudhu)",
   "grup_id": "Doa Saat Wudhu",
   "grup_en": "Ablution (Wudhu)",
   "ar": "بِسْمِ اللَّهِ",
   "tr": "Bismillaah.",
   "arti_id": "Dengan nama Allah (aku berwudhu).",
-  "arti_en": "Dengan nama Allah (aku berwudhu).",
-  "src": "HR. Abu Dawud, Ibnu Majah dan Ahmad. Lihat Irwa'ul Ghalil 1/122.\n\nSumber: Hisnul Muslim.",
+  "arti_en": "In the name of Allah.",
+  "src": "HR. Abu Dawud, Ibnu Majah dan Ahmad. Lihat Irwa'ul Ghalil 1/122. - Sumber: Hisnul Muslim.",
   "tags": [
     "adzan",
     "masjid",

@@ -34,7 +34,7 @@
     {
       "id": 3,
       "nama_id": "Doa Bila Takut Dan Kesepian Ketika Tidur",
-      "nama_en": "Supplication for Bila Takut Dan Kesepian Ketika Tidur (3)",
+      "nama_en": "When Feeling Restless or Fearful in Sleep",
       "grup_id": "Doa Sebelum dan Sesudah Tidur",
       "grup_en": "Before & After Sleep",
       "tags": [
@@ -49,7 +49,7 @@
     {
       "id": 4,
       "nama_id": "Doa Membalikkan Tubuh Ketika Tidur Malam",
-      "nama_en": "Supplication for Membalikkan Tubuh Ketika Tidur Malam (4)",
+      "nama_en": "Turning Over During Sleep",
       "grup_id": "Doa Sebelum dan Sesudah Tidur",
       "grup_en": "Before & After Sleep",
       "tags": [
@@ -64,7 +64,7 @@
     {
       "id": 5,
       "nama_id": "Doa Bila Terjaga Di Malam Hari",
-      "nama_en": "Supplication for Bila Terjaga Di Malam Hari (5)",
+      "nama_en": "When Waking Up During the Night",
       "grup_id": "Doa Sebelum dan Sesudah Tidur",
       "grup_en": "Before & After Sleep",
       "tags": [
@@ -79,7 +79,7 @@
     {
       "id": 6,
       "nama_id": "Doa Bangun Tidur 1",
-      "nama_en": "Supplication Upon Waking Up (6)",
+      "nama_en": "Upon Waking Up (1)",
       "grup_id": "Doa Sebelum dan Sesudah Tidur",
       "grup_en": "Before & After Sleep",
       "tags": [
@@ -94,7 +94,7 @@
     {
       "id": 7,
       "nama_id": "Doa Bangun Tidur 2",
-      "nama_en": "Supplication Upon Waking Up (7)",
+      "nama_en": "Upon Waking Up (2)",
       "grup_id": "Doa Sebelum dan Sesudah Tidur",
       "grup_en": "Before & After Sleep",
       "tags": [
@@ -109,7 +109,7 @@
     {
       "id": 8,
       "nama_id": "Doa Masuk Kamar Mandi",
-      "nama_en": "Supplication for Masuk Kamar Mandi (8)",
+      "nama_en": "Entering the Restroom",
       "grup_id": "Doa di Kamar Mandi",
       "grup_en": "Bathroom & Lavatory",
       "tags": [
@@ -122,7 +122,7 @@
     {
       "id": 9,
       "nama_id": "Doa Keluar Kamar Mandi",
-      "nama_en": "Supplication for Keluar Kamar Mandi (9)",
+      "nama_en": "Leaving the Restroom",
       "grup_id": "Doa di Kamar Mandi",
       "grup_en": "Bathroom & Lavatory",
       "tags": [
@@ -135,7 +135,7 @@
     {
       "id": 10,
       "nama_id": "Doa Sebelum Wudhu",
-      "nama_en": "Supplication for Sebelum Wudhu (10)",
+      "nama_en": "Before Ablution (Wudhu)",
       "grup_id": "Doa Saat Wudhu",
       "grup_en": "Ablution (Wudhu)",
       "tags": [
@@ -153,7 +153,7 @@
     {
       "id": 11,
       "nama_id": "Doa Setelah Wudhu",
-      "nama_en": "Supplication for Setelah Wudhu (11)",
+      "nama_en": "After Ablution (Wudhu)",
       "grup_id": "Doa Saat Wudhu",
       "grup_en": "Ablution (Wudhu)",
       "tags": [
@@ -171,7 +171,7 @@
     {
       "id": 12,
       "nama_id": "Doa Mengenakan Pakaian",
-      "nama_en": "Supplication for Mengenakan Pakaian (12)",
+      "nama_en": "Wearing Clothes",
       "grup_id": "Doa Berpakaian",
       "grup_en": "Clothing & Dressing",
       "tags": [
@@ -181,7 +181,7 @@
     {
       "id": 13,
       "nama_id": "Doa Mengenakan Pakaian Baru",
-      "nama_en": "Supplication for Mengenakan Pakaian Baru (13)",
+      "nama_en": "Wearing New Clothes",
       "grup_id": "Doa Berpakaian",
       "grup_en": "Clothing & Dressing",
       "tags": [
@@ -191,7 +191,7 @@
     {
       "id": 14,
       "nama_id": "Doa Melepas/Meletekkan Pakaian",
-      "nama_en": "Supplication for Melepas/Meletekkan Pakaian (14)",
+      "nama_en": "Undressing / Removing Clothes",
       "grup_id": "Doa Berpakaian",
       "grup_en": "Clothing & Dressing",
       "tags": [
@@ -201,7 +201,7 @@
     {
       "id": 15,
       "nama_id": "Doa berlindung dari keburukan",
-      "nama_en": "Supplication for berlindung dari keburukan (15)",
+      "nama_en": "Seeking Refuge from Evil",
       "grup_id": "Doa Perlindungan",
       "grup_en": "Protection & Seeking Refuge",
       "tags": [
@@ -212,7 +212,7 @@
     {
       "id": 16,
       "nama_id": "Doa berlindung dari sifat malas. lemah, pikun, kikir dan siksa kubur",
-      "nama_en": "Supplication for berlindung dari sifat malas. lemah, pikun, kikir dan siksa kubur (16)",
+      "nama_en": "Refuge from Laziness, Old Age & Grave Torment",
       "grup_id": "Doa Perlindungan",
       "grup_en": "Protection & Seeking Refuge",
       "tags": [
@@ -230,7 +230,7 @@
     {
       "id": 17,
       "nama_id": "Doa berlindung dari syirik",
-      "nama_en": "Supplication for berlindung dari syirik (17)",
+      "nama_en": "Protection Against Shirk (Associating Partners)",
       "grup_id": "Doa Perlindungan",
       "grup_en": "Protection & Seeking Refuge",
       "tags": [
@@ -241,9 +241,9 @@
     {
       "id": 18,
       "nama_id": "Doa ketika angin ribut, halilintar dan hujan",
-      "nama_en": "Supplication for ketika angin ribut, halilintar dan hujan (18)",
+      "nama_en": "During Strong Winds, Thunder & Rain",
       "grup_id": "Doa Menghadapi Fenomena Alam",
-      "grup_en": "Nature, Weather & Winds",
+      "grup_en": "Nature & Weather",
       "tags": [
         "anak",
         "ayah",
@@ -259,9 +259,9 @@
     {
       "id": 19,
       "nama_id": "Doa minta hujan",
-      "nama_en": "Supplication for minta hujan (19)",
+      "nama_en": "Supplication for Rain (Istisqa)",
       "grup_id": "Doa Menghadapi Fenomena Alam",
-      "grup_en": "Nature, Weather & Winds",
+      "grup_en": "Nature & Weather",
       "tags": [
         "umum"
       ]
@@ -269,9 +269,9 @@
     {
       "id": 20,
       "nama_id": "Doa ketika hujan",
-      "nama_en": "Supplication for ketika hujan (20)",
+      "nama_en": "During Rainfall",
       "grup_id": "Doa Menghadapi Fenomena Alam",
-      "grup_en": "Nature, Weather & Winds",
+      "grup_en": "Nature & Weather",
       "tags": [
         "umum"
       ]
@@ -279,9 +279,9 @@
     {
       "id": 21,
       "nama_id": "Doa Ketika Hujan Lebat, Atau Agar Hujan Berhenti",
-      "nama_en": "Supplication for Ketika Hujan Lebat, Atau Agar Hujan Berhenti (21)",
+      "nama_en": "During Heavy Rain & Floods",
       "grup_id": "Doa Menghadapi Fenomena Alam",
-      "grup_en": "Nature, Weather & Winds",
+      "grup_en": "Nature & Weather",
       "tags": [
         "umum"
       ]
@@ -289,7 +289,7 @@
     {
       "id": 22,
       "nama_id": "Doa Kepada Pengantin",
-      "nama_en": "Supplication for Kepada Pengantin (22)",
+      "nama_en": "Congratulating Newlyweds",
       "grup_id": "Doa Pernikahan",
       "grup_en": "Marriage & Wedding",
       "tags": [
@@ -299,7 +299,7 @@
     {
       "id": 23,
       "nama_id": "Doa Pengantin Pria Kepada Pasangannya",
-      "nama_en": "Supplication for Pengantin Pria Kepada Pasangannya (23)",
+      "nama_en": "Groom's Supplication for His Bride",
       "grup_id": "Doa Pernikahan",
       "grup_en": "Marriage & Wedding",
       "tags": [
@@ -309,7 +309,7 @@
     {
       "id": 24,
       "nama_id": "Doa Bersetubuh (Jima')",
-      "nama_en": "Supplication for Bersetubuh (Jima') (24)",
+      "nama_en": "Before Marital Intimacy",
       "grup_id": "Doa Pernikahan",
       "grup_en": "Marriage & Wedding",
       "tags": [
@@ -319,7 +319,7 @@
     {
       "id": 25,
       "nama_id": "Doa Ketika Sakit",
-      "nama_en": "Supplication for Ketika Sakit (25)",
+      "nama_en": "Supplication When Feeling Pain / Sick",
       "grup_id": "Doa Saat Sakit",
       "grup_en": "During Sickness & Pain",
       "tags": [
@@ -335,7 +335,7 @@
     {
       "id": 26,
       "nama_id": "Doa Nabi Ayyub ketika sakit",
-      "nama_en": "Supplication for Nabi Ayyub ketika sakit (26)",
+      "nama_en": "Prophet Ayyub's Prayer in Illness",
       "grup_id": "Doa Saat Sakit",
       "grup_en": "During Sickness & Pain",
       "tags": [
@@ -351,7 +351,7 @@
     {
       "id": 27,
       "nama_id": "Doa Kepada Orang Sakit",
-      "nama_en": "Supplication for Kepada Orang Sakit (27)",
+      "nama_en": "Visiting the Sick",
       "grup_id": "Doa untuk Orang Sakit",
       "grup_en": "Visiting the Sick",
       "tags": [
@@ -367,7 +367,7 @@
     {
       "id": 28,
       "nama_id": "Doa ketika sakit menjelang kematian/tanpa harapan hidup",
-      "nama_en": "Supplication for ketika sakit menjelang kematian/tanpa harapan hidup (28)",
+      "nama_en": "When Approaching Death / Incurable Illness",
       "grup_id": "Doa Menjelang Wafat",
       "grup_en": "Approaching Death",
       "tags": [
@@ -383,7 +383,7 @@
     {
       "id": 29,
       "nama_id": "Mengajari (Talqin) Orang Yang Akan Meninggal Dunia",
-      "nama_en": "Mengajari (Talqin) Orang Yang Akan Meninggal Dunia (29)",
+      "nama_en": "Prompting the Dying to Say La Ilaha Illallah",
       "grup_id": "Doa Jenazah",
       "grup_en": "Funerals & Condolences",
       "tags": [
@@ -393,7 +393,7 @@
     {
       "id": 30,
       "nama_id": "Doa Memejamkan Mata Jenazah",
-      "nama_en": "Supplication for Memejamkan Mata Jenazah (30)",
+      "nama_en": "Closing the Eyes of the Deceased",
       "grup_id": "Doa Jenazah",
       "grup_en": "Funerals & Condolences",
       "tags": [
@@ -403,7 +403,7 @@
     {
       "id": 31,
       "nama_id": "Doa Belasungkawa (Ta'ziyah)",
-      "nama_en": "Supplication for Belasungkawa (Ta'ziyah) (31)",
+      "nama_en": "Condolence Supplication (Ta'ziyah)",
       "grup_id": "Doa Jenazah",
       "grup_en": "Funerals & Condolences",
       "tags": [
@@ -413,7 +413,7 @@
     {
       "id": 32,
       "nama_id": "Doa Memasukkan Jenazah Ke Liang Kubur",
-      "nama_en": "Supplication for Memasukkan Jenazah Ke Liang Kubur (32)",
+      "nama_en": "Placing the Deceased into the Grave",
       "grup_id": "Doa Jenazah",
       "grup_en": "Funerals & Condolences",
       "tags": [
@@ -423,7 +423,7 @@
     {
       "id": 33,
       "nama_id": "Doa Setelah Jenazah Dimakamkan",
-      "nama_en": "Supplication for Setelah Jenazah Dimakamkan (33)",
+      "nama_en": "After the Burial of the Deceased",
       "grup_id": "Doa Jenazah",
       "grup_en": "Funerals & Condolences",
       "tags": [
@@ -433,7 +433,7 @@
     {
       "id": 34,
       "nama_id": "Doa Ziarah Kubur",
-      "nama_en": "Supplication for Ziarah Kubur (34)",
+      "nama_en": "Visiting the Graveyard",
       "grup_id": "Doa Jenazah",
       "grup_en": "Funerals & Condolences",
       "tags": [
@@ -443,7 +443,7 @@
     {
       "id": 35,
       "nama_id": "Doa Ketika Sedih, Gundah Atau Galau",
-      "nama_en": "Supplication for Ketika Sedih, Gundah Atau Galau (35)",
+      "nama_en": "When in Distress, Grief or Anxiety",
       "grup_id": "Doa Saat Sedih dan Sulit",
       "grup_en": "Anxiety, Distress & Sorrow",
       "tags": [
@@ -454,7 +454,7 @@
     {
       "id": 36,
       "nama_id": "Doa Ketika Mengalami Kesulitan / Minta diberi Kemudahan",
-      "nama_en": "Supplication for Ketika Mengalami Kesulitan / Minta diberi Kemudahan (36)",
+      "nama_en": "When Facing Hardships / Seeking Ease",
       "grup_id": "Doa Saat Sedih dan Sulit",
       "grup_en": "Anxiety, Distress & Sorrow",
       "tags": [
@@ -465,7 +465,7 @@
     {
       "id": 37,
       "nama_id": "Doa Nabi Yunus Ketika Mengalami Kesulitan",
-      "nama_en": "Supplication for Nabi Yunus Ketika Mengalami Kesulitan (37)",
+      "nama_en": "Prophet Yunus's Prayer in Distress",
       "grup_id": "Doa Saat Sedih dan Sulit",
       "grup_en": "Anxiety, Distress & Sorrow",
       "tags": [
@@ -476,7 +476,7 @@
     {
       "id": 38,
       "nama_id": "Doa Bila Tertimpa Musibah",
-      "nama_en": "Supplication for Bila Tertimpa Musibah (38)",
+      "nama_en": "When Struck by Calamity or Loss",
       "grup_id": "Doa Saat Mendapat Kabar",
       "grup_en": "Receiving News",
       "tags": [
@@ -487,7 +487,7 @@
     {
       "id": 39,
       "nama_id": "Doa Bila Melihat Orang Lain Tertimpa Musibah, Cobaan Atau Penyakit",
-      "nama_en": "Supplication for Bila Melihat Orang Lain Tertimpa Musibah, Cobaan Atau Penyakit (39)",
+      "nama_en": "When Seeing Someone Afflicted with Trial",
       "grup_id": "Doa Saat Mendapat Kabar",
       "grup_en": "Receiving News",
       "tags": [
@@ -498,7 +498,7 @@
     {
       "id": 40,
       "nama_id": "Bacaan Bila Ada Sesuatu Yang  Menyusahkan",
-      "nama_en": "Remembrance of Bila Ada Sesuatu Yang  Menyusahkan (40)",
+      "nama_en": "When Troubled by Any Affair",
       "grup_id": "Doa Saat Mendapat Kabar",
       "grup_en": "Receiving News",
       "tags": [
@@ -508,7 +508,7 @@
     {
       "id": 41,
       "nama_id": "Bacaan Bila Ada Sesuatu Yang Menyenangkan",
-      "nama_en": "Remembrance of Bila Ada Sesuatu Yang Menyenangkan (41)",
+      "nama_en": "When Pleased or Joyful with Something",
       "grup_id": "Doa Saat Mendapat Kabar",
       "grup_en": "Receiving News",
       "tags": [
@@ -519,7 +519,7 @@
     {
       "id": 42,
       "nama_id": "Bila Ada Sesuatu Yang Menggembirakan",
-      "nama_en": "Bila Ada Sesuatu Yang Menggembirakan (42)",
+      "nama_en": "Upon Receiving Delighting News",
       "grup_id": "Doa Saat Mendapat Kabar",
       "grup_en": "Receiving News",
       "tags": [
@@ -529,9 +529,9 @@
     {
       "id": 43,
       "nama_id": "Doa agar terbebas hutang",
-      "nama_en": "Supplication for agar terbebas hutang (43)",
+      "nama_en": "Supplication to Settle Debts",
       "grup_id": "Doa Terkait Harta dan Hutang",
-      "grup_en": "Wealth, Sustenance & Debt",
+      "grup_en": "Wealth & Debt Relief",
       "tags": [
         "debt",
         "harta",
@@ -545,9 +545,9 @@
     {
       "id": 44,
       "nama_id": "Doa Kepada Orang Yang Menawarkan Hartanya Untukmu",
-      "nama_en": "Supplication for Kepada Orang Yang Menawarkan Hartanya Untukmu (44)",
+      "nama_en": "For One Who Offers You His Wealth",
       "grup_id": "Doa Terkait Harta dan Hutang",
-      "grup_en": "Wealth, Sustenance & Debt",
+      "grup_en": "Wealth & Debt Relief",
       "tags": [
         "debt",
         "harta",
@@ -561,9 +561,9 @@
     {
       "id": 45,
       "nama_id": "Doa Kepada Orang Yang Meminjami Ketika Membayar Hutang",
-      "nama_en": "Supplication for Kepada Orang Yang Meminjami Ketika Membayar Hutang (45)",
+      "nama_en": "For the Creditor Upon Repaying a Debt",
       "grup_id": "Doa Terkait Harta dan Hutang",
-      "grup_en": "Wealth, Sustenance & Debt",
+      "grup_en": "Wealth & Debt Relief",
       "tags": [
         "debt",
         "harta",
@@ -577,9 +577,9 @@
     {
       "id": 46,
       "nama_id": "Doa Ketika Sempit Rizki",
-      "nama_en": "Supplication for Ketika Sempit Rizki (46)",
+      "nama_en": "When Sustenance & Provision Is Constricted",
       "grup_id": "Doa Terkait Harta dan Hutang",
-      "grup_en": "Wealth, Sustenance & Debt",
+      "grup_en": "Wealth & Debt Relief",
       "tags": [
         "debt",
         "harta",
@@ -593,9 +593,9 @@
     {
       "id": 47,
       "nama_id": "Doa Ketika Orang-Orang Telah Sibuk Dengan Harta",
-      "nama_en": "Supplication for Ketika Orang-Orang Telah Sibuk Dengan Harta (47)",
+      "nama_en": "When People Are Preoccupied with Wealth",
       "grup_id": "Doa Terkait Harta dan Hutang",
-      "grup_en": "Wealth, Sustenance & Debt",
+      "grup_en": "Wealth & Debt Relief",
       "tags": [
         "anak",
         "ayah",
@@ -617,7 +617,7 @@
     {
       "id": 48,
       "nama_id": "Doa Naik Kendaraan",
-      "nama_en": "Riding a Transport (48)",
+      "nama_en": "Riding a Vehicle or Mount",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -632,7 +632,7 @@
     {
       "id": 49,
       "nama_id": "Doa Musafir Kepada Orang Yang Ditinggalkan",
-      "nama_en": "Supplication for Musafir Kepada Orang Yang Ditinggalkan (49)",
+      "nama_en": "Traveler's Prayer for Those Staying Behind",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -647,7 +647,7 @@
     {
       "id": 50,
       "nama_id": "Doa Orang Mukim Kepada Musafir",
-      "nama_en": "Supplication for Orang Mukim Kepada Musafir (50)",
+      "nama_en": "Resident's Prayer for the Traveler",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -662,7 +662,7 @@
     {
       "id": 51,
       "nama_id": "Doa Bepergian",
-      "nama_en": "Starting a Journey (51)",
+      "nama_en": "Supplication for Setting Out on a Journey",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -677,7 +677,7 @@
     {
       "id": 52,
       "nama_id": "Doa Musafir Menjelang Subuh",
-      "nama_en": "Supplication for Musafir Menjelang Subuh (52)",
+      "nama_en": "Traveler's Supplication Near Dawn",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -698,7 +698,7 @@
     {
       "id": 53,
       "nama_id": "Doa Singgah Di Suatu Tempat, Baik Dalam Bepergian Ataupun Tidak",
-      "nama_en": "Supplication for Singgah Di Suatu Tempat, Baik Dalam Bepergian Ataupun Tidak (53)",
+      "nama_en": "Stopping at a Place During a Journey",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -713,7 +713,7 @@
     {
       "id": 54,
       "nama_id": "Doa Masuk Desa Atau Kota",
-      "nama_en": "Supplication for Masuk Desa Atau Kota (54)",
+      "nama_en": "Entering a Town or City",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -728,7 +728,7 @@
     {
       "id": 55,
       "nama_id": "Doa Masuk Pasar, Mall, Terminal, Bandara Dan Pusat Keramaian Lainnya",
-      "nama_en": "Supplication for Masuk Pasar, Mall, Terminal, Bandara Dan Pusat Keramaian Lainnya (55)",
+      "nama_en": "Entering a Market or Shopping Center",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -743,7 +743,7 @@
     {
       "id": 56,
       "nama_id": "Doa Bila Binatang Atau Kendaraan Tergelincir",
-      "nama_en": "Supplication for Bila Binatang Atau Kendaraan Tergelincir (56)",
+      "nama_en": "When a Vehicle or Mount Stumbles",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -758,7 +758,7 @@
     {
       "id": 57,
       "nama_id": "Doa Pulang Dari Bepergian",
-      "nama_en": "Supplication for Pulang Dari Bepergian (57)",
+      "nama_en": "Returning from a Journey",
       "grup_id": "Doa Perjalanan",
       "grup_en": "Travel & Journey (Safar)",
       "tags": [
@@ -773,7 +773,7 @@
     {
       "id": 58,
       "nama_id": "Doa Berlindung/Menghilangkan Gangguan Setan",
-      "nama_en": "Supplication for Berlindung/Menghilangkan Gangguan Setan (58)",
+      "nama_en": "Seeking Refuge from the Whisperings of Satan",
       "grup_id": "Doa Berlindung dari setan",
       "grup_en": "Refuge from Satan",
       "tags": [
@@ -783,7 +783,7 @@
     {
       "id": 59,
       "nama_id": "Doa Menghilangkan Gangguan Setan Ketika Shalat Atau Membaca Al-Qur'an",
-      "nama_en": "Supplication for Menghilangkan Gangguan Setan Ketika Shalat Atau Membaca Al-Qur'an (59)",
+      "nama_en": "Dispelling Satan During Prayer or Recitation",
       "grup_id": "Doa Berlindung dari setan",
       "grup_en": "Refuge from Satan",
       "tags": [
@@ -802,9 +802,9 @@
     {
       "id": 60,
       "nama_id": "Doa Memohon Surga Dan Berlindung Dari Neraka",
-      "nama_en": "Supplication for Memohon Surga Dan Berlindung Dari Neraka (60)",
+      "nama_en": "Asking for Paradise & Refuge from Hellfire",
       "grup_id": "Doa memohon surga dan berlindung dari neraka",
-      "grup_en": "Seeking Paradise & Escaping Hell",
+      "grup_en": "Seeking Paradise & Refuge from Hell",
       "tags": [
         "umum"
       ]
@@ -812,9 +812,9 @@
     {
       "id": 61,
       "nama_id": "Doa Memohon Surga, Berlindung Dari Neraka Dan Mohon Takdir Baik",
-      "nama_en": "Supplication for Memohon Surga, Berlindung Dari Neraka Dan Mohon Takdir Baik (61)",
+      "nama_en": "Asking for Paradise, Refuge from Hell & Good Destiny",
       "grup_id": "Doa memohon surga dan berlindung dari neraka",
-      "grup_en": "Seeking Paradise & Escaping Hell",
+      "grup_en": "Seeking Paradise & Refuge from Hell",
       "tags": [
         "umum"
       ]
@@ -822,9 +822,9 @@
     {
       "id": 62,
       "nama_id": "Doa Berlindung Dari Neraka",
-      "nama_en": "Supplication for Berlindung Dari Neraka (62)",
+      "nama_en": "Seeking Refuge from the Torment of Hell",
       "grup_id": "Doa memohon surga dan berlindung dari neraka",
-      "grup_en": "Seeking Paradise & Escaping Hell",
+      "grup_en": "Seeking Paradise & Refuge from Hell",
       "tags": [
         "umum"
       ]
@@ -832,7 +832,7 @@
     {
       "id": 63,
       "nama_id": "Doa Memohon Akhlak Mulia",
-      "nama_en": "Supplication for Memohon Akhlak Mulia (63)",
+      "nama_en": "Supplication for Noble Character",
       "grup_id": "Doa memohon akhlak mulia",
       "grup_en": "Noble Character",
       "tags": [
@@ -842,7 +842,7 @@
     {
       "id": 64,
       "nama_id": "Doa Memohon Akhlak Dan Amal Yang Baik",
-      "nama_en": "Supplication for Memohon Akhlak Dan Amal Yang Baik (64)",
+      "nama_en": "Supplication for Good Character & Righteous Deeds",
       "grup_id": "Doa memohon akhlak mulia",
       "grup_en": "Noble Character",
       "tags": [
@@ -852,7 +852,7 @@
     {
       "id": 65,
       "nama_id": "Doa Berlindung Dari Kemungkaran Akhlak, Amal Dan Hawa Nafsu",
-      "nama_en": "Supplication for Berlindung Dari Kemungkaran Akhlak, Amal Dan Hawa Nafsu (65)",
+      "nama_en": "Refuge from Evil Character, Desires & Deeds",
       "grup_id": "Doa memohon akhlak mulia",
       "grup_en": "Noble Character",
       "tags": [
@@ -862,7 +862,7 @@
     {
       "id": 66,
       "nama_id": "Doa Memohon Ampun diri sendiri dan orang tua (Doa Nabil Ibrahim)",
-      "nama_en": "Supplication for Memohon Ampun diri sendiri dan orang tua (Doa Nabil Ibrahim) (66)",
+      "nama_en": "Forgiveness for Oneself & Parents (Ibrahim)",
       "grup_id": "Doa Terkait Orang Tua",
       "grup_en": "Parents & Family",
       "tags": [
@@ -887,7 +887,7 @@
     {
       "id": 67,
       "nama_id": "Doa Memohon Ampun Untuk Diri Sendiri, Orang Tua Dan Kaum Mukminin (Doa Nabi Nuh)",
-      "nama_en": "Supplication for Memohon Ampun Untuk Diri Sendiri, Orang Tua Dan Kaum Mukminin (Doa Nabi Nuh) (67)",
+      "nama_en": "Forgiveness for Oneself, Parents & Believers (Nuh)",
       "grup_id": "Doa Terkait Orang Tua",
       "grup_en": "Parents & Family",
       "tags": [
@@ -912,7 +912,7 @@
     {
       "id": 68,
       "nama_id": "Doa Memohon Kasih Sayang Untuk Orang Tua",
-      "nama_en": "Supplication for Memohon Kasih Sayang Untuk Orang Tua (68)",
+      "nama_en": "Supplication for Mercy Upon Parents",
       "grup_id": "Doa Terkait Orang Tua",
       "grup_en": "Parents & Family",
       "tags": [
@@ -930,7 +930,7 @@
     {
       "id": 69,
       "nama_id": "Doa Memohon Istri Dan Anak Sebagai Penyenang Hati",
-      "nama_en": "Supplication for Memohon Istri Dan Anak Sebagai Penyenang Hati (69)",
+      "nama_en": "For Righteous Spouses & Children",
       "grup_id": "Doa Terkait Istri Dan Anak",
       "grup_en": "Spouse & Children",
       "tags": [
@@ -948,7 +948,7 @@
     {
       "id": 70,
       "nama_id": "Doa Memohon Banyak Harta, Anak, Panjang Umur, Dibaguskan Amal Dan Diampuni Dosa (Doa Nabi Muhammad)",
-      "nama_en": "Supplication for Memohon Banyak Harta, Anak, Panjang Umur, Dibaguskan Amal Dan Diampuni Dosa (Doa Nabi Muhammad) (70)",
+      "nama_en": "For Abundant Provision, Children & Forgiveness",
       "grup_id": "Doa Terkait Istri Dan Anak",
       "grup_en": "Spouse & Children",
       "tags": [
@@ -980,7 +980,7 @@
     {
       "id": 71,
       "nama_id": "Doa Memohon Anak Shaleh (Doa Nabi Ibrahim)",
-      "nama_en": "Supplication for Memohon Anak Shaleh (Doa Nabi Ibrahim) (71)",
+      "nama_en": "Supplication for Righteous Offspring (Ibrahim)",
       "grup_id": "Doa Terkait Istri Dan Anak",
       "grup_en": "Spouse & Children",
       "tags": [
@@ -998,7 +998,7 @@
     {
       "id": 72,
       "nama_id": "Doa Memohon Keturunan (Doa Nabi Dzakariya)",
-      "nama_en": "Supplication for Memohon Keturunan (Doa Nabi Dzakariya) (72)",
+      "nama_en": "Supplication for Righteous Offspring (Zakariya)",
       "grup_id": "Doa Terkait Istri Dan Anak",
       "grup_en": "Spouse & Children",
       "tags": [
@@ -1016,7 +1016,7 @@
     {
       "id": 73,
       "nama_id": "Doa Agar Menjadi Hamba Yang Bersyukur, Agar Bisa Beramal Shaleh Dan Minta Anak Shaleh",
-      "nama_en": "Supplication for Agar Menjadi Hamba Yang Bersyukur, Agar Bisa Beramal Shaleh Dan Minta Anak Shaleh (73)",
+      "nama_en": "Gratitude & Ability to Do Righteous Deeds",
       "grup_id": "Doa Terkait Istri Dan Anak",
       "grup_en": "Spouse & Children",
       "tags": [
@@ -1034,7 +1034,7 @@
     {
       "id": 74,
       "nama_id": "Ucapan Selamat Kepada Orang Yang Dikaruniai Anak Dan Balasannya",
-      "nama_en": "Ucapan Selamat Kepada Orang Yang Dikaruniai Anak Dan Balasannya (74)",
+      "nama_en": "Congratulating on a Newborn & Its Reply",
       "grup_id": "Doa Terkait Istri Dan Anak",
       "grup_en": "Spouse & Children",
       "tags": [
@@ -1052,7 +1052,7 @@
     {
       "id": 75,
       "nama_id": "Doa Agar Anak Terjaga Dari Zina",
-      "nama_en": "Supplication for Agar Anak Terjaga Dari Zina (75)",
+      "nama_en": "Protection for Children Against Immorality",
       "grup_id": "Doa Terkait Istri Dan Anak",
       "grup_en": "Spouse & Children",
       "tags": [
@@ -1076,7 +1076,7 @@
     {
       "id": 76,
       "nama_id": "Doa Perlindungan Kepada Anak (Doa Istri Imran)",
-      "nama_en": "Supplication for Perlindungan Kepada Anak (Doa Istri Imran) (76)",
+      "nama_en": "Protection for Children (Wife of Imran)",
       "grup_id": "Doa Kepada Anak Yang Baru Lahir",
       "grup_en": "Newborn Children",
       "tags": [
@@ -1094,7 +1094,7 @@
     {
       "id": 77,
       "nama_id": "Doa Perlindungan Kepada Anak (Doa Nabi Muhammad)",
-      "nama_en": "Supplication for Perlindungan Kepada Anak (Doa Nabi Muhammad) (77)",
+      "nama_en": "Protection for Children (Prophet Muhammad)",
       "grup_id": "Doa Kepada Anak Yang Baru Lahir",
       "grup_en": "Newborn Children",
       "tags": [
@@ -1112,7 +1112,7 @@
     {
       "id": 78,
       "nama_id": "Doa Memohon Keteguhan Hati",
-      "nama_en": "Supplication for Memohon Keteguhan Hati (78)",
+      "nama_en": "Supplication for Steadfastness in Faith",
       "grup_id": "Doa Memohon Keteguhan Hati",
       "grup_en": "Steadfastness in Faith",
       "tags": [
@@ -1122,7 +1122,7 @@
     {
       "id": 79,
       "nama_id": "Doa Memohon Ampun Dan Rahmat",
-      "nama_en": "Supplication for Memohon Ampun Dan Rahmat (79)",
+      "nama_en": "Supplication for Forgiveness & Mercy (1)",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1139,7 +1139,7 @@
     {
       "id": 80,
       "nama_id": "Doa Memohon Ampun Dan Rahmat (Doa Nabi Adam)",
-      "nama_en": "Supplication for Memohon Ampun Dan Rahmat (Doa Nabi Adam) (80)",
+      "nama_en": "Supplication for Forgiveness (Prophet Adam)",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1156,7 +1156,7 @@
     {
       "id": 81,
       "nama_id": "Doa Memohon Ampun (Doa Nabi Musa)",
-      "nama_en": "Supplication for Memohon Ampun (Doa Nabi Musa) (81)",
+      "nama_en": "Supplication for Forgiveness (Prophet Musa)",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1173,7 +1173,7 @@
     {
       "id": 82,
       "nama_id": "Doa Memohon Ampun, Rahmat, Petunjuk, Keselamatan Dan Rizki",
-      "nama_en": "Supplication for Memohon Ampun, Rahmat, Petunjuk, Keselamatan Dan Rizki (82)",
+      "nama_en": "For Pardon, Mercy, Guidance, Health & Provision",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1197,7 +1197,7 @@
     {
       "id": 83,
       "nama_id": "Doa Memohon Ampun, Rahmat, Keselamatan Dan Rizki",
-      "nama_en": "Supplication for Memohon Ampun, Rahmat, Keselamatan Dan Rizki (83)",
+      "nama_en": "For Forgiveness, Mercy, Well-being & Sustenance",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1221,7 +1221,7 @@
     {
       "id": 84,
       "nama_id": "Doa Memohon Ampun, Teguh Pendirian Dan Pertolongan Terhadap Orang Kafir",
-      "nama_en": "Supplication for Memohon Ampun, Teguh Pendirian Dan Pertolongan Terhadap Orang Kafir (84)",
+      "nama_en": "For Forgiveness, Firm Footing & Victory",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1238,7 +1238,7 @@
     {
       "id": 85,
       "nama_id": "Doa Memohon Ampun Dalam Segala Hal",
-      "nama_en": "Supplication for Memohon Ampun Dalam Segala Hal (85)",
+      "nama_en": "Supplication for Comprehensive Forgiveness",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1255,7 +1255,7 @@
     {
       "id": 86,
       "nama_id": "Doa Memohon Ampun Dan Berlindung Dari Neraka",
-      "nama_en": "Supplication for Memohon Ampun Dan Berlindung Dari Neraka (86)",
+      "nama_en": "For Forgiveness & Protection from the Fire",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1272,7 +1272,7 @@
     {
       "id": 87,
       "nama_id": "Doa Memohon Ampun, Dihapuskan Kesalahan Dan Agar Tidak Dihinakan Pada Hari Kiamat",
-      "nama_en": "Supplication for Memohon Ampun, Dihapuskan Kesalahan Dan Agar Tidak Dihinakan Pada Hari Kiamat (87)",
+      "nama_en": "For Forgiveness & Honor on Judgment Day",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1289,7 +1289,7 @@
     {
       "id": 88,
       "nama_id": "Doa Memohon Ampun Untuk Diri Sendiri Dan Kaum Mukminin, Dan Agar Tidak Dengki Kepada Orang Beriman",
-      "nama_en": "Supplication for Memohon Ampun Untuk Diri Sendiri Dan Kaum Mukminin, Dan Agar Tidak Dengki Kepada Orang Beriman (88)",
+      "nama_en": "For Believers & Cleansing Hearts of Rancor",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1306,7 +1306,7 @@
     {
       "id": 89,
       "nama_id": "Doa Memohon Ampun Pada Hari Pembalasan",
-      "nama_en": "Supplication for Memohon Ampun Pada Hari Pembalasan (89)",
+      "nama_en": "For Forgiveness on the Day of Reckoning",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1323,7 +1323,7 @@
     {
       "id": 90,
       "nama_id": "Doa Memohon Ampun, Rahmat, Dan Ditetapkan Kebaikan Di Dunia Dan Akhirat (Doa Nabi Musa)",
-      "nama_en": "Supplication for Memohon Ampun, Rahmat, Dan Ditetapkan Kebaikan Di Dunia Dan Akhirat (Doa Nabi Musa) (90)",
+      "nama_en": "For Mercy & Goodness in Both Worlds (Musa)",
       "grup_id": "Doa Memohon Ampun, Rahmat Dan Kebaikan Lainnya",
       "grup_en": "Forgiveness & Mercy",
       "tags": [
@@ -1340,7 +1340,7 @@
     {
       "id": 91,
       "nama_id": "Doa Berlindung Dari Syirik",
-      "nama_en": "Supplication for Berlindung Dari Syirik (91)",
+      "nama_en": "Protection Against Shirk (Idolatry)",
       "grup_id": "Doa Berlindung Dari Syirik",
       "grup_en": "Protection Against Shirk",
       "tags": [
@@ -1350,7 +1350,7 @@
     {
       "id": 92,
       "nama_id": "Doa Berlindung Dari Empat Hal",
-      "nama_en": "Supplication for Berlindung Dari Empat Hal (92)",
+      "nama_en": "Refuge from Four Evils (Knowledge, Heart, Soul, Dua)",
       "grup_id": "Doa Berlindung Dari Empat Hal",
       "grup_en": "Refuge from Four Calamities",
       "tags": [
@@ -1360,9 +1360,9 @@
     {
       "id": 93,
       "nama_id": "Doa Berlindung Dari Kecelakaan Dan Kematian Yang Mengerikan",
-      "nama_en": "Supplication for Berlindung Dari Kecelakaan Dan Kematian Yang Mengerikan (93)",
+      "nama_en": "Refuge from Tragic Accidents & Severe Calamity",
       "grup_id": "Doa Berlindung Dari Kecelakaan Dan Kematian Yang Mengerikan",
-      "grup_en": "Refuge from Severe Trials",
+      "grup_en": "Refuge from Tragic Calamities",
       "tags": [
         "umum"
       ]
@@ -1370,9 +1370,9 @@
     {
       "id": 94,
       "nama_id": "Doa Agar Tidak Disesatkan Setan Menjelang Kematian",
-      "nama_en": "Supplication for Agar Tidak Disesatkan Setan Menjelang Kematian (94)",
+      "nama_en": "Protection Against Satan at the Time of Death",
       "grup_id": "Doa Berlindung Dari Kecelakaan Dan Kematian Yang Mengerikan",
-      "grup_en": "Refuge from Severe Trials",
+      "grup_en": "Refuge from Tragic Calamities",
       "tags": [
         "umum"
       ]
@@ -1380,7 +1380,7 @@
     {
       "id": 95,
       "nama_id": "Doa Memohon Ilmu 1",
-      "nama_en": "Supplication for Memohon Ilmu 1 (95)",
+      "nama_en": "Supplication for Beneficial Knowledge (1)",
       "grup_id": "Doa Memohon Ilmu",
       "grup_en": "Beneficial Knowledge",
       "tags": [
@@ -1390,7 +1390,7 @@
     {
       "id": 96,
       "nama_id": "Doa Memohon Ilmu 2",
-      "nama_en": "Supplication for Memohon Ilmu 2 (96)",
+      "nama_en": "Supplication for Beneficial Knowledge (2)",
       "grup_id": "Doa Memohon Ilmu",
       "grup_en": "Beneficial Knowledge",
       "tags": [
@@ -1400,7 +1400,7 @@
     {
       "id": 97,
       "nama_id": "Doa Memohon Ilmu Yang Bermanfaat Dan Berlindung Dari Ilmu Yang Tidak Bermanfaat",
-      "nama_en": "Supplication for Memohon Ilmu Yang Bermanfaat Dan Berlindung Dari Ilmu Yang Tidak Bermanfaat (97)",
+      "nama_en": "For Beneficial Knowledge & Refuge from Useless Knowledge",
       "grup_id": "Doa Memohon Ilmu",
       "grup_en": "Beneficial Knowledge",
       "tags": [
@@ -1410,7 +1410,7 @@
     {
       "id": 98,
       "nama_id": "Doa Agar Paham Tentang Agama",
-      "nama_en": "Supplication for Agar Paham Tentang Agama (98)",
+      "nama_en": "Supplication for Deep Understanding of Religion",
       "grup_id": "Doa Memohon Ilmu",
       "grup_en": "Beneficial Knowledge",
       "tags": [
@@ -1420,7 +1420,7 @@
     {
       "id": 99,
       "nama_id": "Doa Agar Diri Dan Keluarga Tetap Mendirikan Shalat (Doa Nabi Ibrahim)",
-      "nama_en": "Supplication for Agar Diri Dan Keluarga Tetap Mendirikan Shalat (Doa Nabi Ibrahim) (99)",
+      "nama_en": "For Oneself & Family to Establish Prayer (Ibrahim)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1439,7 +1439,7 @@
     {
       "id": 100,
       "nama_id": "Doa Agar Menjadi Hamba Yang Bersyukur Dan Agar Bisa Beramal Shaleh (Doa Nabi Sulaiman)",
-      "nama_en": "Supplication for Agar Menjadi Hamba Yang Bersyukur Dan Agar Bisa Beramal Shaleh (Doa Nabi Sulaiman) (100)",
+      "nama_en": "Gratitude & Righteous Deeds (Prophet Sulaiman)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1449,7 +1449,7 @@
     {
       "id": 101,
       "nama_id": "Doa Memohon Petunjuk, Ketakwaan, 'Afaf (Terjaga) Dan Ghina (Merasa Cukup)",
-      "nama_en": "Supplication for Memohon Petunjuk, Ketakwaan, 'Afaf (Terjaga) Dan Ghina (Merasa Cukup) (101)",
+      "nama_en": "For Guidance, Piety, Chastity & Self-Sufficiency",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1465,7 +1465,7 @@
     {
       "id": 102,
       "nama_id": "Doa Memohon Ketakwaan dan Jiwa yang Suci",
-      "nama_en": "Supplication for Memohon Ketakwaan dan Jiwa yang Suci (102)",
+      "nama_en": "For God-Consciousness & Purity of the Soul",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1475,7 +1475,7 @@
     {
       "id": 103,
       "nama_id": "Doa Agar Dilapangkan hati dan Dimudahkan Urusan dan Ucapan (Doa Nabu Musa)",
-      "nama_en": "Supplication for Agar Dilapangkan hati dan Dimudahkan Urusan dan Ucapan (Doa Nabu Musa) (103)",
+      "nama_en": "For Expanding the Chest & Easing Speech (Musa)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1485,7 +1485,7 @@
     {
       "id": 104,
       "nama_id": "Doa Memperbaiki Urusan Agama dan Dunia",
-      "nama_en": "Supplication for Memperbaiki Urusan Agama dan Dunia (104)",
+      "nama_en": "For Rectifying Religious & Worldly Affairs",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1495,7 +1495,7 @@
     {
       "id": 105,
       "nama_id": "Doa Melihat Hilal ( Bulan Tanggal Satu)",
-      "nama_en": "Supplication for Melihat Hilal ( Bulan Tanggal Satu) (105)",
+      "nama_en": "Upon Sighting the Crescent Moon (Hilal)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1505,7 +1505,7 @@
     {
       "id": 106,
       "nama_id": "Doa Melihat Permulaan Buah",
-      "nama_en": "Supplication for Melihat Permulaan Buah (106)",
+      "nama_en": "Upon Seeing the First Fruits of the Season",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1515,7 +1515,7 @@
     {
       "id": 107,
       "nama_id": "Doa Memohon Hisab yang Mudah",
-      "nama_en": "Supplication for Memohon Hisab yang Mudah (107)",
+      "nama_en": "Supplication for an Easy Reckoning",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1525,7 +1525,7 @@
     {
       "id": 108,
       "nama_id": "Doa Agar Ucapan Terjaga Saat Marah maupun Ridha",
-      "nama_en": "Supplication for Agar Ucapan Terjaga Saat Marah maupun Ridha (108)",
+      "nama_en": "For Truthful Speech in Anger & Pleasure",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1541,7 +1541,7 @@
     {
       "id": 109,
       "nama_id": "Doa Memohon Melihat Wajah Allah Swt.",
-      "nama_en": "Supplication for Memohon Melihat Wajah Allah Swt. (109)",
+      "nama_en": "Supplication to Gaze Upon the Face of Allah",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1551,7 +1551,7 @@
     {
       "id": 110,
       "nama_id": "Doa Agar Mencintai dan Dicintai Allah",
-      "nama_en": "Supplication for Agar Mencintai dan Dicintai Allah (110)",
+      "nama_en": "For the Love of Allah & Those Who Love Him",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1561,7 +1561,7 @@
     {
       "id": 111,
       "nama_id": "Doa Memohon Banyak Kebaikan",
-      "nama_en": "Supplication for Memohon Banyak Kebaikan (111)",
+      "nama_en": "Supplication for Comprehensive Goodness",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1571,7 +1571,7 @@
     {
       "id": 112,
       "nama_id": "Doa Agar Diterima Amal Ibadah dan taubat (Doa Nabi Ibrahim)",
-      "nama_en": "Supplication for Agar Diterima Amal Ibadah dan taubat (Doa Nabi Ibrahim) (112)",
+      "nama_en": "For Acceptance of Deeds & Repentance (Ibrahim)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1588,7 +1588,7 @@
     {
       "id": 113,
       "nama_id": "Doa Agar Tergolong Orang Beriman (Doa Nabi Ibrahim)",
-      "nama_en": "Supplication for Agar Tergolong Orang Beriman (Doa Nabi Ibrahim) (113)",
+      "nama_en": "To Be Counted Among the Believers (Ibrahim)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1598,7 +1598,7 @@
     {
       "id": 114,
       "nama_id": "Doa Agar Bertawakal Hanya Kepada Allah",
-      "nama_en": "Supplication for Agar Bertawakal Hanya Kepada Allah (114)",
+      "nama_en": "To Rely and Place Trust Completely in Allah",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1608,7 +1608,7 @@
     {
       "id": 115,
       "nama_id": "Doa Agar Disempurnakan Cahayanya dan Memohon Ampun",
-      "nama_en": "Supplication for Agar Disempurnakan Cahayanya dan Memohon Ampun (115)",
+      "nama_en": "For Perfecting Divine Light & Forgiveness",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1625,7 +1625,7 @@
     {
       "id": 116,
       "nama_id": "Doa Memohon Rahmat dan Petunjuk",
-      "nama_en": "Supplication for Memohon Rahmat dan Petunjuk (116)",
+      "nama_en": "For Mercy and Right Guidance in Affairs",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1635,7 +1635,7 @@
     {
       "id": 117,
       "nama_id": "Doa Agar Diwafatkan Dalam Keadaan Islam dan Tergolong Orang Saleh (Doa Nabi Yusuf)",
-      "nama_en": "Supplication for Agar Diwafatkan Dalam Keadaan Islam dan Tergolong Orang Saleh (Doa Nabi Yusuf) (117)",
+      "nama_en": "To Die as a Muslim Among the Righteous (Yusuf)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1645,7 +1645,7 @@
     {
       "id": 118,
       "nama_id": "Doa Memohon Petunjuk dan Kebenaran",
-      "nama_en": "Supplication for Memohon Petunjuk dan Kebenaran (118)",
+      "nama_en": "For Guidance and the Ability to Follow Truth",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1655,7 +1655,7 @@
     {
       "id": 119,
       "nama_id": "Doa Memohon Kesabaran dan Agar Diwafatkan Dalam Keadaan Muslim",
-      "nama_en": "Supplication for Memohon Kesabaran dan Agar Diwafatkan Dalam Keadaan Muslim (119)",
+      "nama_en": "For Patience and to Die as a Muslim",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1665,7 +1665,7 @@
     {
       "id": 120,
       "nama_id": "Doa Memohon Dihidupkan Jika Itu Baik, dan Dimatikan Jika Itu Baik",
-      "nama_en": "Supplication for Memohon Dihidupkan Jika Itu Baik, dan Dimatikan Jika Itu Baik (120)",
+      "nama_en": "For Life if Life Is Better, or Death if Death Is Better",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1675,7 +1675,7 @@
     {
       "id": 121,
       "nama_id": "Doa Memohon Keteguhan, Petunjuk Sekaligus Sebagai pembeli Petunjuk",
-      "nama_en": "Supplication for Memohon Keteguhan, Petunjuk Sekaligus Sebagai pembeli Petunjuk (121)",
+      "nama_en": "For Firmness, Guidance and Guiding Others",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1685,7 +1685,7 @@
     {
       "id": 122,
       "nama_id": "Doa Memohon Keimanan, Keyakinan, dan Pemahaman",
-      "nama_en": "Supplication for Memohon Keimanan, Keyakinan, dan Pemahaman (122)",
+      "nama_en": "For Faith, Certainty and Understanding",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1695,7 +1695,7 @@
     {
       "id": 123,
       "nama_id": "Doa Memohon Keteguhan Di Atas Agama Islam",
-      "nama_en": "Supplication for Memohon Keteguhan Di Atas Agama Islam (123)",
+      "nama_en": "For Steadfastness upon the Religion of Islam",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1705,7 +1705,7 @@
     {
       "id": 124,
       "nama_id": "Doa Memohon Iman Yang Tidak Lepas, Nikmat yang Tidak Habis, dan Menyertai Nabi Muhammad di Surga",
-      "nama_en": "Supplication for Memohon Iman Yang Tidak Lepas, Nikmat yang Tidak Habis, dan Menyertai Nabi Muhammad di Surga (124)",
+      "nama_en": "For Unshakable Faith & Accompanying the Prophet",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1715,7 +1715,7 @@
     {
       "id": 125,
       "nama_id": "Doa Memohon Qona'ah (Merasa Cukup)",
-      "nama_en": "Supplication for Memohon Qona'ah (Merasa Cukup) (125)",
+      "nama_en": "Supplication for Contentment (Qana'ah)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1725,7 +1725,7 @@
     {
       "id": 126,
       "nama_id": "Doa Agar Dibimbing Ke Jalan yang Benar (Doa Nabi Musa)",
-      "nama_en": "Supplication for Agar Dibimbing Ke Jalan yang Benar (Doa Nabi Musa) (126)",
+      "nama_en": "Guidance to the Straight Path (Prophet Musa)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1735,7 +1735,7 @@
     {
       "id": 127,
       "nama_id": "Doa Ketika Sangat Butuh Sesuatu Ataupun Pertolongan Dari Allah (Doa Nabi Musa)",
-      "nama_en": "Supplication for Ketika Sangat Butuh Sesuatu Ataupun Pertolongan Dari Allah (Doa Nabi Musa) (127)",
+      "nama_en": "When in Utter Need of Allah's Favor (Musa)",
       "grup_id": "Doa Memohon Kebaikan",
       "grup_en": "Supplications for Goodness",
       "tags": [
@@ -1745,7 +1745,7 @@
     {
       "id": 128,
       "nama_id": "Doa Keluar Rumah",
-      "nama_en": "Leaving the Home (128)",
+      "nama_en": "Supplication Upon Leaving the Home",
       "grup_id": "Doa Keluar Dan Masuk Rumah",
       "grup_en": "Entering & Leaving Home",
       "tags": [
@@ -1758,7 +1758,7 @@
     {
       "id": 129,
       "nama_id": "Doa Masuk Rumah 1 (Bismillah)",
-      "nama_en": "Entering the Home (129)",
+      "nama_en": "Entering the Home (With Bismillah)",
       "grup_id": "Doa Keluar Dan Masuk Rumah",
       "grup_en": "Entering & Leaving Home",
       "tags": [
@@ -1771,7 +1771,7 @@
     {
       "id": 130,
       "nama_id": "Doa Masuk Rumah 2 (Salam)",
-      "nama_en": "Entering the Home (130)",
+      "nama_en": "Entering the Home (Greeting with Salam)",
       "grup_id": "Doa Keluar Dan Masuk Rumah",
       "grup_en": "Entering & Leaving Home",
       "tags": [
@@ -1784,7 +1784,7 @@
     {
       "id": 131,
       "nama_id": "Doa Masuk Rumah Ketika Tidak Ada Orang",
-      "nama_en": "Entering the Home (131)",
+      "nama_en": "Entering an Empty House",
       "grup_id": "Doa Keluar Dan Masuk Rumah",
       "grup_en": "Entering & Leaving Home",
       "tags": [
@@ -1797,7 +1797,7 @@
     {
       "id": 132,
       "nama_id": "Bacaan Setelah Adzan 1 (Bersaksi) - Lafal 1",
-      "nama_en": "Remembrance of Setelah Adzan 1 (Bersaksi) - Lafal 1 (132)",
+      "nama_en": "After Hearing the Call to Prayer (Adhan 1)",
       "grup_id": "Bacaan Terkait Adzan",
       "grup_en": "Call to Prayer (Adhan)",
       "tags": [
@@ -1816,7 +1816,7 @@
     {
       "id": 133,
       "nama_id": "Bacaan Setelah Adzan 1 (Bersaksi) - Lafal 2",
-      "nama_en": "Remembrance of Setelah Adzan 1 (Bersaksi) - Lafal 2 (133)",
+      "nama_en": "After Hearing the Call to Prayer (Adhan 2)",
       "grup_id": "Bacaan Terkait Adzan",
       "grup_en": "Call to Prayer (Adhan)",
       "tags": [
@@ -1835,7 +1835,7 @@
     {
       "id": 134,
       "nama_id": "Bacaan Setelah Adzan 2 (Memohonkan Wasilah)",
-      "nama_en": "Remembrance of Setelah Adzan 2 (Memohonkan Wasilah) (134)",
+      "nama_en": "Asking for the Wasilah for the Prophet",
       "grup_id": "Bacaan Terkait Adzan",
       "grup_en": "Call to Prayer (Adhan)",
       "tags": [
@@ -1854,7 +1854,7 @@
     {
       "id": 135,
       "nama_id": "Doa Sebelum Makan",
-      "nama_en": "Before Eating (135)",
+      "nama_en": "Supplication Before Eating (Bismillah)",
       "grup_id": "Doa Terkait Makan",
       "grup_en": "Food & Dining",
       "tags": [
@@ -1871,7 +1871,7 @@
     {
       "id": 136,
       "nama_id": "Bila Lupa Membaca Doa Sebelum Makan",
-      "nama_en": "Before Eating (136)",
+      "nama_en": "When Forgetting Bismillah Before Eating",
       "grup_id": "Doa Terkait Makan",
       "grup_en": "Food & Dining",
       "tags": [
@@ -1888,7 +1888,7 @@
     {
       "id": 137,
       "nama_id": "Doa Bila Diberi Rezeki Berupa Makanan",
-      "nama_en": "Supplication for Bila Diberi Rezeki Berupa Makanan (137)",
+      "nama_en": "Upon Being Provided with Food",
       "grup_id": "Doa Terkait Makan",
       "grup_en": "Food & Dining",
       "tags": [
@@ -1912,7 +1912,7 @@
     {
       "id": 138,
       "nama_id": "Doa Minum Susu",
-      "nama_en": "Supplication for Minum Susu (138)",
+      "nama_en": "Supplication When Drinking Milk",
       "grup_id": "Doa Terkait Makan",
       "grup_en": "Food & Dining",
       "tags": [
@@ -1929,7 +1929,7 @@
     {
       "id": 139,
       "nama_id": "Doa Setelah Makan",
-      "nama_en": "Supplication for Setelah Makan (139)",
+      "nama_en": "Supplication After Finishing a Meal",
       "grup_id": "Doa Terkait Makan",
       "grup_en": "Food & Dining",
       "tags": [
@@ -1946,7 +1946,7 @@
     {
       "id": 140,
       "nama_id": "Doa Bila Diberi Makan Oleh Orang Lain",
-      "nama_en": "Supplication for Bila Diberi Makan Oleh Orang Lain (140)",
+      "nama_en": "For One Who Provides You with Food",
       "grup_id": "Doa Terkait Makan",
       "grup_en": "Food & Dining",
       "tags": [
@@ -1963,7 +1963,7 @@
     {
       "id": 141,
       "nama_id": "Doa Berbuka Puasa",
-      "nama_en": "Supplication Upon Breaking the Fast (Iftar) (141)",
+      "nama_en": "Upon Breaking the Fast (Iftar)",
       "grup_id": "Doa Terkait Puasa",
       "grup_en": "Fasting & Iftar",
       "tags": [
@@ -1978,7 +1978,7 @@
     {
       "id": 142,
       "nama_id": "Doa Berbuka Puasa Di Tempat Orang Lain",
-      "nama_en": "Supplication Upon Breaking the Fast (Iftar) (142)",
+      "nama_en": "Breaking the Fast at Someone Else's House",
       "grup_id": "Doa Terkait Puasa",
       "grup_en": "Fasting & Iftar",
       "tags": [
@@ -1993,7 +1993,7 @@
     {
       "id": 143,
       "nama_id": "Doa Malam Lailatul Qadar",
-      "nama_en": "Supplication for Malam Lailatul Qadar (143)",
+      "nama_en": "Supplication for the Night of Decree (Laylatul Qadr)",
       "grup_id": "Doa Terkait Ramadhan",
       "grup_en": "Ramadan & Special Times",
       "tags": [
@@ -2009,7 +2009,7 @@
     {
       "id": 144,
       "nama_id": "Lafal Takbir Hari Raya 1 (Dari Ibnu Mas'ud)",
-      "nama_en": "Invocation of Takbir Hari Raya 1 (Dari Ibnu Mas'ud) (144)",
+      "nama_en": "Eid Takbeer Recitation (Ibn Mas'ud)",
       "grup_id": "Ucapan Terkait Hari Raya.",
       "grup_en": "Eid Greetings & Celebrations",
       "tags": [
@@ -2019,7 +2019,7 @@
     {
       "id": 145,
       "nama_id": "Ucapan Selamat Hari Raya",
-      "nama_en": "Ucapan Selamat Hari Raya (145)",
+      "nama_en": "Eid Greetings & Congratulations",
       "grup_id": "Ucapan Terkait Hari Raya.",
       "grup_en": "Eid Greetings & Celebrations",
       "tags": [
@@ -2029,7 +2029,7 @@
     {
       "id": 146,
       "nama_id": "Doa Menyembelih Hewan Kurban",
-      "nama_en": "Supplication for Menyembelih Hewan Kurban (146)",
+      "nama_en": "Supplication When Slaughtering Sacrificial Animal",
       "grup_id": "Ucapan Terkait Hari Raya.",
       "grup_en": "Eid Greetings & Celebrations",
       "tags": [
@@ -2039,7 +2039,7 @@
     {
       "id": 147,
       "nama_id": "Doa Menolak Firasat Buruk/Sial",
-      "nama_en": "Supplication for Menolak Firasat Buruk/Sial (147)",
+      "nama_en": "Dispelling Bad Omens & Superstitions",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2049,7 +2049,7 @@
     {
       "id": 148,
       "nama_id": "Doa Berlindung Dari Hilangnya Nikmat, Berubahnya Kesehatan/Keselamatan, Siksa Dan Murka Allah",
-      "nama_en": "Supplication for Berlindung Dari Hilangnya Nikmat, Berubahnya Kesehatan/Keselamatan, Siksa Dan Murka Allah (148)",
+      "nama_en": "Refuge from Loss of Blessings & Wrath of Allah",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2073,7 +2073,7 @@
     {
       "id": 149,
       "nama_id": "Doa Berlindung Dari Beratnya Cobaan, Kesengsaraan Yang Hebat, Keburukan Takdir Dan Kegembiraan Musuh",
-      "nama_en": "Supplication for Berlindung Dari Beratnya Cobaan, Kesengsaraan Yang Hebat, Keburukan Takdir Dan Kegembiraan Musuh (149)",
+      "nama_en": "Refuge from Severe Trials, Hard Fate & Enemy Joy",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2083,7 +2083,7 @@
     {
       "id": 150,
       "nama_id": "Doa Berlindung Dari Sifat Lemah, Malas, Pengecut Dan Pikun",
-      "nama_en": "Supplication for Berlindung Dari Sifat Lemah, Malas, Pengecut Dan Pikun (150)",
+      "nama_en": "Refuge from Weakness, Laziness & Cowardice",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2093,7 +2093,7 @@
     {
       "id": 151,
       "nama_id": "Doa Berlindung Dari Sifat Malas, Pengecut/Lemahnya Hati, Pikun/Usia Tua Dan Kikir",
-      "nama_en": "Supplication for Berlindung Dari Sifat Malas, Pengecut/Lemahnya Hati, Pikun/Usia Tua Dan Kikir (151)",
+      "nama_en": "Refuge from Helplessness, Miserliness & Old Age",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2103,7 +2103,7 @@
     {
       "id": 152,
       "nama_id": "Doa Berlindung Dari Sifat Lemah, Malas, Pengecut, Pikun, Kikir, Siksa Kubur Dan Fitnah Kehidupan Dan Kematian",
-      "nama_en": "Supplication for Berlindung Dari Sifat Lemah, Malas, Pengecut, Pikun, Kikir, Siksa Kubur Dan Fitnah Kehidupan Dan Kematian (152)",
+      "nama_en": "Refuge from Grave Torment & Trials of Life/Death",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2120,7 +2120,7 @@
     {
       "id": 153,
       "nama_id": "Doa Berlindung Dari Sifat Malas, Pikun, Dosa, Hutang, Fitnah Dan Azab Kubur, Fitnah Dan Azab Neraka, Fitnah Kekayaan Dan Kemiskinan Dan Fitnah Dajjal",
-      "nama_en": "Supplication for Berlindung Dari Sifat Malas, Pikun, Dosa, Hutang, Fitnah Dan Azab Kubur, Fitnah Dan Azab Neraka, Fitnah Kekayaan Dan Kemiskinan Dan Fitnah Dajjal (153)",
+      "nama_en": "Refuge from Sins, Debts, Hellfire & Dajjal",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2143,7 +2143,7 @@
     {
       "id": 154,
       "nama_id": "Doa Berlindung Dari Sifat Pengecut, Pikun, Fitnah Dunia Dan Azab Kubur",
-      "nama_en": "Supplication for Berlindung Dari Sifat Pengecut, Pikun, Fitnah Dunia Dan Azab Kubur (154)",
+      "nama_en": "Refuge from Worldly Fitnah & Grave Torment",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2153,7 +2153,7 @@
     {
       "id": 155,
       "nama_id": "Doa Berlindung Dari Keburukan Amal",
-      "nama_en": "Supplication for Berlindung Dari Keburukan Amal (155)",
+      "nama_en": "Refuge from the Evil of One's Own Deeds",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2163,7 +2163,7 @@
     {
       "id": 156,
       "nama_id": "Doa Agar Musibah Tidak Menimpa Agama Dan Agar Dunia Bukan Sebagai Tujuan",
-      "nama_en": "Supplication for Agar Musibah Tidak Menimpa Agama Dan Agar Dunia Bukan Sebagai Tujuan (156)",
+      "nama_en": "That Trials Do Not Afflict Our Faith",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2179,7 +2179,7 @@
     {
       "id": 157,
       "nama_id": "Doa Berlindung Dari Keburukan Anggota Badan",
-      "nama_en": "Supplication for Berlindung Dari Keburukan Anggota Badan (157)",
+      "nama_en": "Refuge from the Evils of Bodily Faculties",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2189,7 +2189,7 @@
     {
       "id": 158,
       "nama_id": "Doa Berlindung Dari Kesusahan, Kesedihan, Lemah, Malas, Kikir, Penakut, Lilitan Hutang Dan Penindasan Orang",
-      "nama_en": "Supplication for Berlindung Dari Kesusahan, Kesedihan, Lemah, Malas, Kikir, Penakut, Lilitan Hutang Dan Penindasan Orang (158)",
+      "nama_en": "Refuge from Worry, Grief, Debt & Oppression",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2207,7 +2207,7 @@
     {
       "id": 159,
       "nama_id": "Doa Berlindung Dari Kesusahan, Kesedihan, Lemah, Malas, Penakut, Kikir, Lilitan Hutang Dan Penguasaan Orang",
-      "nama_en": "Supplication for Berlindung Dari Kesusahan, Kesedihan, Lemah, Malas, Penakut, Kikir, Lilitan Hutang Dan Penguasaan Orang (159)",
+      "nama_en": "Refuge from Anxiety, Sorrow, Cowardice & Debt",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2225,7 +2225,7 @@
     {
       "id": 160,
       "nama_id": "Doa Berlindung Dari Fitnah Dan Azab Neraka, Dan Keburukan Kekayaan Dan Kemiskinan",
-      "nama_en": "Supplication for Berlindung Dari Fitnah Dan Azab Neraka, Dan Keburukan Kekayaan Dan Kemiskinan (160)",
+      "nama_en": "Refuge from Hellfire, Wealth & Poverty Trials",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2235,7 +2235,7 @@
     {
       "id": 161,
       "nama_id": "Doa Ketika Dihadang Atau Diancam Orang Jahat",
-      "nama_en": "Supplication for Ketika Dihadang Atau Diancam Orang Jahat (161)",
+      "nama_en": "When Threatened by Wicked or Aggressive People",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2245,7 +2245,7 @@
     {
       "id": 162,
       "nama_id": "Doa Berlindung Dari Setan, Binatang Berbisa dan 'Ain (Pandangan Mata Jahat)",
-      "nama_en": "Supplication for Berlindung Dari Setan, Binatang Berbisa dan 'Ain (Pandangan Mata Jahat) (162)",
+      "nama_en": "Refuge from Satan, Venomous Beasts & the Evil Eye",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2255,7 +2255,7 @@
     {
       "id": 163,
       "nama_id": "Doa Berlindung Dari Keburukan Tetangga, Istri, Anak, Harta Dan Teman Dekat",
-      "nama_en": "Supplication for Berlindung Dari Keburukan Tetangga, Istri, Anak, Harta Dan Teman Dekat (163)",
+      "nama_en": "Refuge from Bad Neighbors, Bad Spouses & Bad Friends",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2280,7 +2280,7 @@
     {
       "id": 164,
       "nama_id": "Doa Berlindung Dari Hari, Malam, Waktu, Teman dan Tetangga Yang Buruk",
-      "nama_en": "Supplication for Berlindung Dari Hari, Malam, Waktu, Teman dan Tetangga Yang Buruk (164)",
+      "nama_en": "Refuge from an Evil Day, Night, Companion & Neighbor",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2296,7 +2296,7 @@
     {
       "id": 165,
       "nama_id": "Doa Berlindung Dari Lapar Dan Khianat",
-      "nama_en": "Supplication for Berlindung Dari Lapar Dan Khianat (165)",
+      "nama_en": "Refuge from Severe Hunger & Betrayal",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2306,7 +2306,7 @@
     {
       "id": 166,
       "nama_id": "Doa Bila Khawatir Hal Buruk Menimpa",
-      "nama_en": "Supplication for Bila Khawatir Hal Buruk Menimpa (166)",
+      "nama_en": "When Fearing an Impending Calamity",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2316,7 +2316,7 @@
     {
       "id": 167,
       "nama_id": "Doa Berlindung Dari Kefakiran, Kekufuran, Kefasikan, Kedurhakaan, Kemunafikan, Sum'ah Dan Riya'",
-      "nama_en": "Supplication for Berlindung Dari Kefakiran, Kekufuran, Kefasikan, Kedurhakaan, Kemunafikan, Sum'ah Dan Riya' (167)",
+      "nama_en": "Refuge from Disbelief, Hypocrisy & Ostentation",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2326,7 +2326,7 @@
     {
       "id": 168,
       "nama_id": "Doa Berlindung Dari Kekufuran, Kefakiran Dan Azab Kubur",
-      "nama_en": "Supplication for Berlindung Dari Kekufuran, Kefakiran Dan Azab Kubur (168)",
+      "nama_en": "Refuge from Kufr, Poverty & Grave Torment",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2336,7 +2336,7 @@
     {
       "id": 169,
       "nama_id": "Doa Berlindung Dari Penyakit Kulit/Belang, Gila, Kusta Dan Penyakit Berbahaya Lainnya",
-      "nama_en": "Supplication for Berlindung Dari Penyakit Kulit/Belang, Gila, Kusta Dan Penyakit Berbahaya Lainnya (169)",
+      "nama_en": "Refuge from Leprosy, Madness & Grave Illnesses",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2346,7 +2346,7 @@
     {
       "id": 170,
       "nama_id": "Doa Berlindung Dari Kefakiran, Kekurangan, Kehinaan, Dan Dari Menzalimi Atau Dizalimi",
-      "nama_en": "Supplication for Berlindung Dari Kefakiran, Kekurangan, Kehinaan, Dan Dari Menzalimi Atau Dizalimi (170)",
+      "nama_en": "Refuge from Scarcity, Humiliation & Injustice",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2356,7 +2356,7 @@
     {
       "id": 171,
       "nama_id": "Doa Berlindung Dari Fitnah Dan Siksa Neraka, Fitnah Dan Siksa Kubur, Fitnah Kekayaan Dan Kefakiran, Dan Fitnah Dajjal",
-      "nama_en": "Supplication for Berlindung Dari Fitnah Dan Siksa Neraka, Fitnah Dan Siksa Kubur, Fitnah Kekayaan Dan Kefakiran, Dan Fitnah Dajjal (171)",
+      "nama_en": "Refuge from the Tribulations of the False Messiah",
       "grup_id": "Doa Berlindung Dari Keburukan",
       "grup_en": "Refuge from Evil & Calamity",
       "tags": [
@@ -2373,7 +2373,7 @@
     {
       "id": 172,
       "nama_id": "Doa Sapu Jagad",
-      "nama_en": "Supplication for Sapu Jagad (172)",
+      "nama_en": "Rabbana Atina (Comprehensive Goodness in Both Worlds)",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2383,7 +2383,7 @@
     {
       "id": 173,
       "nama_id": "Doa Agar Setiap Urusan Berakhir Baik",
-      "nama_en": "Supplication for Agar Setiap Urusan Berakhir Baik (173)",
+      "nama_en": "That All Affairs End in Goodness",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2393,7 +2393,7 @@
     {
       "id": 174,
       "nama_id": "Doa Memohon Kesabaran, Teguh Pendirian Dan Pertolongan Terhadap Orang Kafir",
-      "nama_en": "Supplication for Memohon Kesabaran, Teguh Pendirian Dan Pertolongan Terhadap Orang Kafir (174)",
+      "nama_en": "For Patience, Steadfastness & Victory Over Disbelievers",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2403,7 +2403,7 @@
     {
       "id": 175,
       "nama_id": "Doa Berlindung Dari Kesesatan Dan Memohon Rahmat",
-      "nama_en": "Supplication for Berlindung Dari Kesesatan Dan Memohon Rahmat (175)",
+      "nama_en": "Refuge from Straying After Guidance & Seeking Mercy",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2413,7 +2413,7 @@
     {
       "id": 176,
       "nama_id": "Doa Agar Mudah Melakukan Kebaikan, Meninggalkan Kemungkaran, Mencintai Orang Miskin Dan Berlindung Dari Fitnah",
-      "nama_en": "Supplication for Agar Mudah Melakukan Kebaikan, Meninggalkan Kemungkaran, Mencintai Orang Miskin Dan Berlindung Dari Fitnah (176)",
+      "nama_en": "To Love Good Deeds, Hate Evil & Love the Poor",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2423,7 +2423,7 @@
     {
       "id": 177,
       "nama_id": "Doa Agar Mudah Melakukan Kebaikan, Meninggalkan Kemungkaran, Mencintai Orang Miskin, Memohon Ampun Dan Rahmat Dan Berlindung Dari Fitnah",
-      "nama_en": "Supplication for Agar Mudah Melakukan Kebaikan, Meninggalkan Kemungkaran, Mencintai Orang Miskin, Memohon Ampun Dan Rahmat Dan Berlindung Dari Fitnah (177)",
+      "nama_en": "For Mercy, Forgiveness & Loving the Needy",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2440,7 +2440,7 @@
     {
       "id": 178,
       "nama_id": "Doa Meminta Segala Sesuatu Yang Pernah Diminta Nabi",
-      "nama_en": "Supplication for Meminta Segala Sesuatu Yang Pernah Diminta Nabi (178)",
+      "nama_en": "Asking for Everything the Prophet Asked For",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2450,7 +2450,7 @@
     {
       "id": 179,
       "nama_id": "Doa Berlindung Dari Memohon Yang Tidak Diketahui, Serta Memohon Ampun Dan Rahmat (Doa Nabi Nuh)",
-      "nama_en": "Supplication for Berlindung Dari Memohon Yang Tidak Diketahui, Serta Memohon Ampun Dan Rahmat (Doa Nabi Nuh) (179)",
+      "nama_en": "Refuge from Asking What One Has No Knowledge Of",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2467,7 +2467,7 @@
     {
       "id": 180,
       "nama_id": "Doa Memohon Agar Tidak Dihukum Dan Dibebani Yang Berat, Serta Memohon Maaf, Ampun, Rahmat Dan Pertolongan Terhadap Orang Kafir",
-      "nama_en": "Supplication for Memohon Agar Tidak Dihukum Dan Dibebani Yang Berat, Serta Memohon Maaf, Ampun, Rahmat Dan Pertolongan Terhadap Orang Kafir (180)",
+      "nama_en": "Not to Be Held Accountable Beyond Our Capacity",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2484,7 +2484,7 @@
     {
       "id": 181,
       "nama_id": "Doa Memohon Keamanan Negeri Dan Berlindung Dari Syirik (Doa Nabi Ibrahim)",
-      "nama_en": "Supplication for Memohon Keamanan Negeri Dan Berlindung Dari Syirik (Doa Nabi Ibrahim) (181)",
+      "nama_en": "For Peace in the Land & Refuge from Idolatry",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2494,7 +2494,7 @@
     {
       "id": 182,
       "nama_id": "Doa Agar Kaum Muslimin Disatukan Hatinya, Diberi Petunjuk Dan Keselamatan, Dijauhkan Dari Perbuatan Keji, Diberkahi Diri Dan Keluarga, Diterima Taubat Dan Dijadikan Hamba Yang Bersyukur",
-      "nama_en": "Supplication for Agar Kaum Muslimin Disatukan Hatinya, Diberi Petunjuk Dan Keselamatan, Dijauhkan Dari Perbuatan Keji, Diberkahi Diri Dan Keluarga, Diterima Taubat Dan Dijadikan Hamba Yang Bersyukur (182)",
+      "nama_en": "For Unity of Believers' Hearts & Purity of Soul",
       "grup_id": "Doa Memohon Kebaikan Dan Berlindung Dari Keburukan",
       "grup_en": "Goodness & Refuge",
       "tags": [
@@ -2511,7 +2511,7 @@
     {
       "id": 183,
       "nama_id": "Bacaan Bila Kagum Terhadap Sesuatu 1",
-      "nama_en": "Remembrance of Bila Kagum Terhadap Sesuatu 1 (183)",
+      "nama_en": "When Marveling at Something Admirable (1)",
       "grup_id": "Bacaan Bila Kagum Terhadap Sesuatu",
       "grup_en": "Admiration & Praising Allah",
       "tags": [
@@ -2521,7 +2521,7 @@
     {
       "id": 184,
       "nama_id": "Bacaan Bila Kagum Terhadap Sesuatu 2",
-      "nama_en": "Remembrance of Bila Kagum Terhadap Sesuatu 2 (184)",
+      "nama_en": "When Marveling at Something Admirable (2)",
       "grup_id": "Bacaan Bila Kagum Terhadap Sesuatu",
       "grup_en": "Admiration & Praising Allah",
       "tags": [
@@ -2531,7 +2531,7 @@
     {
       "id": 185,
       "nama_id": "Bacaan Bila Kagum Terhadap Sesuatu 3",
-      "nama_en": "Remembrance of Bila Kagum Terhadap Sesuatu 3 (185)",
+      "nama_en": "When Marveling at Something Admirable (3)",
       "grup_id": "Bacaan Bila Kagum Terhadap Sesuatu",
       "grup_en": "Admiration & Praising Allah",
       "tags": [
@@ -2541,7 +2541,7 @@
     {
       "id": 186,
       "nama_id": "Bacaan Bila Perkara Dunia Membuat Takjub",
-      "nama_en": "Remembrance of Bila Perkara Dunia Membuat Takjub (186)",
+      "nama_en": "When Worldly Splendor Captivates You",
       "grup_id": "Bacaan Bila Kagum Terhadap Sesuatu",
       "grup_en": "Admiration & Praising Allah",
       "tags": [
@@ -2551,7 +2551,7 @@
     {
       "id": 187,
       "nama_id": "Bacaan Agar Tidak Terpedaya Kenikmatan Dan Kemewahan Dunia",
-      "nama_en": "Remembrance of Agar Tidak Terpedaya Kenikmatan Dan Kemewahan Dunia (187)",
+      "nama_en": "Not to Be Deceived by Worldly Glitz & Luxury",
       "grup_id": "Bacaan Bila Kagum Terhadap Sesuatu",
       "grup_en": "Admiration & Praising Allah",
       "tags": [
@@ -2561,7 +2561,7 @@
     {
       "id": 188,
       "nama_id": "Pujian Kepada Allah Sebelum Berdoa",
-      "nama_en": "Pujian Kepada Allah Sebelum Berdoa (188)",
+      "nama_en": "Praising Allah Before Supplicating",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2571,7 +2571,7 @@
     {
       "id": 189,
       "nama_id": "Doa Bersin",
-      "nama_en": "Supplication for Bersin (189)",
+      "nama_en": "Supplication Upon Sneezing",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2581,7 +2581,7 @@
     {
       "id": 190,
       "nama_id": "Doa Bila Orang Kafir Bersin Lalu Memuji Allah",
-      "nama_en": "Supplication for Bila Orang Kafir Bersin Lalu Memuji Allah (190)",
+      "nama_en": "When a Non-Muslim Sneezes and Praises God",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2591,7 +2591,7 @@
     {
       "id": 191,
       "nama_id": "Doa Kepada Orang Yang Berbuat Baik Kepadamu",
-      "nama_en": "Supplication for Kepada Orang Yang Berbuat Baik Kepadamu (191)",
+      "nama_en": "For Someone Who Does Good to You (Jazakallah Khair)",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2601,7 +2601,7 @@
     {
       "id": 192,
       "nama_id": "Jawaban Kepada Orang Yang Berkata: Ghafarallaahu Laka",
-      "nama_en": "Jawaban Kepada Orang Yang Berkata: Ghafarallaahu Laka (192)",
+      "nama_en": "Reply to One Who Says: Ghafarallahu Laka",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2611,7 +2611,7 @@
     {
       "id": 193,
       "nama_id": "Jawaban Kepada Orang Yang Berkata: Uhibbuka Fillaah",
-      "nama_en": "Jawaban Kepada Orang Yang Berkata: Uhibbuka Fillaah (193)",
+      "nama_en": "Reply to One Who Says: I Love You for Allah's Sake",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2626,7 +2626,7 @@
     {
       "id": 194,
       "nama_id": "Jawaban Kepada Orang Yang Berkata: Baarakallaahu Fiika",
-      "nama_en": "Jawaban Kepada Orang Yang Berkata: Baarakallaahu Fiika (194)",
+      "nama_en": "Reply to One Who Says: Barakallahu Feek",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2636,7 +2636,7 @@
     {
       "id": 195,
       "nama_id": "Doa Kepada Orang Yang Anda Caci",
-      "nama_en": "Supplication for Kepada Orang Yang Anda Caci (195)",
+      "nama_en": "For Someone You May Have Insulted or Wronged",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2646,7 +2646,7 @@
     {
       "id": 196,
       "nama_id": "Doa Bila Dipuji Orang",
-      "nama_en": "Supplication for Bila Dipuji Orang (196)",
+      "nama_en": "When Someone Praises or Compliments You",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2656,7 +2656,7 @@
     {
       "id": 197,
       "nama_id": "Doa Ketika Marah",
-      "nama_en": "Supplication for Ketika Marah (197)",
+      "nama_en": "Supplication When Feeling Angry",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2666,7 +2666,7 @@
     {
       "id": 198,
       "nama_id": "Bacaan Ketika Takut",
-      "nama_en": "Remembrance of Ketika Takut (198)",
+      "nama_en": "Supplication When Overcome by Fear",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2676,7 +2676,7 @@
     {
       "id": 199,
       "nama_id": "Jawaban Kepada Orang Kafir Yang Mengucapkan Salam",
-      "nama_en": "Jawaban Kepada Orang Kafir Yang Mengucapkan Salam (199)",
+      "nama_en": "Reply to a Non-Muslim Greeting with Salam",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2686,7 +2686,7 @@
     {
       "id": 200,
       "nama_id": "Ucapan Ketika Melihat Kemungkaran",
-      "nama_en": "Ucapan Ketika Melihat Kemungkaran (200)",
+      "nama_en": "Supplication Upon Witnessing Evil or Sin",
       "grup_id": "Beberapa Adab Dan Keutamaan",
       "grup_en": "Manners & Virtues",
       "tags": [
@@ -2696,7 +2696,7 @@
     {
       "id": 201,
       "nama_id": "Doa Istighfar/Taubat 1",
-      "nama_en": "Supplication for Istighfar/Taubat 1 (201)",
+      "nama_en": "Supplication for Repentance & Seeking Forgiveness (1)",
       "grup_id": "Istighfar Dan Taubat",
       "grup_en": "Repentance & Seeking Pardon",
       "tags": [
@@ -2713,7 +2713,7 @@
     {
       "id": 202,
       "nama_id": "Doa Istighfar/Taubat 2",
-      "nama_en": "Supplication for Istighfar/Taubat 2 (202)",
+      "nama_en": "Supplication for Repentance & Seeking Forgiveness (2)",
       "grup_id": "Istighfar Dan Taubat",
       "grup_en": "Repentance & Seeking Pardon",
       "tags": [
@@ -2730,7 +2730,7 @@
     {
       "id": 203,
       "nama_id": "Doa Istighfar/Taubat 3",
-      "nama_en": "Supplication for Istighfar/Taubat 3 (203)",
+      "nama_en": "Supplication for Repentance & Seeking Forgiveness (3)",
       "grup_id": "Istighfar Dan Taubat",
       "grup_en": "Repentance & Seeking Pardon",
       "tags": [
@@ -2747,7 +2747,7 @@
     {
       "id": 204,
       "nama_id": "Lafal Dzikir 1",
-      "nama_en": "Invocation of Dzikir 1 (204)",
+      "nama_en": "Virtues of Dhikr (Subhanallah, Alhamdulillah, etc.)",
       "grup_id": "Lafal Dzikir Dan Keutamaannya",
       "grup_en": "Remembrance of Allah (Adhkar)",
       "tags": [
@@ -2757,7 +2757,7 @@
     {
       "id": 205,
       "nama_id": "Lafal Dzikir 2 (Tasbih Malaikat)",
-      "nama_en": "Invocation of Dzikir 2 (Tasbih Malaikat) (205)",
+      "nama_en": "Tasbih of the Angels (Subhanallahi wa Bihamdihi)",
       "grup_id": "Lafal Dzikir Dan Keutamaannya",
       "grup_en": "Remembrance of Allah (Adhkar)",
       "tags": [
@@ -2767,7 +2767,7 @@
     {
       "id": 206,
       "nama_id": "Lafal Dzikir 3 (Dua Kalimat Yang Ringan Di Lisan, Berat Di Timbangan)",
-      "nama_en": "Invocation of Dzikir 3 (Dua Kalimat Yang Ringan Di Lisan, Berat Di Timbangan) (206)",
+      "nama_en": "Two Phrases Light on the Tongue, Heavy on the Scale",
       "grup_id": "Lafal Dzikir Dan Keutamaannya",
       "grup_en": "Remembrance of Allah (Adhkar)",
       "tags": [
@@ -2777,7 +2777,7 @@
     {
       "id": 207,
       "nama_id": "Lafal Dzikir 4 (Pohon Kurma Di Surga)",
-      "nama_en": "Invocation of Dzikir 4 (Pohon Kurma Di Surga) (207)",
+      "nama_en": "Dhikr That Plants Date Palms in Paradise",
       "grup_id": "Lafal Dzikir Dan Keutamaannya",
       "grup_en": "Remembrance of Allah (Adhkar)",
       "tags": [
@@ -2787,7 +2787,7 @@
     {
       "id": 208,
       "nama_id": "Lafal Dzikir 5",
-      "nama_en": "Invocation of Dzikir 5 (208)",
+      "nama_en": "Greatest Remembrances of Allah (Subhanallah 100x)",
       "grup_id": "Lafal Dzikir Dan Keutamaannya",
       "grup_en": "Remembrance of Allah (Adhkar)",
       "tags": [
@@ -2797,7 +2797,7 @@
     {
       "id": 209,
       "nama_id": "Lafal Dzikir 6 (Doa Dan Dzikir Terbaik)",
-      "nama_en": "Invocation of Dzikir 6 (Doa Dan Dzikir Terbaik) (209)",
+      "nama_en": "Best Supplication & Dhikr (La Ilaha Illallah)",
       "grup_id": "Lafal Dzikir Dan Keutamaannya",
       "grup_en": "Remembrance of Allah (Adhkar)",
       "tags": [
@@ -2807,7 +2807,7 @@
     {
       "id": 210,
       "nama_id": "Lafal Dzikir 7 (Pahalanya Lebih Besar Daripada Dzikir Sehari Semalam)",
-      "nama_en": "Invocation of Dzikir 7 (Pahalanya Lebih Besar Daripada Dzikir Sehari Semalam) (210)",
+      "nama_en": "Dhikr Surpassing a Day and Night of Worship",
       "grup_id": "Lafal Dzikir Dan Keutamaannya",
       "grup_en": "Remembrance of Allah (Adhkar)",
       "tags": [
@@ -2823,7 +2823,7 @@
     {
       "id": 211,
       "nama_id": "Khutbah Hajah (Doa Pembuka Majelis)",
-      "nama_en": "Khutbah Hajah (Doa Pembuka Majelis) (211)",
+      "nama_en": "Khutbatul Hajah (Opening a Sermon or Gathering)",
       "grup_id": "Doa Terkait Majelis",
       "grup_en": "Gatherings & Expiation",
       "tags": [
@@ -2838,7 +2838,7 @@
     {
       "id": 212,
       "nama_id": "Doa Dalam Majelis",
-      "nama_en": "Supplication for Dalam Majelis (212)",
+      "nama_en": "Supplication During a Gathering or Assembly",
       "grup_id": "Doa Terkait Majelis",
       "grup_en": "Gatherings & Expiation",
       "tags": [
@@ -2848,7 +2848,7 @@
     {
       "id": 213,
       "nama_id": "Doa Penceramah/Pembicara Kepada Dirinya Dan Peserta Majelis",
-      "nama_en": "Supplication for Penceramah/Pembicara Kepada Dirinya Dan Peserta Majelis (213)",
+      "nama_en": "Speaker's Supplication for Himself and the Audience",
       "grup_id": "Doa Terkait Majelis",
       "grup_en": "Gatherings & Expiation",
       "tags": [
@@ -2858,7 +2858,7 @@
     {
       "id": 214,
       "nama_id": "Doa Kafaratul Majelis (Penghapus Dosa Majelis)",
-      "nama_en": "Supplication for Kafaratul Majelis (Penghapus Dosa Majelis) (214)",
+      "nama_en": "Kafaratul Majlis (Expiation of the Gathering)",
       "grup_id": "Doa Terkait Majelis",
       "grup_en": "Gatherings & Expiation",
       "tags": [
@@ -2875,9 +2875,9 @@
     {
       "id": 215,
       "nama_id": "Doa Bertemu Musuh Dan Penguasa",
-      "nama_en": "Supplication for Bertemu Musuh Dan Penguasa (215)",
+      "nama_en": "Facing an Adversary or Authoritarian Ruler",
       "grup_id": "Doa Bertemu Musuh Dan Penguasa",
-      "grup_en": "Facing Adversaries & Tyrants",
+      "grup_en": "Facing Adversaries & Rulers",
       "tags": [
         "umum"
       ]
@@ -2885,9 +2885,9 @@
     {
       "id": 216,
       "nama_id": "Doa Bila Takut Kezaliman Penguasa",
-      "nama_en": "Supplication for Bila Takut Kezaliman Penguasa (216)",
+      "nama_en": "When Fearing the Injustice of a Ruler",
       "grup_id": "Doa Bertemu Musuh Dan Penguasa",
-      "grup_en": "Facing Adversaries & Tyrants",
+      "grup_en": "Facing Adversaries & Rulers",
       "tags": [
         "umum"
       ]
@@ -2895,9 +2895,9 @@
     {
       "id": 217,
       "nama_id": "Doa Untuk Mengalahkan Musuh",
-      "nama_en": "Supplication for Untuk Mengalahkan Musuh (217)",
+      "nama_en": "Supplication for Victory Over Adversaries",
       "grup_id": "Doa Bertemu Musuh Dan Penguasa",
-      "grup_en": "Facing Adversaries & Tyrants",
+      "grup_en": "Facing Adversaries & Rulers",
       "tags": [
         "umum"
       ]
@@ -2905,9 +2905,9 @@
     {
       "id": 218,
       "nama_id": "Doa Untuk Mengalahkan Musuh Dan Memohon Kemenangan",
-      "nama_en": "Supplication for Untuk Mengalahkan Musuh Dan Memohon Kemenangan (218)",
+      "nama_en": "For Overcoming Adversaries & Divine Triumph",
       "grup_id": "Doa Bertemu Musuh Dan Penguasa",
-      "grup_en": "Facing Adversaries & Tyrants",
+      "grup_en": "Facing Adversaries & Rulers",
       "tags": [
         "umum"
       ]
@@ -2915,9 +2915,9 @@
     {
       "id": 219,
       "nama_id": "Doa Bila Takut Kepada Suatu Kaum",
-      "nama_en": "Supplication for Bila Takut Kepada Suatu Kaum (219)",
+      "nama_en": "When Fearing a Hostile People or Nation",
       "grup_id": "Doa Bertemu Musuh Dan Penguasa",
-      "grup_en": "Facing Adversaries & Tyrants",
+      "grup_en": "Facing Adversaries & Rulers",
       "tags": [
         "umum"
       ]
@@ -2925,7 +2925,7 @@
     {
       "id": 220,
       "nama_id": "Doa Berlindung Dari Orang Zalim (Doa Nabi Musa)",
-      "nama_en": "Supplication for Berlindung Dari Orang Zalim (Doa Nabi Musa) (220)",
+      "nama_en": "Refuge from Oppressive People (Prophet Musa)",
       "grup_id": "Doa Berlindung Dari Orang Zalim Dan Orang Kafir",
       "grup_en": "Refuge from Oppressors",
       "tags": [
@@ -2935,7 +2935,7 @@
     {
       "id": 221,
       "nama_id": "Doa Berlindung Dari Keburukan Orang Kafir (Doa Nabi Ibrahim)",
-      "nama_en": "Supplication for Berlindung Dari Keburukan Orang Kafir (Doa Nabi Ibrahim) (221)",
+      "nama_en": "Refuge from the Evil of Disbelievers (Ibrahim)",
       "grup_id": "Doa Berlindung Dari Orang Zalim Dan Orang Kafir",
       "grup_en": "Refuge from Oppressors",
       "tags": [
@@ -2945,7 +2945,7 @@
     {
       "id": 222,
       "nama_id": "Doa Sujud Tilawah",
-      "nama_en": "Supplication in Prostration (222)",
+      "nama_en": "Supplication for the Prostration of Recitation (Tilawah)",
       "grup_id": "Beberapa Doa Terkait Shalat",
       "grup_en": "Prayer & Supplications (Salah)",
       "tags": [
@@ -2964,7 +2964,7 @@
     {
       "id": 223,
       "nama_id": "Doa Qunut Witir",
-      "nama_en": "Supplication of Qunut (223)",
+      "nama_en": "Qunut Supplication in the Witr Prayer",
       "grup_id": "Beberapa Doa Terkait Shalat",
       "grup_en": "Prayer & Supplications (Salah)",
       "tags": [
@@ -2983,7 +2983,7 @@
     {
       "id": 224,
       "nama_id": "Doa Di Akhir Shalat Witir",
-      "nama_en": "Supplication for Di Akhir Shalat Witir (224)",
+      "nama_en": "Supplication at the End of Witr Prayer",
       "grup_id": "Beberapa Doa Terkait Shalat",
       "grup_en": "Prayer & Supplications (Salah)",
       "tags": [
@@ -3002,7 +3002,7 @@
     {
       "id": 225,
       "nama_id": "Bacaan Setelah Salam Shalat Witir",
-      "nama_en": "Remembrance of Setelah Salam Shalat Witir (225)",
+      "nama_en": "Recitation After the Final Salam of Witr",
       "grup_id": "Beberapa Doa Terkait Shalat",
       "grup_en": "Prayer & Supplications (Salah)",
       "tags": [
@@ -3021,7 +3021,7 @@
     {
       "id": 226,
       "nama_id": "Doa Setelah Shalat Istikharah",
-      "nama_en": "Supplication for Setelah Shalat Istikharah (226)",
+      "nama_en": "Supplication of Istikharah (Seeking Divine Guidance)",
       "grup_id": "Beberapa Doa Terkait Shalat",
       "grup_en": "Prayer & Supplications (Salah)",
       "tags": [
@@ -3040,7 +3040,7 @@
     {
       "id": 227,
       "nama_id": "Doa Setelah Shalat Dhuha",
-      "nama_en": "Supplication for Setelah Shalat Dhuha (227)",
+      "nama_en": "Supplication After the Forenoon Prayer (Dhuha)",
       "grup_id": "Beberapa Doa Terkait Shalat",
       "grup_en": "Prayer & Supplications (Salah)",
       "tags": [

@@ -1,14 +1,14 @@
 {
   "id": 32,
   "nama_id": "Doa Memasukkan Jenazah Ke Liang Kubur",
-  "nama_en": "Supplication for Memasukkan Jenazah Ke Liang Kubur (32)",
+  "nama_en": "Placing the Deceased into the Grave",
   "grup_id": "Doa Jenazah",
   "grup_en": "Funerals & Condolences",
   "ar": "بِسْمِ اللَّهِ وَعَلَى سُنَّةِ رَسُوْلِ اللَّهِ",
   "tr": "Bismillaahi wa 'alaa sunnati rosuulillaah.",
   "arti_id": "Dengan nama Allah dan sesuai petunjuk Rasulullah.",
-  "arti_en": "Dengan nama Allah dan sesuai petunjuk Rasulullah.",
-  "src": "HR. Abu Dawud 3/314 dengan sanad yang shahih.\n\nSumber: Hisnul Muslim",
+  "arti_en": "In the name of Allah, and upon the religion and tradition of the Messenger of Allah.",
+  "src": "HR. Abu Dawud 3/314 dengan sanad yang shahih. - Sumber: Hisnul Muslim",
   "tags": [
     "jenazah"
   ]

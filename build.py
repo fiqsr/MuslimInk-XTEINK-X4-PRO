@@ -130,7 +130,7 @@ def build_packed_fonts(include_sm=True):
 
         def pack_size(h, gmap):
             w_str = "".join(chr(gmap[c][0] + 35) for c in "0123456789:")
-            c_str = "{" + ",".join(str(len(gmap[c][1]) // 8) for c in "0123456789:") + "}"
+            c_str = "[=[" + "".join(chr((len(gmap[c][1]) // 8) + 35) for c in "0123456789:") + "]=]"
             r_str = ""
             for c in "0123456789:":
                 hex_s = gmap[c][1]
@@ -249,6 +249,7 @@ def minify_lua(source):
 
     out = []
     str_pat = re.compile(r"(\[(=*)\[.*?\]\2\]|\"(?:[^\"\\]|\\.)*\"|'(?:[^'\\]|\\.)*')", re.DOTALL)
+    ops = [",", ";", "{", "}", "(", ")", "==", ">=", "<=", "~=", "//", "=", "+", "*", "/", "%", "<", ">", ":", ".."]
     for line in cleaned.splitlines():
         l = line.strip()
         if not l:
@@ -258,25 +259,35 @@ def minify_lua(source):
         for m in str_pat.finditer(l):
             non_str = l[pos:m.start()]
             non_str = re.sub(r"[ \t]+", " ", non_str)
-            for op in [",", ";", "{", "}", "(", ")", "==", ">=", "<=", "~=", "=", "+", "*", "<", ">", ":"]:
+            for op in ops:
                 non_str = non_str.replace(" " + op, op).replace(op + " ", op)
             parts.append(non_str)
             parts.append(m.group(0))
             pos = m.end()
         non_str = l[pos:]
         non_str = re.sub(r"[ \t]+", " ", non_str)
-        for op in [",", ";", "{", "}", "(", ")", "==", ">=", "<=", "~=", "=", "+", "*", "<", ">", ":"]:
+        for op in ops:
             non_str = non_str.replace(" " + op, op).replace(op + " ", op)
         parts.append(non_str)
         tight = "".join(parts).strip()
         if tight:
             out.append(tight)
-    return "\n".join(out)
+
+    joinable_ends = (',', '{', '(', '=', '+', '*', '/', '~=', '==', '<=', '>=', '<', '>', '..')
+    joinable_starts = (',', '}', ')', ']')
+    res = []
+    for l in out:
+        if res and (any(res[-1].endswith(op) for op in joinable_ends) or any(l.startswith(op) for op in joinable_starts)):
+            res[-1] = res[-1] + l
+        else:
+            res.append(l)
+
+    return "\n".join(res)
 
 
 def bundle():
     print("Packing TrueType clock fonts...")
-    fonts_idx_lua = build_packed_fonts(include_sm=True)
+    fonts_idx_lua = build_packed_fonts(include_sm=False)
     fonts_lock_lua = build_packed_fonts(include_sm=False)
 
     core_src = pack_ayahs(read_text("src/core.lua"))

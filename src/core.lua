@@ -1212,13 +1212,17 @@ function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
     S.center_text(gg, cx, y + (h - 30) // 2, hhmm, 'large')
     return
   end
-  local raw_pack = (h >= 60) and fset.big or (fset.sm or (h >= 40 and fset.big or nil))
+  local raw_pack = fset.big
   if not raw_pack then
     S.center_text(gg, cx, y + (h - 26) // 2, hhmm, 'large')
     return
   end
   local pack = unpack_pack(raw_pack)
   if not pack or not pack.g then return end
+
+  local orig_h = pack.h or 100
+  local scale_num, scale_den = h, orig_h
+  local need_scale = (h < 60)
   local gap = (h >= 60) and 8 or 4
 
   local total_w = 0
@@ -1226,24 +1230,34 @@ function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
     local ch = hhmm:sub(idx, idx)
     local gl = pack.g[ch]
     if gl then
-      total_w = total_w + gl.w
+      local gw = need_scale and math.max(1, (gl.w * scale_num) // scale_den) or gl.w
+      total_w = total_w + gw
       if idx < #hhmm then total_w = total_w + gap end
     end
   end
 
   local x = math.floor(cx - total_w / 2)
-  local dy = y + (h - pack.h) // 2
+  local dy = y + (h - (need_scale and h or pack.h)) // 2
 
   for idx = 1, #hhmm do
     local ch = hhmm:sub(idx, idx)
     local gl = pack.g[ch]
     if gl then
+      local gw = gl.w
       local rects = gl.dec or {}
       for r_i = 1, #rects do
         local r = rects[r_i]
-        gg:rect(x + r[1], dy + r[2], r[3], r[4], BLACK)
+        if need_scale then
+          local rx = (r[1] * scale_num) // scale_den
+          local ry = (r[2] * scale_num) // scale_den
+          local rw = math.max(1, (r[3] * scale_num) // scale_den)
+          local rh = math.max(1, (r[4] * scale_num) // scale_den)
+          gg:rect(x + rx, dy + ry, rw, rh, BLACK)
+        else
+          gg:rect(x + r[1], dy + r[2], r[3], r[4], BLACK)
+        end
       end
-      x = x + gl.w + gap
+      x = x + (need_scale and math.max(1, (gw * scale_num) // scale_den) or gw) + gap
     end
   end
 end

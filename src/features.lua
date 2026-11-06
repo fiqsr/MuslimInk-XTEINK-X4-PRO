@@ -193,27 +193,29 @@ for _, g in ipairs(SYN_GROUPS) do
 end
 
 function F.filter_duas(items, q)
-  if not q or q == '' then return items end
-  local clean = q:lower():gsub('^%s+', ''):gsub('%s+$', '')
-  if clean == '' then return items end
+  if not q or q == '' then return items or {} end
+  local clean = tostring(q):lower():gsub('^%s+', ''):gsub('%s+$', '')
+  if clean == '' then return items or {} end
 
   local tokens = {}
   for w in clean:gmatch('%S+') do
     tokens[#tokens + 1] = w
   end
-  if #tokens == 0 then return items end
+  if #tokens == 0 then return items or {} end
 
   local token_syns = {}
   for _, tok in ipairs(tokens) do
     local sset = { [tok] = true }
-    local sgroup = SYN_MAP[tok]
-    if sgroup then
-      for sw in sgroup:gmatch('%S+') do sset[sw] = true end
-    else
-      for k, g in pairs(SYN_MAP) do
-        if k:find(tok, 1, true) or tok:find(k, 1, true) then
-          for sw in g:gmatch('%S+') do sset[sw] = true end
-          break
+    if #tok >= 3 then
+      local sgroup = SYN_MAP[tok]
+      if sgroup then
+        for sw in sgroup:gmatch('%S+') do sset[sw] = true end
+      else
+        for k, g in pairs(SYN_MAP) do
+          if k:find(tok, 1, true) or tok:find(k, 1, true) then
+            for sw in g:gmatch('%S+') do sset[sw] = true end
+            break
+          end
         end
       end
     end
@@ -221,7 +223,7 @@ function F.filter_duas(items, q)
   end
 
   local scored = {}
-  for _, it in ipairs(items) do
+  for _, it in ipairs(items or {}) do
     local nid = (it.nama_id or it.n_id or ''):lower()
     local nen = (it.nama_en or it.n_en or ''):lower()
     local gid = (it.grup_id or it.g_id or ''):lower()
@@ -273,14 +275,6 @@ function F.filter_duas(items, q)
         end
       end
 
-      if not t_match and #tok >= 3 then
-        local p_pat = '%f[%w]' .. tok
-        if nid:find(p_pat) or nen:find(p_pat) or tags_str:find(p_pat) then
-          score = score + 30
-          t_match = true
-        end
-      end
-
       if not t_match then
         all_match = false
         break
@@ -288,13 +282,13 @@ function F.filter_duas(items, q)
     end
 
     if all_match and score > 0 then
-      scored[#scored + 1] = { item = it, score = score, id = it.id or 0 }
+      scored[#scored + 1] = { item = it, score = score, id = tonumber(it.id) or 0 }
     end
   end
 
   table.sort(scored, function(a, b)
     if a.score ~= b.score then return a.score > b.score end
-    return a.id < b.id
+    return (a.id or 0) < (b.id or 0)
   end)
 
   local res = {}
@@ -1124,9 +1118,8 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
     for k = 1, 10 do
       local kx = 16 + (k - 1) * 45
       local ch = r1[k]
-      local is_hit = (lk == ch:lower())
-      gg:rect(kx, 514, 41, 46, { fill = true, color = is_hit and 1 or 0 })
-      gg:rect(kx, 514, 41, 46, { line_width = is_hit and 2 or 1 })
+      gg:rect(kx, 514, 41, 46, { fill = true, color = 0 })
+      gg:rect(kx, 514, 41, 46, { line_width = 1 })
       S.center_text(gg, kx + 20, 526, ch, 'medium', 36)
     end
 
@@ -1135,9 +1128,8 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
     for k = 1, 9 do
       local kx = 38 + (k - 1) * 45
       local ch = r2[k]
-      local is_hit = (lk == ch:lower())
-      gg:rect(kx, 568, 41, 46, { fill = true, color = is_hit and 1 or 0 })
-      gg:rect(kx, 568, 41, 46, { line_width = is_hit and 2 or 1 })
+      gg:rect(kx, 568, 41, 46, { fill = true, color = 0 })
+      gg:rect(kx, 568, 41, 46, { line_width = 1 })
       S.center_text(gg, kx + 20, 580, ch, 'medium', 36)
     end
 
@@ -1146,9 +1138,8 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
     for k = 1, 7 do
       local kx = 24 + (k - 1) * 46
       local ch = r3[k]
-      local is_hit = (lk == ch:lower())
-      gg:rect(kx, 622, 42, 46, { fill = true, color = is_hit and 1 or 0 })
-      gg:rect(kx, 622, 42, 46, { line_width = is_hit and 2 or 1 })
+      gg:rect(kx, 622, 42, 46, { fill = true, color = 0 })
+      gg:rect(kx, 622, 42, 46, { line_width = 1 })
       S.center_text(gg, kx + 21, 634, ch, 'medium', 36)
     end
     -- Backspace Key in Row 3
@@ -2502,10 +2493,8 @@ function F.draw_storage_modal(gg, cfg, draw_btn, cache_count, saved_count)
   local is_en = (cfg.lang == 'en')
   local mx, my, mw, mh = 20, 100, W - 40, 580
 
-  -- Dim background with authentic e-ink scrim (every 4px scanlines)
-  for sy = 0, H, 4 do
-    gg:line(0, sy, W, sy, { line_width = 1 })
-  end
+  -- Clean mask behind modal to completely prevent background UI bleed-through
+  S.round_rect(gg, 0, 0, W, H, 0, nil, true, 0)
 
   -- Solid white modal card
   gg:rect(mx, my, mw, mh, { fill = true, color = 0 })

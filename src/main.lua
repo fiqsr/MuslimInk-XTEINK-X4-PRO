@@ -41,6 +41,8 @@ local doa_state = {
   saved_items = {},
   filtered_items = {},
   cache = {},
+  cached_ids = {},
+  cached_ids_loaded = false,
   index = nil,
   fetching = false,
   err = nil,
@@ -793,7 +795,11 @@ local function draw_month_screen(gg, now_info)
   draw_btn(gg, 326, 726, 138, 52, L.btn_download, false, 'medium')
 end
 
-local function ensure_doa_ready()
+local function ensure_doa_ready(force_refilter)
+  if doa_state.index and doa_state.filtered_items and not force_refilter then
+    return
+  end
+
   if not doa_state.index then
     local raw_idx = S.read('doa_index.txt')
     if raw_idx and raw_idx ~= '' then
@@ -804,6 +810,18 @@ local function ensure_doa_ready()
     end
     if not doa_state.index then
       doa_state.index = F.SEED_DOA_INDEX
+    end
+  end
+
+  if not doa_state.cached_ids_loaded then
+    doa_state.cached_ids_loaded = true
+    doa_state.cached_ids = { [1]=true, [6]=true, [8]=true, [10]=true, [25]=true, [48]=true, [68]=true, [128]=true, [135]=true, [141]=true, [172]=true, [214]=true }
+    local raw_ids = S.read('doa_cached_ids.txt')
+    if raw_ids and raw_ids ~= '' then
+      for id_str in raw_ids:gmatch('%d+') do
+        local id_num = tonumber(id_str)
+        if id_num then doa_state.cached_ids[id_num] = true end
+      end
     end
   end
 
@@ -869,7 +887,7 @@ local function toggle_save_doa(id)
     ids[#ids + 1] = tostring(sid)
   end
   S.write('saved_duas.txt', table.concat(ids, ','))
-  ensure_doa_ready()
+  ensure_doa_ready(true)
   refresh()
 end
 
@@ -884,6 +902,7 @@ local function open_doa_detail(it)
       local ok, res = pcall(function() return ctx.json:decode(raw_d) end)
       if ok and type(res) == 'table' and res.id then
         doa_state.cache[it.id] = res
+        doa_state.cached_ids[it.id] = true
         cached = res
       end
     end
@@ -932,8 +951,12 @@ local function open_doa_detail(it)
           local ok, res = pcall(function() return ctx.json:decode(resp.body) end)
           if ok and type(res) == 'table' and res.id then
             doa_state.cache[it.id] = res
+            doa_state.cached_ids[it.id] = true
             doa_state.viewing = res
             S.write('doa_' .. tostring(it.id) .. '.txt', resp.body)
+            local id_list = {}
+            for cid in pairs(doa_state.cached_ids) do id_list[#id_list + 1] = tostring(cid) end
+            S.write('doa_cached_ids.txt', table.concat(id_list, ','))
             refresh()
             return
           end
@@ -1007,7 +1030,7 @@ function on_draw(c, gg)
 
     if storage_modal then
       local cache_c = 0
-      for _ in pairs(doa_state.cache or {}) do cache_c = cache_c + 1 end
+      for _ in pairs(doa_state.cached_ids or doa_state.cache or {}) do cache_c = cache_c + 1 end
       local saved_c = (doa_state.saved_items and #doa_state.saved_items) or 0
       F.draw_storage_modal(gg, cfg, draw_btn, cache_c, saved_c)
     end
@@ -1219,13 +1242,16 @@ local function check_storage_modal_tap(x, y)
   -- Action 1: Clear Doa Files Cache (ay1 = my + 208, h = 76)
   local ay1 = my + 208
   if y >= ay1 and y <= ay1 + 76 and x >= mx + 16 and x <= mx + mw - 16 then
-    doa_state.cache = {}
-    doa_state.viewing = nil
-    if doa_state.index then
-      for _, it in ipairs(doa_state.index) do
-        if it.id then S.delete('doa_' .. tostring(it.id) .. '.txt') end
-      end
+    for cid in pairs(doa_state.cached_ids or {}) do
+      S.delete('doa_' .. tostring(cid) .. '.txt')
     end
+    for _, sid in ipairs({ 1, 6, 8, 10, 25, 48, 68, 128, 135, 141, 172, 214 }) do
+      S.delete('doa_' .. tostring(sid) .. '.txt')
+    end
+    S.delete('doa_cached_ids.txt')
+    doa_state.cache = {}
+    doa_state.cached_ids = {}
+    doa_state.viewing = nil
     status = is_en and 'Doa files cache cleared successfully!' or 'Cache file doa berhasil dibersihkan!'
     refresh()
     return true
@@ -1774,6 +1800,9 @@ local function handle_tap_doa(x, y)
           return
         end
       end
+      return
+    elseif y >= 144 and y < 460 then
+      doa_state.keyboard = false
       return
     end
   end

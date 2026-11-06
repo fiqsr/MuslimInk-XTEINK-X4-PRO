@@ -1773,8 +1773,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.2.0'
-S.APP_BUILD = 120
+S.APP_VERSION = '1.2.1'
+S.APP_BUILD = 121
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'

@@ -1594,41 +1594,39 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     dy = dy + 20
     vtext(36, dy, 'GitHub    : github.com/fiqsr', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Repo      : MuslimInk-XTEINK-X4-PRO', { font = S.font('small') })
+    vtext(36, dy, 'License   : MIT Open Source', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'License   : Open Source (MIT)', { font = S.font('small') })
-    dy = dy + 20
-    vtext(36, dy, (is_en and 'App Vers. : v' or 'Versi App : v') .. S.APP_VERSION, { font = S.font('small') })
+    vtext(36, dy, 'Versi App : v' .. S.APP_VERSION, { font = S.font('small') })
 
     -- Section 2: Calculation Engine & Astronomics
     dy = dy + 26
     vdivider(dy - 8)
     vtext(36, dy, is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS', { font = S.font('small') })
     dy = dy + 22
-    vtext(36, dy, 'Indonesia : Kemenag RI (514 Kab/Kota)', { font = S.font('small') })
+    vtext(36, dy, 'Indonesia : Kemenag RI (514 Kota)', { font = S.font('small') })
     dy = dy + 20
     vtext(36, dy, 'Global/LN : Aladhan API (230+ Kota)', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Methods   : Ummul Quro, MWL, MUIS, etc' or 'Metode LN : Ummul Quro, MWL, MUIS, dll', { font = S.font('small') })
+    vtext(36, dy, 'Metode LN : Ummul Quro, MWL, MUIS', { font = S.font('small') })
     dy = dy + 20
     vtext(36, dy, 'Offline   : Hisab Meeus & MABIMS', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'GPS Coords: Custom Lat/Lon/TZ' or 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
+    vtext(36, dy, 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri)', { font = S.font('small') })
 
     -- Section 3: Hardware & Runtime Status
     dy = dy + 26
     vdivider(dy - 8)
     vtext(36, dy, is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT', { font = S.font('small') })
     dy = dy + 22
-    vtext(36, dy, is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro', { font = S.font('small') })
+    vtext(36, dy, 'Perangkat : XTEINK X4 Pro ONLY', { font = S.font('small') })
     dy = dy + 20
     vtext(36, dy, 'Display   : 480x800 1-bit E-ink', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)', { font = S.font('small') })
+    vtext(36, dy, 'Lockscreen: Standalone 60s Service', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Auto-Updt : 64 KB Chunked Downloader' or 'Updater   : Chunked Range 64 KB (Aman)', { font = S.font('small') })
+    vtext(36, dy, 'Updater   : Chunked Range 64 KB', { font = S.font('small') })
     dy = dy + 20
     vtext(36, dy, 'Status    : ' .. S.short(loc_sub, 26), { font = S.font('small') })
 

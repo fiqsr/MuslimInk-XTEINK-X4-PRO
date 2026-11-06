@@ -717,44 +717,57 @@ gg:line(cx,cy - 8,cx,cy - 4,{line_width=1})
 gg:rect(cx - 3,cy+4,6,6,{fill=true,color=0})
 end
 elseif kind=='tasbih' then
-local copts={fill=true}
-if is_w then copts.color=0 end
-for deg=0,315,45 do
+local copts=is_w and{fill=true,color=0}or{fill=true}
+for deg=0,320,40 do
 local rad=deg*0.0174533
-gg:circle(cx+math.floor(8*math.cos(rad)+0.5),cy+math.floor(8*math.sin(rad)+0.5),2,copts)
+local bx=cx+math.floor(6.5*math.cos(rad)+0.5)
+local by=cy - 2+math.floor(6.5*math.sin(rad)+0.5)
+gg:circle(bx,by,2,copts)
 end
+gg:circle(cx,cy+5,2,copts)
+gg:rect(cx - 1,cy+7,2,4,copts)
 elseif kind=='doa' then
 if is_w then
-gg:rect(cx - 9,cy - 6,8,12,{fill=true,color=0})
-gg:rect(cx+1,cy - 6,8,12,{fill=true,color=0})
-else
-gg:rect(cx - 9,cy - 6,8,12,{line_width=1})
-gg:rect(cx+1,cy - 6,8,12,{line_width=1})
-end
+gg:rect(cx - 9,cy - 6,8,13,{fill=true,radius=2,color=0})
+gg:rect(cx+1,cy - 6,8,13,{fill=true,radius=2,color=0})
 gg:line(cx - 7,cy - 2,cx - 3,cy - 2)
 gg:line(cx - 7,cy+2,cx - 3,cy+2)
 gg:line(cx+3,cy - 2,cx+7,cy - 2)
 gg:line(cx+3,cy+2,cx+7,cy+2)
+else
+gg:rect(cx - 9,cy - 6,8,13,{fill=true,radius=2})
+gg:rect(cx+1,cy - 6,8,13,{fill=true,radius=2})
+gg:line(cx - 7,cy - 2,cx - 3,cy - 2,{color=0})
+gg:line(cx - 7,cy+2,cx - 3,cy+2,{color=0})
+gg:line(cx+3,cy - 2,cx+7,cy - 2,{color=0})
+gg:line(cx+3,cy+2,cx+7,cy+2,{color=0})
+end
 elseif kind=='hijri' then
 if is_w then
-gg:rect(cx - 8,cy - 7,16,15,{fill=true,color=0})
-gg:rect(cx - 5,cy - 9,2,3,{fill=true,color=0})
-gg:rect(cx+3,cy - 9,2,3,{fill=true,color=0})
-else
-gg:rect(cx - 8,cy - 7,16,15,{line_width=1})
-gg:line(cx - 4,cy - 9,cx - 4,cy - 7,{line_width=2})
-gg:line(cx+4,cy - 9,cx+4,cy - 7,{line_width=2})
-end
-gg:line(cx - 8,cy - 2,cx+8,cy - 2,{line_width=1})
+gg:rect(cx - 8,cy - 6,16,14,{fill=true,radius=3,color=0})
+gg:rect(cx - 5,cy - 8,2,3,{fill=true,color=0})
+gg:rect(cx+3,cy - 8,2,3,{fill=true,color=0})
+gg:line(cx - 8,cy - 1,cx+8,cy - 1,{line_width=1})
 gg:circle(cx,cy+4,2,{fill=true})
+else
+gg:rect(cx - 8,cy - 6,16,14,{fill=true,radius=3})
+gg:rect(cx - 5,cy - 8,2,3,{fill=true})
+gg:rect(cx+3,cy - 8,2,3,{fill=true})
+gg:line(cx - 8,cy - 1,cx+8,cy - 1,{line_width=1,color=0})
+gg:circle(cx,cy+4,2,{fill=true,color=0})
+end
 elseif kind=='kiblat' then
 if is_w then
-gg:circle(cx,cy,9,{fill=true,color=0})
+gg:circle(cx,cy,8,{fill=true,color=0})
+gg:circle(cx,cy,6,{fill=true})
+gg:polygon({cx+4,cy - 4,cx,cy - 1,cx+1,cy},{fill=true,color=0})
+gg:polygon({cx - 4,cy+4,cx,cy+1,cx - 1,cy},{fill=true,color=0})
 else
-gg:circle(cx,cy,9,{line_width=1})
+gg:circle(cx,cy,8,{fill=true})
+gg:circle(cx,cy,6,{fill=true,color=0})
+gg:polygon({cx+4,cy - 4,cx,cy - 1,cx+1,cy},{fill=true})
+gg:polygon({cx - 4,cy+4,cx,cy+1,cx - 1,cy},{fill=true})
 end
-gg:line(cx - 4,cy+4,cx+4,cy - 4,{line_width=2})
-gg:polygon({cx+4,cy - 4,cx+1,cy - 1,cx+4,cy - 1},{fill=true})
 elseif kind=='settings' then
 local hex={cx+7,cy - 4,cx,cy - 8,cx - 7,cy - 4,cx - 7,cy+4,cx,cy+8,cx+7,cy+4,cx+7,cy - 4}
 if is_w then
@@ -2444,37 +2457,35 @@ vtext(36,dy,'Developer : fiqsr (Syafiq)',{font=S.font('small')})
 dy=dy+20
 vtext(36,dy,'GitHub    : github.com/fiqsr',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Repo      : MuslimInk-XTEINK-X4-PRO',{font=S.font('small')})
+vtext(36,dy,'License   : MIT Open Source',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'License   : Open Source (MIT)',{font=S.font('small')})
-dy=dy+20
-vtext(36,dy,(is_en and 'App Vers. : v' or 'Versi App : v')..S.APP_VERSION,{font=S.font('small')})
+vtext(36,dy,'Versi App : v'..S.APP_VERSION,{font=S.font('small')})
 dy=dy+26
 vdivider(dy - 8)
 vtext(36,dy,is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS',{font=S.font('small')})
 dy=dy+22
-vtext(36,dy,'Indonesia : Kemenag RI (514 Kab/Kota)',{font=S.font('small')})
+vtext(36,dy,'Indonesia : Kemenag RI (514 Kota)',{font=S.font('small')})
 dy=dy+20
 vtext(36,dy,'Global/LN : Aladhan API (230+ Kota)',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,is_en and 'Methods   : Ummul Quro, MWL, MUIS, etc' or 'Metode LN : Ummul Quro, MWL, MUIS, dll',{font=S.font('small')})
+vtext(36,dy,'Metode LN : Ummul Quro, MWL, MUIS',{font=S.font('small')})
 dy=dy+20
 vtext(36,dy,'Offline   : Hisab Meeus & MABIMS',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,is_en and 'GPS Coords: Custom Lat/Lon/TZ' or 'Koordinat : GPS Input Manual Numpad',{font=S.font('small')})
+vtext(36,dy,'Koordinat : GPS Input Manual Numpad',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)',{font=S.font('small')})
+vtext(36,dy,is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri)',{font=S.font('small')})
 dy=dy+26
 vdivider(dy - 8)
 vtext(36,dy,is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT',{font=S.font('small')})
 dy=dy+22
-vtext(36,dy,is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro',{font=S.font('small')})
+vtext(36,dy,'Perangkat : XTEINK X4 Pro ONLY',{font=S.font('small')})
 dy=dy+20
 vtext(36,dy,'Display   : 480x800 1-bit E-ink',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)',{font=S.font('small')})
+vtext(36,dy,'Lockscreen: Standalone 60s Service',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,is_en and 'Auto-Updt : 64 KB Chunked Downloader' or 'Updater   : Chunked Range 64 KB (Aman)',{font=S.font('small')})
+vtext(36,dy,'Updater   : Chunked Range 64 KB',{font=S.font('small')})
 dy=dy+20
 vtext(36,dy,'Status    : '..S.short(loc_sub,26),{font=S.font('small')})
 dy=dy+26

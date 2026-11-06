@@ -3787,7 +3787,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     dy = dy + 10
     vtext(36, dy, is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK', { font = S.font('small') })
     dy = dy + 22
-    vtext(36, dy, 'Developer : fiqsr (Taufiq)', { font = S.font('small') })
+    vtext(36, dy, 'Developer : fiqsr (Syafiq)', { font = S.font('small') })
     dy = dy + 20
     vtext(36, dy, 'GitHub    : github.com/fiqsr', { font = S.font('small') })
     dy = dy + 20

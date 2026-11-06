@@ -1555,7 +1555,7 @@ end
 return list
 end
 F.SEED_DOA_INDEX=_PSI()
-local SYN_GROUPS={'sholat shalat salat solat prayer namaz adzan azan wudhu sujud ruku iftitah tahiyat tahajud dhuha witir tarawih masjid imam saf jumat','tidur sleep sleeping bed malam night bangun wake waking mimpi dream rebahan istirahat','makan food eat eating meal minum drink bismillah kenyang lapar hidangan rezeki sahur berbuka','safar travel journey kendaraan vehicle perjalanan mobil pesawat naik singgah jalan trip','sakit sick pain ill health sembuh cure demam obat luka penyakit sehat gundah medis','ortu orang tua parents parent ayah ibu bapak father mother keluarga family anak rahmat','rumah home house keluar masuk leave leaving enter entering pintu selamat','toilet wc kamar mandi restroom lavatory hajat istinja buang air kencing','wudhu ablution bersuci bersihkan sholat prayer suci kumur','hujan rain rainfall petir thunder angin wind cuaca weather mendung badai lebat air','puasa fast fasting iftar berbuka sahur ramadhan tarawih lapar dahaga','sedih sad gundah gelisah anxiety takut fear troubled bingung duka derita musibah cemas','rezeki rizki sustenance wealth kaya utang debt harta miskin usaha rejeki nafkah berkah','pagi morning subuh fajr terbit matahari dzikir pagi petang','petang sore evening maghrib sunset dzikir malam night','istighfar ampun taubat tobat forgive forgiveness pardon dosa sin khilaf salah sesal',}
+local SYN_GROUPS={'sholat shalat salat prayer adzan wudhu sujud ruku tahajud dhuha witir tarawih masjid imam jumat','tidur sleep bed malam night bangun wake mimpi istirahat','makan food eat meal minum drink bismillah kenyang lapar sahur berbuka','safar travel journey kendaraan mobil pesawat naik jalan trip','sakit sick pain ill health sembuh demam obat luka penyakit sehat','ortu orang tua parents ayah ibu bapak mother keluarga family anak','rumah home house keluar masuk pintu selamat','toilet wc kamar mandi restroom hajat istinja buang air kencing','hujan rain petir angin wind cuaca weather mendung badai air','puasa fast fasting iftar berbuka sahur ramadhan lapar dahaga','sedih sad gundah gelisah takut fear bingung duka musibah cemas','rezeki rizki wealth kaya utang debt harta miskin nafkah berkah','pagi petang morning evening subuh maghrib sunset dzikir','istighfar ampun taubat tobat forgive dosa sin khilaf sesal',}
 local SYN_MAP={}
 for _,g in ipairs(SYN_GROUPS)do
 for w in g:gmatch('%S+')do SYN_MAP[w]=g end
@@ -1938,31 +1938,50 @@ if state.fetching then
 S.center_text(gg,W//2,340,is_en and 'Downloading supplication...' or 'Mengunduh doa dari API...','medium')
 S.center_text(gg,W//2,375,is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...','small')
 else
+local cur_y=192
+local ar_text=tostring(d.ar or ''):sub(1,800)
+if ar_text~='' then
+gg:text(38,cur_y,is_en and 'ARABIC TEXT:' or 'TEKS ARAB:',{font=S.font('small')})
+cur_y=cur_y+18
+local ar_lines=F.wrap_lines(ar_text,'medium',W - 76)
+local use_sml_ar=(#ar_lines>3)
+if use_sml_ar then ar_lines=F.wrap_lines(ar_text,'small',W - 76)end
+local ar_font=use_sml_ar and 'small' or 'medium'
+local ar_lh=use_sml_ar and 24 or 28
+local max_ar_lines=math.min(#ar_lines,4)
+for i=1,max_ar_lines do
+gg:text(38,cur_y,ar_lines[i],{font=S.font(ar_font)})
+cur_y=cur_y+ar_lh
+end
+cur_y=cur_y+6
+S.divider(gg,cur_y,40,W - 40)
+cur_y=cur_y+10
+end
 local tr_text=tostring(d.tr or d.latin or ''):sub(1,600)
-gg:text(38,192,is_en and 'TRANSLITERATION (LATIN):' or 'BACAAN LATIN:',{font=S.font('small')})
+gg:text(38,cur_y,is_en and 'TRANSLITERATION (LATIN):' or 'BACAAN LATIN:',{font=S.font('small')})
+cur_y=cur_y+18
 local lat_lines=F.wrap_lines(tr_text,'medium',W - 76)
-local use_sml=(#lat_lines>4)
+local use_sml=(#lat_lines>3)
 if use_sml then lat_lines=F.wrap_lines(tr_text,'small',W - 76)end
 local font_n=use_sml and 'small' or 'medium'
 local lh=use_sml and 22 or 26
-local ly=216
-local max_lat_lines=math.min(#lat_lines,6)
+local max_lat_lines=math.min(#lat_lines,5)
 for i=1,max_lat_lines do
-gg:text(38,ly,lat_lines[i],{font=S.font(font_n)})
-ly=ly+lh
+gg:text(38,cur_y,lat_lines[i],{font=S.font(font_n)})
+cur_y=cur_y+lh
 end
-local div_y=ly+10
+local div_y=cur_y+6
 S.divider(gg,div_y,40,W - 40)
-local my=div_y+12
-gg:text(38,my,is_en and 'MEANING & TRANSLATION:' or 'ARTINYA:',{font=S.font('small')})
+cur_y=div_y+10
+gg:text(38,cur_y,is_en and 'MEANING & TRANSLATION:' or 'ARTINYA:',{font=S.font('small')})
+cur_y=cur_y+18
 local raw_arti=is_en and(d.arti_en or d.arti_id or '')or(d.arti_id or '')
 local arti_text=tostring(raw_arti):sub(1,600)
 local arti_lines=F.wrap_lines('"'..arti_text..'"','small',W - 76)
-local ay=my+22
-local max_arti_lines=math.min(#arti_lines,8)
+local max_arti_lines=math.min(#arti_lines,5)
 for i=1,max_arti_lines do
-gg:text(38,ay,arti_lines[i],{font=S.font('small')})
-ay=ay+20
+gg:text(38,cur_y,arti_lines[i],{font=S.font('small')})
+cur_y=cur_y+20
 end
 if d.src and d.src~='' then
 local clean_src=tostring(d.src):gsub('[\r\n]+',' ')
@@ -2863,14 +2882,9 @@ for sx=px+4,px+fill_w - 2,8 do
 gg:line(sx,py+3,sx+3,py+p_h - 4,{line_width=2})
 end
 end
-local note1=is_en and 'Target storage path:' or 'Lokasi penyimpanan:'
-local note2='XTApps/muslimink/files/'
-local note3=is_en and 'Mode: 64 KB chunked transfer' or 'Metode: Unduhan bertahap 64 KB'
-local note4=is_en and 'Keep Wi-Fi connected...' or 'Jangan matikan Wi-Fi...'
-gg:text(bx+20,by+122,note1,{font=S.font('small')})
-gg:text(bx+20,by+144,note2,{font=S.font('small')})
-gg:text(bx+20,by+172,note3,{font=S.font('small')})
-gg:text(bx+20,by+194,note4,{font=S.font('small')})
+gg:text(bx+20,by+124,is_en and 'Path: XTApps/muslimink/files/' or 'Lokasi: XTApps/muslimink/files/',{font=S.font('small')})
+gg:text(bx+20,by+152,is_en and 'Mode: 64 KB chunk transfer' or 'Metode: Unduhan bertahap 64 KB',{font=S.font('small')})
+gg:text(bx+20,by+180,is_en and 'Keep Wi-Fi connected...' or 'Jangan matikan Wi-Fi...',{font=S.font('small')})
 draw_btn(gg,mx+20,my+mh - 56,mw - 40,42,is_en and 'Cancel' or 'Batal',false,'medium')
 elseif update_state=='done' then
 local bx,by,bw,bh=mx+16,my+78,mw - 32,460
@@ -2896,7 +2910,7 @@ gg:line(bx+16,ty,bx+bw - 16,ty,{line_width=1})
 ty=ty+12
 gg:text(bx+16,ty,is_en and 'Steps to Install on X4 Pro:' or 'Langkah Pemasangan di X4 Pro:',{font=S.font('medium')})
 ty=ty+24
-local steps=is_appfiles and{'1. Menu Samping -> All Files','2. Buka AppFiles > muslimink','3. Klik "muslimink_update.xtapp"','4. Tekan OK untuk pasang','5. Buka kembali di Ink App',}or(is_root and{'1. Menu Samping -> All Files','2. Klik "muslimink_update.xtapp"','3. Tekan OK untuk pasang','4. Buka kembali di Ink App',}or{'1. Menu Samping -> All Files','2. Buka AppFiles > muslimink','3. Klik "muslimink_update.xtapp"','4. Tekan OK untuk pasang','5. Buka kembali di Ink App',})
+local steps=is_root and{'1. Menu Samping -> All Files','2. Klik "muslimink_update.xtapp"','3. Tekan OK untuk pasang','4. Buka kembali di Ink App',}or{'1. Menu Samping -> All Files','2. Buka AppFiles > muslimink','3. Klik "muslimink_update.xtapp"','4. Tekan OK untuk pasang','5. Buka kembali di Ink App',}
 for _,s in ipairs(steps)do
 local w_s=S.wrap_lines(s,bw - 32,'small')
 for _,sub in ipairs(w_s)do
@@ -3926,7 +3940,7 @@ end
 end
 if not need_refresh then return end
 else
-doa_state.viewing={id=it.id,nama_id=it.nama_id or it.n_id or '',nama_en=it.nama_en or it.n_en or '',grup_id=it.grup_id or it.g_id or '',grup_en=it.grup_en or it.g_en or '',latin=is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...',arti_id='Sedang mengunduh teks doa...',arti_en='Downloading supplication text...',src='Hisnul Muslim',}
+doa_state.viewing={id=it.id,nama_id=it.nama_id or it.n_id or '',nama_en=it.nama_en or it.n_en or '',grup_id=it.grup_id or it.g_id or '',grup_en=it.grup_en or it.g_en or '',ar=(it.id==1 and 'بِاسْمِكَ رَبِّيْ وَضَعْتُ جَنْبِيْ، وَبِكَ أَرْفَعُهُ')or it.ar or '',latin=is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...',arti_id='Sedang mengunduh teks doa...',arti_en='Downloading supplication text...',src='Hisnul Muslim',}
 end
 doa_state.fetching=true
 pcall(function()

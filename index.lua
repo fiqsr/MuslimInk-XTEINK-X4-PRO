@@ -756,16 +756,15 @@ end
 gg:line(cx - 4,cy+4,cx+4,cy - 4,{line_width=2})
 gg:polygon({cx+4,cy - 4,cx+1,cy - 1,cx+4,cy - 1},{fill=true})
 elseif kind=='settings' then
+local hex={cx+7,cy - 4,cx,cy - 8,cx - 7,cy - 4,cx - 7,cy+4,cx,cy+8,cx+7,cy+4,cx+7,cy - 4}
 if is_w then
-gg:circle(cx,cy,6,{fill=true,color=0})
-gg:circle(cx,cy,2,{fill=true})
-gg:rect(cx - 9,cy - 1,18,2,{fill=true,color=0})
-gg:rect(cx - 1,cy - 9,2,18,{fill=true,color=0})
+gg:polygon(hex,{fill=true,color=0})
+gg:polyline(hex,{line_width=2,color=0})
+gg:circle(cx,cy,3,{fill=true})
 else
-gg:circle(cx,cy,6,{line_width=2})
-gg:circle(cx,cy,2,{fill=true})
-gg:line(cx,cy - 9,cx,cy+9,{line_width=2})
-gg:line(cx - 9,cy,cx+9,cy,{line_width=2})
+gg:polygon(hex,{fill=true})
+gg:polyline(hex,{line_width=2})
+gg:circle(cx,cy,3,{fill=true,color=0})
 end
 end
 end

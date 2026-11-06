@@ -1096,15 +1096,15 @@ function S.draw_menu_icon(gg, kind, cx, cy, color)
     end
   elseif kind == 'kiblat' then
     if is_w then
-      gg:circle(cx, cy, 8, { fill = true, color = 0 })
-      gg:circle(cx, cy, 6, { fill = true })
-      gg:polygon({ cx + 4, cy - 4, cx, cy - 1, cx + 1, cy }, { fill = true, color = 0 })
-      gg:polygon({ cx - 4, cy + 4, cx, cy + 1, cx - 1, cy }, { fill = true, color = 0 })
+      gg:rect(cx - 7, cy - 6, 15, 14, { fill = true, color = 0 })
+      gg:line(cx - 8, cy - 7, cx + 8, cy - 7, { color = 0 })
+      gg:rect(cx - 7, cy - 2, 15, 2, { fill = true })
+      gg:rect(cx + 1, cy + 2, 4, 5, { fill = true })
     else
-      gg:circle(cx, cy, 8, { fill = true })
-      gg:circle(cx, cy, 6, { fill = true, color = 0 })
-      gg:polygon({ cx + 4, cy - 4, cx, cy - 1, cx + 1, cy }, { fill = true })
-      gg:polygon({ cx - 4, cy + 4, cx, cy + 1, cx - 1, cy }, { fill = true })
+      gg:rect(cx - 7, cy - 6, 15, 14, { fill = true })
+      gg:line(cx - 8, cy - 7, cx + 8, cy - 7)
+      gg:rect(cx - 7, cy - 2, 15, 2, { fill = true, color = 0 })
+      gg:rect(cx + 1, cy + 2, 4, 5, { fill = true, color = 0 })
     end
   elseif kind == 'settings' then
     local hex = { cx + 7, cy - 4, cx, cy - 8, cx - 7, cy - 4, cx - 7, cy + 4, cx, cy + 8, cx + 7, cy + 4, cx + 7, cy - 4 }

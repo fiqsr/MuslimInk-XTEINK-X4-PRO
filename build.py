@@ -157,18 +157,19 @@ def pack_world_countries(features_content):
     { name = 'Indonesia', is_id = true, method_id = 20, cities_count = '38 Provinsi', cities = {} },
     { name = 'Koordinat Manual (GPS)', name_en = 'Manual GPS Coordinates', is_custom = true, cities_count = 'Lat/Long', cities = {} }
   }
-  local function U(cname, mid, ccount, data)
+  local function U(cname, mid, data)
     local list = {}
     for s in data:gmatch('[^;]+') do
-      local n, la, lo, tz, m, f, i, fx = s:match('^([^:]+):([^:]+):([^:]+):([^:]+):([^:]+):?([^:]*):?([^:]*):?([^:]*)$')
+      local n, la, lo, tz, m, f, i, fx = s:match('^([^:]+):([^:]+):([^:]+):([^:]+):?([^:]*):?([^:]*):?([^:]*):?([^:]*)$')
       if n then
         list[#list + 1] = {
-          name = n, lat = tonumber(la), lon = tonumber(lo), tz = tonumber(tz), method = m,
+          name = n, lat = tonumber(la), lon = tonumber(lo), tz = tonumber(tz),
+          method = (m ~= '' and m) or 'MWL',
           fajr_ang = tonumber(f) or 18.0, isha_ang = tonumber(i) or 18.0, isha_fixed_min = tonumber(fx)
         }
       end
     end
-    C[#C + 1] = { name = cname, method_id = mid, cities_count = ccount, cities = list }
+    C[#C + 1] = { name = cname, method_id = mid, cities_count = tostring(#list) .. ' Kota', cities = list }
   end
 ''']
     c_blocks = re.findall(r"\{\s*name\s*=\s*'([^']+)',\s*method_id\s*=\s*(\d+),\s*cities_count\s*=\s*'([^']+)',\s*cities\s*=\s*\{(.*?)\}\s*\}", orig_table, re.DOTALL)
@@ -179,12 +180,41 @@ def pack_world_countries(features_content):
             f = cm.group(6) or ''
             i = cm.group(7) or ''
             fx = cm.group(8) or ''
-            cities.append(f"{n}:{la}:{lo}:{tz}:{meth}:{f}:{i}:{fx}")
+            m_code = '' if meth == 'MWL' else meth
+            if fx:
+                cities.append(f"{n}:{la}:{lo}:{tz}:{m_code}:{f}:{i}:{fx}")
+            elif i or f:
+                cities.append(f"{n}:{la}:{lo}:{tz}:{m_code}:{f}:{i}")
+            elif m_code:
+                cities.append(f"{n}:{la}:{lo}:{tz}:{m_code}")
+            else:
+                cities.append(f"{n}:{la}:{lo}:{tz}")
         p_str = ";".join(cities)
-        out_lines.append(f"  U('{cname}', {mid}, '{ccount}', '{p_str}')\n")
+        out_lines.append(f"  U('{cname}', {mid}, '{p_str}')\n")
 
     out_lines.append('  return C\nend\nF.WORLD_COUNTRIES = _PWC()\n')
     return features_content[:m_start] + "".join(out_lines) + features_content[m_end:]
+
+
+def pack_ayahs(core_content):
+    m_start = core_content.find("S.BUILTIN_AYAHS = {")
+    m_end = core_content.find("\n}\n", m_start) + 3
+    orig = core_content[m_start:m_end]
+
+    pattern = re.compile(
+        r"\[\d+\]\s*=\s*\{\s*ref\s*=\s*([\"'].*?[\"']),\s*id\s*=\s*([\"'].*?[\"']),\s*en\s*=\s*([\"'].*?[\"'])\s*\}",
+        re.DOTALL
+    )
+
+    matches = list(pattern.finditer(orig))
+    out = [
+        "local function _BA(r,i,e) return {ref=r,id=i,en=e} end\nS.BUILTIN_AYAHS = {\n"
+    ]
+    for m in matches:
+        r, i, e = m.groups()
+        out.append(f"  _BA({r},{i},{e}),\n")
+    out.append("}\n")
+    return core_content[:m_start] + "".join(out) + core_content[m_end:]
 
 
 def strip_function(code, fn_name):
@@ -195,71 +225,60 @@ def strip_function(code, fn_name):
     return code
 
 
-def tighten_line(line):
-    parts = []
-    pos = 0
-    pattern = re.compile(r'(\[=\[.*?\]=\]|"[^"\\]*(?:\\.[^"\\]*)*"|\'[^\'\\]*(?:\\.[^\'\\]*)*\')')
-    for m in pattern.finditer(line):
-        non_str = line[pos:m.start()]
-        non_str = re.sub(r'[ \t]+', ' ', non_str)
-        for op in [',', ';', '{', '}', '(', ')', '=', '+', '*', '<', '>']:
-            non_str = non_str.replace(' ' + op, op).replace(op + ' ', op)
-        parts.append(non_str)
-        parts.append(m.group(0))
-        pos = m.end()
-    non_str = line[pos:]
-    non_str = re.sub(r'[ \t]+', ' ', non_str)
-    for op in [',', ';', '{', '}', '(', ')', '=', '+', '*', '<', '>']:
-        non_str = non_str.replace(' ' + op, op).replace(op + ' ', op)
-    parts.append(non_str)
-    return ''.join(parts)
-
-
 def minify_lua(source):
+    pattern = re.compile(
+        r"(--\[(=*)\[.*?\]\2\]|--[^\r\n]*|\[(=*)\[.*?\]\3\]|\"(?:[^\"\\]|\\.)*\"|'(?:[^'\\]|\\.)*')",
+        re.DOTALL
+    )
+
+    def replacer(m):
+        tok = m.group(1)
+        if tok.startswith("--"):
+            return " "
+        return tok
+
+    cleaned = pattern.sub(replacer, source)
+
     out = []
-    in_block = False
-    for line in source.splitlines():
+    str_pat = re.compile(r"(\[(=*)\[.*?\]\2\]|\"(?:[^\"\\]|\\.)*\"|'(?:[^'\\]|\\.)*')", re.DOTALL)
+    for line in cleaned.splitlines():
         l = line.strip()
-        if not l: continue
-        if in_block:
-            if ']]' in l:
-                l = l[l.find(']]')+2:].strip()
-                in_block = False
-            else: continue
-        if l.startswith('--[['):
-            if ']]' in l[4:]:
-                l = l[l.find(']]', 4)+2:].strip()
-            else:
-                in_block = True
-                continue
-        if not l: continue
-        in_sq, in_dq, cpos = False, False, -1
-        for i, ch in enumerate(l):
-            if ch == '\\' and (in_sq or in_dq):
-                continue
-            elif ch == "'" and not in_dq: in_sq = not in_sq
-            elif ch == '"' and not in_sq: in_dq = not in_dq
-            elif not in_sq and not in_dq and ch == '-' and i+1 < len(l) and l[i+1] == '-':
-                cpos = i; break
-        if cpos != -1: l = l[:cpos].rstrip()
-        if l:
-            tight = tighten_line(l)
-            if tight: out.append(tight)
-    return '\n'.join(out)
+        if not l:
+            continue
+        parts = []
+        pos = 0
+        for m in str_pat.finditer(l):
+            non_str = l[pos:m.start()]
+            non_str = re.sub(r"[ \t]+", " ", non_str)
+            for op in [",", ";", "{", "}", "(", ")", "=", "+", "*", "<", ">"]:
+                non_str = non_str.replace(" " + op, op).replace(op + " ", op)
+            parts.append(non_str)
+            parts.append(m.group(0))
+            pos = m.end()
+        non_str = l[pos:]
+        non_str = re.sub(r"[ \t]+", " ", non_str)
+        for op in [",", ";", "{", "}", "(", ")", "=", "+", "*", "<", ">"]:
+            non_str = non_str.replace(" " + op, op).replace(op + " ", op)
+        parts.append(non_str)
+        tight = "".join(parts).strip()
+        if tight:
+            out.append(tight)
+    return "\n".join(out)
 
 
 def bundle():
     print("Packing TrueType clock fonts...")
     fonts_idx_lua = build_packed_fonts(include_sm=True)
-    fonts_lock_lua = build_packed_fonts(include_sm=True)
+    fonts_lock_lua = build_packed_fonts(include_sm=False)
 
-    core_src = read_text("src/core.lua")
-    feat_src = read_text("src/features.lua")
+    core_src = pack_ayahs(read_text("src/core.lua"))
+    feat_src = pack_world_countries(read_text("src/features.lua"))
     main_src = read_text("src/main.lua")
     lock_src = read_text("src/lock.lua")
 
     core_proc = strip_function(core_src, "S.draw_mosque")
-    feat_proc = pack_world_countries(feat_src)
+    core_proc = strip_function(core_proc, "S.draw_modern_logo")
+    core_proc = strip_function(core_proc, "S.ornate_card")
 
     # Build safe lock_core using semantic block replacements
     start_langs = core_src.find("S.LANGS = {")
@@ -276,7 +295,12 @@ def bundle():
         "S.draw_crescent", "S.draw_hamburger_btn", "S.draw_settings_btn", "S.ornate_card",
         "S.parse_hcal_cache_text", "S.load_hijri_month", "S.hijri_event_day", "S.hcal_cache_name",
         "S.short", "S.sheet_grabber", "S.split_quote_lines",
-        "S.parse_list_json", "S.diamond", "S.save_cfg"
+        "S.parse_list_json", "S.diamond", "S.save_cfg",
+        "S.draw_all_schedule_grid", "S.parse_aladhan_json",
+        "S.julian_date", "S.sun_position", "S.calc_day_prayer", "S.generate_month",
+        "S.check_for_updates", "S.save_update_package", "S.download_update",
+        "S.compare_versions", "S.parse_version_json",
+        "S.save_cached_quote", "S.quote_period_key", "S.parse_ayah_json", "S.try_fetch_quote"
     ]
     for fn in funcs_to_strip:
         lock_core = strip_function(lock_core, fn)
@@ -284,16 +308,20 @@ def bundle():
     header = "-- MuslimInk optimized build\n"
     fonts_idx_wrap = f"local CF = (function()\n{fonts_idx_lua}\nend)()\n\n"
     fonts_lock_wrap = f"local CF = (function()\n{fonts_lock_lua}\nend)()\n\n"
-    core_wrap = f"local S = (function()\n{core_proc}\nend)()\n\n"
-    feat_wrap = f"local F = (function()\n{feat_proc}\nend)()\n\n"
-    lock_core_wrap = f"local S = (function()\n{lock_core}\nend)()\n\n"
-
-    raw_index = header + fonts_idx_wrap + core_wrap + feat_wrap + main_src + "\n"
-    raw_lock = header + fonts_lock_wrap + lock_core_wrap + lock_src + "\n"
 
     print("Minifying and tightening Lua code...")
-    min_index = minify_lua(raw_index)
-    min_lock = minify_lua(raw_lock)
+    min_core = minify_lua(core_proc)
+    min_feat = minify_lua(feat_src)
+    min_main = minify_lua(main_src)
+    min_lock_core = minify_lua(lock_core)
+    min_lock_src = minify_lua(lock_src)
+
+    core_wrap = f"local S = (function()\n{min_core}\nend)()\n\n"
+    feat_wrap = f"local F = (function()\n{min_feat}\nend)()\n\n"
+    lock_core_wrap = f"local S = (function()\n{min_lock_core}\nend)()\n\n"
+
+    min_index = header + fonts_idx_wrap + core_wrap + feat_wrap + min_main + "\n"
+    min_lock = header + fonts_lock_wrap + lock_core_wrap + min_lock_src + "\n"
 
     write_text("index.lua", min_index + "\n")
     write_text("lockscreen.lua", min_lock + "\n")

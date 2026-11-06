@@ -682,7 +682,7 @@ function S.load_month(y, m, prov, kab, cfg)
   if parsed and (not prov or not kab or parsed.loc == want) then
     return parsed.days
   end
-  if cfg then
+  if cfg and S.generate_month then
     local days = S.generate_month(y, m, cfg)
     if days then
       local loc_hdr = 'loc=' .. want .. '\n'
@@ -1223,8 +1223,11 @@ function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
     S.center_text(gg, cx, y + (h - 30) // 2, hhmm, 'large')
     return
   end
-  local raw_pack = (h >= 60) and fset.big or (fset.sm or fset.big)
-  if not raw_pack then return end
+  local raw_pack = (h >= 60) and fset.big or (fset.sm or (h >= 40 and fset.big or nil))
+  if not raw_pack then
+    S.center_text(gg, cx, y + (h - 26) // 2, hhmm, 'large')
+    return
+  end
   local pack = unpack_pack(raw_pack)
   if not pack or not pack.g then return end
   local gap = (h >= 60) and 8 or 4

@@ -1324,7 +1324,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   end
 
   local is_exp = (about_expanded == true)
-  local ab_body_h = is_exp and 654 or 0
+  local ab_body_h = is_exp and 680 or 0
   local ab_h = 64 + ab_body_h
   local total_content_bottom = 622 + ab_h + 20
   local viewport_bottom = 726

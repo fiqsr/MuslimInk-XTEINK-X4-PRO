@@ -3631,7 +3631,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   end
 
   local is_exp = (about_expanded == true)
-  local ab_body_h = is_exp and 654 or 0
+  local ab_body_h = is_exp and 680 or 0
   local ab_h = 64 + ab_body_h
   local total_content_bottom = 622 + ab_h + 20
   local viewport_bottom = 726
@@ -6452,7 +6452,7 @@ function on_input(c, ev)
 
         if screen == 'settings' then
           local is_exp = (about_expanded == true)
-          local max_scroll = is_exp and 640 or 0
+          local max_scroll = is_exp and 660 or 0
           if max_scroll > 0 and touch_down_y and math.abs(touch_down_y - y) > 25 then
             local delta = touch_down_y - y
             settings_scroll_y = math.max(0, math.min(max_scroll, settings_scroll_y + delta))
@@ -6624,7 +6624,7 @@ end
       return false
     elseif screen == 'settings' then
       local is_exp = (about_expanded == true)
-      local max_scroll = is_exp and 640 or 0
+      local max_scroll = is_exp and 660 or 0
       if ev.key == 'down' or ev.key == 'right' then
         settings_scroll_y = math.min(max_scroll, settings_scroll_y + 160)
         refresh()

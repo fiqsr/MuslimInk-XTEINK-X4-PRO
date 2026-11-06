@@ -893,10 +893,10 @@ local function open_doa_detail(it)
 
   doa_state.viewing = {
     id = it.id,
-    nama_id = it.n_id,
-    nama_en = it.n_en,
-    grup_id = it.g_id,
-    grup_en = it.g_en,
+    nama_id = it.nama_id or it.n_id or '',
+    nama_en = it.nama_en or it.n_en or '',
+    grup_id = it.grup_id or it.g_id or '',
+    grup_en = it.grup_en or it.g_en or '',
     latin = 'Menghubungkan ke API...',
     arti_id = 'Sedang mengunduh teks doa...',
     arti_en = 'Downloading supplication...',
@@ -936,14 +936,14 @@ local function open_doa_detail(it)
                 local d2 = res2.data
                 local parsed = {
                   id = d2.id,
-                  nama_id = d2.nama,
-                  nama_en = it.n_en or d2.nama,
-                  grup_id = d2.grup,
-                  grup_en = it.g_en or d2.grup,
+                  nama_id = d2.nama or it.nama_id or it.n_id,
+                  nama_en = it.nama_en or it.n_en or d2.nama,
+                  grup_id = d2.grup or it.grup_id or it.g_id,
+                  grup_en = it.grup_en or it.g_en or d2.grup,
                   ar = d2.ar,
                   tr = d2.tr,
                   arti_id = d2.idn,
-                  arti_en = it.n_en or d2.idn,
+                  arti_en = it.nama_en or it.n_en or d2.idn,
                   src = d2.tentang or 'Hisnul Muslim',
                 }
                 doa_state.cache[it.id] = parsed

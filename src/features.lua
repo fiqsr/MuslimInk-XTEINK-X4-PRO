@@ -156,7 +156,13 @@ local function _PSI()
   local raw = '1|Doa Sebelum Tidur 1|Before Sleeping (1)|Tidur|Sleep|tidur sleep malam bed;2|Doa Bangun Tidur|Upon Waking Up|Tidur|Sleep|tidur sleep pagi bangun;10|Doa Masuk Kamar Mandi|Entering Restroom|Kamar Mandi|Bathroom|kamar mandi toilet wc;11|Doa Keluar Kamar Mandi|Leaving Restroom|Kamar Mandi|Bathroom|kamar mandi toilet wc;12|Doa Sebelum Wudhu|Before Ablution|Wudhu|Ablution|wudhu sholat prayer bersuci;13|Doa Sesudah Wudhu|After Ablution|Wudhu|Ablution|wudhu sholat prayer bersuci;14|Doa Keluar Rumah|Leaving Home|Rumah|Home|rumah home keluar safar tawakkal;15|Doa Masuk Rumah|Entering Home|Rumah|Home|rumah home masuk salam;16|Doa Menuju Masjid|Going to Mosque|Masjid|Mosque|masjid mosque sholat prayer;17|Doa Masuk Masjid|Entering Mosque|Masjid|Mosque|masjid mosque sholat;18|Doa Keluar Masjid|Leaving Mosque|Masjid|Mosque|masjid mosque sholat;20|Doa Sesudah Adzan|After Hearing Adhan|Adzan|Adhan|adzan sholat prayer wasilah;21|Doa Iftitah Shalat|Opening Supplication|Shalat|Prayer|sholat shalat salat iftitah;24|Doa Ruku Shalat|Supplication in Ruku|Shalat|Prayer|sholat shalat ruku subhana;27|Doa Sujud Shalat|Supplication in Sujud|Shalat|Prayer|sholat shalat sujud subhana;30|Doa Duduk Antara Sujud|Sitting Between Sujud|Shalat|Prayer|sholat shalat duduk ampun;33|Doa Tasyahhud (Tahiyat)|Tashahhud (Tahiyat)|Shalat|Prayer|sholat shalat tahiyat tasyahhud;40|Dzikir Sesudah Shalat|Adhkar After Prayer|Dzikir|Adhkar|sholat dzikir sesudah salam;45|Doa Shalat Istikharah|Istikharah Prayer|Shalat|Prayer|sholat istikharah petunjuk;50|Sayyidul Istighfar|Master Istighfar|Istighfar|Pardon|istighfar ampun taubat dosa pagi petang;60|Doa Sebelum Makan|Before Eating|Makan|Meals|makan food eat bismillah;61|Doa Sesudah Makan|After Eating|Makan|Meals|makan food eat alhamdulillah;70|Doa Naik Kendaraan|Riding a Vehicle|Safar|Travel|safar travel kendaraan perjalanan;80|Doa Menjenguk Orang Sakit|Visiting the Sick|Sakit|Health|sakit sick jenguk demam sembuh;90|Doa Kedua Orang Tua|Supplication for Parents|Ortu|Parents|ortu orang tua parents ibu ayah;100|Doa Kebaikan Dunia Akhirat|Goodness in World & Hereafter|Kebaikan|Goodness|dunia akhirat selamat surga neraka'
   for s in raw:gmatch('[^;]+') do
     local i, ni, ne, gi, ge, t = s:match('^(%d+)|([^|]+)|([^|]+)|([^|]+)|([^|]+)|([^|]+)$')
-    if i then list[#list + 1] = { id = tonumber(i), n_id = ni, n_en = ne, g_id = gi, g_en = ge, tags = t } end
+    if i then
+      list[#list + 1] = {
+        id = tonumber(i),
+        nama_id = ni, nama_en = ne, grup_id = gi, grup_en = ge, tags = t,
+        n_id = ni, n_en = ne, g_id = gi, g_en = ge
+      }
+    end
   end
   return list
 end
@@ -189,7 +195,17 @@ function F.filter_duas(items, q)
 
   local res = {}
   for _, it in ipairs(items) do
-    local blob = (it.n_id .. ' ' .. it.n_en .. ' ' .. it.g_id .. ' ' .. it.g_en .. ' ' .. (it.tags or '')):lower()
+    local nid = it.nama_id or it.n_id or ''
+    local nen = it.nama_en or it.n_en or ''
+    local gid = it.grup_id or it.g_id or ''
+    local gen = it.grup_en or it.g_en or ''
+    local tag_str = ''
+    if type(it.tags) == 'table' then
+      tag_str = table.concat(it.tags, ' ')
+    elseif it.tags then
+      tag_str = tostring(it.tags)
+    end
+    local blob = (nid .. ' ' .. nen .. ' ' .. gid .. ' ' .. gen .. ' ' .. tag_str):lower()
     local matched = false
     for w in pairs(syns) do
       if blob:find(w, 1, true) then
@@ -799,14 +815,14 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
 
     -- Navigation & Bookmark Bar (y = 56..94, h = 38)
     draw_btn(gg, 20, 56, 120, 38, is_en and '< Back' or '< Kembali', false, 'small')
-    local bkmk_lbl = is_saved and (is_en and '★ Saved' or '★ Tersimpan') or (is_en and '☆ Save' or '☆ Simpan')
+    local bkmk_lbl = is_saved and (is_en and 'Saved' or 'Tersimpan') or (is_en and '+ Save' or '+ Simpan')
     draw_btn(gg, W - 146, 56, 126, 38, bkmk_lbl, is_saved, 'small')
 
     -- Title Banner (y = 100..164, h = 64)
     S.card(gg, 20, 100, W - 40, 64, 2, true)
-    local cat_str = is_en and (d.grup_en or d.grup_id or '') or (d.grup_id or '')
+    local cat_str = is_en and (d.grup_en or d.g_en or d.grup_id or d.g_id or '') or (d.grup_id or d.g_id or '')
     S.center_text(gg, W // 2, 106, cat_str, 'small', W - 64)
-    local t_str = is_en and (d.nama_en or d.nama_id or '') or (d.nama_id or '')
+    local t_str = is_en and (d.nama_en or d.n_en or d.nama_id or d.n_id or '') or (d.nama_id or d.n_id or '')
     S.center_text(gg, W // 2, 128, t_str, 'medium', W - 64)
 
     -- Reading Card Container (y = 172..704, h = 532)
@@ -863,8 +879,8 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
 
   -- Segmented Control (y = 56..92, h = 36)
   local segs = {
-    is_en and '🔍 Search Duas' or '🔍 Cari Doa',
-    (is_en and '⭐ Saved (' or '⭐ Tersimpan (') .. tostring(saved_count) .. ')'
+    is_en and 'Search Duas' or 'Cari Doa',
+    (is_en and 'Saved (' or 'Tersimpan (') .. tostring(saved_count) .. ')'
   }
   S.segmented_control(gg, 20, 56, W - 40, 36, segs, (cur_tab == 'saved') and 2 or 1)
 
@@ -874,8 +890,9 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
     -- Google-Style Search Bar (y = 98..144, h = 46)
     S.round_rect(gg, 20, 98, W - 40, 46, 12, nil, true, 0)
     S.round_rect(gg, 20, 98, W - 40, 46, 12, 2)
-    -- Magnifying glass icon text
-    gg:text(32, 112, '🔍', { font = S.font('medium') })
+    -- Clean vector magnifying glass
+    gg:circle(40, 121, 6, { line_width = 2 })
+    gg:line(45, 126, 50, 131, { line_width = 2 })
     local q_display = state.query or ''
     if q_display == '' then
       local ph = is_en and 'Tap to search (e.g. prayer, sleep, meal)...' or 'Ketuk untuk cari (sholat, tidur, makan)...'
@@ -883,7 +900,7 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
     else
       gg:text(64, 112, S.fit_text(q_display, 'medium', W - 128), { font = S.font('medium') })
       -- Clear (X) icon on right
-      draw_btn(gg, W - 62, 104, 34, 34, '✕', false, 'small')
+      draw_btn(gg, W - 62, 104, 34, 34, 'X', false, 'small')
     end
 
     -- Quick Suggestion Topic Chips (y = 150..212, h = 62 across 2 rows)
@@ -934,23 +951,23 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       S.round_rect(gg, 20, ry, W - 40, 90, 12, 1)
 
       -- ID & Category Capsule Pill
-      local cat_name = is_en and (it.g_en or it.g_id or '') or (it.g_id or '')
+      local cat_name = is_en and (it.grup_en or it.g_en or it.grup_id or it.g_id or '') or (it.grup_id or it.g_id or '')
       local pill_str = '#' .. tostring(it.id) .. ' • ' .. cat_name
-      local pw = math.min(S.text_w(pill_str, 'small') + 18, 220)
+      local pw = math.min(S.text_w(pill_str, 'small') + 18, 240)
       S.round_rect(gg, 32, ry + 10, pw, 20, 6, nil, true, 0)
       S.round_rect(gg, 32, ry + 10, pw, 20, 6, 1)
       gg:text(38, ry + 11, S.fit_text(pill_str, 'small', pw - 10), { font = S.font('small') })
 
       if is_saved then
-        gg:text(W - 74, ry + 11, '★', { font = S.font('medium') })
+        gg:text(W - 74, ry + 11, '*', { font = S.font('medium') })
       end
 
       -- Title Text
-      local title_str = is_en and (it.n_en or it.n_id or '') or (it.n_id or '')
+      local title_str = is_en and (it.nama_en or it.n_en or it.nama_id or it.n_id or '') or (it.nama_id or it.n_id or '')
       gg:text(34, ry + 40, S.fit_text(title_str, 'medium', W - 90), { font = S.font('medium') })
 
-      -- Chevron Arrow >
-      gg:text(W - 44, ry + 40, '›', { font = S.font('large') })
+      -- Arrow >
+      gg:text(W - 44, ry + 36, '>', { font = S.font('medium') })
     end
   end
 
@@ -968,10 +985,10 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
     S.round_rect(gg, 10, ky, W - 20, kh, 14, 2)
 
     -- Keyboard Helper Bar (y = 468..506, h = 38)
-    draw_btn(gg, 20, 468, 100, 38, is_en and '✕ Close' or '✕ Tutup', false, 'small')
+    draw_btn(gg, 20, 468, 100, 38, is_en and 'Close' or 'Tutup', false, 'small')
     local preview = 'Q: ' .. (state.query or '') .. '|'
     S.center_text(gg, W // 2, 478, S.fit_text(preview, 'small', 220), 'small', 220)
-    draw_btn(gg, W - 120, 468, 100, 38, is_en and '⌫ Del' or '⌫ Hapus', false, 'small')
+    draw_btn(gg, W - 120, 468, 100, 38, is_en and 'Del' or 'Hapus', false, 'small')
 
     -- Row 1: Q W E R T Y U I O P (10 keys)
     local r1 = { 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P' }
@@ -1000,11 +1017,11 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       S.center_text(gg, kx + 21, 634, r3[k], 'medium', 36)
     end
     -- Backspace Key in Row 3
-    draw_btn(gg, 352, 622, 108, 46, '⌫ Del', false, 'small')
+    draw_btn(gg, 352, 622, 108, 46, 'Del', false, 'small')
 
     -- Row 4: Space Bar & Done Button
-    draw_btn(gg, 24, 676, 260, 54, is_en and '␣ Space' or '␣ Spasi', false, 'small')
-    draw_btn(gg, 296, 676, 164, 54, is_en and '🔍 Search' or '🔍 Cari Doa', true, 'medium')
+    draw_btn(gg, 24, 676, 260, 54, is_en and 'Space' or 'Spasi', false, 'small')
+    draw_btn(gg, 296, 676, 164, 54, is_en and 'Search' or 'Cari Doa', true, 'medium')
   end
 end
 

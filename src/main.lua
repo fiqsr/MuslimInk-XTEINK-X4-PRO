@@ -804,7 +804,7 @@ function on_draw(c, gg)
     elseif screen == 'month' then
       draw_month_screen(gg, now_info)
     elseif screen == 'settings' then
-      F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, settings_scroll_y)
+      F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, settings_scroll_y, update_modal or cfont_modal or quote_modal)
     else
       if screen == 'tasbih' then
         ensure_tasbih()
@@ -1092,8 +1092,8 @@ local function check_update_modal_tap(x, y)
         if ok then
           update_state = 'done'
           update_progress = { current = exp_total, total = exp_total }
-          update_saved_path = saved_path or '/sdcard/muslimink.xtapp'
-          status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
+          update_saved_path = saved_path or 'XTApps/muslimink/files/muslimink_update.xtapp'
+          status = is_en and 'Download complete! Saved to app storage.' or 'Unduhan selesai! Tersimpan di folder aplikasi.'
           pcall(function()
             if ctx and ctx.system and ctx.system.open then
               ctx.system:open(update_saved_path)
@@ -1134,7 +1134,7 @@ local function check_update_modal_tap(x, y)
       update_modal = false
       pcall(function()
         if ctx and ctx.system and ctx.system.open then
-          ctx.system:open(update_saved_path or '/sdcard/muslimink.xtapp')
+          ctx.system:open(update_saved_path or 'XTApps/muslimink/files/muslimink_update.xtapp')
         end
       end)
       pcall(function() ctx:quit() end)

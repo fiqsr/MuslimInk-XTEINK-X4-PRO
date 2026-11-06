@@ -1,6 +1,6 @@
 {
-  "version": "1.1.4",
-  "build": 114,
+  "version": "1.1.5",
+  "build": 115,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,19 +9,17 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 438880,
+  "size_bytes": 440032,
   "changelog_id": [
-    "Perbaikan Viewport & Clipping Pengaturan: Teks tidak lagi terpotong/bertabrakan dengan garis header saat discroll",
-    "Optimasi Tinggi Accordion Tentang: Menghilangkan ruang kosong berlebih di bagian bawah kartu accordion (presisi 718px)",
-    "Perbaikan Text Overflow QR Tip: Teks panduan scan QR repositori tidak lagi terpotong di tepi kanan layar",
-    "Sinkronisasi Scroll Bounds: Menyesuaikan batas gulir maksimal (640px) agar kartu berhenti pas di atas tombol Selesai",
-    "Penyempurnaan QR Code Repositori: Penyesuaian ukuran QR (140px) untuk pemindaian optimal tanpa distorsi margin"
+    "Perbaikan OTA Update: Sistem penyimpanan bertahap (chunked append) langsung ke folder aplikasi XTApps/muslimink/files/muslimink_update.xtapp",
+    "Bypass Buffer Limit: Mengatasi limit penulisan tunggal 256 KB firmware dengan multi-strategy fallback",
+    "Pembersihan UI Modal Unduhan: Menghapus garis arsir latar belakang yang bocor dan menyembunyikan scrollbar pengaturan di balik modal",
+    "Pemasangan Otomatis: Integrasi tombol Pasang Sekarang yang memicu installer sistem via ctx.system:open"
   ],
   "changelog_en": [
-    "Settings Viewport & Clipping Fix: Prevent text slicing and collision with top header divider when scrolled",
-    "About Accordion Height Optimization: Eliminate excessive blank card padding at the bottom (precision 718px)",
-    "QR Tip Text Overflow Fix: Resolved right-margin truncation on GitHub repository scan guide string",
-    "Scroll Bounds Synchronization: Aligned maximum scroll bounds (640px) for tight docked layout above Done button",
-    "Repository QR Polish: Scaled QR code (140px) for enhanced optical scanning contrast without margin clipping"
+    "OTA Update Fix: Chunked append storage engine direct to app directory XTApps/muslimink/files/muslimink_update.xtapp",
+    "Buffer Limit Bypass: Solved 256 KB firmware single-write ceiling using resilient multi-tier fallback",
+    "Download Modal UI Polish: Removed background scrim pattern bleed and hidden background scrollbar during updates",
+    "Auto-Install Trigger: Integrated Install Now action invoking OS firmware installer via ctx.system:open"
   ]
 }

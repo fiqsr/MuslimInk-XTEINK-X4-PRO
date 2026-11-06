@@ -1287,7 +1287,7 @@ end
 
 ------------------------------------------------------------------ Drawing: Settings & App Info Page
 
-function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scroll_y)
+function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scroll_y, modal_open)
   local W, H = S.W, S.H
   local is_en = (cfg.lang == 'en')
   local _, _, _, hijri_str = S.effective_hijri(now_info, cfg)
@@ -1567,7 +1567,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   -- ==============================================================
   -- 4. Apple Minimalist Scrollbar Indicator (y = 62..720)
   -- ==============================================================
-  if max_scroll > 0 then
+  if max_scroll > 0 and not modal_open then
     local track_top = 62
     local track_h = 658
     local thumb_h = math.max(48, math.floor(track_h * (viewport_bottom - 56) / total_content_bottom))
@@ -1825,12 +1825,8 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
   local is_en = (cfg.lang == 'en')
   local mx, my, mw, mh = 16, 20, W - 32, 760
 
-  -- Solid mask behind modal to completely prevent background UI bleed-through
+  -- Solid clean mask behind modal to completely prevent background UI bleed-through
   S.round_rect(gg, 0, 0, W, H, 0, nil, true, 0)
-  -- E-ink decorative scrim pattern
-  for dy = 0, H, 6 do
-    gg:line(0, dy, W - 1, dy, { line_width = 1 })
-  end
 
   -- Modal Sheet Card (Material 3 Surface)
   S.round_rect(gg, mx, my, mw, mh, 16, nil, true, 0)
@@ -1974,12 +1970,12 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
       end
     end
 
-    local note1 = is_en and 'Target storage path on SD Card:' or 'Lokasi penyimpanan di kartu SD:'
-    local note2 = '/sdcard/muslimink.xtapp'
+    local note1 = is_en and 'Target storage path on device:' or 'Lokasi penyimpanan berkas:'
+    local note2 = 'XTApps/muslimink/files/muslimink_update.xtapp'
     local note3 = is_en and 'Mode: 64 KB chunked transfer (anti-corrupt)' or 'Metode: Unduhan bertahap 64 KB (aman)'
     local note4 = is_en and 'Please keep device connected to Wi-Fi...' or 'Mohon tunggu, jangan matikan Wi-Fi...'
     gg:text(bx + 20, by + 122, note1, { font = S.font('small') })
-    gg:text(bx + 20, by + 144, note2, { font = S.font('medium') })
+    gg:text(bx + 20, by + 144, note2, { font = S.font('small') })
     gg:text(bx + 20, by + 172, note3, { font = S.font('small') })
     gg:text(bx + 20, by + 194, note4, { font = S.font('small') })
 
@@ -1997,8 +1993,8 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     local succ_title = is_en and '[ OK ] Download Complete!' or '[ OK ] Unduhan Selesai!'
     S.center_text(gg, bx + bw // 2, by + 22, succ_title, 'medium')
 
-    local final_path = update_saved_path or 'XTApps/muslimink/files/muslimink.xtapp'
-    local is_root = final_path:find('^/sdcard/muslimink%.xtapp') or final_path:find('^muslimink%.xtapp')
+    local final_path = update_saved_path or 'XTApps/muslimink/files/muslimink_update.xtapp'
+    local is_root = final_path:find('^/sdcard/muslimink') or final_path:find('^muslimink')
 
     -- Inset Box for File Location
     local lbox_y = by + 58
@@ -2007,7 +2003,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     S.round_rect(gg, bx + 16, lbox_y, bw - 32, lbox_h, 8, 1)
 
     local folder_val = is_root and 'Kartu Memori (SD Root)' or 'XTApps/muslimink/files/'
-    local file_val = 'muslimink.xtapp'
+    local file_val = 'muslimink_update.xtapp'
 
     gg:text(bx + 26, lbox_y + 8, (is_en and 'Folder : ' or 'Folder : ') .. folder_val, { font = S.font('small') })
     gg:text(bx + 26, lbox_y + 32, (is_en and 'File   : ' or 'Berkas : ') .. file_val, { font = S.font('medium') })
@@ -2023,7 +2019,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     if is_root then
       steps = {
         is_en and '1. Buka Menu Samping -> All Files' or '1. Buka Menu Samping -> All Files',
-        is_en and '2. Klik berkas "muslimink.xtapp"' or '2. Klik berkas "muslimink.xtapp"',
+        is_en and '2. Klik berkas "muslimink_update.xtapp"' or '2. Klik berkas "muslimink_update.xtapp"',
         is_en and '3. Tekan OK untuk konfirmasi pasang' or '3. Tekan OK untuk konfirmasi pasang',
         is_en and '4. Buka kembali dari menu Ink App' or '4. Buka kembali dari menu Ink App',
       }
@@ -2031,7 +2027,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
       steps = {
         is_en and '1. Buka Menu Samping -> All Files' or '1. Buka Menu Samping -> All Files',
         is_en and '2. Buka: XTApps > muslimink > files' or '2. Buka: XTApps > muslimink > files',
-        is_en and '3. Klik berkas "muslimink.xtapp"' or '3. Klik berkas "muslimink.xtapp"',
+        is_en and '3. Klik berkas "muslimink_update.xtapp"' or '3. Klik berkas "muslimink_update.xtapp"',
         is_en and '4. Tekan OK untuk konfirmasi pasang' or '4. Tekan OK untuk konfirmasi pasang',
         is_en and '5. Buka kembali dari menu Ink App' or '5. Buka kembali dari menu Ink App',
       }

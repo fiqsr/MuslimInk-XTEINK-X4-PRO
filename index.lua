@@ -1919,8 +1919,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.1.4'
-S.APP_BUILD = 114
+S.APP_VERSION = '1.1.5'
+S.APP_BUILD = 115
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
@@ -2042,56 +2042,65 @@ end
 
 local update_downloading = false
 
-function S.save_update_package(filename, body)
+function S.save_update_package(filename, body, chunks)
+  filename = filename or 'muslimink_update.xtapp'
   local saved_path = nil
-  local candidates = {
-    '/sdcard/' .. filename,
-    '/sdcard/XTApps/' .. filename,
-    '../../' .. filename,
-    '../' .. filename,
-  }
+  local base_dir = (ctx and ctx.files and type(ctx.files.path) == 'string' and ctx.files.path ~= '')
+    and ctx.files.path
+    or 'XTApps/muslimink/files'
 
-  -- 1. Try standard Lua file I/O for shallow SD card root access
-  for _, path in ipairs(candidates) do
-    local ok = pcall(function()
-      local f = io and io.open and io.open(path, 'wb')
-      if f then
-        f:write(body)
-        f:close()
-        saved_path = path
+  -- Strategy 1: ctx.files:append chunk-by-chunk
+  -- This bypasses any single-write 256 KB memory buffer limit by writing 64 KB pieces!
+  if chunks and #chunks > 0 and ctx and ctx.files and ctx.files.append then
+    local app_ok = pcall(function()
+      if ctx.files.remove then pcall(function() ctx.files:remove(filename) end) end
+      for _, ch in ipairs(chunks) do
+        ctx.files:append(filename, ch)
       end
     end)
-    if ok and saved_path then break end
+    if app_ok then
+      saved_path = base_dir .. '/' .. filename
+    end
   end
 
-  -- 2. Fallback to XTOS ctx.storage API
+  -- Strategy 2: ctx.storage:write (the classic mechanism)
+  if not saved_path and ctx and ctx.storage and ctx.storage.write then
+    local st_ok = pcall(function()
+      ctx.storage:write(filename, body)
+    end)
+    if st_ok then
+      saved_path = base_dir .. '/' .. filename
+    end
+  end
+
+  -- Strategy 3: ctx.files:write
+  if not saved_path and ctx and ctx.files and ctx.files.write then
+    local fw_ok = pcall(function()
+      ctx.files:write(filename, body)
+    end)
+    if fw_ok then
+      saved_path = base_dir .. '/' .. filename
+    end
+  end
+
+  -- Strategy 4: Direct SD Card filesystem (if available via io)
   if not saved_path then
-    if ctx and ctx.storage and ctx.storage.write then
-      local write_ok = pcall(function()
-        ctx.storage:write(filename, body)
-      end)
-
-      local base = (ctx.files and type(ctx.files.path) == 'string' and ctx.files.path ~= '')
-        and ctx.files.path
-        or 'XTApps/muslimink/files'
-
-      -- Strict verification: ensure the file actually exists in storage
-      local exists = false
-      pcall(function()
-        if ctx.storage.exists then
-          exists = ctx.storage:exists(filename)
+    local candidates = {
+      '/sdcard/' .. filename,
+      '/sdcard/XTApps/' .. filename,
+      '../../' .. filename,
+      '../' .. filename,
+    }
+    for _, path in ipairs(candidates) do
+      local ok = pcall(function()
+        local f = io and io.open and io.open(path, 'wb')
+        if f then
+          f:write(body)
+          f:close()
+          saved_path = path
         end
       end)
-      local sz = 0
-      pcall(function()
-        if ctx.storage.size then
-          sz = ctx.storage:size(filename) or 0
-        end
-      end)
-
-      if write_ok and (exists or sz > 0) then
-        saved_path = base .. '/' .. filename
-      end
+      if ok and saved_path then break end
     end
   end
 
@@ -2229,9 +2238,9 @@ function S.download_update(update_info, on_progress, on_done)
           finish(false, nil, 'Berkas corrupt: header bukan XTAP')
           return
         end
-        local saved_path = S.save_update_package('muslimink.xtapp', body)
+        local saved_path = S.save_update_package('muslimink_update.xtapp', body, { body })
         if not saved_path then
-          finish(false, nil, 'Gagal menyimpan berkas ke SD Card')
+          finish(false, nil, 'Gagal menyimpan berkas ke XTApps/muslimink/files')
           return
         end
         if on_progress then
@@ -2288,9 +2297,9 @@ function S.download_update(update_info, on_progress, on_done)
       end
 
       -- Save binary cleanly to shallow path on SD Card
-      local saved_path = S.save_update_package('muslimink.xtapp', full_body)
+      local saved_path = S.save_update_package('muslimink_update.xtapp', full_body, chunks)
       if not saved_path then
-        finish(false, nil, 'Gagal menyimpan berkas ke SD Card')
+        finish(false, nil, 'Gagal menyimpan berkas ke XTApps/muslimink/files')
         return
       end
 
@@ -3594,7 +3603,7 @@ end
 
 ------------------------------------------------------------------ Drawing: Settings & App Info Page
 
-function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scroll_y)
+function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scroll_y, modal_open)
   local W, H = S.W, S.H
   local is_en = (cfg.lang == 'en')
   local _, _, _, hijri_str = S.effective_hijri(now_info, cfg)
@@ -3874,7 +3883,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   -- ==============================================================
   -- 4. Apple Minimalist Scrollbar Indicator (y = 62..720)
   -- ==============================================================
-  if max_scroll > 0 then
+  if max_scroll > 0 and not modal_open then
     local track_top = 62
     local track_h = 658
     local thumb_h = math.max(48, math.floor(track_h * (viewport_bottom - 56) / total_content_bottom))
@@ -4132,12 +4141,8 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
   local is_en = (cfg.lang == 'en')
   local mx, my, mw, mh = 16, 20, W - 32, 760
 
-  -- Solid mask behind modal to completely prevent background UI bleed-through
+  -- Solid clean mask behind modal to completely prevent background UI bleed-through
   S.round_rect(gg, 0, 0, W, H, 0, nil, true, 0)
-  -- E-ink decorative scrim pattern
-  for dy = 0, H, 6 do
-    gg:line(0, dy, W - 1, dy, { line_width = 1 })
-  end
 
   -- Modal Sheet Card (Material 3 Surface)
   S.round_rect(gg, mx, my, mw, mh, 16, nil, true, 0)
@@ -4281,12 +4286,12 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
       end
     end
 
-    local note1 = is_en and 'Target storage path on SD Card:' or 'Lokasi penyimpanan di kartu SD:'
-    local note2 = '/sdcard/muslimink.xtapp'
+    local note1 = is_en and 'Target storage path on device:' or 'Lokasi penyimpanan berkas:'
+    local note2 = 'XTApps/muslimink/files/muslimink_update.xtapp'
     local note3 = is_en and 'Mode: 64 KB chunked transfer (anti-corrupt)' or 'Metode: Unduhan bertahap 64 KB (aman)'
     local note4 = is_en and 'Please keep device connected to Wi-Fi...' or 'Mohon tunggu, jangan matikan Wi-Fi...'
     gg:text(bx + 20, by + 122, note1, { font = S.font('small') })
-    gg:text(bx + 20, by + 144, note2, { font = S.font('medium') })
+    gg:text(bx + 20, by + 144, note2, { font = S.font('small') })
     gg:text(bx + 20, by + 172, note3, { font = S.font('small') })
     gg:text(bx + 20, by + 194, note4, { font = S.font('small') })
 
@@ -4304,8 +4309,8 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     local succ_title = is_en and '[ OK ] Download Complete!' or '[ OK ] Unduhan Selesai!'
     S.center_text(gg, bx + bw // 2, by + 22, succ_title, 'medium')
 
-    local final_path = update_saved_path or 'XTApps/muslimink/files/muslimink.xtapp'
-    local is_root = final_path:find('^/sdcard/muslimink%.xtapp') or final_path:find('^muslimink%.xtapp')
+    local final_path = update_saved_path or 'XTApps/muslimink/files/muslimink_update.xtapp'
+    local is_root = final_path:find('^/sdcard/muslimink') or final_path:find('^muslimink')
 
     -- Inset Box for File Location
     local lbox_y = by + 58
@@ -4314,7 +4319,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     S.round_rect(gg, bx + 16, lbox_y, bw - 32, lbox_h, 8, 1)
 
     local folder_val = is_root and 'Kartu Memori (SD Root)' or 'XTApps/muslimink/files/'
-    local file_val = 'muslimink.xtapp'
+    local file_val = 'muslimink_update.xtapp'
 
     gg:text(bx + 26, lbox_y + 8, (is_en and 'Folder : ' or 'Folder : ') .. folder_val, { font = S.font('small') })
     gg:text(bx + 26, lbox_y + 32, (is_en and 'File   : ' or 'Berkas : ') .. file_val, { font = S.font('medium') })
@@ -4330,7 +4335,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     if is_root then
       steps = {
         is_en and '1. Buka Menu Samping -> All Files' or '1. Buka Menu Samping -> All Files',
-        is_en and '2. Klik berkas "muslimink.xtapp"' or '2. Klik berkas "muslimink.xtapp"',
+        is_en and '2. Klik berkas "muslimink_update.xtapp"' or '2. Klik berkas "muslimink_update.xtapp"',
         is_en and '3. Tekan OK untuk konfirmasi pasang' or '3. Tekan OK untuk konfirmasi pasang',
         is_en and '4. Buka kembali dari menu Ink App' or '4. Buka kembali dari menu Ink App',
       }
@@ -4338,7 +4343,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
       steps = {
         is_en and '1. Buka Menu Samping -> All Files' or '1. Buka Menu Samping -> All Files',
         is_en and '2. Buka: XTApps > muslimink > files' or '2. Buka: XTApps > muslimink > files',
-        is_en and '3. Klik berkas "muslimink.xtapp"' or '3. Klik berkas "muslimink.xtapp"',
+        is_en and '3. Klik berkas "muslimink_update.xtapp"' or '3. Klik berkas "muslimink_update.xtapp"',
         is_en and '4. Tekan OK untuk konfirmasi pasang' or '4. Tekan OK untuk konfirmasi pasang',
         is_en and '5. Buka kembali dari menu Ink App' or '5. Buka kembali dari menu Ink App',
       }
@@ -5416,7 +5421,7 @@ function on_draw(c, gg)
     elseif screen == 'month' then
       draw_month_screen(gg, now_info)
     elseif screen == 'settings' then
-      F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, settings_scroll_y)
+      F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, settings_scroll_y, update_modal or cfont_modal or quote_modal)
     else
       if screen == 'tasbih' then
         ensure_tasbih()
@@ -5704,8 +5709,8 @@ local function check_update_modal_tap(x, y)
         if ok then
           update_state = 'done'
           update_progress = { current = exp_total, total = exp_total }
-          update_saved_path = saved_path or '/sdcard/muslimink.xtapp'
-          status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
+          update_saved_path = saved_path or 'XTApps/muslimink/files/muslimink_update.xtapp'
+          status = is_en and 'Download complete! Saved to app storage.' or 'Unduhan selesai! Tersimpan di folder aplikasi.'
           pcall(function()
             if ctx and ctx.system and ctx.system.open then
               ctx.system:open(update_saved_path)
@@ -5746,7 +5751,7 @@ local function check_update_modal_tap(x, y)
       update_modal = false
       pcall(function()
         if ctx and ctx.system and ctx.system.open then
-          ctx.system:open(update_saved_path or '/sdcard/muslimink.xtapp')
+          ctx.system:open(update_saved_path or 'XTApps/muslimink/files/muslimink_update.xtapp')
         end
       end)
       pcall(function() ctx:quit() end)

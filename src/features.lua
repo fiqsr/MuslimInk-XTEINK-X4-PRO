@@ -1802,7 +1802,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
   local u_ver = (update_info and update_info.version) or S.APP_VERSION
   local m_title = is_en and 'App Updates' or 'Pembaruan Aplikasi'
   if update_state == 'done' then
-    m_title = is_en and 'Update Ready!' or 'Pembaruan Siap Dipasang'
+    m_title = is_en and 'Update Ready!' or 'Pembaruan Siap'
   elseif update_state == 'up_to_date' then
     m_title = is_en and 'MuslimInk Up to Date' or 'Versi Sudah Terbaru'
   elseif update_state == 'checking' then
@@ -1941,46 +1941,53 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
 
   elseif update_state == 'done' then
     -- Download Completed View
-    local bx, by, bw, bh = mx + 16, my + 78, mw - 32, 450
+    local bx, by, bw, bh = mx + 16, my + 78, mw - 32, 460
     S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
     S.round_rect(gg, bx, by, bw, bh, 12, 2)
 
     -- Success Badge Header
     S.round_rect(gg, bx + 16, by + 14, bw - 32, 34, 8, nil, true, 0)
     S.round_rect(gg, bx + 16, by + 14, bw - 32, 34, 8, 1)
-    local succ_title = is_en and '[ OK ] Download Complete!' or '[ OK ] Unduhan Berhasil Disimpan!'
+    local succ_title = is_en and '[ OK ] Download Complete!' or '[ OK ] Unduhan Selesai!'
     S.center_text(gg, bx + bw // 2, by + 22, succ_title, 'medium')
 
-    local final_path = update_saved_path or '/sdcard/muslimink.xtapp'
+    local final_path = update_saved_path or 'XTApps/muslimink/files/muslimink.xtapp'
     local is_root = final_path:find('^/sdcard/muslimink%.xtapp') or final_path:find('^muslimink%.xtapp')
 
-    local ty = by + 58
-    gg:text(bx + 16, ty, is_en and 'Package Location on SD Card:' or 'Lokasi Berkas di Kartu Memori:', { font = S.font('small') })
-    ty = ty + 20
-    gg:text(bx + 16, ty, final_path, { font = S.font('medium') })
-    ty = ty + 26
+    -- Inset Box for File Location
+    local lbox_y = by + 58
+    local lbox_h = 60
+    S.round_rect(gg, bx + 16, lbox_y, bw - 32, lbox_h, 8, nil, true, 0)
+    S.round_rect(gg, bx + 16, lbox_y, bw - 32, lbox_h, 8, 1)
 
+    local folder_val = is_root and 'Kartu Memori (SD Root)' or 'XTApps/muslimink/files/'
+    local file_val = 'muslimink.xtapp'
+
+    gg:text(bx + 26, lbox_y + 8, (is_en and 'Folder : ' or 'Folder : ') .. folder_val, { font = S.font('small') })
+    gg:text(bx + 26, lbox_y + 32, (is_en and 'File   : ' or 'Berkas : ') .. file_val, { font = S.font('medium') })
+
+    local ty = lbox_y + lbox_h + 16
     gg:line(bx + 16, ty, bx + bw - 16, ty, { line_width = 1 })
     ty = ty + 12
 
-    gg:text(bx + 16, ty, is_en and 'Steps to Install on Xteink X4 Pro:' or 'Langkah Pemasangan di X4 Pro:', { font = S.font('medium') })
+    gg:text(bx + 16, ty, is_en and 'Steps to Install on X4 Pro:' or 'Langkah Pemasangan di X4 Pro:', { font = S.font('medium') })
     ty = ty + 24
 
     local steps = {}
     if is_root then
       steps = {
-        is_en and '1. Buka menu samping (Menu) -> All Files' or '1. Buka menu samping (Menu) -> All Files',
-        is_en and '2. Tap "muslimink.xtapp" on the main list' or '2. Langsung klik berkas "muslimink.xtapp"',
-        is_en and '3. Confirm "Install this package?" -> OK' or '3. Tekan OK untuk konfirmasi pasang',
-        is_en and '4. Open MuslimInk from Ink App menu' or '4. Buka kembali aplikasi dari Ink App',
+        is_en and '1. Buka Menu Samping -> All Files' or '1. Buka Menu Samping -> All Files',
+        is_en and '2. Klik berkas "muslimink.xtapp"' or '2. Klik berkas "muslimink.xtapp"',
+        is_en and '3. Tekan OK untuk konfirmasi pasang' or '3. Tekan OK untuk konfirmasi pasang',
+        is_en and '4. Buka kembali dari menu Ink App' or '4. Buka kembali dari menu Ink App',
       }
     else
       steps = {
-        is_en and '1. Buka menu samping (Menu) -> All Files' or '1. Buka menu samping (Menu) -> All Files',
-        is_en and ('2. Open folder ' .. final_path:gsub('/?[^/]+$', '')) or ('2. Buka folder ' .. final_path:gsub('/?[^/]+$', '')),
-        is_en and '3. Tap "muslimink.xtapp"' or '3. Klik berkas "muslimink.xtapp"',
-        is_en and '4. Confirm "Install this package?" -> OK' or '4. Tekan OK untuk konfirmasi pasang',
-        is_en and '5. Open MuslimInk from Ink App menu' or '5. Buka kembali aplikasi dari Ink App',
+        is_en and '1. Buka Menu Samping -> All Files' or '1. Buka Menu Samping -> All Files',
+        is_en and '2. Buka: XTApps > muslimink > files' or '2. Buka: XTApps > muslimink > files',
+        is_en and '3. Klik berkas "muslimink.xtapp"' or '3. Klik berkas "muslimink.xtapp"',
+        is_en and '4. Tekan OK untuk konfirmasi pasang' or '4. Tekan OK untuk konfirmasi pasang',
+        is_en and '5. Buka kembali dari menu Ink App' or '5. Buka kembali dari menu Ink App',
       }
     end
 
@@ -1988,8 +1995,24 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
       local w_s = S.wrap_lines(s, bw - 32, 'small')
       for _, sub in ipairs(w_s) do
         gg:text(bx + 16, ty, sub, { font = S.font('small') })
-        ty = ty + 22
+        ty = ty + 24
       end
+    end
+
+    -- Bottom tips divider & text
+    ty = ty + 8
+    gg:line(bx + 16, ty, bx + bw - 16, ty, { line_width = 1 })
+    ty = ty + 12
+
+    gg:text(bx + 16, ty, is_en and 'Quick Install:' or 'Instalasi Cepat:', { font = S.font('medium') })
+    ty = ty + 22
+    local tip_desc = is_en
+      and 'Tap "Exit App & Install" below. If not opened automatically by OS, follow the 5 manual steps above.'
+      or 'Tekan tombol "Keluar Aplikasi & Pasang" di bawah. Jika sistem tidak otomatis membuka berkas, gunakan 5 langkah manual di atas.'
+    local w_tip = S.wrap_lines(tip_desc, bw - 32, 'small')
+    for i = 1, #w_tip do
+      gg:text(bx + 16, ty, w_tip[i], { font = S.font('small') })
+      ty = ty + 20
     end
 
     -- Bottom action buttons

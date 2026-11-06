@@ -9,15 +9,17 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 259360,
+  "size_bytes": 259456,
   "changelog_id": [
-    "Dukungan Penuh OTA Update Mandiri: Mengompresi paket secara lossless menjadi 251 KB (<= 256 KB) sehingga file update dapat ditulis langsung oleh firmware ke penyimpanan",
+    "Perbaikan Bug Lockscreen Hari Jumat: Memperbaiki crash pada waktu menjelang shalat Jumat (L.jumat)",
+    "Dukungan Penuh OTA Update Mandiri: Mengompresi paket secara lossless menjadi 253 KB (<= 256 KB) sehingga file update dapat ditulis langsung oleh firmware ke penyimpanan",
     "Unduhan Otomatis Tersimpan: Berkas unduhan kini langsung muncul di XTApps/muslimink/files/muslimink_update.xtapp dan siap diinstal",
     "Perbaikan Tampilan Kutipan Lockscreen: Ayat dan hadist panjang tidak lagi terpotong di bagian bawah berkat perluasan ruang vertikal (+70px)",
     "Seluruh Fitur 100% Utuh: 514 kota Indonesia, 99 kota dunia, 38 provinsi kiblat, 10 doa harian, 8 tasbih digital, dan 6 gaya jam TrueType tetap lengkap tanpa pemangkasan data"
   ],
   "changelog_en": [
-    "Full Native In-App OTA Update Support: Losslessly slimmed package to 251 KB (<= 256 KB) so firmware single-write limit is never exceeded",
+    "Friday Lockscreen Crash Fix: Resolved bad argument error during countdown to Friday prayer (L.jumat)",
+    "Full Native In-App OTA Update Support: Losslessly slimmed package to 253 KB (<= 256 KB) so firmware single-write limit is never exceeded",
     "Verified Automatic Update Storage: Downloaded packages are saved directly to XTApps/muslimink/files/muslimink_update.xtapp and verified on disk",
     "Lockscreen Multi-Line Quote Fix: Long verses and hadith no longer cut off thanks to expanded vertical budget (+70px clean area)",
     "All 6 Features 100% Preserved: 514 Indonesian cities, 99 world cities, 38 Qibla provinces, 10 duas, 8 dhikr presets, and 6 TrueType clock styles fully intact"

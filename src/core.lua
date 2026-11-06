@@ -789,7 +789,7 @@ function S.compute(now_info, cfg)
 
   local next_name = L.labels[next_idx]
   if next_idx == 5 and active_wday == 5 then
-    next_name = L.jumat
+    next_name = L.jumat or next_name
   end
 
   return {
@@ -1271,8 +1271,8 @@ function S.draw_next_card(gg, x, y, w, h, info, cfont_idx)
   gg:text(x + 36, y + 9, label, { font = S.font('small') })
 
   -- Prayer Name & Countdown on Left
-  gg:text(x + 20, y + 36, info.next_name, { font = S.font('large') })
-  gg:text(x + 20, y + 68, S.fit_text(info.cd_str, 'medium', w - 176), { font = S.font('medium') })
+  gg:text(x + 20, y + 36, info.next_name or '', { font = S.font('large') })
+  gg:text(x + 20, y + 68, S.fit_text(info.cd_str or '', 'medium', w - 176), { font = S.font('medium') })
 
   -- Right side modern time pill with double border
   local bx, by, bw, bh = x + w - 142, y + 32, 124, 54
@@ -1310,7 +1310,7 @@ function S.draw_timeline(gg, x, y, w, row_h, info)
     local is_past = info.next_idx and (i < info.next_idx)
     local is_wajib = S.IS_WAJIB[i]
     local name = L.labels[i]
-    if i == 5 and info.wday == 5 then name = L.jumat end
+    if i == 5 and info.wday == 5 then name = L.jumat or name end
     local tm = row_times[i] or '--:--'
 
     if is_next then

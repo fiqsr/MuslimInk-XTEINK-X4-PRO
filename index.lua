@@ -726,7 +726,7 @@ if prog<0 then prog=0 elseif prog>1 then prog=1 end
 end
 local next_name=L.labels[next_idx]
 if next_idx==5 and active_wday==5 then
-next_name=L.jumat
+next_name=L.jumat or next_name
 end
 return{
 has_data=true,
@@ -1071,8 +1071,8 @@ S.round_rect(gg,x+18,y+8,badge_w,22,6,nil,true,0)
 S.round_rect(gg,x+18,y+8,badge_w,22,6,1)
 gg:circle(x+28,y+19,3,{fill=true})
 gg:text(x+36,y+9,label,{font=S.font('small')})
-gg:text(x+20,y+36,info.next_name,{font=S.font('large')})
-gg:text(x+20,y+68,S.fit_text(info.cd_str,'medium',w - 176),{font=S.font('medium')})
+gg:text(x+20,y+36,info.next_name or '',{font=S.font('large')})
+gg:text(x+20,y+68,S.fit_text(info.cd_str or '','medium',w - 176),{font=S.font('medium')})
 local bx,by,bw,bh=x+w - 142,y+32,124,54
 S.round_rect(gg,bx,by,bw,bh,10,nil,true,0)
 S.round_rect(gg,bx,by,bw,bh,10,2)
@@ -1101,7 +1101,7 @@ local is_next=(i==info.next_idx)
 local is_past=info.next_idx and(i<info.next_idx)
 local is_wajib=S.IS_WAJIB[i]
 local name=L.labels[i]
-if i==5 and info.wday==5 then name=L.jumat end
+if i==5 and info.wday==5 then name=L.jumat or name end
 local tm=row_times[i] or '--:--'
 if is_next then
 S.round_rect(gg,x+4,ry,w - 8,row_h - 2,10,nil,true,0)

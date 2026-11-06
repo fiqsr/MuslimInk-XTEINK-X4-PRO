@@ -23,6 +23,7 @@ CLOCK_FONTS = [
 LOCK_LANGS_DEF = """S.LANGS = {
   id = {
     labels = { 'Imsak', 'Subuh', 'Terbit', 'Dhuha', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya' },
+    jumat = 'Jumat',
     next_card = 'MENUJU WAKTU SHALAT', next_card_tom = 'MENUJU SHALAT (BESOK)', next_badge = 'Berikutnya',
     sec_today = 'JADWAL HARI INI', sec_tomorrow = 'JADWAL BESOK', now_prayer = 'Saatnya waktu shalat!',
     lock_no_data = 'Jadwal Bulan Ini Belum Ada', lock_no_l1 = 'Buka aplikasi Jadwal Sholat & Wi-Fi', lock_no_l2 = 'untuk memilih lokasi dan unduh jadwal.',
@@ -33,6 +34,7 @@ LOCK_LANGS_DEF = """S.LANGS = {
   },
   en = {
     labels = { 'Imsak', 'Fajr', 'Sunrise', 'Dhuha', 'Dhuhr', 'Asr', 'Maghrib', 'Isha' },
+    jumat = "Jumu'ah",
     next_card = 'COUNTDOWN TO PRAYER', next_card_tom = 'COUNTDOWN TO PRAYER (TOMORROW)', next_badge = 'Next Up',
     sec_today = "TODAY'S SCHEDULE", sec_tomorrow = "TOMORROW'S SCHEDULE", now_prayer = "It's time to pray!",
     lock_no_data = 'No Prayer Schedule Found', lock_no_l1 = 'Open Jadwal Sholat app & connect Wi-Fi', lock_no_l2 = 'to select location and download schedule.',

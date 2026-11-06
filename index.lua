@@ -2067,11 +2067,30 @@ function S.save_update_package(filename, body)
   -- 2. Fallback to XTOS ctx.storage API
   if not saved_path then
     if ctx and ctx.storage and ctx.storage.write then
-      local ok = pcall(function()
+      local write_ok = pcall(function()
         ctx.storage:write(filename, body)
       end)
-      if ok then
-        saved_path = 'XTApps/muslimink/files/' .. filename
+
+      local base = (ctx.files and type(ctx.files.path) == 'string' and ctx.files.path ~= '')
+        and ctx.files.path
+        or 'XTApps/muslimink/files'
+
+      -- Strict verification: ensure the file actually exists in storage
+      local exists = false
+      pcall(function()
+        if ctx.storage.exists then
+          exists = ctx.storage:exists(filename)
+        end
+      end)
+      local sz = 0
+      pcall(function()
+        if ctx.storage.size then
+          sz = ctx.storage:size(filename) or 0
+        end
+      end)
+
+      if write_ok and (exists or sz > 0) then
+        saved_path = base .. '/' .. filename
       end
     end
   end

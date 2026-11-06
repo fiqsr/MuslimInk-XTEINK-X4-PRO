@@ -99,10 +99,6 @@ local d=doy -(153*mp+2)// 5+1
 local m=mp<10 and(mp+3)or(mp - 9)
 return yoe+era*400+(m<=2 and 1 or 0),m,d
 end
-function S.month_len(y,m)
-if m==12 then return 31 end
-return S.days(y,m+1,1)- S.days(y,m,1)
-end
 function S.wday(day)
 return(day+4)% 7
 end
@@ -521,7 +517,7 @@ if not fset then
 S.center_text(gg,cx,y+(h - 30)// 2,hhmm,'large')
 return
 end
-local raw_pack=(h>=60)and fset.big or(fset.sm or(h>=40 and fset.big or nil))
+local raw_pack=(h>=60)and fset.big or fset.sm
 if not raw_pack then
 S.center_text(gg,cx,y+(h - 26)// 2,hhmm,'large')
 return

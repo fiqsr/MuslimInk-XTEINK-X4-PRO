@@ -916,11 +916,6 @@ S.center_text(gg,cx,y+size // 2 - 12,'[ QR CODE ]','medium')
 S.center_text(gg,cx,y+size // 2+8,'Scan via HP','small')
 end
 end
-function S.draw_crescent(gg,cx,cy,r)
-gg:circle(cx,cy,r,{fill=true})
-gg:circle(cx+math.max(2,r // 2),cy - math.max(1,r // 3),math.floor(r*0.82),{fill=true,color=0})
-gg:circle(cx+r+3,cy - r // 2,2,{fill=true})
-end
 function S.draw_hamburger_btn(gg,x,y,w)
 x=x or(S.W - 52)
 y=y or 18
@@ -929,9 +924,6 @@ local ly=y+2
 gg:line(x,ly,x+w,ly,{line_width=3})
 gg:line(x,ly+8,x+w,ly+8,{line_width=3})
 gg:line(x,ly+16,x+w,ly+16,{line_width=3})
-end
-function S.draw_settings_btn(gg,x,y,w,h)
-S.draw_hamburger_btn(gg,x,y)
 end
 function S.draw_menu_icon(gg,kind,cx,cy)
 if kind=='shalat' then
@@ -970,32 +962,6 @@ gg:line(cx,cy - 9,cx,cy+9,{line_width=2})
 gg:line(cx - 9,cy,cx+9,cy,{line_width=2})
 end
 end
-function S.draw_app_icon(gg,x,y,sz)
-sz=sz or 54
-local function sc(v)return math.floor(v*sz / 96+0.5)end
-S.round_rect(gg,x,y,sz,sz,sc(14),nil,true,0)
-S.round_rect(gg,x,y,sz,sz,sc(14),2)
-S.round_rect(gg,x+sc(4),y+sc(4),sz - sc(8),sz - sc(8),sc(10),1)
-gg:rect(x+sc(16),y+sc(76),sc(64),sc(4),{fill=true})
-gg:rect(x+sc(20),y+sc(72),sc(56),sc(4),{fill=true})
-gg:rect(x+sc(28),y+sc(54),sc(40),sc(18),{fill=true})
-gg:rect(x+sc(18),y+sc(32),sc(6),sc(40),{fill=true})
-gg:rect(x+sc(16),y+sc(42),sc(10),sc(2),{fill=true})
-gg:circle(x+sc(21),y+sc(31),sc(3),{fill=true})
-gg:line(x+sc(21),y+sc(20),x+sc(21),y+sc(28),{line_width=1})
-gg:rect(x+sc(72),y+sc(32),sc(6),sc(40),{fill=true})
-gg:rect(x+sc(70),y+sc(42),sc(10),sc(2),{fill=true})
-gg:circle(x+sc(75),y+sc(31),sc(3),{fill=true})
-gg:line(x+sc(75),y+sc(20),x+sc(75),y+sc(28),{line_width=1})
-gg:circle(x+sc(32),y+sc(52),sc(6),{fill=true})
-gg:circle(x+sc(64),y+sc(52),sc(6),{fill=true})
-gg:circle(x+sc(48),y+sc(48),sc(14),{fill=true})
-gg:line(x+sc(48),y+sc(24),x+sc(48),y+sc(34),{line_width=1})
-gg:circle(x+sc(48),y+sc(19),sc(6),{fill=true})
-gg:circle(x+sc(51),y+sc(16),sc(5),{fill=true,color=0})
-gg:rect(x+sc(43),y+sc(60),sc(10),sc(12),{fill=true,color=0})
-gg:circle(x+sc(48),y+sc(60),sc(5),{fill=true,color=0})
-end
 local BLACK={fill=true}
 local function unpack_pack(p)
 if not p then return nil end
@@ -1028,7 +994,7 @@ if not fset then
 S.center_text(gg,cx,y+(h - 30)// 2,hhmm,'large')
 return
 end
-local raw_pack=(h>=60)and fset.big or(fset.sm or(h>=40 and fset.big or nil))
+local raw_pack=(h>=60)and fset.big or fset.sm
 if not raw_pack then
 S.center_text(gg,cx,y+(h - 26)// 2,hhmm,'large')
 return
@@ -1194,17 +1160,6 @@ if cur ~='' then
 lines[#lines+1]=cur
 end
 return lines
-end
-function S.split_quote_lines(s,max_len)
-local lines=S.wrap_lines(s,max_len and(max_len*10)or(S.W - 48),'small')
-local s1=lines[1] or ''
-local s2=lines[2] or ''
-if #lines>2 then
-local rest={}
-for i=2,#lines do rest[#rest+1]=lines[i] end
-s2=table.concat(rest,' ')
-end
-return s1,s2
 end
 function S.parse_ayah_json(str)
 if type(str)~='string' then return nil end
@@ -1507,8 +1462,8 @@ local ry=base_y+(n - 1)*lh+ref_gap
 local rw=S.text_w(ref or '','small')
 gg:text(math.floor((S.W - rw)/ 2),ry,ref or '',{font=S.font('small')})
 end
-S.APP_VERSION='1.2.2'
-S.APP_BUILD=122
+S.APP_VERSION='1.2.3'
+S.APP_BUILD=123
 S.UPDATE_URL='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
@@ -3082,8 +3037,37 @@ local fn=is_en and fnames_en[i] or fnames_id[i]
 local fs=is_en and fsubs_en[i] or fsubs_id[i]
 gg:text(rx+38,ry+14,fn,{font=S.font('medium')})
 gg:text(rx+38,ry+40,fs,{font=S.font('small')})
-local sample_cx=rx+rw - 64
-S.big_clock(gg,sample_time,sample_cx,ry+14,44,i)
+local pw,ph=96,38
+local px=rx+rw - pw - 14
+local py=ry+(rh - ph)// 2
+local ar_digits={['0']='٠',['1']='١',['2']='٢',['3']='٣',['4']='٤',['5']='٥',['6']='٦',['7']='٧',['8']='٨',['9']='٩'}
+local disp_time=(i==6)and(tostring(sample_time):gsub('%d',ar_digits))or sample_time
+if i==1 then
+S.round_rect(gg,px,py,pw,ph,14,nil,true,0)
+S.round_rect(gg,px,py,pw,ph,14,is_sel and 2 or 1)
+elseif i==2 then
+gg:rect(px,py,pw,ph,{fill=true,color=0})
+gg:rect(px,py,pw,ph,{line_width=is_sel and 2 or 1})
+gg:line(px - 1,py,px+5,py,{line_width=2})
+gg:line(px+pw - 5,py,px+pw+1,py,{line_width=2})
+gg:line(px - 1,py+ph,px+5,py+ph,{line_width=2})
+gg:line(px+pw - 5,py+ph,px+pw+1,py+ph,{line_width=2})
+elseif i==3 then
+S.round_rect(gg,px,py,pw,ph,6,nil,true,0)
+S.round_rect(gg,px,py,pw,ph,6,2)
+elseif i==4 then
+gg:rect(px,py,pw,ph,{fill=true,color=0})
+gg:rect(px,py,pw,ph,{line_width=is_sel and 2 or 1})
+gg:rect(px+2,py+2,pw - 4,ph - 4,{line_width=1})
+elseif i==5 then
+S.round_rect(gg,px,py,pw,ph,8,nil,true,0)
+S.round_rect(gg,px,py,pw,ph,8,1)
+S.round_rect(gg,px+3,py+3,pw - 6,ph - 6,6,1)
+elseif i==6 then
+S.round_rect(gg,px,py,pw,ph,10,nil,true,0)
+S.round_rect(gg,px,py,pw,ph,10,is_sel and 2 or 1)
+end
+S.center_text(gg,px+pw // 2,py+(ph - 24)// 2,disp_time,'medium',pw - 8)
 end
 draw_btn(gg,mx+20,my+mh - 54,mw - 40,44,is_en and 'Close' or 'Tutup',true,'medium')
 end

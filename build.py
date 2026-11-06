@@ -279,6 +279,10 @@ def bundle():
     core_proc = strip_function(core_src, "S.draw_mosque")
     core_proc = strip_function(core_proc, "S.draw_modern_logo")
     core_proc = strip_function(core_proc, "S.ornate_card")
+    core_proc = strip_function(core_proc, "S.draw_crescent")
+    core_proc = strip_function(core_proc, "S.draw_settings_btn")
+    core_proc = strip_function(core_proc, "S.split_quote_lines")
+    core_proc = strip_function(core_proc, "S.draw_app_icon")
 
     # Build safe lock_core using semantic block replacements
     start_langs = core_src.find("S.LANGS = {")
@@ -290,7 +294,7 @@ def bundle():
         lock_core = lock_core[:lock_core.find(updater_marker)] + "return S\n"
 
     funcs_to_strip = [
-        "S.generate_hijri_month", "S.parse_htog_json", "S.draw_menu_icon", "S.draw_qr",
+        "S.month_len", "S.generate_hijri_month", "S.parse_htog_json", "S.draw_menu_icon", "S.draw_qr",
         "S.segmented_control", "S.force_refresh_quote", "S.draw_mosque", "S.draw_modern_logo",
         "S.draw_crescent", "S.draw_hamburger_btn", "S.draw_settings_btn", "S.ornate_card",
         "S.parse_hcal_cache_text", "S.load_hijri_month", "S.hijri_event_day", "S.hcal_cache_name",

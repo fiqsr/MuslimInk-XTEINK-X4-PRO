@@ -1223,7 +1223,7 @@ function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
     S.center_text(gg, cx, y + (h - 30) // 2, hhmm, 'large')
     return
   end
-  local raw_pack = (h >= 60) and fset.big or (fset.sm or (h >= 40 and fset.big or nil))
+  local raw_pack = (h >= 60) and fset.big or fset.sm
   if not raw_pack then
     S.center_text(gg, cx, y + (h - 26) // 2, hhmm, 'large')
     return
@@ -1773,8 +1773,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.2.2'
-S.APP_BUILD = 122
+S.APP_VERSION = '1.2.3'
+S.APP_BUILD = 123
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'

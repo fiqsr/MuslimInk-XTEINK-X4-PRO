@@ -16,7 +16,7 @@ CLOCK_FONTS = [
     ("Serif", "/system/fonts/vivoSansClockSerif-Bold.ttf", 100, 31, False),
     ("Bold", "/system/fonts/vivoSansClock-Bold.ttf", 104, 32, False),
     ("Slab", "/system/fonts/vivoSansClockSlab.ttf", 100, 31, False),
-    ("Inline", "/system/fonts/vivoSansClockInline.ttf", 96, 30, False),
+    ("Inline", "/system/fonts/vivoSansClockInline.ttf", 96, 26, False),
     ("Arabic", "/system/fonts/NotoNaskhArabic-Bold.ttf", 124, 38, True),
 ]
 
@@ -181,7 +181,7 @@ def pack_world_countries(features_content):
     c_blocks = re.findall(r"\{\s*name\s*=\s*'([^']+)',\s*method_id\s*=\s*(\d+),\s*cities_count\s*=\s*'([^']+)',\s*cities\s*=\s*\{(.*?)\}\s*\}", orig_table, re.DOTALL)
     for cname, mid, ccount, cbody in c_blocks:
         cities = []
-        max_c = 4 if cname in ('Arab Saudi', 'Amerika Serikat (USA)', 'Malaysia') else 3
+        max_c = 2
         matches = list(re.finditer(r"\{\s*name\s*=\s*'([^']+)',\s*lat\s*=\s*([-\d.]+),\s*lon\s*=\s*([-\d.]+),\s*tz\s*=\s*([-\d.]+),\s*method\s*=\s*'([^']+)'(?:,\s*fajr_ang\s*=\s*([-\d.]+))?(?:,\s*isha_ang\s*=\s*([-\d.]+))?(?:,\s*isha_fixed_min\s*=\s*([-\d.]+))?\s*\}", cbody))
         for cm in matches[:max_c]:
             n, la, lo, tz, meth = cm.group(1), cm.group(2), cm.group(3), cm.group(4), cm.group(5)
@@ -273,7 +273,7 @@ def minify_lua(source):
         if tight:
             out.append(tight)
 
-    joinable_ends = (',', '{', '(', '=', '+', '*', '/', '~=', '==', '<=', '>=', '<', '>', '..')
+    joinable_ends = (';', ',', '{', '(', '=', '+', '*', '/', '~=', '==', '<=', '>=', '<', '>', '..')
     joinable_starts = (',', '}', ')', ']')
     res = []
     for l in out:
@@ -287,7 +287,7 @@ def minify_lua(source):
 
 def bundle():
     print("Packing TrueType clock fonts...")
-    fonts_idx_lua = build_packed_fonts(include_sm=False)
+    fonts_idx_lua = build_packed_fonts(include_sm=True)
     fonts_lock_lua = build_packed_fonts(include_sm=False)
 
     core_src = pack_ayahs(read_text("src/core.lua"))

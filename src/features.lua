@@ -1869,15 +1869,19 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
       gg:circle(cir_x, cir_y, 5, { fill = true })
     end
 
-    -- Font Name & Subtitle
+    -- Font Name & Subtitle (Fitted so it never overlaps right badge)
     local fn = fnames[i]
     local fs = is_en and fsubs_en[i] or fsubs_id[i]
-    gg:text(rx + 38, ry + 14, fn, { font = S.font('medium') })
-    gg:text(rx + 38, ry + 40, fs, { font = S.font('small') })
+    gg:text(rx + 38, ry + 14, S.fit_text(fn, 'medium', 170), { font = S.font('medium') })
+    gg:text(rx + 38, ry + 40, S.fit_text(fs, 'small', 170), { font = S.font('small') })
 
-    -- Live Clock Sample Preview (TrueType scanline renderer)
-    local sample_cx = rx + rw - 64
-    S.big_clock(gg, sample_time, sample_cx, ry + 14, 44, i)
+    -- Live Clock Sample Preview in contained pill badge
+    local pw, ph = 106, 42
+    local px = rx + rw - pw - 12
+    local py = ry + (rh - ph) // 2
+    S.round_rect(gg, px, py, pw, ph, 8, nil, true, 0)
+    S.round_rect(gg, px, py, pw, ph, 8, is_sel and 2 or 1)
+    S.big_clock(gg, sample_time, px + pw // 2, py + (ph - 28) // 2, 28, i)
   end
 
   -- Bottom Done / Close button

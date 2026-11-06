@@ -816,6 +816,21 @@ local function ensure_doa_ready(force_refilter)
   if not doa_state.cached_ids_loaded then
     doa_state.cached_ids_loaded = true
     doa_state.cached_ids = { [1]=true, [6]=true, [8]=true, [10]=true, [25]=true, [48]=true, [68]=true, [128]=true, [135]=true, [141]=true, [172]=true, [214]=true }
+    doa_state.cache = doa_state.cache or {}
+    local raw_c = S.read('doa_cache.json')
+    if raw_c and raw_c ~= '' then
+      local ok, res = pcall(function() return ctx.json:decode(raw_c) end)
+      if ok and type(res) == 'table' then
+        for k, v in pairs(res) do
+          local id_num = tonumber(k)
+          if id_num then
+            doa_state.cache[id_num] = v
+            doa_state.cache[tostring(id_num)] = v
+            doa_state.cached_ids[id_num] = true
+          end
+        end
+      end
+    end
     local raw_ids = S.read('doa_cached_ids.txt')
     if raw_ids and raw_ids ~= '' then
       for id_str in raw_ids:gmatch('%d+') do
@@ -895,13 +910,14 @@ local function open_doa_detail(it)
   if not it or not it.id then return end
   local is_en = (cfg.lang == 'en')
 
-  local cached = doa_state.cache[it.id]
+  local cached = doa_state.cache[it.id] or doa_state.cache[tostring(it.id)]
   if not cached then
     local raw_d = S.read('doa_' .. tostring(it.id) .. '.txt')
     if raw_d and raw_d ~= '' then
       local ok, res = pcall(function() return ctx.json:decode(raw_d) end)
       if ok and type(res) == 'table' and res.id then
         doa_state.cache[it.id] = res
+        doa_state.cache[tostring(it.id)] = res
         doa_state.cached_ids[it.id] = true
         cached = res
       end
@@ -951,12 +967,15 @@ local function open_doa_detail(it)
           local ok, res = pcall(function() return ctx.json:decode(resp.body) end)
           if ok and type(res) == 'table' and res.id then
             doa_state.cache[it.id] = res
+            doa_state.cache[tostring(it.id)] = res
             doa_state.cached_ids[it.id] = true
             doa_state.viewing = res
-            S.write('doa_' .. tostring(it.id) .. '.txt', resp.body)
-            local id_list = {}
-            for cid in pairs(doa_state.cached_ids) do id_list[#id_list + 1] = tostring(cid) end
-            S.write('doa_cached_ids.txt', table.concat(id_list, ','))
+            pcall(function()
+              local enc_ok, enc_s = pcall(function() return ctx.json:encode(doa_state.cache) end)
+              if enc_ok and enc_s then
+                S.write('doa_cache.json', enc_s)
+              end
+            end)
             refresh()
             return
           end
@@ -1242,13 +1261,13 @@ local function check_storage_modal_tap(x, y)
   -- Action 1: Clear Doa Files Cache (ay1 = my + 208, h = 76)
   local ay1 = my + 208
   if y >= ay1 and y <= ay1 + 76 and x >= mx + 16 and x <= mx + mw - 16 then
-    for cid in pairs(doa_state.cached_ids or {}) do
-      S.delete('doa_' .. tostring(cid) .. '.txt')
-    end
-    for _, sid in ipairs({ 1, 6, 8, 10, 25, 48, 68, 128, 135, 141, 172, 214 }) do
-      S.delete('doa_' .. tostring(sid) .. '.txt')
-    end
-    S.delete('doa_cached_ids.txt')
+    S.delete('doa_cache.json')
+    pcall(function()
+      for cid = 1, 250 do
+        S.delete('doa_' .. tostring(cid) .. '.txt')
+      end
+      S.delete('doa_cached_ids.txt')
+    end)
     doa_state.cache = {}
     doa_state.cached_ids = {}
     doa_state.viewing = nil
@@ -2521,6 +2540,30 @@ function on_load(c)
     pcall(function() ctx:set_tick(30000) end)
     pcall(function() ctx:set_tick_rate(30000) end)
     ensure_schedules(false)
+
+    -- Auto cleanup legacy individual doa_*.txt files from storage
+    pcall(function()
+      local migrated = false
+      for id = 1, 250 do
+        local f = 'doa_' .. tostring(id) .. '.txt'
+        local raw = S.read(f)
+        if raw and #raw > 15 then
+          local ok, res = pcall(function() return ctx.json:decode(raw) end)
+          if ok and type(res) == 'table' and res.id then
+            doa_state.cache = doa_state.cache or {}
+            doa_state.cache[res.id] = res
+            doa_state.cache[tostring(res.id)] = res
+            migrated = true
+          end
+        end
+        S.delete(f)
+      end
+      if migrated then
+        local enc_ok, enc_s = pcall(function() return ctx.json:encode(doa_state.cache) end)
+        if enc_ok and enc_s then S.write('doa_cache.json', enc_s) end
+      end
+      S.delete('doa_cached_ids.txt')
+    end)
   end)
 end
 

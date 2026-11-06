@@ -130,7 +130,7 @@ def build_packed_fonts(include_sm=True):
 
         def pack_size(h, gmap):
             w_str = "".join(chr(gmap[c][0] + 35) for c in "0123456789:")
-            c_str = "[=[" + "".join(chr((len(gmap[c][1]) // 8) + 35) for c in "0123456789:") + "]=]"
+            c_str = "{" + ",".join(str(len(gmap[c][1]) // 8) for c in "0123456789:") + "}"
             r_str = ""
             for c in "0123456789:":
                 hex_s = gmap[c][1]

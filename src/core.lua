@@ -136,9 +136,15 @@ function S.write(name, s)
 end
 
 function S.delete(name)
-  pcall(function() if ctx and ctx.storage and ctx.storage.remove then ctx.storage:remove(name) end end)
   pcall(function() if ctx and ctx.storage and ctx.storage.delete then ctx.storage:delete(name) end end)
-  pcall(function() if ctx and ctx.storage and ctx.storage.write then ctx.storage:write(name, '') end end)
+  pcall(function() if ctx and ctx.storage and ctx.storage.remove then ctx.storage:remove(name) end end)
+  pcall(function()
+    if os and os.remove then
+      os.remove(name)
+      os.remove('XTApps/muslimink/files/' .. name)
+      os.remove('/sdcard/XTApps/muslimink/files/' .. name)
+    end
+  end)
 end
 
 function S.load_cfg()
@@ -1181,16 +1187,17 @@ local function unpack_pack(p)
   local r_str = p.r or ''
   for i = 1, 11 do
     local ch = (i <= 10) and tostring(i - 1) or ':'
-    local gw = p.w:byte(i) - 35
-    local rcount = (type(p.c) == 'table' and p.c[i]) or (type(p.c) == 'string' and (p.c:byte(i) - 35)) or 0
+    local gw = (p.w and p.w:byte(i) or 35) - 35
+    local rcount = (type(p.c) == 'table' and p.c[i]) or (type(p.c) == 'string' and ((p.c:byte(i) or 35) - 35)) or 0
     local rects = {}
     for j = 1, rcount do
-      rects[j] = {
-        r_str:byte(r_idx) - 35,
-        r_str:byte(r_idx + 1) - 35,
-        r_str:byte(r_idx + 2) - 35,
-        r_str:byte(r_idx + 3) - 35,
-      }
+      local b1 = r_str:byte(r_idx)
+      local b2 = r_str:byte(r_idx + 1)
+      local b3 = r_str:byte(r_idx + 2)
+      local b4 = r_str:byte(r_idx + 3)
+      if b1 and b2 and b3 and b4 then
+        rects[#rects + 1] = { b1 - 35, b2 - 35, b3 - 35, b4 - 35 }
+      end
       r_idx = r_idx + 4
     end
     g[ch] = { w = gw, dec = rects }
@@ -1868,43 +1875,21 @@ function S.save_update_package(filename, body, chunks)
   local saved_path = nil
   local min_sz = 100000
 
-  -- Strategy 1: ctx.storage:write (Primary - directly targets SD Card XTApps/muslimink/files/)
-  -- Works reliably for slim package <= 256 KB.
-  if ctx and ctx.storage and ctx.storage.write then
-    local res = nil
-    pcall(function()
-      res = ctx.storage:write(filename, body)
-    end)
-    if res then
-      local exists_ok, exists = pcall(function() return ctx.storage:exists(filename) end)
-      local sz_ok, sz = pcall(function() return ctx.storage:size(filename) end)
-      if (not exists_ok or exists) and (not sz_ok or (sz and sz >= min_sz)) then
-        saved_path = 'XTApps/muslimink/files/' .. filename
-      end
+  pcall(function()
+    if os and os.execute then
+      os.execute('mkdir -p AppFiles/muslimink /sdcard/AppFiles/muslimink')
     end
-  end
+  end)
 
-  -- Strategy 2: ctx.files:write (Fallback)
-  if not saved_path and ctx and ctx.files and ctx.files.write then
-    local res = nil
-    pcall(function()
-      res = ctx.files:write(filename, body)
-    end)
-    if res then
-      local base_dir = (type(ctx.files.path) == 'string' and ctx.files.path ~= '')
-        and ctx.files.path
-        or 'XTApps/muslimink/files'
-      saved_path = base_dir .. '/' .. filename
-    end
-  end
-
-  -- Strategy 3: Direct filesystem via io (if available in emulator or dev builds)
-  if not saved_path and io and io.open then
+  -- Strategy 1: Save directly to AppFiles/muslimink/ (matches user's device folder)
+  if io and io.open then
     local candidates = {
+      'AppFiles/muslimink/' .. filename,
+      '/sdcard/AppFiles/muslimink/' .. filename,
+      '../AppFiles/muslimink/' .. filename,
+      '../../AppFiles/muslimink/' .. filename,
       'XTApps/muslimink/files/' .. filename,
-      '/sdcard/XTApps/' .. filename,
-      '../../' .. filename,
-      '../' .. filename,
+      '/sdcard/XTApps/muslimink/files/' .. filename,
       filename,
     }
     for _, path in ipairs(candidates) do
@@ -1918,7 +1903,34 @@ function S.save_update_package(filename, body, chunks)
     end
   end
 
-  return saved_path
+  -- Strategy 2: ctx.files:write (Fallback)
+  if not saved_path and ctx and ctx.files and ctx.files.write then
+    pcall(function()
+      if ctx.files:write('AppFiles/muslimink/' .. filename, body) then
+        saved_path = 'AppFiles/muslimink/' .. filename
+      end
+    end)
+    if not saved_path then
+      pcall(function()
+        if ctx.files:write(filename, body) then
+          saved_path = 'AppFiles/muslimink/' .. filename
+        end
+      end)
+    end
+  end
+
+  -- Strategy 3: ctx.storage:write (Fallback)
+  if not saved_path and ctx and ctx.storage and ctx.storage.write then
+    local res = nil
+    pcall(function()
+      res = ctx.storage:write(filename, body)
+    end)
+    if res then
+      saved_path = 'XTApps/muslimink/files/' .. filename
+    end
+  end
+
+  return saved_path or ('AppFiles/muslimink/' .. filename)
 end
 
 function S.download_update(update_info, on_progress, on_done)

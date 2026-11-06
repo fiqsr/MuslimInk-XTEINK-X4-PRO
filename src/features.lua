@@ -2188,7 +2188,8 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     local succ_title = is_en and '[ OK ] Download Complete!' or '[ OK ] Unduhan Selesai!'
     S.center_text(gg, bx + bw // 2, by + 22, succ_title, 'medium')
 
-    local final_path = update_saved_path or 'XTApps/muslimink/files/muslimink_update.xtapp'
+    local final_path = update_saved_path or 'AppFiles/muslimink/muslimink_update.xtapp'
+    local is_appfiles = final_path:find('AppFiles')
     local is_root = final_path:find('^/sdcard/muslimink') or final_path:find('^muslimink')
 
     -- Inset Box for File Location
@@ -2197,7 +2198,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     S.round_rect(gg, bx + 16, lbox_y, bw - 32, lbox_h, 8, nil, true, 0)
     S.round_rect(gg, bx + 16, lbox_y, bw - 32, lbox_h, 8, 1)
 
-    local folder_val = is_root and 'Kartu Memori (SD Root)' or 'XTApps/muslimink/files/'
+    local folder_val = is_appfiles and 'AppFiles/muslimink/' or (is_root and 'Kartu Memori (SD Root)' or 'XTApps/muslimink/files/')
     local file_val = 'muslimink_update.xtapp'
 
     gg:text(bx + 26, lbox_y + 8, (is_en and 'Folder : ' or 'Folder : ') .. folder_val, { font = S.font('small') })
@@ -2210,18 +2211,24 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     gg:text(bx + 16, ty, is_en and 'Steps to Install on X4 Pro:' or 'Langkah Pemasangan di X4 Pro:', { font = S.font('medium') })
     ty = ty + 24
 
-    local steps = is_root and {
+    local steps = is_appfiles and {
+      '1. Menu Samping -> All Files',
+      '2. Buka AppFiles > muslimink',
+      '3. Klik "muslimink_update.xtapp"',
+      '4. Tekan OK untuk pasang',
+      '5. Buka kembali di Ink App',
+    } or (is_root and {
       '1. Menu Samping -> All Files',
       '2. Klik "muslimink_update.xtapp"',
       '3. Tekan OK untuk pasang',
       '4. Buka kembali di Ink App',
     } or {
       '1. Menu Samping -> All Files',
-      '2. Buka XTApps > muslimink > files',
+      '2. Buka AppFiles > muslimink',
       '3. Klik "muslimink_update.xtapp"',
       '4. Tekan OK untuk pasang',
       '5. Buka kembali di Ink App',
-    }
+    })
 
     for _, s in ipairs(steps) do
       local w_s = S.wrap_lines(s, bw - 32, 'small')

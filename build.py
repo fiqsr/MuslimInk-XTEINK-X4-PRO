@@ -16,7 +16,7 @@ CLOCK_FONTS = [
     ("Serif", "/system/fonts/vivoSansClockSerif-Bold.ttf", 100, 31, False),
     ("Bold", "/system/fonts/vivoSansClock-Bold.ttf", 104, 32, False),
     ("Slab", "/system/fonts/vivoSansClockSlab.ttf", 100, 31, False),
-    ("Inline", "/system/fonts/vivoSansClockInline.ttf", 104, 32, False),
+    ("Inline", "/system/fonts/vivoSansClockInline.ttf", 96, 30, False),
     ("Arabic", "/system/fonts/NotoNaskhArabic-Bold.ttf", 124, 38, True),
 ]
 
@@ -181,7 +181,9 @@ def pack_world_countries(features_content):
     c_blocks = re.findall(r"\{\s*name\s*=\s*'([^']+)',\s*method_id\s*=\s*(\d+),\s*cities_count\s*=\s*'([^']+)',\s*cities\s*=\s*\{(.*?)\}\s*\}", orig_table, re.DOTALL)
     for cname, mid, ccount, cbody in c_blocks:
         cities = []
-        for cm in re.finditer(r"\{\s*name\s*=\s*'([^']+)',\s*lat\s*=\s*([-\d.]+),\s*lon\s*=\s*([-\d.]+),\s*tz\s*=\s*([-\d.]+),\s*method\s*=\s*'([^']+)'(?:,\s*fajr_ang\s*=\s*([-\d.]+))?(?:,\s*isha_ang\s*=\s*([-\d.]+))?(?:,\s*isha_fixed_min\s*=\s*([-\d.]+))?\s*\}", cbody):
+        max_c = 4 if cname in ('Arab Saudi', 'Amerika Serikat (USA)', 'Malaysia') else 3
+        matches = list(re.finditer(r"\{\s*name\s*=\s*'([^']+)',\s*lat\s*=\s*([-\d.]+),\s*lon\s*=\s*([-\d.]+),\s*tz\s*=\s*([-\d.]+),\s*method\s*=\s*'([^']+)'(?:,\s*fajr_ang\s*=\s*([-\d.]+))?(?:,\s*isha_ang\s*=\s*([-\d.]+))?(?:,\s*isha_fixed_min\s*=\s*([-\d.]+))?\s*\}", cbody))
+        for cm in matches[:max_c]:
             n, la, lo, tz, meth = cm.group(1), cm.group(2), cm.group(3), cm.group(4), cm.group(5)
             f = cm.group(6) or ''
             i = cm.group(7) or ''
@@ -304,13 +306,29 @@ def bundle():
     if updater_marker in lock_core:
         lock_core = lock_core[:lock_core.find(updater_marker)] + "return S\n"
 
+    p1 = lock_core.find("------------------------------------------------------------------ astronomical prayer calculator")
+    p2 = lock_core.find("function S.compute(now_info, cfg)")
+    slim_load_month = """function S.load_month(y, m, prov, kab, cfg)
+  local raw = S.read(S.cache_name(y, m))
+  local parsed = S.parse_cache_text(raw)
+  local want = (prov or '') .. '|' .. (kab or '')
+  if parsed and (not prov or not kab or parsed.loc == want) then
+    return parsed.days
+  end
+  return parsed and parsed.days or nil
+end
+
+"""
+    if p1 != -1 and p2 != -1:
+        lock_core = lock_core[:p1] + slim_load_month + lock_core[p2:]
+
     funcs_to_strip = [
         "S.month_len", "S.generate_hijri_month", "S.parse_htog_json", "S.draw_menu_icon", "S.draw_qr",
         "S.segmented_control", "S.force_refresh_quote", "S.draw_mosque", "S.draw_modern_logo",
         "S.draw_crescent", "S.draw_hamburger_btn", "S.draw_settings_btn", "S.ornate_card",
         "S.parse_hcal_cache_text", "S.load_hijri_month", "S.hijri_event_day", "S.hcal_cache_name",
         "S.short", "S.sheet_grabber", "S.split_quote_lines",
-        "S.parse_list_json", "S.diamond", "S.save_cfg",
+        "S.parse_list_json", "S.diamond", "S.save_cfg", "S.delete",
         "S.draw_all_schedule_grid", "S.parse_aladhan_json",
         "S.julian_date", "S.sun_position", "S.calc_day_prayer", "S.generate_month",
         "S.check_for_updates", "S.save_update_package", "S.download_update",

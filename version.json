@@ -1,6 +1,6 @@
 {
-  "version": "1.2.5",
-  "build": 125,
+  "version": "1.2.6",
+  "build": 126,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,17 +9,19 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 261264,
+  "size_bytes": 260944,
   "changelog_id": [
-    "Restorasi Pratinjau Font Jam Asli (Sesuai v1.1.7): Mengembalikan sistem render pratinjau font jam v1.1.7 yang terbukti stabil di perangkat fisik XTEINK X4 Pro dengan font scanline pre-compiled bawaan",
-    "Perbaikan Bug Crash / Freeze Modal Font: Mengeliminasi error render baris 2 (Klasik Serif) yang sebelumnya memotong tampilan dan menyebabkan baris lainnya hilang",
-    "Enam Gaya Font Jam Berfungsi Sempurna: Seluruh font (Modern Bulat, Klasik Serif, Tegas Bold, Geometris Slab, Artistik Inline, dan Angka Arab) tampil rapi, proporsional, dan lancar dipilih",
-    "Optimasi Paket OTA (<256 KB): Ukuran paket tetap berada di bawah batas 262.144 bytes sehingga update via OTA/In-App berjalan tanpa kendala memori"
+    "Peningkatan Kecepatan & Responsivitas Keyboard: Pengetikan pada keyboard virtual E-ink di tab Doa kini instan tanpa lag dengan render tombol langsung dan efek sorot tombol yang diketuk",
+    "Mesin Pencari Doa Cerdas Multi-Token: Pencarian doa ala Google mendukung kata kunci majemuk, pencocokan awalan, sinonim dwibahasa (sholat/prayer, tidur/sleep, makan/food, sakit/sick), dan pemeringkatan relevansi",
+    "Menu Pengaturan Penyimpanan & Cache Baru: Tambahan opsi di Pengaturan untuk hapus cache berkas doa, sinkronisasi katalog 227 doa via GitHub, dan reset bookmark doa tersimpan",
+    "Tampilan UI Rapi & Bebas Terpotong: Seluruh judul doa, pill kategori, dan sumber/hadits kini otomatis dibungkus multi-baris rapi tanpa terpotong atau keluar batas",
+    "Migrasi Dwibahasa Otomatis untuk Doa Terunduh: Deteksi otomatis teks terjemahan campuran/lama pada doa unduhan saat berganti bahasa serta opsi pembersihan sekali klik"
   ],
   "changelog_en": [
-    "Restored Authentic Font Preview Engine (Matching v1.1.7): Reverted to the rock-solid v1.1.7 preview renderer using native pre-compiled TrueType scanlines verified on physical XTEINK X4 Pro hardware",
-    "Fixed Font Modal Freeze / Truncation Bug: Eliminated the row 2 (Classic Serif) rendering crash that previously truncated glyphs and hid remaining options",
-    "All 6 Clock Fonts 100% Operational: All styles (Modern Rounded, Classic Serif, Bold Geometric, Geometric Slab, Artistic Inline, and Arabic Numerals) render smoothly and are fully selectable",
-    "OTA Package Optimization (<256 KB): Cleanly fits under the strict 262,144 bytes OTA limit for smooth in-app firmware updating"
+    "High-Speed Virtual Keyboard Responsiveness: Keystroke responsiveness in the Doa tab is now instantaneous with direct hardware rect rendering and tactile tap highlight feedback",
+    "Smart Multi-Token Google-Style Search: Supplication search now supports multi-word queries, token prefix matching, rich bilingual synonyms (prayer/sholat, sleep/tidur, food/makan), and relevance ranking",
+    "Dedicated Storage & Cache Management: New Settings screen row allowing 1-tap cache clearance, GitHub 227-prayer catalog synchronization, and bookmark resetting",
+    "Perfect UI Layout & Zero Truncation: Category pills, supplication titles, and hadith references now wrap gracefully across multiple lines with clean borders and no clipping",
+    "Bilingual Auto-Migration for Downloaded Prayers: Automatic re-fetch and language switching for cached prayer files ensuring consistent English or Indonesian text"
   ]
 }

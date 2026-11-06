@@ -11,6 +11,7 @@ local hijri_modal = false
 local cfont_modal = false
 local quote_modal = false
 local update_modal = false
+local storage_modal = false
 local update_info = nil
 local update_state = 'idle'
 local update_err = nil
@@ -875,31 +876,46 @@ end
 local function open_doa_detail(it)
   if not it or not it.id then return end
   local is_en = (cfg.lang == 'en')
-  if doa_state.cache[it.id] then
-    doa_state.viewing = doa_state.cache[it.id]
-    return
-  end
-  local raw_d = S.read('doa_' .. tostring(it.id) .. '.txt')
-  if raw_d and raw_d ~= '' then
-    local ok, res = pcall(function() return ctx.json:decode(raw_d) end)
-    if ok and type(res) == 'table' and res.id then
-      doa_state.cache[it.id] = res
-      doa_state.viewing = res
-      return
+
+  local cached = doa_state.cache[it.id]
+  if not cached then
+    local raw_d = S.read('doa_' .. tostring(it.id) .. '.txt')
+    if raw_d and raw_d ~= '' then
+      local ok, res = pcall(function() return ctx.json:decode(raw_d) end)
+      if ok and type(res) == 'table' and res.id then
+        doa_state.cache[it.id] = res
+        cached = res
+      end
     end
   end
 
-  doa_state.viewing = {
-    id = it.id,
-    nama_id = it.nama_id or it.n_id or '',
-    nama_en = it.nama_en or it.n_en or '',
-    grup_id = it.grup_id or it.g_id or '',
-    grup_en = it.grup_en or it.g_en or '',
-    latin = is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...',
-    arti_id = 'Sedang mengunduh teks doa...',
-    arti_en = 'Downloading supplication text...',
-    src = 'Hisnul Muslim',
-  }
+  local need_refresh = false
+  if cached then
+    doa_state.viewing = cached
+    if is_en then
+      if not cached.arti_en or cached.arti_en == '' or cached.arti_en == cached.arti_id or (cached.nama_en and cached.nama_en:find('Supplication for Membalikkan')) then
+        need_refresh = true
+      end
+    else
+      if not cached.arti_id or cached.arti_id == '' then
+        need_refresh = true
+      end
+    end
+    if not need_refresh then return end
+  else
+    doa_state.viewing = {
+      id = it.id,
+      nama_id = it.nama_id or it.n_id or '',
+      nama_en = it.nama_en or it.n_en or '',
+      grup_id = it.grup_id or it.g_id or '',
+      grup_en = it.grup_en or it.g_en or '',
+      latin = is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...',
+      arti_id = 'Sedang mengunduh teks doa...',
+      arti_en = 'Downloading supplication text...',
+      src = 'Hisnul Muslim',
+    }
+  end
+
   doa_state.fetching = true
 
   pcall(function()
@@ -922,7 +938,7 @@ local function open_doa_detail(it)
             return
           end
         end
-        if doa_state.viewing and doa_state.viewing.id == it.id then
+        if doa_state.viewing and doa_state.viewing.id == it.id and not cached then
           doa_state.viewing.latin = is_en and 'Offline: Connect Wi-Fi to load.' or 'Offline: Hubungkan Wi-Fi untuk mengunduh.'
           doa_state.viewing.arti_en = 'Supplication text will be downloaded when device is connected to Wi-Fi.'
           doa_state.viewing.arti_id = 'Teks doa akan diunduh saat perangkat terhubung ke Wi-Fi.'
@@ -953,7 +969,7 @@ function on_draw(c, gg)
     elseif screen == 'month' then
       draw_month_screen(gg, now_info)
     elseif screen == 'settings' then
-      F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, settings_scroll_y, update_modal or cfont_modal or quote_modal)
+      F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, settings_scroll_y, update_modal or cfont_modal or quote_modal or storage_modal)
     else
       if screen == 'tasbih' then
         ensure_tasbih()
@@ -987,6 +1003,13 @@ function on_draw(c, gg)
 
     if update_modal then
       F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress, update_tab)
+    end
+
+    if storage_modal then
+      local cache_c = 0
+      for _ in pairs(doa_state.cache or {}) do cache_c = cache_c + 1 end
+      local saved_c = (doa_state.saved_items and #doa_state.saved_items) or 0
+      F.draw_storage_modal(gg, cfg, draw_btn, cache_c, saved_c)
     end
 
     -- Draw sliding navigation drawer if open
@@ -1175,6 +1198,73 @@ local function check_quote_modal_tap(x, y)
   -- Tap outside modal dismisses
   if x < mx or x > mx + mw or y < my or y > my + mh then
     quote_modal = false
+    return true
+  end
+
+  return true
+end
+
+local function check_storage_modal_tap(x, y)
+  if not storage_modal then return false end
+  local mx, my, mw, mh = 20, 100, W - 40, 580
+  local is_en = (cfg.lang == 'en')
+
+  -- Close button (X) top right
+  local cx, cy = mx + mw - 32, my + 30
+  if x >= cx - 20 and x <= cx + 20 and y >= cy - 20 and y <= cy + 20 then
+    storage_modal = false
+    return true
+  end
+
+  -- Action 1: Clear Doa Files Cache (ay1 = my + 208, h = 76)
+  local ay1 = my + 208
+  if y >= ay1 and y <= ay1 + 76 and x >= mx + 16 and x <= mx + mw - 16 then
+    doa_state.cache = {}
+    doa_state.viewing = nil
+    if doa_state.index then
+      for _, it in ipairs(doa_state.index) do
+        if it.id then S.delete('doa_' .. tostring(it.id) .. '.txt') end
+      end
+    end
+    status = is_en and 'Doa files cache cleared successfully!' or 'Cache file doa berhasil dibersihkan!'
+    refresh()
+    return true
+  end
+
+  -- Action 2: Sync Doa Catalog (ay2 = my + 296, h = 76)
+  local ay2 = my + 296
+  if y >= ay2 and y <= ay2 + 76 and x >= mx + 16 and x <= mx + mw - 16 then
+    S.delete('doa_index.txt')
+    doa_state.synced = false
+    sync_doa_index_online()
+    status = is_en and 'Syncing 227 doa catalog from GitHub...' or 'Menyinkronkan 227 katalog doa dari GitHub...'
+    refresh()
+    return true
+  end
+
+  -- Action 3: Reset Bookmarks (ay3 = my + 384, h = 76)
+  local ay3 = my + 384
+  if y >= ay3 and y <= ay3 + 76 and x >= mx + 16 and x <= mx + mw - 16 then
+    doa_state.saved_set = {}
+    for _, sid in ipairs({ 1, 6, 8, 10, 48, 128, 135, 141, 172, 214 }) do
+      doa_state.saved_set[sid] = true
+    end
+    S.write('saved_duas.txt', '1,6,8,10,48,128,135,141,172,214')
+    ensure_doa_ready()
+    status = is_en and 'Prayer bookmarks reset to default 10!' or 'Bookmark doa dikembalikan ke 10 bawaan!'
+    refresh()
+    return true
+  end
+
+  -- Bottom Done / Close button (y = my + mh - 54, h = 44)
+  if y >= my + mh - 54 and y <= my + mh - 10 and x >= mx + 20 and x <= mx + mw - 20 then
+    storage_modal = false
+    return true
+  end
+
+  -- Tap outside modal dismisses
+  if x < mx or x > mx + mw or y < my or y > my + mh then
+    storage_modal = false
     return true
   end
 
@@ -1390,8 +1480,8 @@ local function handle_tap_settings(x, y)
   -- 3. Middle Scrollable Content (y = 57..725)
   local cy = y + settings_scroll_y
 
-  -- 8 Setting Rows in Apple Inset Grouped card 1 (y = 66..610, row_h = 68)
-  if cy >= 66 and cy < 66 + 544 and x >= 20 and x <= W - 20 then
+  -- 9 Setting Rows in Apple Inset Grouped card 1 (y = 66..678, row_h = 68)
+  if cy >= 66 and cy < 66 + 612 and x >= 20 and x <= W - 20 then
     local i = (cy - 66) // 68 + 1
     if i == 1 then
       -- Segmented control [ ID | EN ] (x = W - 142, w = 106)
@@ -1468,12 +1558,14 @@ local function handle_tap_settings(x, y)
         end
         refresh()
       end)
+    elseif i == 9 then
+      storage_modal = true
     end
     return
   end
 
-  -- Apple Disclosure Group / Accordion tap toggle (Card 2 Header, y = 622..686)
-  if cy >= 622 and cy <= 622 + 64 and x >= 20 and x <= W - 20 then
+  -- Apple Disclosure Group / Accordion tap toggle (Card 2 Header, y = 690..754)
+  if cy >= 690 and cy <= 690 + 64 and x >= 20 and x <= W - 20 then
     about_expanded = not about_expanded
     if not about_expanded then
       settings_scroll_y = 0
@@ -1623,6 +1715,13 @@ local function handle_tap_doa(x, y)
     return
   end
 
+  local function update_q(new_q, lk)
+    doa_state.query = new_q
+    doa_state.page = 1
+    doa_state.last_key = lk
+    doa_state.filtered_items = F.filter_duas(doa_state.index or F.SEED_DOA_INDEX, doa_state.query)
+  end
+
   if doa_state.keyboard then
     if y >= 460 and y <= 776 then
       if y >= 468 and y <= 506 then
@@ -1631,9 +1730,7 @@ local function handle_tap_doa(x, y)
           return
         elseif x >= W - 120 and x <= W - 20 then
           if #doa_state.query > 0 then
-            doa_state.query = doa_state.query:sub(1, #doa_state.query - 1)
-            doa_state.page = 1
-            ensure_doa_ready()
+            update_q(doa_state.query:sub(1, #doa_state.query - 1), 'del')
           end
           return
         end
@@ -1642,9 +1739,7 @@ local function handle_tap_doa(x, y)
         local r1 = { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' }
         local k = (x - 16) // 45 + 1
         if k >= 1 and k <= 10 then
-          doa_state.query = doa_state.query .. r1[k]
-          doa_state.page = 1
-          ensure_doa_ready()
+          update_q(doa_state.query .. r1[k], r1[k])
           return
         end
       end
@@ -1652,35 +1747,27 @@ local function handle_tap_doa(x, y)
         local r2 = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' }
         local k = (x - 38) // 45 + 1
         if k >= 1 and k <= 9 then
-          doa_state.query = doa_state.query .. r2[k]
-          doa_state.page = 1
-          ensure_doa_ready()
+          update_q(doa_state.query .. r2[k], r2[k])
           return
         end
       end
       if y >= 622 and y <= 668 then
         if x >= 352 and x <= 460 then
           if #doa_state.query > 0 then
-            doa_state.query = doa_state.query:sub(1, #doa_state.query - 1)
-            doa_state.page = 1
-            ensure_doa_ready()
+            update_q(doa_state.query:sub(1, #doa_state.query - 1), 'del')
           end
           return
         end
         local r3 = { 'z', 'x', 'c', 'v', 'b', 'n', 'm' }
         local k = (x - 24) // 46 + 1
         if k >= 1 and k <= 7 then
-          doa_state.query = doa_state.query .. r3[k]
-          doa_state.page = 1
-          ensure_doa_ready()
+          update_q(doa_state.query .. r3[k], r3[k])
           return
         end
       end
       if y >= 676 and y <= 730 then
         if x >= 24 and x <= 284 then
-          doa_state.query = doa_state.query .. ' '
-          doa_state.page = 1
-          ensure_doa_ready()
+          update_q(doa_state.query .. ' ', 'space')
           return
         elseif x >= 296 and x <= 460 then
           doa_state.keyboard = false
@@ -1707,9 +1794,7 @@ local function handle_tap_doa(x, y)
   if doa_state.tab == 'search' then
     if y >= 98 and y <= 144 and x >= 20 and x <= W - 20 then
       if x >= W - 64 and doa_state.query ~= '' then
-        doa_state.query = ''
-        doa_state.page = 1
-        ensure_doa_ready()
+        update_q('', nil)
       else
         doa_state.keyboard = true
       end
@@ -1724,13 +1809,11 @@ local function handle_tap_doa(x, y)
         local chip = F.DOA_CHIPS[idx]
         if chip then
           if doa_state.query:lower() == chip.id then
-            doa_state.query = ''
+            update_q('', nil)
           else
-            doa_state.query = chip.id
+            update_q(chip.id, nil)
           end
-          doa_state.page = 1
           doa_state.keyboard = false
-          ensure_doa_ready()
           return
         end
       end
@@ -2140,6 +2223,7 @@ function on_input(c, ev)
       local x, y = tonumber(ev.x) or 0, tonumber(ev.y) or 0
       local ok, err = pcall(function()
         if check_drawer_tap(x, y) then return end
+        if check_storage_modal_tap(x, y) then return end
         if check_update_modal_tap(x, y) then return end
         if check_cfont_modal_tap(x, y) then return end
         if check_quote_modal_tap(x, y) then return end
@@ -2262,6 +2346,10 @@ end
     if ev.key == 'back' then
       if drawer_open then
         drawer_open = false
+        refresh()
+        return true
+      elseif storage_modal then
+        storage_modal = false
         refresh()
         return true
       elseif update_modal then

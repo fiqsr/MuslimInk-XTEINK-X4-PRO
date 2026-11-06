@@ -5,7 +5,7 @@ CF[1] = { name = "Rounded", big = { h = 82, w = [=[fW``ebc_ecD]=], c = {71,23,69
 CF[2] = { name = "Serif", big = { h = 79, w = [=[lVdciee`jeB]=], c = {75,26,66,81,41,68,82,49,101,82,26}, r = [=[A$0$>%6$;&;$9'?$8(B$6)E$5*2$J*2$4+2$L+2$3,2$L,3$2-3$M-2$1.3$N.2$0/4$N/3$003$N04$O13$/14%O24$.34$O35$P44$-45&P55%P76$,75%Q85%+96'Q:6'Q>7%*=6'R@6&RC72)A75RR6&*S6'QU7%*W7$+X6&QW6'Q[5$P\6$,[5&-^5%P]5&P`4$.`4%Oa5$Ob4$/b4%Oc3$0d3$Nd4$1e3$Ne3$2f2$Mf3$2g3$Mg2$3h2$Lh2$4i2$Ki2$6j2$Jj2$7kD$8lB$:m>$<n:$>o5$Bp-$B%($@&*$>',$<(.$:)0$8*2$6+4$4,6$2-8$0.:$./<$,0>$*1@$(2B%(4&$149$258$367S2f8%2h9$1i:$0j<$/k?$,lD$*mI%*oH$<$/$9%6$6&;$5'>$3(B$2)D$1*F$0+H$/,J$.-L$-.M$,/O$,0P$+1Q$+2,$;2A$*3*$>3?$*4($?4>$*5'$A5<$)6'$*7%$B6;%+8$$C8:$D99$D::%E<8)EB7&EE6%DG6%DI5$CJ5%BL5$BM4$AN4$@O4$@P3$?Q3$>R3$=S3$<T2$;U2$:V1$9W1$8X0$7Y0$6Z/$5[.$Z[&$3\.$Y\'$2]-$X]($1^,$V^*$/_,$S_-$.`Q$,aS$+bT$)cV%)eU))kT(>$-$9%6$6&<$4'@$2(C$1)F$0*H$/+J$.,L$--N$,.O$,/+$=/?$+0)$?0=$*1)$@1=$*2($A2<$*3'$B3;$*4&$+5$$C4:%D69)D<8&C?8$C@7$BA7%AC6$@D6$>E6$<F5$7G7$6H9$6I=$6J?$9K>$>L;$@M:$BN9$CO9$DP9$EQ9$FR8$FS9$GT8$/U%$GU9$,V+$*W.$)X0$(Y2$(Z3%HV8,G_9$'\4('a3$G`8%(b2$Fb9$(c1$(d0$Ec9%)e.$De9$)f)$Cf9$*g)$Ag;$+h)$?h<$,i+$=i=$-jK$.kI$/lF$1mC$2n@$5o:$9p2$I%4$H&5$G'6%F)7$E*8%D,9$C-:%B/;$A0<%@2($?3(%>5($>6'$=7($<8($<9'$;:($:;(%9=($8>(%7@($6A(%5C($4D(%3F($2G(%1I($0J(%/L(%.N($-O(%,Q($+R(%*T($)U($F27G)V]$(W^$'X_%&Z`-Fd7/3%L&2(L)1.L)04M$05($06''/:($/;'(A?/$.@($=@7$:A<$8B@$6CC$.A''5DF$-E($3EI$-FP$-GQ$-H-$@H>$-I+$BI=$-J*$CJ<$,K*$DK<$,L)$EL;$,M($FM;%GO:%0U&$-V,$HQ:),W.$+X0$IW9%*Y2$*Z3$HY:&H\9')[4)G`9%)a3%Fb:$*c1$Fc9$*d0$Ed:$+e-$De:$+f)$Cf:$,g)$Bg:$-h*$@h;$.i,$=i=$/jJ$0kH$2lE$3mB$5n>$8o8$=p.$Q%.$K&4$G'8$D(8$A)6$?*5$=+5$;,5$:-4$8.5$7/5$605$416$326$236$146$056$065$/76$.86$-97$-:6$,;7$+<7%*>7&H@)$)A8$DA2$)B7$BB6$@C:$?D=$(C8&>E?$(FV$'G>$FG9$'H<$HH8$'I;$II7$JJ7$'J:%JK8$KL7$'L9%KM8$LN7%LP8$&N9'&R8%'T7*([6'MQ71)_5%*a4$M_6&*b5$Mb5$Lc6$+c4%Ld5$,e3$Le4$-f3$Kf5$.g2$Kg4$.h3$Kh3$0i1$Ji3$1j1$Ij3$2k1$Hk2$3l2$Fl3$5mB$7n>$:o8$?p.$*%U))+V)(1V$(2U$(3T%(5+$Q5*$'6*$P6*$'7($O7+$'8'$N8+$'9&$M9+$L:,$K;,$J<,$I=-$I>,$H?-$G@-$FA.$EB.%DD.$CE/$BF/%AH/$@I0%?K0$>L1%=N1$<O2%;Q2$:R3%9T3%8V4%7X4%6Z5$6[4$5\5%4^6%3`6%2b7%2d6$1e7%0g8&/j8&.m9&>$3$:%;$7&A$5'E$3(2$J(2$2)1$L)1$1*0$N*0$0+0$O+0$/,0$P,0$.-1$P-1$-.1%Q.1%Q02$,02&R11%+33'R32'+74%+95$Q73&+:6$+;7$P:3%+<9$O<3$+=;$N=4$,><$M>4$,?>$L?4$,@A$K@4$-AP$-BO$.CL$/DH$0EH$1FI$2GJ$4HI$5IJ$7JI$4KM$2LP$0MS$/NU$-OX$,P7$BPC$+Q7$DQB$+R6$FR@$HS?$*S6%JT=$)U6$KU<$)V5$MV;$NW:$(W6%OX9$PY8$QZ7$(Y5&R[6&S^5$(\4(S_4&)a3%)c4$Sb3%*d3$Sd2$+e2$+f3$Re2%,g2$Qg2$-h2$Ph2$.i2$Oi2$/j3$Nj2$1k2$Lk2$2l5$Il4$4mG$7nA$:o;$?p1$<$1$8%9$5&?$3'C$2(2$F(2$0)3$H)1$/*3$I*1$.+3$J+1$-,3$J,2$,-4$K-2$+.4$K.3$K/4$*/5%L03$L14$)15%L25%(36%'57$L46%M65$'66'M76'&:7(M;7(&?8%'A7'L@8)(E7&KF9&)H7%JI:$*J7$*K8$IJ;%+L8$GL<$,M9$EM>$-NV$.O?$KO8$0P<$1Q9$KP7%3R5$JR8$6S0$<T$$JS7&IV7%HX7$HY6$GZ7$G[6$F\7$F]6$E^6$D_6$D`5$Ca5$Bb5$Ac5$@d5$?e5$>f4$<g5$;h4$9i4$6j5$3k6$.l8$+m8$+n4$,o,$0-($..,$-/.$,00$+12%+33$*44'+83$+92$,:1$,;0$.<-$/=*$/Q*$.R-$-S/$,T1$+U2$+V3$*W4'+[3$+\2%,^0$-_.$.`,$1a'$]=] }, sm = { h = 25, w = [=[:377977697-]=], c = {26,8,21,25,18,23,25,18,28,24,8}, r = [=[*$+$)%($/%($(&($0&($''($0')$1(($&()%&*($1))&1,*%2.)&11*%%+)-13)&&5)%16($'7($07)$(8($08($)9'$/9($*:+$.;$$,$%$*%'$(&)$&'+$$(-$())3'9+$%:/$)$*$'%.$&&0$&'1$%(%$+(,$%)$$,)+$-**%.,)%-.)%-0($,1($+2($*3'$)4'$(5&$35%$&62$%73$%82&)$+$'%.$&&0$&'%$+',$%($$-(*'-,)$,-)$*.)$)/+$,0*$-1*$%3&$%4'$$5)$$6($.2*(%7'$.7)$%8%$,8+$&90$':-$+;&$.$)%-&*$,'+$,($$+)%$**%$*+$$),%$)-$$(.$$'/%$'0$$&1%$%2%$.().%35$$46'.8)&($0$(%/%''0%')$&+,)$&,%%)--$&.1$&/%$-/+$&0$$.0*%.2+$&3&$/3*%%4(&%7'$.5*&&8%$-8*$'9/$(:,$,;$$/$)$,%)$*&)$)'($((($'))$&*)%/,$$%,)%,-*$$.3$$/+$//)$/0*$$0*&$3)%01))%5)&07($&8($/8)$'9($/9($):,$,;%$%$3'%(2$$)%$1)%$0*&$/+&$.,&$--'$-.&$,/'$+0($+1'$*2($)3)$)4($(5)&'8*$'9)%)$-$'%($0%'$'&'$1&'$&''%%))%1'('&+*$0+)$&,2$'-/%)//$'02$&1)$-1-$/2+$%2)%03*$14)$%4('25(&&8($18($'9($09($):-$-;%$)$+$'%($.%($&&($/&($%')$%(($0'(%$))'$-*$0))(%.)%/.*%&0*$.0+$'12$)2'$/2)%.4)%-6)$,7)$+8($)9)$&:)$&''$%((%&*'$&+&$&2'$%3(%&5'$&6&$]=] } }
 CF[3] = { name = "Bold", big = { h = 81, w = [=[fW``ebc_ecD]=], c = {71,24,71,75,50,59,82,48,90,79,25}, r = [=[@#-$<$5$9%;$8&=$6'A$5(C$4)E$3*G$2+I$1,K$0-L$0.M$//4$I/5$.04$K03$.12$L13$M22$-22%-41$N32%,52$O51$O62$,61%P71%Q90$+81&+;0$Q:1'R>0$*<1'*@0%R?1+SG0,)B16*U0%RP1*RW0%*W1'+[0$QY1&Q\0$+\1&P]1&,_1%,a2$O`1%-b1$Nb1$-c2$Mc2$.d2$Ld2$.e3$Ke3$/f4$If4$/gN$0hL$1iJ$2jI$2kH$3lF$4mD$6n@$7o>$9p:$;q6$?r/$?$+$=%.$;&1$9'3$7(5$5)7$3*9$2+:$0,<$.->$,.@$+/A%*1B%*33$*42$*50$*6.$*7,$*8*$*9($*:'$;31`;p0$<q.$;#.$7$6$5%;$3&?$1'B$0(E$/)G$.*I$-+K$,,L$+-N$+.O$*/6$C/7$)04$F05$)12$H13$)21$I22$*3/$J32$+4-$-5*$K41%/6'$17$$L60%L81&M;0$L<0(KA1$KB0$JC1%IE1%HG1$GH2$FI2%EK2$DL2$CM3$BN3$AO3$@P3$?Q4$>R4$=S4$<T4$<U3$;V3$:W3$9X3$8Y3$7Z3$6[4$5\4$4]4$3^4$2_4$1`4$0a4$/b4$.c4$-d4$,e4$+fQ%*hS$)iT%(kU((pT$)qR$:#/$6$7$3%=$2&?$0'C$.(F$-)I$,*K$++L$*,N$)-P%)/4$C/7$)02$F04$*1/$H13$+2-$I22$,3+$-4)$J31%/5%$K50*K</$J=0%I?0$H@1$GA1$EB2$AC6$6D@$6E>$6F=$6G;$6H9$6I<$6J>$6K@$6LA$6MB$6NC$BO8$FP5$HQ4$JR2$KS2$LT1%MV1'NZ0%M\1'L`2$,a'$La1$+b)$Kb2$*c,$Jc3$)d.$Id3$(e1$Ge5$(f4$Df7$'gT$'hS$(iQ%)kO$*lM$,mI$-nG$/oC$1p?$4q:$8r1$L$,$K%.$J&/$I'0%H)1$G*2%F,3$E-4%D/5$C06%B27$A38%@59$?6:%>8;$=9/%<;/$<<.$;=/$:>/$:?.$9@/$8A/%7C/$6D/%5F/$4G0$4H/$3I/$2J0$2K/$1L0$0M0$0N/$/O0$.P0$.Q/$-R0$,S0%+U0$*V0%J9/B)X1$IX9$(YZ$(Z[$'[\+'c[$Id00Jq.$/$K$-%N,,.O$,/N$,00',4/*+;0(>@0$;A6$9B:$+@/'8C=$+DK$+EL$+FN$+GO%*IQ$*JR$*K4$FK7$+L1$IL4$,M.$JM4$.N+$KN3$2O%$LO2$MP2%NR1%OT0$OU1*O\0$N]1&/`%$M`2$.a'$-b*$La2%,c,$Kc3$+d/$Id4$*e2$Ge6$)f6$Df8$)gS$)hR$)iQ$*jO$+kM$,lK$.mH$0nE$1oB$3p>$6q8$:r1$C$/$A%1$@&2$?'3$?(2$>)2%=+2$<,2%;.2$;/1$:02$912$921$832$841$751$662$671$581%4:1$3;2$3<1$2=1$1>2$1?1$A@/$0@1%?A5$/BG$/CH$.DK$-EM$-FN$-GO$,HQ$,IR$+J9$GJ7$+K6$JK5$*L5$LL4$*M4$MM3$*N3$NN2$*O2$OO2$)P2%PP1%)R1&)U0$QR1)RX0%(V1))\1&QZ1(P_2$)_2%P`1$Oa2$*a2%Nb3$*c3$Nc2$+d3$Ld4$+e5$Ke4$,f7$Hf7$-gQ%.iO$/jM$0kK$1lI$2mG$4nC$5oA$7p=$:q7$=r1$)$S$'%W+'-V%(/T$M0/$L10$L2/$K30$K4/$J50%I70%I9/$H:0%G<0%F>0%F@/$EA0%DC0%CE0%BG1$BH0%AJ0%@L1$@M0$?N1$?O0%>Q1$>R0$=S1$=T0$<U1%;W1%;Y0$:Z1$:[0$9\1%8^1%7`1&6c1%5e1%4g2$4h1%3j1%2l2$2m1$1n2$1o1%1q/$>#/$:$7$8%<$6&@$4'C$3(F$1)I$0*K$0+L$/,M$.-7$F-7$..3$J.4$-/3$K/3$-02$,12$M02%,21%N21%O41*,40,O;0%,=1$N=1$->0$N>0$-?1$M?1$.@1$L@1$.A2$KA2$/B3$IB3$0C6$EC6$1DI$2EG$3FE$5GA$6H?$4IC$3JF$1KI$0LK$/MN$.N6$GN6$-O4$JO4$,P3$LP3$,Q2$NQ2$+R2$OR1$+S1$OS2$*T1%PT1%*V0$QV1(R[0$)W1-Q\1()a2$*b1$Pa2%*c2$*d3$Oc2%+e3$Ne3$+f4$Lf4$,g5$Jg6$,hS$-iQ$.jO$/kN$0lK$1mI$2nG$4oC$6p?$9q9$=r1$=#/$9$6$6%<$4&@$2'D$1(F$0)H$/*K$.+M$-,N$,-P$+.R$+/7$G/7$*05$I05$*13$K14$)23$L23$)32$M33$N42$(42%O51%(61%'82$'91,P71/(B1%OC1%(D2%NE2$)F2$MF3$)G3$MG2$*H3$KH4$*I4$JI5$+J6$HJ6$+KS$,LR$-MP$.NO$/OM$0PL$1QJ$3RH$5SE$7T3$IT1$;U+$HU1$GV1%FX1$EY2$EZ1$D[1%C]1$B^2$B_1$A`1$@a2$@b1$?c2$>d2$>e1$=f2$=g1$<h2$;i2%:k2$9l2%8n2%7p2$8q/$0-)$..-$-//$,01$,12$+23$+34)+93$,:2$-;0$.<.$/=,$2>&$0R*$.S-$-T/$,U1$,V2$+W3$+X4)+^3$,_2$-`0$.a.$/b+$]=] }, sm = { h = 26, w = [=[8366767677-]=], c = {25,8,21,23,17,23,28,15,30,27,8}, r = [=[*$*$)%,$(&.$''0$&(($0('$0)($&)'%%+($1*'%1,(%2.'(13($%,',%5($&6'$14'&&7($07($'8($/8($'90$(:.$);+$,<%$+$&$)%)$(&*$&',$%(-$%)'$%*&$*)(6)$)$'%-$&&/$%'1$%('$.(($&)%$/)($0*'&/-'%./($-0($,1($+2)$*3)$*4($)5($(6($'7($&8)$%92&)$)$'%-$&&/$%'1$%('$.(($&)%$/)''.-'$).+$)/*$)0,$)1-$/2($03''%7&$/7($%8'$.8)$$92$%:0$';-$+<%$0$%$/%'$.&($-')%,)*$+*+$++&$*,'$)-'%(/'$'0'%&2'$%3'$/+',%43$$55&/8'''$/$&%0&&('&&+&%%-'$*-*$%.0$%/1$%0($.0)$'1$$/1($02(%14'$05(%&7%$/7($%8($.8)$%91$&:/$(;,$+<%$-$&$,%'$+&($*'($*('$))($)*'$(+'$',($'--$&.0$&/1$%0)$/0)$%1($01($12'%14($%2'(15'%%7($07($&8($/8)$&91$':/$);,$,<%$%$2$$%3&0(&$/)'%.+'%--'&,0'%+2'%*4($*5'$)6($)7'%(9($(:'$';($*$)$(%-$'&/$&'($/'($0((%1*'$0+($&('(0,'$'-'$/-($(..$)/,$'0/$&1)$/1($&2'$02($13'%%3''15(%%7($17'$%8)$08($&91$':/$(;-$,<%$)$*$(%-$&&0$&'1$%(($/(($%)'$0)($$*('1*''%.'$0.($%/($//)$&01$'10$(2.$+3%$.3($.4'$-5'$,6($,7'$+8($+9'$*:($);($'&%$&''$%()%&*'$'+%$&2'$%3)%&5'%]=] } }
 CF[4] = { name = "Slab", big = { h = 78, w = [=[hWbcgee`geB]=], c = {65,16,70,85,41,59,79,45,90,79,26}, r = [=[?$0$;%8$9&<$7'@$6(B$4)F$3*H$2+J$1,L%0.N$//P$/06$H07$.16$J16$.25$K25$-35$L35$-44$M44$,55$M55$,64%N64%N85$+84&*;5$O94&O<5$*<4(P=4(PB5$QC43)A46PS5$)T5$PT4(*U4(+Z4&OY4'N]4%,]4&M_5$-`4$M`4$-a5$La5$.b5$Kb5$.c6$Jc6$/d7$Hd7$/eP$0fN$1gL%2iJ$3jH$4kF$6lB$7m@$9n<$<o6$@p.$:%/$7&2$5'4$3(6$1)8$/*:$-+<$*,?+*4-$*5*$*6($*7&$*8$$544S*dJ.*oI$<$/$9%6$6&;$4'?$3(A$1)D$0*G$/+H$.,J$--L$,.N%+0P$*18$C18$*25$F26$)34$H34$)43$I43$(53$J52$)61$J63$+7.$-8+$/9)$1:&$2;%$K72+K?1$J@2&IC2$HD3%GF3$FG4$EH4%DJ4$CK4$BL4$AM5$@N5$?O5$>P5$>Q4$=R4$<S5$;T5$:U5$9V5$8W5$7X5$6Y5$5Z5$4[5$3\6$2]6$Q[-&1^6$0_6$/`6$.a6$P^.'-b6$,c7$Ob/%,dR$+eS$*fT$)gU,<$0$8%8$5&>$3'A$2(D$0)G$/*I$.+K$-,M$,-N$,.O$+/P$+0Q$*16$E17$*24$G26$)34$H35$)43$I44$)52$)61$+7.$-8,$J53'/9)$1:'$K92%3;%$J;3%J=2$I>3%H@3$GA4$EB5$BC7$=D<$=E;$=F9$=G8$=H6$=I7$=J9$=K;$=L<$=M>%CO9$FP7$GQ7$IR5$-T*$JS5%+U.$KU4$*V0$KV5$)W2$)X3$(Y4$(Z5$LW4*K^5%'[6)J`6$Ja5$(a4%Ib6$(c3$Hc7$)d4$Fd8$)e7$Ce:$*fS$+gQ$+hP$,iN$-jL$/kI$0lF$2mB$4n>$7o8$<p/$F%4$E&5$D'6%C)7$B*8%A,9$@-:%?/;$>0<%=2=$<3>%;5?$:6@%98/$89/$8:.$7;/$6</%5>/$4?/%3A/$2B/%1D/$0E0$0F/$/G/%.I/$-J/%,L/$+M0$+N/$*O/$)P0$)Q/$(R/$F84>'S^%&U_+F]4+Ee5$=fE-.%O).+N%--O'-1/,E=$$>>2$<?7$,:/*:@;$,AK$,BL$,CN$,DO$,EP%+GR$+HS$+I4$DI:$+J1$GJ8$+K/$HK7$+L.$JL6$+M-$KM5$LN4%MP4%.T*$,U.$+V1$*W2$*X3$)Y5&NR3-M\4%(\6'L^4%)`5$K`5$Ja5$)a4%Ib6$Hc6$*c2%Fd8$+e4$Ce:$+fQ$,gP$-hN$.iL$/jJ$0kG$2lD$4m@$6n<$9o6$=p.$P%.$I&5$E'9$B(<$@)>$>*@$<+B$;,C$9-E$8.<$7/9$608$517$426$336$245$155$164$075$/85$/94$.:4%-<4%,>4%,@3$B@1$?A7$+A4%=B;$+CO$*DQ$*ER$*FS$*GT$*HU$)IW%)K9$JK7$)L7$LL5$)M6$MM5$)N5$NN4$OO3$OP4$)O4&PQ3')R3()W2%QU3(QZ2$)Y3&*\2%P[3'*^3%O_4$O`3$+`3%Na4$+b4$Mb4$,c4$Lc5$,d6$Jd6$-e7$He8$.fQ$.gP$/hN$0iM$1jJ$3kG$4lE$6mA$8n=$:o8$?p.$'%X,'.W&'1/%M10&L40%K61$'3.(K70$J81$'8-%J90$I:1%I<0$H=1%G?1%FA1&ED1%DF2$DG1$CH2%CJ1$BK2$BL1$AM2%@O2%?Q3$?R2%>T2%=V3$=W2$<X3%<Z2$;[3%:]3%9_3&8b3%7d4$7e3$6f4$6g3%5i4$5j3$4k4%3m4%3o3$>$1$:%9$8&>$6'B$4(E$3)H$1*K$0+M$/,O$/-P$..Q$-/8$I/7$-05$K06$,15$L15$,24$M24$N34$,33%O43%+53'+92$P62)+:3&,=2$O<3%O>2$,>3%N?3$-@3$M@4$-A4$LA4$.B5$JB6$/C7$GC8$/DO$0EM$1FK$3GH$4HE$5ID$3JG$1KK$0LM$/MP$.NR$-O6$JO7$,P5$LP5$+Q5$NQ4$+R4$*S4$OR4%*T3$PT4$)U4$QU3&RX3()V3,Q]4%Q_3$)_4%P`4$)a5$Oa5$*b5$Nb6$*c6$Mc6$+d7$Ld7$+e:$Ie9$,fV$-gT$-hS$.iQ$0jN$1kL$2lI$4mE$7n@$:o:$?p0$<$1$8%9$5&>$3'B$2(E$0)H$/*J$.+L$-,N$,-P$+.R$+/7$G/7$*06$I05$)15$K14$L23$)24%L34$(44$M43$N52$(53%'74$N63%O82&'83-O;3*'B4$(C3%NB4&(E4$ME5$)F4$LF6$)G5$KG7$)H6$JH8$*I7$HI9$*JW$+KV$,LU$-MT%.OR$0PP$1QO$3R:$LR4$5S6$9T0$KS4%KU3$JV4%IX4%HZ4$G[5$G\4$F]4$E^5$D_5$C`5$Ba5$@b7$>c8$<d9$:e:$6f=$-gD$-hC$-iA$-j?$-k=$-l;$-m8$-n4$-o,$0,($.-,$-..$,/0$+02%+23$*34'+73$+82$,91$,:0$.;-$/<*$/P*$.Q-$-R/$,S1$+T2$+U3$*V4'+Z3$+[2%,]0$-^.$._,$1`'$]=] }, sm = { h = 25, w = [=[8377877687-]=], c = {24,7,21,25,19,19,23,17,25,28,8}, r = [=[*$+$(%.$'&0$'')$.'*$&()$0(($&)($0))$%*)%1*((1/)%%,(+%4)$11('05)$&5(%06($'7)$/7)$'80$(9.$):,$-;$$)$($'%*$%&,&%)%$))(1&7.$%8/&)$*$'%.$&&0$%'1$%(($.()$%)'$'*$$/)((..($-/)$,0)$+1)$+2($*3($)4($(5($'6)$15&%&71$%82&)$+$'%.$&&0$%'2$%(($.()$%)'$'*%$/)(&.,($,-*$+.*%+0+$.1)$/2)$%3'$03(&$4)&/6)$%7($.7)$%82$&90$(:,$,;$$.$($-%)$,&*%+(+$*),$**&$)+'$(,'$(-&$'.'$&/'$&0&$%1'$.*(+$25$$36%-5)$.6(%+8.&&$1'&(''&,/$&-0$&.1$&/'$./*$&0&$/0)$%3(%%5)$01((/6)$%6(%.7)$&81$'9/$(:,$,;$$/$($,%+$*&-$)'*$(()$'))$'*($&+(%-,'$%-1$%.2$%/3$%0)$00($11((%1()06)$&7($/7)$'81$'90$):,$-;$$$$4&$'3$0('$$('%/)($%*%$/*'%.,'%-.($-/'$,0(%,2'$+3(%*5(%)7(%(9)$(:($)$,$(%.$'&0$&')$/')$&(($0(($&)'%1)(&&+(%0,($'-1$(./$(/.$'00$&1)$01($%2((12((%7)$07)$&82$'90$(:.$-;$$)$+$'%/$&&1$%')$/'($%(($$))$0((%1*'$$*(&1+(%$-)$0-)$%.($0.($%/3$&02$'11$)2($/2)$/3($.4)$.5($-6($+7*$&8.$&9,$&:)$&''$%((%&*'$&+&$&2'$%3(%&5'$&6&$]=] } }
-CF[5] = { name = "Inline", big = { h = 81, w = [=[fW``ebc_ecA]=], c = {136,33,123,132,97,100,165,86,179,161,37}, r = [=[@#-$<$5$9%:$8&=$6'A$5(-$K(-$4)+$N)+$3**$P**$2+*$@+-$Q+*$1,)$=,3$S,)$0-)$;-7$T-($0.($:.9$T.)$//)$9/;$U/)$.0)$80*$J0+$V0($71*$L1)$V1)$.1(%62)$M2)$W2($63($N3)$W3)$-3(%54)$O4($55($X4(%,5(%P5(%,7'$46(&Y6(&Q7(&Z9'$+8(&39(%R:'$+;'$3;'$Z:(&R;(&S>'$[='%*<('2<('*@'%2@'%S?()[?(*\F'-TE'/)B(61B(6[P()*U'%2U'%SQ()SW'$[V'&*W('2W('RX(&+['$R['$ZY(&Z\'$3[(&Q\(%+\(&Y](%4^(%P^(%Y_'$4`)$O`)$,_(&5a($Oa($X`(%5b)$Nb)$-b(%6c)$Mc)$Wb(%7d)$Ld)$.d(%7e+$Je+$Vd(%/f($8f.$Ff.$Uf($/g)$9g:$Tg)$0h)$;h6$Sh)$1i)$<i4$Ri)$1j*$?j.$Qj*$2k*$Pk*$3l+$Nl+$4m-$Km-$6nA$7o>$9p:$;q6$?r/$@$$$D$'$>%&$<&($:'*$8(,$6).$5*/$3+1$1,,$/-,$-.,$<,(&+/,$;/)$+0+$90+$+1)$71-$+2'$52/$+3%$331$14,$/5,$-6,$,7+$+8*$+9)$+:'$+;%$<4(aD%(p;#.$7$6$4%;$2&?$0'B$/(.$G(-$.),$J)+$,*,$K*+$+++$;+-$M+)$*,*$8,3$N,)$)-*$6-7$O-)$).)$4.:$P.($(/)$3/<$)0'$20+$F0*$Q/(%*1%$11*$H1)$02*$I2)$R1(%/3)$S3'$.4)$J3(%.5($/6&$07$$K5('L9'$K:((S4(.K?'$S?'$J@(%R@(&IB(%HD(%QC(&GF($FG)$PF(%FH($OH($EI($NI)$DJ)$NJ($CK)$MK)$LL)$BL)%LM($AN)$KN)$@O)$JO)$?P)$IP)$>Q)$=R)$HQ)%<S*$GS)$;T*$FT)$:U*$EU)$:V)$DV)$9W)$CW)$8X)$BX*$7Y)$BY)$6Z)$AZ)$5[)$@[)$4\)$?\)$3])$>])$2^)$=^)$1_*$<_)$0`*$;`)$/a*$:a)$.b*$9b*$-c*$8c*$,d*$7d*$+e*$6eE$*f*$)g*$5fF%(h*$4hG$(i)$3iH$(j(&(mS(;#/$7$6$4%<$2&@$0'C$.(/$H(,$-),$J)+$,*+$L**$*++$;+.$N+)$*,*$8,4$O,)$*-($6-8$P-)$+.&$4.;$,/$$2/>$Q.(%10,$G0*$/1,$I1)$R0(%.2+$S2'$.3*$J2(%/4'$05%$K4(*S3(+S;'$J;(%I=)$H>)$R<(&G?)$E@+$Q?(%DA+$PA($AB-$OB)$:C2$NC)$5D6$MD*$5E5$LE*$5F7$KF*$5G?$9H:$BI1$FJ/$IK-$5L.$LL+$5M3$NM*$5N6$ON*$5O9$PO*$:P5$RP($BQ/$RQ)$FR,$SR)$HS+$JT*$TS(%KU)$LV)$MW($UU(&NX'$NY((N^'$VX'*-_%$,`&$M_(%,a'$La)$U_(&+b*$Kb)$Ub'$,c*$Jc)$-d+$Id*$Tc(%.e,$Fe,$Se($(f%$/f1$Af0$Rf)$'g($0g?$Qg)$'h)$2h<$Ph)$'i*$4i8$Oi*$(j*$8j0$Nj*$)k+$Lk+$*l,$Jl,$+m.$Gm.$-nF$/oC$1p>$3q:$7r2$K$&%J&'$I'(%H))$G**%F,+$E-,%D/-$C0.$C1($B2)$A3)$A4($@5)$?6)$I1()?7($>8)$H7)%=9)$G9*$=:($<;)$F:+%;<)$E<,$;=($:>)$D=-%9?)$C?($9@($B@)$8A)$BA($8B($AB($7C($@C)$6D)$@D($6E($?E)$5F($>F)$4G)$>G($4H($=H)$3I($<I)$2J)$<J($2K($;K)$1L($:L)$0M)$:M($0N($9N)$/O($8O)$.P)$8P($.Q($7Q)$-R($6R)$,S)$6S($,T($5T)$+U)$4U)$*V)$4V($*W($3W)$I?(<Q$(W)X)$(Y)$2X?%(Z($1Z@$'[)$0[A$QX2''\($']'&I\('Q\(''`J'Q`2'Id(1Qd(1/$K$/%L&.(L$.)(*6,E'60D$61'&.0'(54(+-5(+5<''=?-$5@9$-='(4A=$4B?$4CA$4D*$ID-$LE,$NF+$4E(&>G,$PG*$4H9$QH)$,B(+4I<$RI)$4J=$SJ)$4K?$TK($,J'&4L+$HL,$-M&$3M($JM*$UL(%/N$$3N&$LN)$3O$$MO)$VN(%WP'$NP(%WQ(&OR(&PU'&PX($PY'&XT'+O\(&/_$$W\('.`&$N_(%.a'$Ma($-b)$Lb)$V`(&-c+$Kc)$Uc($.d,$Jd)$Td)$0e,$Ge,$Te($*f%$1f1$Bf0$Sf)$*g&$3g=$Rg)$)h($4h;$Qh)$(i+$7i6$Pi*$)j+$:j0$Oj*$*k,$Mk+$,l,$Kl,$-m.$Hm.$/nE$1oB$3p>$6q8$:r0$A$'$J$($@%($I%($?&)$H&)$?'($H'($>()$G()$>)($G)($F*)$=*(%F+($<,($;-)$E,(%;.($D.($:/)$C/)$:0($C0($91)$B1)$92($B2($83)$A3)$84($A4($75(%@5(%67($?7($58)$>8)$59($>9($4:)$=:)$4;($=;($3<)$<<)$3=($<=($2>)$;>)$2?($;?.$1@)$:@5$1A($:A8$0B($9B;$/C)$8C>$/D($8D*$ID/$.E)$7E)$ME,$.F($7F($OF+$-G)$6G)$AG)$QG*$-H($6H($<H2$RH*$,I)$5I<$TI)$5J>$UJ)$,J(%4K@$VK($4L.$IL,$VL)$+L(%3M,$LM*$WM($+N'$3N+$MN*$3O)$NO)$XN(%*O(%2P)$OP)$YP'$*Q'$PQ($2Q(%YQ(%QR(%RT'$ZS'%1S(')R())X'%1W''RU(,ZU(,)Z((1[('Z^'$*_'$Q^(%2_(%P`)$3a($Pa($Y_(&*`(&3b)$Ob)$4c)$Nc)$Xb(%+c(%4d*$Ld*$,e($5e,$Je+$Wd(%,f)$6f0$Ef/$Vf($-g)$7g<$Ug)$.h)$9h9$Th)$.i*$;i5$Si)$/j*$>j/$Rj*$0k+$Pk+$1l,$Nl,$2m.$Km-$4nC$5o@$7p<$:q7$>r/$'$W'',W$'-V%'/U$L0($L1'$T0(%K2(%S2(%S4'$J4(%R5($J6'$R6'$I7($I8'$Q7(%Q9'$H9(%P:($P;'$G;(%G='$O<(%F>(%N>(%N@'$E@(%MA(%DB(%DD'$LC(%LE'$CE(%KF(%BG(%JH(%AI(%@K)$IJ(&@L(%HM(%?N(%>P(%GO(&=R)$FR(%=S(%ET(%<U(%EV'$;W)$;X($DW(%:Y)$CY(%:Z(%9\(%B[(&8^)$8_($A^(%7`)$7a(%@`(&6c)$6d($?c(%5e)$5f($>e(%4g)$=g)$4h($=h(%3i)%3k($<j(%2l)$;l)$2m($;m(%1n)%:o(%0p)%9q($>#/$:$7$7%=$5&A$4'C$2(.$K(.$1),$N),$0*+$P*+$0+)$>+/$R+*$/,)$;,5$S,)$.-)$:-7$T-)$..($8.;$U.)$7/=$-/(%60+$J0+$V/(%61)$L1)$52)$M2)$W1(%,1(&53($N3($X3'%X5(',4')44(*O4(*X9'%5;'$O;'$,:(&5<($N<($W;(%6=($M=($-=(%6>)$L>)$V=(%-?)$7?)$J?*$U?)$.@)$8@*$I@*$T@)$/A($9A+$GA+$TA($/B)$;B5$RB*$0C*$=C1$QC*$1D*$?D-$PD*$2E+$AE-$NE+$4F+$DF3$5G,$FG0$6H-$IH,$4I2$KI,$2J+$<J-$NJ+$1K+$>K-$OK+$0L*$>L0$QL*$/M)$;M5$SM)$.N)$:N,$EN,$TN)$-O)$8O,$HO+$UO)$,P)$7P+$JP*$VP)$,Q($6Q*$KQ*$WQ($5R)$MR)$+R(%4S)$NS)$XR(%4T($OT($*T(%YT(%*V'$3U(%PU(%QW(&ZV(')W(')['&RZ''[Z'(2W(-Q^(&)^('3a($Pa($Z_(&3b)$Ob)$Zb'$4c)$Nc)$*b(&4d*$Md*$Yc(%+e($5e+$Ke+$Xe($+f)$6f-$Hf-$Wf)$,g)$7g=$-h)$8h;$Vg)%-i*$:i7$Ti*$.j*$<j3$Sj*$/k+$Ak)$Qk+$0l,$Ol,$1m.$Lm.$3nE$4oC$7p>$9q9$=r1$<#/$8$7$6%;$4&?$2'C$1(-$I(-$0)+$L),$.*+$N*+$-++$=+.$P+*$-,)$:,4$Q,*$,-)$7-9$R-)$+.)$6.;$S.)$+/($5/>$T/)$40+$H0,$U0($*0(%31*$J1*$U1)$22)$L2)$V2($)2(%13)$M3)$14($N4($05)$W3(&(4(&O5(%X6'$(7'$06(%P7((X7((Y<'$Q<'&'8(-/8(-(B'$P?('X=()0B(%0D)$OC(%XC'%(C(&1E($NE)$1F)$MF)$WE(%)F(%2G*$LG*$WG'$*H($3H*$JH,$*I)$4I,$GI.$VH(%+J($5J@$+K)$6K>$UJ(%,L)$8L<$TL)$-M)$:M3$KM($TM($.N*$>N+$JN)$SN)$/O*$JO($SO($0P,$IP)$RP)$1Q/$HQ)$RQ($3R>$QR)$4S<$QS($6T9$9U6$PT(%>V0$OV($EW)$NW)$EX($NX($DY)$MY)$DZ($MZ($C[)$L[)$C\($L\($B])$K])$B^($K^($A_(%J_(%@a($Ia($?b)$Hb)$?c($Hc($>d)$Gd)$>e($Ge($=f)$Ff)$=g($Fg($Eh)$<h(%Ei($;j(%Dj(%:l($Cl($9m)$Bm)$9n($Bn($8o)$Ao)$8p($Ap($7q($@q($1-%$..+$-/-$,0/$+11$+2)$42($+3($+4'$*5($53('+6(%47($+81$,9/$-:-$.;+$0<'$/T*$-U-$,V/$+W1$+X)$3X)$+Y($4Y($+Z'$*[($+\'$5Z(&+]($4]($+^1$,_/$-`.$.a+$0b'$]=] }, sm = { h = 26, w = [=[8366767677,]=], c = {47,11,41,45,39,33,53,34,61,50,11}, r = [=[*$*$)%&$/%&$(&%$,&&$1&%$''%$*'*$2'%$&(%$)(%$0(%$3($$))$$1)$$3)%$&)$%(*%$1*%%4*$%%+%%(+$%%-$*'-%*4,%+2,$,%4%%(4$%15%$44$%&6$$(6%$16$$&7%$)7$$07%$36%%'8$$)8&$/8%$'9%$+9($28%%(:%$0:&$);+$,<%$-$$$*%%$(&'$&'&$+'$$&($$)(&$')&$&*%$+)$6-%%:)$)$'%'$-%'$&&%$+&%$0&%$%'%$('*$%($$'(%$.(%$1'%%&)%$/)%'2)$'/-$$..%$1-%%./$$-0%$0/%%,1%$/1%$+2%$.2%$*3%$-3%$)4%$-4$$(5%$,5%$'6%$+6%$&7%$*7%$%8&$)8-$%9%$(9.$%:$$%;1$)$)$'%'$.%&$%&&$+&&$0&%$%'$$('+$1'%$'(%$/($$')$$/)%&2($'.,%$1,%$,-&$1-$$).($0.%$*/*$)0$$/0&$)1)$11%$-2&$22$$/3%$23%$04%%34$%06'$&7%$/7%$27%$'8&$-8&$28$$$9%$(9*$19%$%:&$/:&$';,$*<&$1$$$/$$%.&%$-'&%,)%$/)$$+*%$++$$.*%%*,%$-,&$)-%$,-%$).$$,.$$(/%$+/%$'0%$*0%$'1$$*1$$&2%$)2%$%3%$(3%$/-$*1%%2%4$$(4+$14($'5,$15'$$5%%.6%$16%$$7/$17($/8$'18%''$/%)'-$&&%()($&&+'$(,%$(-,$(.%$/.&$(/*$1/%$&,$((0,$20%$(1$$01%%31$%13$&33%&06%$36$$&7%$07$$'8&$.8&$27%%%9%$)9)$19%$&:&$/:&$';-$+<%$,$$$/$$$.%%$+%%%.&$$*'%$-'%$*($$-($$))%$,)%$)*$$(+%$+*%%(,$$*,%$'-%$*-*$'.$$).%$0.&$&/%$)/*$2/%$&0$$(0,$30$$%1%$(1%$01%$31%$12%%24$$%2$''2%'(6$$15%%42$(%6%%(7%$07%$37%$&8$$)8&$/8%$38$$&9%$*9)$29%$':&$0:&$);,$,<%$$$3$%%2$$'3$/(%%2($%/*$$1*%$.+%$1+$$.,$$0,%$--%$0-$$-.$$/.%%,/%%/0$$,1$$.1%$+2%$.2$$+3$$-3%%*4%%-5$$,6%$)6%%,7$$)8$$(9%$+8%%(:$$';%$*:%%*$*$(%'$/%&$'&%$,&&$1&%$&'%$*'*$2'%$)(%$0(%%1*$$&($'()%&0+%$3(%'&,%$),%$/,%$3,$$'-%$*-)$2-%$(.%$,.&$0.&$(/'$//&$'0&$+0'$10%$&1%$*1&$.1&$21%$&2$$)2%$02%$32%$%3%$(3%$13$$43$%%4$&(4$&14%&45%%(7%$17$$47$$%7%%)8%$/8&$38%$&9%$*9)$29%$':&$1:%$(;-$,<%$)$*$'%'$.%'$&&&$+&&$1&%$&'$$)'*$2'%$%(%$((%$/(%$3($$%)$$')%$0)%$$*%''*$'1*$'%.$$'.%$0.%$3)%)%/%$(/%$//&$3/$$&0%$)0+$20%$'1%$/1%$21$$(2+$12%$*3)$13$$04%$-4%%05$$,6%$/6%$,7$$+8%$.7%%+9$$*:%$-9%%*;$$,;%$'&$$&''$%(%%((%%&*&$&2&$&3'$%4%$(4%$&5'$'6%$]=] } }
+CF[5] = { name = "Inline", big = { h = 75, w = [=[aS[\`]^[`^?]=], c = {132,31,121,127,72,94,134,91,176,136,31}, r = [=[<$0$9%6$7&:$5'=$4(-$G(-$3)+$J)+$2**$L**$1+)$>+,$N+)$0,)$;,2$O,($/-)$9-5$P-($/.($8.8$./($7/,$E/,$Q.(%60*$H0)$R0($-0(%51)$I1)$S1'$52($S2($,2(%K2(%T3'$,4'$43(%L4($35($M5'$T4(%+5(%36'$U6'$+7'$M6(%27(%N8'$U7(%*8(%29'$N9(%1:(%V9'&*:'&O;'&V<(%)=(%1<'&O>(%0?(&W>'+WF()0B'2P@'4)?'70Q(%OQ(%WL'+)S(&1S'&OS'&VT(%*V'%1V(%NV(%VV'%*X(%2X'%NX'%UX(%2Z($MZ($+Z'%3['$M['$UZ'%+\($3\($L\($T\($,]'$T]'$4](%K](%S^($,^(%5_($J_($S_'$5`)$H`)$R`($-`(%6a+$Fa+$Ra'$.b($7b9$Qb($/c($8c7$Pc($/d)$:d3$Od)$0e)$<e/$Ne)$1f)$Mf)$2g*$Kg*$3h+$Hh,$4i?$6j;$8k7$:l3$>m+$=%$$;&&$9'($7(*$5),$4*-$2+/$0,+$.-,$,.,$:,'&+/+$9/($+0)$70*$+1'$51,$+2%$32.$13+$/4+$-5+$+6+$+7)$+8($+9&$+:$$:3'\B%'j;l&$Bl&$7$0$4%7$2&;$0'>$/(-$C(-$-),$F)+$,*+$H**$++*$:++$J+)$*,)$6,2$K,($)-)$4-6$L-($(.)$3.8$(/($1/.$@/,$M.(%)0&$00+$D0)$N0'$*1$$/1*$E1)$N1($.2)$F2($-3)$G3($O2'%-4($.5&$O4(%/6$$H4'&H7('P6')H;'&O<(%G>($O>'%G?'%N@($FA($NA'%EB(%MC($MD'$DD(%LE($CF($LF'$BG($KG($AH)$@I)$JH(%@J($IJ($?K($HK($>L)$GL)$=M)$GM($<N)$FN($;O)$EO($:P)$DP)$9Q)$CQ)$9R($BR)$8S($BS($7T)$AT($6U)$@U($5V)$?V)$4W)$>W)$3X)$=X)$2Y)$<Y)$1Z)$;Z)$0[)$:[)$/\)$9\)$.])$8])$-^)$7^)$,_)$6_)$+`)$6`($*a)$5aB$)b*$4bC$(c*$3cD$(d)$2dE$(e(&(hO(8$0$4%7$2&;$0'?$.(/$C(-$-),$G)+$+*+$I**$*+*$:+,$J+)$),*$6,3$L,($*-'$4-7$L-)$*.&$2.:$M.($+/$$1/.$A/,$/0,$E0)$N/(%.1+$F1($-2*$G2($O1'%.3($/4%$/5$$O3(&P6'$H3'*O7(&G:(%O:'%F<($E=)$N<(%D>)$B?*$M>(%@@+$L@($;A/$KA)$4B4$JB)$4C3$IC)$4D5$HD)$4E<$9F6$AG/$EH,$4I($GI,$4J0$IJ+$4K3$KK*$4L6$ML)$5M7$NM($?N.$CO+$ON(%EP*$PP($GQ)$QQ'$HR)$IS($QR(%JT(%KV'(J[($RT'+,[%%J\'$Q\($+]'$I]($+^)$H^($Q]'%+_*$G_)$P_($,`+$E`*$P`'$(a$$-a-$Ba,$Oa($'b&$/b>$Nb($'c'$0c<$Mc)$&d*$2d8$Ld)$'e*$5e2$Ke)$(f+$If*$)g+$Gg+$+h,$Dh-$,iD$.j@$0k<$3l6$8m,$H%&$G&'%F(($E))%D+*$C,+%B.,$A/-%@1($?2(%>4($F1((=5(%<7($E6)%;8)$D8*$;9($::($C9+%9;)$B;,$9<($8=($A<-%7>)$7?($@>(%?@($6@(%5B($>A(%=C($4C(%3E($<D(%;F($2F(%1H($:G(%9I($0I(%/K($8J(%7L($.L(%-N($6M(%5O($,O(%+Q($4P(%3R($*R(%)T($2S(%F>(:N%'S1U=$(U(%'W($0V>%/X?$NU0'&X('FY(&NY'&&\H'N\0'F`(/Gl&$N`'0.%I'.)'$-*(&5,A$5-B$4.C%40(%--'-,7(&42',3;('9>0$3?:$3@<$3A>$3B*$EB-$,:'-HC,$KD*$3C'&;E,$LE*$+D(&3F8$NF)$3G:$OG($2H<$2I0$AI.$PH(%+G''2J)$FJ*$QJ($-K%$2K'$HK)$RK'$2L%$IL)$RL($JM($KN(%SM'&LP'%SP(%LR()TR')LX'%SX(%.[$$KZ(%SZ'%-\&$-]'$J\(%R\(%,^)$I^($R^'$-_*$H_($Q_($.`+$F`*$/a-$Da+$P`(%)b&$1b=$Ob($)c'$2c:$Nc)$(d)$4d7$Md)$)e*$7e1$Le)$*f*$>f$$Jf*$+g+$Hg+$,h.$Fh,$.iC$0j?$2k;$5l5$:m+$>%($F%(%=&(%E'(%<((%D)($D*'$;*(%C+($:,($:-'$B,(%9.($A.(%8/(%@0(%71(%?2(%63(%>4($>5'$55(%=6($47(%<7(%39($;9(%2:(%:;(%1<(%9=($9>1$0>(%8?6$7@9$/@(%7A;$6B+$EB/$.B(%6C($IC,$LD*$-D(%5D(%>E*$NE)$,F($4F8$OF)$,G'$4G:$PG)$+H($3H<$QH($+I'$3I1$BI/$RI($2J-$GJ+$*J(%2K*$IK*$SJ(%*L'$1L*$KL($1M)$LM($TL(%)M(%1N($MN'$UN'$MO($NP'$UO(%0O(&)O''NQ(%(S((OS'(0R'+NX(%0Z($NZ'$VQ'-)X''1['$U[($)\($M[(%1\(%L]($U\'%*]'%2^($K^)$T^($*_($3_($J_)$T_'$3`*$I`)$S`($+`(%4a,$Fa+$,b($5b;$Ra(%,c)$7c8$Qc($-d)$8d5$Pd)$.e)$;e0$Ne*$/f*$Mf*$0g+$Kg+$1h-$Hh-$3i@$4j>$6k:$9l4$>m*$'%S&'(R$',R%'.Q%I0'$P0($H1($P1'%H2'%G4($O3'%G5'$N5($F6($F7'$N6'%E8($M8'%E9'%L:($D;($L;'$D<'$K<($C=($C>'$K='%J?($B?(%J@'$BA'$IA($AB($AC'$IB'%@D($HD($@E'$HE'$GF($?F(%GG'$?H'$>I($FH(%>J'$FJ'$EK($=K(%EL'$DM($<M(%DN'%;O(%CP($;Q'$CQ'$BR($:R(%BS'$9T(%AT(%AV'$8V(%@W($8X'$@X'$7Y(%?Y(%?['$6[(%>\($>]'$5](&=^(%4`(%<`(%<b'$3b(%;c(%2d(%1f)$:e(%:g'$1g(%9h(%0i(%/k)$8j(%/l($8l'$;$0$7%8$5&<$3'@$2(-$G(-$1)+$J),$0*)$L*+$/+)$=+,$N+)$.,)$:,2$O,)$--)$8-6$P-)$-.($7.8$Q.($,/($6/,$D/,$R/($50)$H0)$S0'$,0'%41)$I1)$+2($42'$K2'$S1(%33($K3($T3')+3'*34')L4')+:($3:($K:($S9(%,;'$4;'$J;($S;'$4<($I<)$,<(%5=($H=)$R<(%->($6>)$G>)$Q>($-?)$7?*$E?*$P?)$.@)$9@*$C@*$O@)$/A)$:A2$NA)$0B)$<B.$MB)$1C*$?C,$KC*$2D+$AD3$4E+$DE.$4F-$FF,$2G2$IG+$1H*$:H-$KH*$/I*$<I-$MI*$.J*$;J0$NJ*$-K)$9K4$PK)$,L)$7L+$DL+$QL)$,M($6M*$FM*$RM($+N($5N)$HN)$SN($+O'$4O)$IO)$TO'$*P($3P($KP($TP($*Q'$LQ($UQ'$)R($2Q(%MR'$UR($1S(%MS(%)S'&VS'&(V((1U')NU'*VV()1[(%M\($)['&2]'$M]'$V\'%)^($2^($L^($*_'$3_($K_($U^(%3`)$J`)$*`(%4a*$Ha*$T`(%+b($5b/$Bb/$Sb($+c)$6c:$Rc)$,d)$8d6$Qd)$-e)$:e2$Pe)$.f*$=f,$Nf*$/g+$Lg+$0h-$Ih-$2iB$3j@$5k<$8l6$=m,$9$0$6%7$3&<$2'?$0(.$D(.$/)+$H)+$.**$J*+$-+)$;+,$L+*$,,)$8,3$M,)$+-)$6-7$O-($*.)$4.:$P.($*/($3/-$B/-$P/)$20+$F0*$Q0($)0(%11*$H1)$12($I2)$R1(%(2(%03($J3($S3'$(4'$K4($S4($/4(%L5'$'5(%/6'$L6(%.7(%T5''.9'(T9()'7',.>(%M8'+/@'$'@(%L@(%/A(%T?''(B'%0C($KB(%SC($(D($0D)$JD)$)E'$1E)$HE*$SD'%)F($2F*$GF+$RF($3G,$DG.$RG'$*G(%4H=$+I($5I<$QH(%,J($7J9$-K)$:K.$HK'$PJ(%-L*$GL($/M*$OL(%0N-$FM(%1O<$NN(%3P:$5Q7$MP(%8R4$LR($?S%$CS(%KS(%BU(%JU(%AW($IW(%@X(%HY(%?Z(%G[(%>\(%F]($F^'$=^(%E_($<`($<a'$D`(%;b($Cb(%:c(%Bd(%9e(%Af(%8g(%@h($7i($@i'$7j'$?j($6k($>k($6l'$>l'$/,'$--+$,.-$+//$*0)$20($*1($31($*2'%42'%*4($34($*5)$25)$+6/$+7.$,8,$.9)$/O&$-P+$,Q-$+R/%*T($3T(%4V'$*U'&*X($3W(%+Y/%,[-$-\*$]=] }, sm = { h = 24, w = [=[6245655465,]=], c = {45,10,40,40,35,29,50,33,57,52,10}, r = [=[+#&$)$+$(%%$0%%$'&%$*&)$1&%$&'%$)'%$/'%$2'$$&($$((%$0($$2(%$%)%$()$$0)%$%*'$3)$&'+%%'-$'3,%)%+$+'1%%1*$,%3'$%4%$(4$$03%%32$&&5$$(5%$05$$25%$&6%$)6%$.6%$26$$'7%$*7($17%$(8%$/8&$)9*$*$%$(%'$&&&$*&%$%'%$)'&$'(%$%)&$*(%5-$$9*#&$'$,$&%%$/%%$%&%$(&)$0&$$%'$$''%$-'%$0'%$&(%$.(%$/)$%.+%$1($'.,$$--%$0,%%-.$$/.%$,/%$//$$+0%$.0%$*1%$-1%$)2%$,2%$(3%$+3%$'4%$*4%$&5%$*5$$%6%$)6,$(7-$%7$%%90$*#&$'$,$&%%$/%%$%&$$(&*$0&%$''%$'($$.'%%/)$$.*%$1'$'-+%$0+%$+,&$0,$$(-,$,.'$(/'$//%$)0)$00%$.1%$11%$/2'$/3%%23$%%5%$/5$$15%$&6&$-6&$16$$$7%$(7)$07%$%8&$.8&$&9,$.$$$-%%%,'&$,($$+)$$.($%**%$-*%$*+$$,+&$),$$,,$$(-%$+-%$(.$$*.%$'/%$*/$$&0%$)0%$&1$$%2%$(1%%.,$*0$%2$3%$'3+$03($$4$$.4$$04%$$5.$05($.6$'06%'&$/$&%%$&&/$('%((,+$(-$$/-%$(.*$1.$$&'$,(/%$./%$1/%$/0%$20$%22%%01$'&5%$/5%$24$%'6%$-6&$16%$%7$$(7*$07%$%8&$/8%$'9,$+$%$.$$$+%$$-%%$*&%$-&$$)'%$,'%$)($$()%$+(%%(*$$'+%$**%%',$$),*$&-%$)-$$/-&$&.$$(.*$1.%$%/%$(/&$./&$2/$$00$$20%$'0%%01%$'2$%12$%%0$('4%$04%$31$'%5%$(5$$05$$25%$&6$$(6&$.6&$26$$&7%$*7($17%$'8&$/8&$(9,$$$2$$&2$/'$$.(%$1'$%.)$$0)%$-*%$0*$$/+%$-+$%,-%$/,$%,.$$..%$+/%$./$$+0$$-0%$*1%%-1$%*3$$,3%$)4%$,4$$)5$$+5%$(6%$+6$$(7$$*7%%'8%%*9$$+#&$($,$'%%$0%%$&&%$)&*$1&%$('%$/'%$2'$$&'$%%)%$(($%0($%2(%%&*$$(*%$/*%$2*$$&+%$)+$$.+%$1+%$',$$*,($1,$$(-%$,-($(.'$/.%$'/%$*/($1/%$&0$$)0%$.0%$20$$%1%$(1%$/1%$21%$'2%&02%&%2$'(5$$05$$32$'%6%$(6%$/6%$26%$&7%$)7*$17%$'8%$08%$(9,$+#%$($+$&%&$/%&$&&$$)&)$1&$$('%$.'%$1'%$%'$%'(%$/(%$2($$$)%$')$$$*'%$,%$',$$0)$'2)%'%-$$'-%$/-%$%.%$(.&$-.'$2-$%&/%$)/*$1/%$'0%$.0%$10$$(1*$01%$-2%$02$$,3%$/3%$,4$$.4%$+5%$.5$$+6$$-6%$*7%$-7$$*8$$,8%$)9%$,9$$&'&$%(%$((%$%)'$&*&$&2&$%3%$(3%$%4'$&5&$]=] } }
 CF[6] = { name = "Arabic", big = { h = 81, w = [=[ON[b[U^__[E]=], c = {25,33,49,52,76,65,35,88,88,62,39}, r = [=[5I%$5J'$4K*$4L+$3M.$2N0$2O2$1P4$1Q5$0R7$0S8$/T:%.V;$-W;%-Y:$/Z8$0[6$2\3$3]2$5^/$6_.$8`+$9a)$;b'$<c%$5)$$3*'$1+)$0,+$/-,$...$-//$-00%,22&,53&,84$-93$-:4$.;3%/=2$/>3$0?2%0A3$1B2%2D1$2E2$3F1&4I1&5L0&6O0&7R/(8W.&8Z/&9]-,:f,':j+):p*%>r&$4)&$Q)'$2*($1+*$0,+$/--$Q*)'...$-/0%P.*&,11$O1+%,22%N3,$N4+$M5,$,43&L6-$,74$K7.$-83$J8/$-96$H91$-:K$.;J%/=I$/>H$0?G$0@F$1AE$1BD$2CC$2DB$2EA$3F?$3G>$4H;$4I8$4J1$5K0$5L1%6N0'7R0(8W/)9].,:f,*:m+(>r&$6)$$X)&$4*&$J*&$2+)$1,*$0-,$H+)&X*)'/.-$H.*$.//%I/)&-11%X.*(I2*%-32%,54$W3+&H4+&V6,$-63%G7-$U7-$-84$F8<$-95$E9=$.:S%/<R%0>P&1AN$1BM$2CL$2DK$3E=$PE+$3F<$RF'$4G:$4H9$4I6$5J0$5K1%6M0&7P0(8U/(9Z.):`-,:i,);o*&?r&$D$$$B%'$A&($?'*$=(,$<).$;*/$9+0$8,1$7-2$6.3$5/4$404$315$226$136$046$055$/65$/74$/82$.92$.:0$.;/$-<.$-=,$->+$-?,$,@/$,A1$,B3$,C6$,D9$,E;$,F<$+G=$,H<$,I=$-J<$.K<$/L;$0M:$2N7$3O5$6P2$8Q/$9R-$9S,$8T,$8U+$7V,$6W,$6X+$5Y+%4[+$4\*$3]+$3^*%2`+$2a,$2b-$2c0$Rc&$2dF$2eG%2gF$3hD%4jB$4kA$5l?$6m=$7n<$8o:$:p6$<q3$@r-$</)$:0-$91/$723$734$645$557$469$37:$38;$29<$2:=$1;>$0<?$0=@$/>A%/@.$>@2$.A-$@A1$.B,$BB/$CC.$-C,%-E+$DD-%EF,$,F+%EG-$,H*$+I+$FH,%+J*&GJ+'*M*&*P)&HN*+GV+$GW*$)S*)FX+$)Y+$EY,$)Z,$DZ-$)[-$C[.$)\.$B\/$)]1$?]1$)^G%*`E%*bD$*cC$+dB$+eA$+f@$,g>$-h<$-i;$.j9$0k5$2l2$5m,$*(%$))*$)*/$D*+$)+G%(-I''1I'&5J%'7H$*8E$-9B$2:0$E:*$D;+*CB,)CH-*CO.(CT/$DU.%DW/&DZ0%E\0&E_1%Fa1%Fc2%Ge2&Hh0$Hi/$Hj.$Ik,%Im+$Jn)$Jo($Jp'$Kq%$-)$$+*&$T*%$)+)$S+&$(,*$S,'$'-,$R-)$'.-$R.*$&/.$Q/,$%00%Q0-%%21$P2/$P30$$32%O42%$53%O61$N72$$74%N81$M92$%94&M:1%&<4$L<1$'=3$'>4$L=0%(?3%K?0%KA/$)A3%JB0$*C3%+E2$JC/&+F3$,G2$IF/%,H3$IH.$HI/$-I2%.K2$HJ.%HL-$/L1%GM.$0N1%1P0$GN-&1Q1$FQ-%2R0%2T1$FS,%EU-$3U0%4W0%EV,&EY+$5Y/%DZ,$6[/%7].$D[+&7^/$D^*$7_7$8`6$8a5$9b4%9d3$:e2%:g1$;h0&<k.%=m,$=n+$=o)$>p'$>q%$>r$$C)$$B*%$@+($?,)$=-+$<.-$;/.%;1/$:20%:41$952%973$884$895%7;6$7<7$7=*$?=/$6>+&@>/&5A,$@A0$5B+$AB/$AC0%4C,&3F-$BE0%BG1$3G,%CH0$2I-%CI1%1K.$DK1%1L-%DM2$0N.$EN1$0O-$EO2%/P.%.R/$FQ2%.S.$FS3$GT2$GU3$-T/&HV2$,W/%HW3%+Y0$+Z/$IY3%*[0%J[3%J]4$)]0%K^3$(_1$K_4$'`1%&b2$L`4&&c1$Mc4%%d2%Ne3%$f2%%h0$Og2%&i/$'j.$Pi0%Qk/$(k,%Ql.$)m*$*n)$Rm,%+o'$So*$,p&$Sp)$-q$$Tq&$Tr$$7'($5(-$3)1$2*3$1+5$0,7$/-9$..:$./;$-0<$,1>%+3@%*5A$*6,$863$)7+$:72$)8*$;81$<90$)9)%=:/$(;*&>;.&(>+$(?,$(@.$?>-&(A1$?A.$(BE%)DD&*GC%+IB%,KA$-L@$.M?$0N=$2O<$5P-$@P.$AQ-&AT.&AW/&AZ0&B]0%B_1%Ca1&Cd2$De1$Df2%Eh1$Ei0$Ej/$Fk-$Fl,$Fm+$Gn)$Go($Gp'$Hq%$Hr$$1+$$1,&$0-)$/.+$//-$.0/$.10$-22$-33$,45%+65$*76$+84$-92$/:/$0;-$2<+$3=)$5>&$6?%$1U%$1V&$0W)$/X+$/Y-$.Z/$.[1$-\3%,^5$+_6$+`5%,b3$.c0$/d/$1e,$2f+$4g($5h&$6i%$]=] }, sm = { h = 26, w = [=[1046425554-]=], c = {8,12,14,17,21,21,12,22,25,18,12}, r = [=[)/$$(0&$(1($'2*$&3+$'4)$(5($*6%$'&&$&''$&((%&*)$'+(%(-'$(.($)/''*3&$*4'%*6&(+;%$(%$$'&&$1%%&&''%&)($0(&%&*/$'+.%(-,$(.+$(/($)0'(*5&(*:%$'%%$&&&$.%%&&''%.(&$3%%'&)($.)*$&*2%',0$'-/$(.*$(/'$(0($)1'(*6&&*9%%-$$$+%&$*&'$)'($(()$'))$'*'$'+%$&,'$&-)$&.+%'0+$)1($*2&$)3&$)4%$(5%%(7.%)9,$):+$+;($*''$)()$()*$(*+$'+,$',&$,,($&-&$--'$&.%%..&%%0&$/0%&%1%&.3&$%4&$-4'$%5.%&7,$&8+$(9($%&-$%'.$$(/$$).$&*,$-+%)-1&'-5'$.6&$.7'&/:%$/;$$1&%$$&&%1'&$0('$0)($#((&0*'$$+(%/+'%/-&$%-(%&/'$..'%&0($.0&%'1'%(3'%-2&&)5)&*8'%+:%$+;$$+&%$*''&)*)%),%$,,'%(-&%,.($'/'$-/'%'0&%-1($&2'$&3&$.2(%%4'%/4(%/6)$$6'%#8($07(%$9&$19'$%:%$1:&$2;$$)%&$(&($''*$&(+$&),$+*'$%*%%%,&$,+&%%--%&/,%(1*$-2&&-5'&-8($.9'$.:&$.;%$'&%$&''$&(($%))$&*'$(+%$'3%$&4'$&5($%6)$'7&$(8%$]=] } }
 return CF
 end)()
@@ -71,18 +71,6 @@ month_empty_2=' Belum Ada',
 month_empty_sub='Ketuk tombol "Unduh" di bawah untuk memuat.',
 col_day='Tgl',
 col_headers={'Tgl','Imsak','Subuh','Dzuhur','Ashar','Magrib','Isya'},
-quotes={
-{'Dirikanlah shalat, sesungguhnya shalat','mencegah perbuatan keji dan mungkar.',"QS. Al-'Ankabut: 45"},
-{'Sungguh Aku ini Allah, tiada Tuhan selain','Aku, maka sembahlah Aku & dirikan shalat.','QS. Thaha: 14'},
-{'Maka sesungguhnya bersama kesulitan','ada kemudahan.','QS. Al-Insyirah: 5'},
-{'Ingatlah, hanya dengan mengingat Allah','hati menjadi tenteram.',"QS. Ar-Ra'd: 28"},
-{'Jadikanlah sabar dan shalat','sebagai penolongmu.','QS. Al-Baqarah: 45'},
-{'Sungguh shalat itu adalah kewajiban yang','ditentukan waktunya bagi orang beriman.','QS. An-Nisa: 103'},
-{'Peliharalah semua shalatmu, dan berdirilah','karena Allah dengan khusyuk.','QS. Al-Baqarah: 238'},
-{'Amalan yang paling dicintai Allah adalah','shalat tepat pada waktunya.','HR. Bukhari & Muslim'},
-{'Allah tidak membebani seseorang melainkan','sesuai dengan kesanggupannya.','QS. Al-Baqarah: 286'},
-{'Maka ingatlah kepada-Ku, Aku pun akan','ingat kepadamu. Bersyukurlah kepada-Ku.','QS. Al-Baqarah: 152'},
-},
 },
 en={
 code='EN',
@@ -138,18 +126,6 @@ month_empty_2='',
 month_empty_sub='Tap "Fetch" below to download this month.',
 col_day='Day',
 col_headers={'Day','Imsak','Fajr','Dhuhr','Asr','Magrib','Isha'},
-quotes={
-{'Establish prayer; indeed, prayer prohibits','immorality and wrongdoing.',"QS. Al-'Ankabut: 45"},
-{'Indeed, I am Allah. There is no deity','except Me, so worship Me & pray.','QS. Ta-Ha: 14'},
-{'For indeed, with hardship','comes ease.','QS. Ash-Sharh: 5'},
-{'Unquestionably, by remembering Allah','hearts are assured.',"QS. Ar-Ra'd: 28"},
-{'And seek help through patience','and prayer.','QS. Al-Baqarah: 45'},
-{'Indeed, prayer has been decreed upon','the believers at specified times.','QS. An-Nisa: 103'},
-{'Maintain with care the obligatory prayers','and stand before Allah devoutly.','QS. Al-Baqarah: 238'},
-{'The deed most beloved to Allah is','prayer offered on time.','HR. Bukhari & Muslim'},
-{'Allah does not charge a soul except','with that within its capacity.','QS. Al-Baqarah: 286'},
-{'So remember Me; I will remember you.','And be grateful to Me.','QS. Al-Baqarah: 152'},
-},
 },
 }
 function S.L(cfg)
@@ -162,6 +138,11 @@ return(ok and type(s)=='string' and #s>0)and s or nil
 end
 function S.write(name,s)
 pcall(function()ctx.storage:write(name,s)end)
+end
+function S.delete(name)
+pcall(function()if ctx and ctx.storage and ctx.storage.remove then ctx.storage:remove(name)end end)
+pcall(function()if ctx and ctx.storage and ctx.storage.delete then ctx.storage:delete(name)end end)
+pcall(function()if ctx and ctx.storage and ctx.storage.write then ctx.storage:write(name,'')end end)
 end
 function S.load_cfg()
 local raw=S.read('settings.txt')
@@ -1126,26 +1107,6 @@ _BA('QS. Ta-Ha: 14','Sungguh, Aku ini Allah, tidak ada tuhan selain Aku, maka se
 _BA('QS. Al-Anbiya: 87','Tidak ada tuhan selain Engkau, Mahasuci Engkau. Sungguh, aku termasuk orang-orang yang zalim.','There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.'),
 _BA("QS. Al-'Ankabut: 45",'Dirikanlah shalat. Sesungguhnya shalat itu mencegah dari (perbuatan) keji dan mungkar.','Establish prayer. Indeed, prayer prohibits immorality and wrongdoing.'),
 _BA('QS. At-Talaq: 3','Dan barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.','And whoever relies upon Allah - then He is sufficient for him.'),
-_BA('QS. Ad-Duha: 3','Tuhanmu tidak meninggalkan engkau (Muhammad) dan tidak (pula) membencimu.','Your Lord has not taken leave of you, [O Muhammad], nor has He detested [you].'),
-_BA('QS. Ad-Duha: 5','Dan sungguh, kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, sehingga engkau menjadi puas.','And your Lord is going to give you, and you will be satisfied.'),
-_BA('QS. Ghafir: 60','Berdoalah kepada-Ku, niscaya akan Kuperkenankan bagimu.','Call upon Me; I will respond to you.'),
-_BA('QS. Ar-Rahman: 13','Maka nikmat Tuhanmu yang manakah yang kamu dustakan?','So which of the favors of your Lord would you deny?'),
-_BA("QS. Al-A'la: 1",'Sucikanlah nama Tuhanmu Yang Mahatinggi.','Exalt the name of your Lord, the Most High.'),
-_BA('QS. An-Nasr: 3','Maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampunan kepada-Nya.','Then exalt [Him] with praise of your Lord and ask forgiveness of Him.'),
-_BA("QS. Asy-Syu'ara: 80",'Dan apabila aku sakit, Dialah yang menyembuhkan aku.','And when I am ill, it is He who cures me.'),
-_BA('QS. Al-Hadid: 4','Dan Dia bersama kamu di mana saja kamu berada.','And He is with you wherever you are.'),
-_BA('QS. Al-Baqarah: 152','Maka ingatlah kepada-Ku, Aku pun akan ingat kepadamu. Bersyukurlah kepada-Ku, dan janganlah kamu ingkar kepada-Ku.','So remember Me; I will remember you. And be grateful to Me and do not deny Me.'),
-_BA('QS. Al-Baqarah: 153','Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan shalat.','O you who have believed, seek help through patience and prayer.'),
-_BA('QS. Al-Hujurat: 10','Sesungguhnya orang-orang mukmin itu bersaudara, karena itu damaikanlah antara kedua saudaramu.','The believers are but brothers, so make settlement between your brothers.'),
-_BA('QS. Al-Hujurat: 13','Sesungguhnya yang paling mulia di antara kamu di sisi Allah ialah orang yang paling bertakwa.','Indeed, the most noble of you in the sight of Allah is the most righteous of you.'),
-_BA('QS. An-Nahl: 128','Sungguh, Allah beserta orang-orang yang bertakwa dan orang-orang yang berbuat kebaikan.','Indeed, Allah is with those who fear Him and those who are doers of good.'),
-_BA('QS. Al-Baqarah: 195','Dan berbuat baiklah. Sungguh, Allah menyukai orang-orang yang berbuat baik.','And do good; indeed, Allah loves the doers of good.'),
-_BA("QS. Ali 'Imran: 139",'Dan janganlah kamu (merasa) lemah, dan jangan (pula) bersedih hati, sebab kamu paling tinggi (derajatnya), jika kamu orang beriman.','So do not weaken and do not grieve, and you will be superior if you are [true] believers.'),
-_BA("QS. Ali 'Imran: 200",'Wahai orang-orang yang beriman! Bersabarlah kamu dan kuatkanlah kesabaranmu dan tetaplah bersiap-siaga dan bertakwalah kepada Allah.','O you who have believed, persevere and endure and remain stationed and fear Allah.'),
-_BA('QS. An-Nisa: 103','Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman.','Indeed, prayer has been decreed upon the believers a decree of specified times.'),
-_BA('QS. Al-Fajr: 27','Wahai jiwa yang tenang!','O reassured soul,'),
-_BA('QS. Al-Fajr: 28','Kembalilah kepada Tuhanmu dengan hati yang ridha dan diridhai-Nya.','Return to your Lord, well-pleased and pleasing [to Him],'),
-_BA('QS. Al-Furqan: 74','Ya Tuhan kami, anugerahkanlah kepada kami pasangan kami dan keturunan kami sebagai penyenang hati (kami).','Our Lord, grant us from among our wives and offspring comfort to our eyes.'),
 }
 function S.wrap_lines(s,max_w,fname)
 max_w=max_w or(S.W - 48)
@@ -1317,14 +1278,11 @@ local next_idx=(cur_idx % #S.AYAH_POOL)+1
 local target_ayah=S.AYAH_POOL[next_idx]
 local req_key='manual_' .. tostring(next_idx).. '_' .. tostring(t_now)
 if cfg and cfg.qrefresh==4 then
-local L_id=S.LANGS.id
-local L_en=S.LANGS.en
-local q_id=L_id.quotes[((next_idx - 1)% #L_id.quotes)+1]
-local q_en=L_en.quotes[((next_idx - 1)% #L_en.quotes)+1]
+local b=S.BUILTIN_AYAHS[((next_idx - 1)% #S.BUILTIN_AYAHS)+1]
 local parsed={
-id_text=q_id[1] .. ' ' .. q_id[2],
-en_text=q_en[1] .. ' ' .. q_en[2],
-ref=q_id[3],
+id_text=b.id,
+en_text=b.en,
+ref=b.ref,
 pool_idx=next_idx,
 }
 S.save_cached_quote(parsed,req_key)
@@ -1343,14 +1301,11 @@ timeout_ms=12000,
 quote_fetching=false
 pcall(function()
 if type(resp)~='table' or type(resp.body)~='string' then
-local L_id=S.LANGS.id
-local L_en=S.LANGS.en
-local q_id=L_id.quotes[((next_idx - 1)% #L_id.quotes)+1]
-local q_en=L_en.quotes[((next_idx - 1)% #L_en.quotes)+1]
+local b=S.BUILTIN_AYAHS[((next_idx - 1)% #S.BUILTIN_AYAHS)+1]
 local parsed={
-id_text=q_id[1] .. ' ' .. q_id[2],
-en_text=q_en[1] .. ' ' .. q_en[2],
-ref=q_id[3],
+id_text=b.id,
+en_text=b.en,
+ref=b.ref,
 pool_idx=next_idx,
 }
 S.save_cached_quote(parsed,req_key)
@@ -1415,22 +1370,12 @@ local b_idx=(pool_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[pool_idx] and pool
 if b_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[b_idx] then
 text=S.BUILTIN_AYAHS[b_idx].en
 ref=S.BUILTIN_AYAHS[b_idx].ref
-elseif S.LANGS and S.LANGS.en and S.LANGS.en.quotes then
-local L=S.LANGS.en
-local q=L.quotes[((day or 0)% #L.quotes)+1]
-text=q[1] .. ' ' .. q[2]
-ref=q[3]
 end
 elseif not is_en and(not text or text=='')then
 local b_idx=(pool_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[pool_idx] and pool_idx)or(S.BUILTIN_AYAHS and(((day or 0)% #S.BUILTIN_AYAHS)+1))
 if b_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[b_idx] then
 text=S.BUILTIN_AYAHS[b_idx].id
 ref=S.BUILTIN_AYAHS[b_idx].ref
-elseif S.LANGS and S.LANGS.id and S.LANGS.id.quotes then
-local L=S.LANGS.id
-local q=L.quotes[((day or 0)% #L.quotes)+1]
-text=q[1] .. ' ' .. q[2]
-ref=q[3]
 end
 end
 return text,ref,pool_idx
@@ -1468,8 +1413,8 @@ local ry=base_y+(n - 1)*lh+ref_gap
 local rw=S.text_w(ref or '','small')
 gg:text(math.floor((S.W - rw)/ 2),ry,ref or '',{font=S.font('small')})
 end
-S.APP_VERSION='1.2.5'
-S.APP_BUILD=125
+S.APP_VERSION='1.2.6'
+S.APP_BUILD=126
 S.UPDATE_URL='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
@@ -1942,51 +1887,124 @@ end
 return list
 end
 F.SEED_DOA_INDEX=_PSI()
+local SYN_GROUPS={
+'sholat shalat salat solat prayer namaz adzan azan wudhu sujud ruku iftitah tahiyat tahajud dhuha witir tarawih masjid imam saf jumat',
+'tidur sleep sleeping bed malam night bangun wake waking mimpi dream rebahan istirahat',
+'makan food eat eating meal minum drink bismillah kenyang lapar hidangan rezeki sahur berbuka',
+'safar travel journey kendaraan vehicle perjalanan mobil pesawat naik singgah jalan trip',
+'sakit sick pain ill health sembuh cure demam obat luka penyakit sehat gundah medis',
+'ortu orang tua parents parent ayah ibu bapak father mother keluarga family anak rahmat',
+'rumah home house keluar masuk leave leaving enter entering pintu selamat',
+'toilet wc kamar mandi restroom lavatory hajat istinja buang air kencing',
+'wudhu ablution bersuci bersihkan sholat prayer suci kumur',
+'hujan rain rainfall petir thunder angin wind cuaca weather mendung badai lebat air',
+'puasa fast fasting iftar berbuka sahur ramadhan tarawih lapar dahaga',
+'sedih sad gundah gelisah anxiety takut fear troubled bingung duka derita musibah cemas',
+'rezeki rizki sustenance wealth kaya utang debt harta miskin usaha rejeki nafkah berkah',
+'pagi morning subuh fajr terbit matahari dzikir pagi petang',
+'petang sore evening maghrib sunset dzikir malam night',
+'istighfar ampun taubat tobat forgive forgiveness pardon dosa sin khilaf salah sesal',
+}
+local SYN_MAP={}
+for _,g in ipairs(SYN_GROUPS)do
+for w in g:gmatch('%S+')do SYN_MAP[w]=g end
+end
 function F.filter_duas(items,q)
 if not q or q=='' then return items end
 local clean=q:lower():gsub('^%s+',''):gsub('%s+$','')
 if clean=='' then return items end
-local syns={}
-syns[clean]=true
-local syn_groups={
-'sholat shalat salat solat prayer namaz adzan wudhu sujud ruku masjid iftitah tahiyat',
-'tidur sleep night malam bed bangun',
-'makan food eat meal minum',
-'safar travel journey kendaraan perjalanan',
-'sakit sick ill health sembuh demam cure',
-'ortu parents ayah ibu',
-'pagi morning petang evening dzikir',
-'istighfar ampun taubat forgive pardon',
-}
-for _,g in ipairs(syn_groups)do
-if(' ' .. g .. ' '):find(' ' .. clean .. ' ',1,true)then
-for w in g:gmatch('%S+')do syns[w]=true end
+local tokens={}
+for w in clean:gmatch('%S+')do
+tokens[#tokens+1]=w
+end
+if #tokens==0 then return items end
+local token_syns={}
+for _,tok in ipairs(tokens)do
+local sset={[tok]=true}
+local sgroup=SYN_MAP[tok]
+if sgroup then
+for sw in sgroup:gmatch('%S+')do sset[sw]=true end
+else
+for k,g in pairs(SYN_MAP)do
+if k:find(tok,1,true)or tok:find(k,1,true)then
+for sw in g:gmatch('%S+')do sset[sw]=true end
 break
 end
 end
-local res={}
+end
+token_syns[#token_syns+1]={token=tok,set=sset}
+end
+local scored={}
 for _,it in ipairs(items)do
-local nid=it.nama_id or it.n_id or ''
-local nen=it.nama_en or it.n_en or ''
-local gid=it.grup_id or it.g_id or ''
-local gen=it.grup_en or it.g_en or ''
-local tag_str=''
+local nid=(it.nama_id or it.n_id or ''):lower()
+local nen=(it.nama_en or it.n_en or ''):lower()
+local gid=(it.grup_id or it.g_id or ''):lower()
+local gen=(it.grup_en or it.g_en or ''):lower()
+local tags_str=''
 if type(it.tags)=='table' then
-tag_str=table.concat(it.tags,' ')
+tags_str=table.concat(it.tags,' '):lower()
 elseif it.tags then
-tag_str=tostring(it.tags)
+tags_str=tostring(it.tags):lower()
 end
-local blob=(nid .. ' ' .. nen .. ' ' .. gid .. ' ' .. gen .. ' ' .. tag_str):lower()
-local matched=false
-for w in pairs(syns)do
-if blob:find(w,1,true)then
-matched=true
+local score=0
+local all_match=true
+if nid:find(clean,1,true)or nen:find(clean,1,true)then
+score=score+120
+elseif gid:find(clean,1,true)or gen:find(clean,1,true)then
+score=score+50
+end
+for _,ts in ipairs(token_syns)do
+local t_match=false
+local tok=ts.token
+if nid:find(tok,1,true)or nen:find(tok,1,true)then
+score=score+60
+t_match=true
+elseif tags_str:find(tok,1,true)then
+score=score+35
+t_match=true
+elseif gid:find(tok,1,true)or gen:find(tok,1,true)then
+score=score+25
+t_match=true
+else
+for syn in pairs(ts.set)do
+if nid:find(syn,1,true)or nen:find(syn,1,true)then
+score=score+40
+t_match=true
+break
+elseif tags_str:find(syn,1,true)then
+score=score+25
+t_match=true
+break
+elseif gid:find(syn,1,true)or gen:find(syn,1,true)then
+score=score+15
+t_match=true
 break
 end
 end
-if matched then
-res[#res+1]=it
 end
+if not t_match and #tok>=3 then
+local p_pat='%f[%w]' .. tok
+if nid:find(p_pat)or nen:find(p_pat)or tags_str:find(p_pat)then
+score=score+30
+t_match=true
+end
+end
+if not t_match then
+all_match=false
+break
+end
+end
+if all_match and score>0 then
+scored[#scored+1]={item=it,score=score,id=it.id or 0}
+end
+end
+table.sort(scored,function(a,b)
+if a.score~=b.score then return a.score>b.score end
+return a.id<b.id
+end)
+local res={}
+for i=1,#scored do
+res[i]=scored[i].item
 end
 return res
 end
@@ -2109,28 +2127,28 @@ end
 end
 C[#C+1]={name=cname,method_id=mid,cities_count=tostring(#list).. ' Kota',cities=list}
 end
-U('Arab Saudi',4,'Makkah:21.4225:39.8262:3:Umm Al-Qura:18.5:18.0:90;Madinah:24.4672:39.6111:3:Umm Al-Qura:18.5:18.0:90;Riyadh:24.7136:46.6753:3:Umm Al-Qura:18.5:18.0:90;Jeddah:21.5433:39.1728:3:Umm Al-Qura:18.5:18.0:90;Dammam:26.4207:50.0888:3:Umm Al-Qura:18.5:18.0:90;Taif:21.2854:40.4244:3:Umm Al-Qura:18.5:18.0:90;Tabuk:28.3835:36.5662:3:Umm Al-Qura:18.5:18.0:90;Abha:18.2164:42.5053:3:Umm Al-Qura:18.5:18.0:90')
-U('Malaysia',17,'Kuala Lumpur:3.1390:101.6869:8:JAKIM:20.0:18.0;Putrajaya:2.9264:101.6964:8:JAKIM:20.0:18.0;George Town (Penang):5.4141:100.3288:8:JAKIM:20.0:18.0;Johor Bahru:1.4927:103.7414:8:JAKIM:20.0:18.0;Shah Alam (Selangor):3.0738:101.5183:8:JAKIM:20.0:18.0;Kota Kinabalu (Sabah):5.9804:116.0735:8:JAKIM:20.0:18.0;Kuching (Sarawak):1.5533:110.3592:8:JAKIM:20.0:18.0;Ipoh (Perak):4.5975:101.0901:8:JAKIM:20.0:18.0;Melaka:2.1896:102.2501:8:JAKIM:20.0:18.0')
+U('Arab Saudi',4,'Makkah:21.4225:39.8262:3:Umm Al-Qura:18.5:18.0:90;Madinah:24.4672:39.6111:3:Umm Al-Qura:18.5:18.0:90;Riyadh:24.7136:46.6753:3:Umm Al-Qura:18.5:18.0:90;Jeddah:21.5433:39.1728:3:Umm Al-Qura:18.5:18.0:90')
+U('Malaysia',17,'Kuala Lumpur:3.1390:101.6869:8:JAKIM:20.0:18.0;Putrajaya:2.9264:101.6964:8:JAKIM:20.0:18.0;George Town (Penang):5.4141:100.3288:8:JAKIM:20.0:18.0;Johor Bahru:1.4927:103.7414:8:JAKIM:20.0:18.0')
 U('Singapura',11,'Singapore:1.3521:103.8198:8:MUIS:20.0:18.0')
 U('Brunei Darussalam',17,'Bandar Seri Begawan:4.9031:114.9398:8:KHEU:20.0:18.0;Kuala Belait:4.5836:114.2312:8:KHEU:20.0:18.0')
-U('Turki',13,'Istanbul:41.0082:28.9784:3:Diyanet:18.0:17.0;Ankara:39.9334:32.8597:3:Diyanet:18.0:17.0;Bursa:40.1885:29.0610:3:Diyanet:18.0:17.0;Konya:37.8714:32.4846:3:Diyanet:18.0:17.0;Izmir:38.4237:27.1428:3:Diyanet:18.0:17.0;Antalya:36.8969:30.7133:3:Diyanet:18.0:17.0')
-U('Mesir',5,'Kairo:30.0444:31.2357:2:Egypt General:19.5:17.5;Alexandria:31.2001:29.9187:2:Egypt General:19.5:17.5;Giza:30.0131:31.2089:2:Egypt General:19.5:17.5;Luxor:25.6872:32.6396:2:Egypt General:19.5:17.5;Aswan:24.0889:32.8998:2:Egypt General:19.5:17.5')
-U('Uni Emirat Arab',16,'Dubai:25.2048:55.2708:4:UAE Awqaf:18.2:18.2;Abu Dhabi:24.4539:54.3773:4:UAE Awqaf:18.2:18.2;Sharjah:25.3463:55.4209:4:UAE Awqaf:18.2:18.2;Ajman:25.4052:55.5136:4:UAE Awqaf:18.2:18.2;Al Ain:24.2075:55.7447:4:UAE Awqaf:18.2:18.2')
-U('Palestina',23,'Al-Quds (Yerusalem):31.7683:35.2137:3::18.0:17.0;Gaza:31.5017:34.4668:3::18.0:17.0;Ramallah:31.9038:35.2034:3::18.0:17.0;Hebron (Al-Khalil):31.5326:35.0998:3::18.0:17.0;Nablus:32.2227:35.2621:3::18.0:17.0')
+U('Turki',13,'Istanbul:41.0082:28.9784:3:Diyanet:18.0:17.0;Ankara:39.9334:32.8597:3:Diyanet:18.0:17.0;Bursa:40.1885:29.0610:3:Diyanet:18.0:17.0')
+U('Mesir',5,'Kairo:30.0444:31.2357:2:Egypt General:19.5:17.5;Alexandria:31.2001:29.9187:2:Egypt General:19.5:17.5;Giza:30.0131:31.2089:2:Egypt General:19.5:17.5')
+U('Uni Emirat Arab',16,'Dubai:25.2048:55.2708:4:UAE Awqaf:18.2:18.2;Abu Dhabi:24.4539:54.3773:4:UAE Awqaf:18.2:18.2;Sharjah:25.3463:55.4209:4:UAE Awqaf:18.2:18.2')
+U('Palestina',23,'Al-Quds (Yerusalem):31.7683:35.2137:3::18.0:17.0;Gaza:31.5017:34.4668:3::18.0:17.0;Ramallah:31.9038:35.2034:3::18.0:17.0')
 U('Qatar',10,'Doha:25.2854:51.5310:3:Qatar Awqaf:18.0:18.0;Al Rayyan:25.2919:51.4244:3:Qatar Awqaf:18.0:18.0;Al Wakrah:25.1768:51.6048:3:Qatar Awqaf:18.0:18.0')
 U('Kuwait',9,'Kuwait City:29.3759:47.9774:3:Kuwait Awqaf:18.0:17.5;Hawalli:29.3328:48.0283:3:Kuwait Awqaf:18.0:17.5')
 U('Yordania',23,'Amman:31.9539:35.9106:3:Jordan Awqaf:18.0:18.0;Zarqa:32.0728:36.0880:3:Jordan Awqaf:18.0:18.0;Irbid:32.5568:35.8469:3:Jordan Awqaf:18.0:18.0')
-U('Maroko',21,'Casablanca:33.5731:-7.5898:1:Morocco Awqaf:19.0:17.0;Rabat:34.0209:-6.8416:1:Morocco Awqaf:19.0:17.0;Marrakech:31.6295:-7.9811:1:Morocco Awqaf:19.0:17.0;Fes:34.0181:-5.0078:1:Morocco Awqaf:19.0:17.0;Tangier:35.7595:-5.8340:1:Morocco Awqaf:19.0:17.0')
-U('Jepang',3,'Tokyo:35.6762:139.6503:9:Japan Muslim Assoc:18.0:18.0;Osaka:34.6937:135.5023:9:Japan Muslim Assoc:18.0:18.0;Kyoto:35.0116:135.7681:9:Japan Muslim Assoc:18.0:18.0;Nagoya:35.1815:136.9066:9:Japan Muslim Assoc:18.0:18.0;Fukuoka:33.5902:130.4017:9:Japan Muslim Assoc:18.0:18.0;Sapporo:43.0618:141.3545:9:Japan Muslim Assoc:18.0:18.0')
-U('Korea Selatan',3,'Seoul:37.5665:126.9780:9:Korea Muslim Fed:18.0:18.0;Busan:35.1796:129.0756:9:Korea Muslim Fed:18.0:18.0;Incheon:37.4563:126.7052:9:Korea Muslim Fed:18.0:18.0;Daegu:35.8714:128.6014:9:Korea Muslim Fed:18.0:18.0')
-U('Australia',3,'Sydney:-33.8688:151.2093:10:Muslim World League:18.0:17.0;Melbourne:-37.8136:144.9631:10:Muslim World League:18.0:17.0;Brisbane:-27.4698:153.0251:10:Muslim World League:18.0:17.0;Perth:-31.9505:115.8605:8:Muslim World League:18.0:17.0;Adelaide:-34.9285:138.6007:9.5:Muslim World League:18.0:17.0;Canberra:-35.2809:149.1300:10:Muslim World League:18.0:17.0')
-U('Inggris (UK)',3,'London:51.5074:-0.1278:0:London Central Mosque:18.0:18.0;Birmingham:52.4862:-1.8904:0::18.0:18.0;Manchester:53.4808:-2.2426:0::18.0:18.0;Leeds:53.8008:-1.5491:0::18.0:18.0;Glasgow:55.8642:-4.2518:0::18.0:18.0')
-U('Amerika Serikat (USA)',2,'New York:40.7128:-74.0060:-5:ISNA:15.0:15.0;Los Angeles:34.0522:-118.2437:-8:ISNA:15.0:15.0;Chicago:41.8781:-87.6298:-6:ISNA:15.0:15.0;Houston:29.7604:-95.3698:-6:ISNA:15.0:15.0;Washington D.C.:38.9072:-77.0369:-5:ISNA:15.0:15.0;San Francisco:37.7749:-122.4194:-8:ISNA:15.0:15.0')
-U('Jerman',3,'Berlin:52.5200:13.4050:1::18.0:17.0;Frankfurt:50.1109:8.6821:1::18.0:17.0;Munich:48.1351:11.5820:1::18.0:17.0;Hamburg:53.5511:9.9937:1::18.0:17.0;Cologne:50.9375:6.9603:1::18.0:17.0')
+U('Maroko',21,'Casablanca:33.5731:-7.5898:1:Morocco Awqaf:19.0:17.0;Rabat:34.0209:-6.8416:1:Morocco Awqaf:19.0:17.0;Marrakech:31.6295:-7.9811:1:Morocco Awqaf:19.0:17.0')
+U('Jepang',3,'Tokyo:35.6762:139.6503:9:Japan Muslim Assoc:18.0:18.0;Osaka:34.6937:135.5023:9:Japan Muslim Assoc:18.0:18.0;Kyoto:35.0116:135.7681:9:Japan Muslim Assoc:18.0:18.0')
+U('Korea Selatan',3,'Seoul:37.5665:126.9780:9:Korea Muslim Fed:18.0:18.0;Busan:35.1796:129.0756:9:Korea Muslim Fed:18.0:18.0;Incheon:37.4563:126.7052:9:Korea Muslim Fed:18.0:18.0')
+U('Australia',3,'Sydney:-33.8688:151.2093:10:Muslim World League:18.0:17.0;Melbourne:-37.8136:144.9631:10:Muslim World League:18.0:17.0;Brisbane:-27.4698:153.0251:10:Muslim World League:18.0:17.0')
+U('Inggris (UK)',3,'London:51.5074:-0.1278:0:London Central Mosque:18.0:18.0;Birmingham:52.4862:-1.8904:0::18.0:18.0;Manchester:53.4808:-2.2426:0::18.0:18.0')
+U('Amerika Serikat (USA)',2,'New York:40.7128:-74.0060:-5:ISNA:15.0:15.0;Los Angeles:34.0522:-118.2437:-8:ISNA:15.0:15.0;Chicago:41.8781:-87.6298:-6:ISNA:15.0:15.0;Houston:29.7604:-95.3698:-6:ISNA:15.0:15.0')
+U('Jerman',3,'Berlin:52.5200:13.4050:1::18.0:17.0;Frankfurt:50.1109:8.6821:1::18.0:17.0;Munich:48.1351:11.5820:1::18.0:17.0')
 U('Prancis',12,'Paris:48.8566:2.3522:1:UOIF:12.0:12.0;Lyon:45.7640:4.8357:1:UOIF:12.0:12.0;Marseille:43.2965:5.3698:1:UOIF:12.0:12.0')
 U('Belanda',3,'Amsterdam:52.3676:4.9041:1::18.0:17.0;Rotterdam:51.9244:4.4777:1::18.0:17.0;Den Haag:52.0705:4.3007:1::18.0:17.0')
 U('Rusia',14,'Moskwa:55.7558:37.6173:3:Russia DUM:16.0:15.0;St. Petersburg:59.9343:30.3351:3:Russia DUM:16.0:15.0;Kazan:55.7963:49.1088:3:Russia DUM:16.0:15.0')
-U('Tiongkok',3,'Beijing:39.9042:116.4074:8::18.0:17.0;Shanghai:31.2304:121.4737:8::18.0:17.0;Guangzhou:23.1291:113.2644:8::18.0:17.0;Ürümqi:43.8256:87.6168:6::18.0:17.0')
+U('Tiongkok',3,'Beijing:39.9042:116.4074:8::18.0:17.0;Shanghai:31.2304:121.4737:8::18.0:17.0;Guangzhou:23.1291:113.2644:8::18.0:17.0')
 U('Pakistan',1,'')
 U('India',1,'')
 return C
@@ -2331,8 +2349,14 @@ gg:text(38,ay,arti_lines[i],{font=S.font('small')})
 ay=ay+20
 end
 if d.src and d.src~='' then
-local src_s=S.fit_text(tostring(d.src):sub(1,120):gsub('\r',' '):gsub('\n',' '),'small',W - 76)
-S.center_text(gg,W // 2,678,src_s,'small',W - 64)
+local clean_src=tostring(d.src):gsub('[\r\n]+',' ')
+local src_lines=F.wrap_lines(clean_src,'small',W - 80)
+local sl_n=math.min(#src_lines,2)
+local base_sy=684 -(sl_n - 1)*18
+S.divider(gg,base_sy - 8,40,W - 40)
+for si=1,sl_n do
+S.center_text(gg,W // 2,base_sy+(si - 1)*18,src_lines[si],'small',W - 64)
+end
 end
 end
 draw_btn(gg,20,712,136,64,is_en and '< Prev' or '< Seb',false,'medium')
@@ -2397,17 +2421,23 @@ for i=start_idx,end_idx do
 local it=items[i]
 local slot=i - start_idx
 local ry=222+slot*96
+if state.keyboard and ry>=440 then break end
 local is_saved=(it.id and state.saved_set and state.saved_set[it.id])
 S.round_rect(gg,20,ry,W - 40,90,12,nil,true,0)
 S.round_rect(gg,20,ry,W - 40,90,12,1)
 local cat_name=is_en and(it.grup_en or it.g_en or it.grup_id or it.g_id or '')or(it.grup_id or it.g_id or '')
 local pill_str='#' .. tostring(it.id or '').. ' • ' .. cat_name
-local pw=math.min(S.text_w(pill_str,'small')+18,250)
+local max_pw=is_saved and(W - 138)or(W - 96)
+local pw=math.min(S.text_w(pill_str,'small')+18,max_pw)
 S.round_rect(gg,32,ry+8,pw,20,6,nil,true,0)
 S.round_rect(gg,32,ry+8,pw,20,6,1)
 gg:text(38,ry+9,S.fit_text(pill_str,'small',pw - 10),{font=S.font('small')})
 if is_saved then
-gg:text(W - 74,ry+9,'*',{font=S.font('medium')})
+local bw=is_en and 54 or 62
+local bx=W - bw - 38
+S.round_rect(gg,bx,ry+8,bw,20,6,nil,true,0)
+S.round_rect(gg,bx,ry+8,bw,20,6,1)
+S.center_text(gg,bx+bw // 2,ry+10,is_en and 'SAVED' or 'SIMPAN','small',bw - 6)
 end
 local title_str=is_en and(it.nama_en or it.n_en or it.nama_id or it.n_id or '')or(it.nama_id or it.n_id or '')
 local max_tw=W - 92
@@ -2442,26 +2472,33 @@ draw_btn(gg,20,468,100,38,is_en and 'Close' or 'Tutup',false,'small')
 local preview='Q: ' ..(state.query or '').. '|'
 S.center_text(gg,W // 2,478,S.fit_text(preview,'small',220),'small',220)
 draw_btn(gg,W - 120,468,100,38,is_en and 'Del' or 'Hapus',false,'small')
+local lk=state.last_key or ''
 local r1={'Q','W','E','R','T','Y','U','I','O','P'}
 for k=1,10 do
 local kx=16+(k - 1)*45
-S.round_rect(gg,kx,514,41,46,6,nil,true,0)
-S.round_rect(gg,kx,514,41,46,6,1)
-S.center_text(gg,kx+20,526,r1[k],'medium',36)
+local ch=r1[k]
+local is_hit=(lk==ch:lower())
+gg:rect(kx,514,41,46,{fill=true,color=is_hit and 1 or 0})
+gg:rect(kx,514,41,46,{line_width=is_hit and 2 or 1})
+S.center_text(gg,kx+20,526,ch,'medium',36)
 end
 local r2={'A','S','D','F','G','H','J','K','L'}
 for k=1,9 do
 local kx=38+(k - 1)*45
-S.round_rect(gg,kx,568,41,46,6,nil,true,0)
-S.round_rect(gg,kx,568,41,46,6,1)
-S.center_text(gg,kx+20,580,r2[k],'medium',36)
+local ch=r2[k]
+local is_hit=(lk==ch:lower())
+gg:rect(kx,568,41,46,{fill=true,color=is_hit and 1 or 0})
+gg:rect(kx,568,41,46,{line_width=is_hit and 2 or 1})
+S.center_text(gg,kx+20,580,ch,'medium',36)
 end
 local r3={'Z','X','C','V','B','N','M'}
 for k=1,7 do
 local kx=24+(k - 1)*46
-S.round_rect(gg,kx,622,42,46,6,nil,true,0)
-S.round_rect(gg,kx,622,42,46,6,1)
-S.center_text(gg,kx+21,634,r3[k],'medium',36)
+local ch=r3[k]
+local is_hit=(lk==ch:lower())
+gg:rect(kx,622,42,46,{fill=true,color=is_hit and 1 or 0})
+gg:rect(kx,622,42,46,{line_width=is_hit and 2 or 1})
+S.center_text(gg,kx+21,634,ch,'medium',36)
 end
 draw_btn(gg,352,622,108,46,'Del',false,'small')
 draw_btn(gg,24,676,260,54,is_en and 'Space' or 'Spasi',false,'small')
@@ -2763,7 +2800,7 @@ end
 local is_exp=(about_expanded==true)
 local ab_body_h=is_exp and 680 or 0
 local ab_h=64+ab_body_h
-local total_content_bottom=622+ab_h+20
+local total_content_bottom=690+ab_h+20
 local viewport_bottom=726
 local max_scroll=math.max(0,total_content_bottom - viewport_bottom)
 local function vtext(x,y,s,opts)
@@ -2782,11 +2819,11 @@ gg:line(x1 or 36,y,x2 or(W - 36),y,{line_width=1})
 end
 end
 local card1_y=66 - scroll_y
-if(card1_y+544)>=60 and card1_y<=726 then
-S.round_rect(gg,20,card1_y,W - 40,544,14,nil,true,0)
-S.round_rect(gg,20,card1_y,W - 40,544,14,2)
+if(card1_y+612)>=60 and card1_y<=726 then
+S.round_rect(gg,20,card1_y,W - 40,612,14,nil,true,0)
+S.round_rect(gg,20,card1_y,W - 40,612,14,2)
 end
-for i=1,7 do
+for i=1,8 do
 local ly=card1_y+i*68
 if ly>=60 and ly<=720 then
 gg:line(36,ly,W - 36,ly,{line_width=1})
@@ -2856,7 +2893,14 @@ vtext(36,ry8+38,S.fit_text(up_sub,'small',250),{font=S.font('small')})
 if ry8>=40 and ry8<=680 then
 draw_btn(gg,W - 124,ry8+15,88,38,is_en and 'Check >' or 'Cek >',false,'small')
 end
-local card2_y=622 - scroll_y
+local ry9=card1_y+544
+vtext(36,ry9+12,is_en and 'Storage & Cache' or 'Penyimpanan & Cache',{font=S.font('medium')})
+local stor_sub=is_en and 'Manage offline data & Doa cache' or 'Kelola data offline & cache doa'
+vtext(36,ry9+38,S.fit_text(stor_sub,'small',250),{font=S.font('small')})
+if ry9>=40 and ry9<=680 then
+draw_btn(gg,W - 124,ry9+15,88,38,is_en and 'Manage >' or 'Kelola >',false,'small')
+end
+local card2_y=690 - scroll_y
 if(card2_y+ab_h)>=60 and card2_y<=726 then
 S.card(gg,20,card2_y,W - 40,ab_h,2,is_exp)
 end
@@ -3165,13 +3209,13 @@ S.round_rect(gg,bx,by,bw,bh,12,nil,true,0)
 S.round_rect(gg,bx,by,bw,bh,12,1)
 S.round_rect(gg,bx+16,by+16,bw - 32,36,8,nil,true,0)
 S.round_rect(gg,bx+16,by+16,bw - 32,36,8,1)
-local ok_lbl=is_en and '[ OK ] Versi Terbaru Aktif' or '[ OK ] Versi Terbaru Aktif'
+local ok_lbl=is_en and '[ OK ] Up to Date' or '[ OK ] Versi Terbaru Aktif'
 S.center_text(gg,bx+bw // 2,by+24,ok_lbl,'medium')
 local desc1=is_en
-and 'Aplikasi MuslimInk pada perangkat Anda sudah menggunakan versi rilis terbaru dari GitHub.'
+and 'MuslimInk is already running the latest release from GitHub.'
 or 'Aplikasi MuslimInk pada perangkat Anda sudah menggunakan versi rilis terbaru dari GitHub.'
 local desc2=is_en
-and 'Tidak ada pembaruan yang diperlukan saat ini.'
+and 'No updates needed at this time.'
 or 'Tidak ada pembaruan yang diperlukan saat ini.'
 local w1=S.wrap_lines(desc1,bw - 40,'small')
 local ty=by+68
@@ -3475,6 +3519,60 @@ end
 draw_btn(gg,16,716,136,60,is_en and 'Cancel' or 'Batal',false,'medium')
 draw_btn(gg,160,716,W - 176,60,is_en and 'Simpan & Hitung' or 'Simpan & Hitung',true,'medium')
 end
+function F.draw_storage_modal(gg,cfg,draw_btn,cache_count,saved_count)
+local W,H=S.W,S.H
+local is_en=(cfg.lang=='en')
+local mx,my,mw,mh=20,100,W - 40,580
+for sy=0,H,4 do
+gg:line(0,sy,W,sy,{line_width=1})
+end
+gg:rect(mx,my,mw,mh,{fill=true,color=0})
+S.round_rect(gg,mx,my,mw,mh,16,nil,true,0)
+S.round_rect(gg,mx,my,mw,mh,16,2)
+S.sheet_grabber(gg,W // 2,my+10)
+local title=is_en and 'Storage & Cache' or 'Penyimpanan & Cache'
+local sub=is_en and 'Manage offline data & Doa cache' or 'Kelola data offline & cache doa'
+gg:text(mx+20,my+24,title,{font=S.font('medium')})
+gg:text(mx+20,my+48,sub,{font=S.font('small')})
+local cx,cy=mx+mw - 32,my+30
+gg:line(cx - 7,cy - 7,cx+7,cy+7,{line_width=2})
+gg:line(cx - 7,cy+7,cx+7,cy - 7,{line_width=2})
+gg:line(mx+16,my+72,mx+mw - 16,my+72,{line_width=1})
+local cy_box=my+82
+S.round_rect(gg,mx+16,cy_box,mw - 32,110,10,nil,true,0)
+S.round_rect(gg,mx+16,cy_box,mw - 32,110,1)
+local s_title=is_en and 'LOCAL STORAGE OVERVIEW' or 'RINGKASAN PENYIMPANAN'
+gg:text(mx+28,cy_box+12,s_title,{font=S.font('small')})
+gg:line(mx+28,cy_box+30,mx+mw - 28,cy_box+30,{line_width=1})
+local s1=(is_en and 'Saved Bookmarks : ' or 'Doa Tersimpan   : ').. tostring(saved_count or 0).. ' item'
+local s2=(is_en and 'Cached Doa Files: ' or 'Cache File Doa  : ').. tostring(cache_count or 0).. ' file'
+local s3=(is_en and 'Catalog Index   : 227 Duas (Complete)' or 'Katalog Indeks  : 227 Doa (Lengkap)')
+gg:text(mx+28,cy_box+40,s1,{font=S.font('small')})
+gg:text(mx+28,cy_box+62,s2,{font=S.font('small')})
+gg:text(mx+28,cy_box+84,s3,{font=S.font('small')})
+local ay1=my+208
+S.round_rect(gg,mx+16,ay1,mw - 32,76,10,nil,true,0)
+S.round_rect(gg,mx+16,ay1,mw - 32,76,1)
+gg:text(mx+28,ay1+14,is_en and '1. Clear Doa Files Cache' or '1. Hapus Cache File Doa',{font=S.font('medium')})
+local tip1=is_en and 'Clears cached files to re-download fresh text' or 'Hapus file cache agar teks doa terunduh ulang segar'
+gg:text(mx+28,ay1+42,S.fit_text(tip1,'small',mw - 150),{font=S.font('small')})
+draw_btn(gg,mx+mw - 128,ay1+18,96,40,is_en and 'Clear' or 'Hapus',false,'small')
+local ay2=my+296
+S.round_rect(gg,mx+16,ay2,mw - 32,76,10,nil,true,0)
+S.round_rect(gg,mx+16,ay2,mw - 32,76,1)
+gg:text(mx+28,ay2+14,is_en and '2. Sync Doa Catalog (GitHub)' or '2. Segarkan Indeks Doa (GitHub)',{font=S.font('medium')})
+local tip2=is_en and 'Updates full list of 227 prayers via Wi-Fi' or 'Perbarui daftar lengkap 227 doa via Wi-Fi'
+gg:text(mx+28,ay2+42,S.fit_text(tip2,'small',mw - 150),{font=S.font('small')})
+draw_btn(gg,mx+mw - 128,ay2+18,96,40,is_en and 'Sync' or 'Segarkan',false,'small')
+local ay3=my+384
+S.round_rect(gg,mx+16,ay3,mw - 32,76,10,nil,true,0)
+S.round_rect(gg,mx+16,ay3,mw - 32,76,1)
+gg:text(mx+28,ay3+14,is_en and '3. Reset Saved Bookmarks' or '3. Reset Bookmark Doa',{font=S.font('medium')})
+local tip3=is_en and 'Restore default 10 essential prayer bookmarks' or 'Kembalikan bookmark ke 10 doa bawaan'
+gg:text(mx+28,ay3+42,S.fit_text(tip3,'small',mw - 150),{font=S.font('small')})
+draw_btn(gg,mx+mw - 128,ay3+18,96,40,is_en and 'Reset' or 'Reset',false,'small')
+draw_btn(gg,mx+20,my+mh - 54,mw - 40,44,is_en and 'Close' or 'Tutup',true,'medium')
+end
 return F
 end)()
 
@@ -3487,6 +3585,7 @@ local hijri_modal=false
 local cfont_modal=false
 local quote_modal=false
 local update_modal=false
+local storage_modal=false
 local update_info=nil
 local update_state='idle'
 local update_err=nil
@@ -4239,19 +4338,31 @@ end
 local function open_doa_detail(it)
 if not it or not it.id then return end
 local is_en=(cfg.lang=='en')
-if doa_state.cache[it.id] then
-doa_state.viewing=doa_state.cache[it.id]
-return
-end
+local cached=doa_state.cache[it.id]
+if not cached then
 local raw_d=S.read('doa_' .. tostring(it.id).. '.txt')
 if raw_d and raw_d~='' then
 local ok,res=pcall(function()return ctx.json:decode(raw_d)end)
 if ok and type(res)=='table' and res.id then
 doa_state.cache[it.id]=res
-doa_state.viewing=res
-return
+cached=res
 end
 end
+end
+local need_refresh=false
+if cached then
+doa_state.viewing=cached
+if is_en then
+if not cached.arti_en or cached.arti_en=='' or cached.arti_en==cached.arti_id or(cached.nama_en and cached.nama_en:find('Supplication for Membalikkan'))then
+need_refresh=true
+end
+else
+if not cached.arti_id or cached.arti_id=='' then
+need_refresh=true
+end
+end
+if not need_refresh then return end
+else
 doa_state.viewing={
 id=it.id,
 nama_id=it.nama_id or it.n_id or '',
@@ -4263,6 +4374,7 @@ arti_id='Sedang mengunduh teks doa...',
 arti_en='Downloading supplication text...',
 src='Hisnul Muslim',
 }
+end
 doa_state.fetching=true
 pcall(function()
 local url1='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/doa/' .. tostring(it.id).. '.json'
@@ -4284,7 +4396,7 @@ refresh()
 return
 end
 end
-if doa_state.viewing and doa_state.viewing.id==it.id then
+if doa_state.viewing and doa_state.viewing.id==it.id and not cached then
 doa_state.viewing.latin=is_en and 'Offline: Connect Wi-Fi to load.' or 'Offline: Hubungkan Wi-Fi untuk mengunduh.'
 doa_state.viewing.arti_en='Supplication text will be downloaded when device is connected to Wi-Fi.'
 doa_state.viewing.arti_id='Teks doa akan diunduh saat perangkat terhubung ke Wi-Fi.'
@@ -4314,7 +4426,7 @@ draw_list_screen(gg,L.pick_kab ..(selected_prov or ''),kab_list,now_info)
 elseif screen=='month' then
 draw_month_screen(gg,now_info)
 elseif screen=='settings' then
-F.draw_settings_screen(gg,cfg,now_info,draw_btn,about_expanded,settings_scroll_y,update_modal or cfont_modal or quote_modal)
+F.draw_settings_screen(gg,cfg,now_info,draw_btn,about_expanded,settings_scroll_y,update_modal or cfont_modal or quote_modal or storage_modal)
 else
 if screen=='tasbih' then
 ensure_tasbih()
@@ -4344,6 +4456,12 @@ F.draw_quote_modal(gg,cfg,draw_btn)
 end
 if update_modal then
 F.draw_update_modal(gg,cfg,update_info,update_state,update_err,update_saved_path,draw_btn,update_progress,update_tab)
+end
+if storage_modal then
+local cache_c=0
+for _ in pairs(doa_state.cache or{})do cache_c=cache_c+1 end
+local saved_c=(doa_state.saved_items and #doa_state.saved_items)or 0
+F.draw_storage_modal(gg,cfg,draw_btn,cache_c,saved_c)
 end
 if drawer_open then
 draw_drawer(gg)
@@ -4499,6 +4617,59 @@ return true
 end
 if x<mx or x>mx+mw or y<my or y>my+mh then
 quote_modal=false
+return true
+end
+return true
+end
+local function check_storage_modal_tap(x,y)
+if not storage_modal then return false end
+local mx,my,mw,mh=20,100,W - 40,580
+local is_en=(cfg.lang=='en')
+local cx,cy=mx+mw - 32,my+30
+if x>=cx - 20 and x<=cx+20 and y>=cy - 20 and y<=cy+20 then
+storage_modal=false
+return true
+end
+local ay1=my+208
+if y>=ay1 and y<=ay1+76 and x>=mx+16 and x<=mx+mw - 16 then
+doa_state.cache={}
+doa_state.viewing=nil
+if doa_state.index then
+for _,it in ipairs(doa_state.index)do
+if it.id then S.delete('doa_' .. tostring(it.id).. '.txt')end
+end
+end
+status=is_en and 'Doa files cache cleared successfully!' or 'Cache file doa berhasil dibersihkan!'
+refresh()
+return true
+end
+local ay2=my+296
+if y>=ay2 and y<=ay2+76 and x>=mx+16 and x<=mx+mw - 16 then
+S.delete('doa_index.txt')
+doa_state.synced=false
+sync_doa_index_online()
+status=is_en and 'Syncing 227 doa catalog from GitHub...' or 'Menyinkronkan 227 katalog doa dari GitHub...'
+refresh()
+return true
+end
+local ay3=my+384
+if y>=ay3 and y<=ay3+76 and x>=mx+16 and x<=mx+mw - 16 then
+doa_state.saved_set={}
+for _,sid in ipairs({1,6,8,10,48,128,135,141,172,214})do
+doa_state.saved_set[sid]=true
+end
+S.write('saved_duas.txt','1,6,8,10,48,128,135,141,172,214')
+ensure_doa_ready()
+status=is_en and 'Prayer bookmarks reset to default 10!' or 'Bookmark doa dikembalikan ke 10 bawaan!'
+refresh()
+return true
+end
+if y>=my+mh - 54 and y<=my+mh - 10 and x>=mx+20 and x<=mx+mw - 20 then
+storage_modal=false
+return true
+end
+if x<mx or x>mx+mw or y<my or y>my+mh then
+storage_modal=false
 return true
 end
 return true
@@ -4675,7 +4846,7 @@ end
 return
 end
 local cy=y+settings_scroll_y
-if cy>=66 and cy<66+544 and x>=20 and x<=W - 20 then
+if cy>=66 and cy<66+612 and x>=20 and x<=W - 20 then
 local i=(cy - 66)// 68+1
 if i==1 then
 if x>=W - 142 and x<W - 142+53 then
@@ -4748,10 +4919,12 @@ status=is_en and('MuslimInk is up to date (v' .. cur_v .. ').')or('MuslimInk sud
 end
 refresh()
 end)
+elseif i==9 then
+storage_modal=true
 end
 return
 end
-if cy>=622 and cy<=622+64 and x>=20 and x<=W - 20 then
+if cy>=690 and cy<=690+64 and x>=20 and x<=W - 20 then
 about_expanded=not about_expanded
 if not about_expanded then
 settings_scroll_y=0
@@ -4876,6 +5049,12 @@ end
 end
 return
 end
+local function update_q(new_q,lk)
+doa_state.query=new_q
+doa_state.page=1
+doa_state.last_key=lk
+doa_state.filtered_items=F.filter_duas(doa_state.index or F.SEED_DOA_INDEX,doa_state.query)
+end
 if doa_state.keyboard then
 if y>=460 and y<=776 then
 if y>=468 and y<=506 then
@@ -4884,9 +5063,7 @@ doa_state.keyboard=false
 return
 elseif x>=W - 120 and x<=W - 20 then
 if #doa_state.query>0 then
-doa_state.query=doa_state.query:sub(1,#doa_state.query - 1)
-doa_state.page=1
-ensure_doa_ready()
+update_q(doa_state.query:sub(1,#doa_state.query - 1),'del')
 end
 return
 end
@@ -4895,9 +5072,7 @@ if y>=514 and y<=560 then
 local r1={'q','w','e','r','t','y','u','i','o','p'}
 local k=(x - 16)// 45+1
 if k>=1 and k<=10 then
-doa_state.query=doa_state.query .. r1[k]
-doa_state.page=1
-ensure_doa_ready()
+update_q(doa_state.query .. r1[k],r1[k])
 return
 end
 end
@@ -4905,35 +5080,27 @@ if y>=568 and y<=614 then
 local r2={'a','s','d','f','g','h','j','k','l'}
 local k=(x - 38)// 45+1
 if k>=1 and k<=9 then
-doa_state.query=doa_state.query .. r2[k]
-doa_state.page=1
-ensure_doa_ready()
+update_q(doa_state.query .. r2[k],r2[k])
 return
 end
 end
 if y>=622 and y<=668 then
 if x>=352 and x<=460 then
 if #doa_state.query>0 then
-doa_state.query=doa_state.query:sub(1,#doa_state.query - 1)
-doa_state.page=1
-ensure_doa_ready()
+update_q(doa_state.query:sub(1,#doa_state.query - 1),'del')
 end
 return
 end
 local r3={'z','x','c','v','b','n','m'}
 local k=(x - 24)// 46+1
 if k>=1 and k<=7 then
-doa_state.query=doa_state.query .. r3[k]
-doa_state.page=1
-ensure_doa_ready()
+update_q(doa_state.query .. r3[k],r3[k])
 return
 end
 end
 if y>=676 and y<=730 then
 if x>=24 and x<=284 then
-doa_state.query=doa_state.query .. ' '
-doa_state.page=1
-ensure_doa_ready()
+update_q(doa_state.query .. ' ','space')
 return
 elseif x>=296 and x<=460 then
 doa_state.keyboard=false
@@ -4958,9 +5125,7 @@ end
 if doa_state.tab=='search' then
 if y>=98 and y<=144 and x>=20 and x<=W - 20 then
 if x>=W - 64 and doa_state.query~='' then
-doa_state.query=''
-doa_state.page=1
-ensure_doa_ready()
+update_q('',nil)
 else
 doa_state.keyboard=true
 end
@@ -4974,13 +5139,11 @@ local idx=row*4+col+1
 local chip=F.DOA_CHIPS[idx]
 if chip then
 if doa_state.query:lower()==chip.id then
-doa_state.query=''
+update_q('',nil)
 else
-doa_state.query=chip.id
+update_q(chip.id,nil)
 end
-doa_state.page=1
 doa_state.keyboard=false
-ensure_doa_ready()
 return
 end
 end
@@ -5334,6 +5497,7 @@ if ev.phase=='up' or ev.gesture=='tap' then
 local x,y=tonumber(ev.x)or 0,tonumber(ev.y)or 0
 local ok,err=pcall(function()
 if check_drawer_tap(x,y)then return end
+if check_storage_modal_tap(x,y)then return end
 if check_update_modal_tap(x,y)then return end
 if check_cfont_modal_tap(x,y)then return end
 if check_quote_modal_tap(x,y)then return end
@@ -5453,6 +5617,10 @@ if ev.type=='key' and key_ok(ev)then
 if ev.key=='back' then
 if drawer_open then
 drawer_open=false
+refresh()
+return true
+elseif storage_modal then
+storage_modal=false
 refresh()
 return true
 elseif update_modal then

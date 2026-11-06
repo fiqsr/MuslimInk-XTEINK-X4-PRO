@@ -61,18 +61,6 @@ S.LANGS = {
     month_empty_sub = 'Ketuk tombol "Unduh" di bawah untuk memuat.',
     col_day = 'Tgl',
     col_headers = { 'Tgl', 'Imsak', 'Subuh', 'Dzuhur', 'Ashar', 'Magrib', 'Isya' },
-    quotes = {
-      { 'Dirikanlah shalat, sesungguhnya shalat', 'mencegah perbuatan keji dan mungkar.', "QS. Al-'Ankabut: 45" },
-      { 'Sungguh Aku ini Allah, tiada Tuhan selain', 'Aku, maka sembahlah Aku & dirikan shalat.', 'QS. Thaha: 14' },
-      { 'Maka sesungguhnya bersama kesulitan', 'ada kemudahan.', 'QS. Al-Insyirah: 5' },
-      { 'Ingatlah, hanya dengan mengingat Allah', 'hati menjadi tenteram.', "QS. Ar-Ra'd: 28" },
-      { 'Jadikanlah sabar dan shalat', 'sebagai penolongmu.', 'QS. Al-Baqarah: 45' },
-      { 'Sungguh shalat itu adalah kewajiban yang', 'ditentukan waktunya bagi orang beriman.', 'QS. An-Nisa: 103' },
-      { 'Peliharalah semua shalatmu, dan berdirilah', 'karena Allah dengan khusyuk.', 'QS. Al-Baqarah: 238' },
-      { 'Amalan yang paling dicintai Allah adalah', 'shalat tepat pada waktunya.', 'HR. Bukhari & Muslim' },
-      { 'Allah tidak membebani seseorang melainkan', 'sesuai dengan kesanggupannya.', 'QS. Al-Baqarah: 286' },
-      { 'Maka ingatlah kepada-Ku, Aku pun akan', 'ingat kepadamu. Bersyukurlah kepada-Ku.', 'QS. Al-Baqarah: 152' },
-    },
   },
   en = {
     code = 'EN',
@@ -128,18 +116,6 @@ S.LANGS = {
     month_empty_sub = 'Tap "Fetch" below to download this month.',
     col_day = 'Day',
     col_headers = { 'Day', 'Imsak', 'Fajr', 'Dhuhr', 'Asr', 'Magrib', 'Isha' },
-    quotes = {
-      { 'Establish prayer; indeed, prayer prohibits', 'immorality and wrongdoing.', "QS. Al-'Ankabut: 45" },
-      { 'Indeed, I am Allah. There is no deity', 'except Me, so worship Me & pray.', 'QS. Ta-Ha: 14' },
-      { 'For indeed, with hardship', 'comes ease.', 'QS. Ash-Sharh: 5' },
-      { 'Unquestionably, by remembering Allah', 'hearts are assured.', "QS. Ar-Ra'd: 28" },
-      { 'And seek help through patience', 'and prayer.', 'QS. Al-Baqarah: 45' },
-      { 'Indeed, prayer has been decreed upon', 'the believers at specified times.', 'QS. An-Nisa: 103' },
-      { 'Maintain with care the obligatory prayers', 'and stand before Allah devoutly.', 'QS. Al-Baqarah: 238' },
-      { 'The deed most beloved to Allah is', 'prayer offered on time.', 'HR. Bukhari & Muslim' },
-      { 'Allah does not charge a soul except', 'with that within its capacity.', 'QS. Al-Baqarah: 286' },
-      { 'So remember Me; I will remember you.', 'And be grateful to Me.', 'QS. Al-Baqarah: 152' },
-    },
   },
 }
 
@@ -157,6 +133,12 @@ end
 
 function S.write(name, s)
   pcall(function() ctx.storage:write(name, s) end)
+end
+
+function S.delete(name)
+  pcall(function() if ctx and ctx.storage and ctx.storage.remove then ctx.storage:remove(name) end end)
+  pcall(function() if ctx and ctx.storage and ctx.storage.delete then ctx.storage:delete(name) end end)
+  pcall(function() if ctx and ctx.storage and ctx.storage.write then ctx.storage:write(name, '') end end)
 end
 
 function S.load_cfg()
@@ -1390,26 +1372,6 @@ S.BUILTIN_AYAHS = {
   [8] = { ref = 'QS. Al-Anbiya: 87', id = 'Tidak ada tuhan selain Engkau, Mahasuci Engkau. Sungguh, aku termasuk orang-orang yang zalim.', en = 'There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.' },
   [9] = { ref = "QS. Al-'Ankabut: 45", id = 'Dirikanlah shalat. Sesungguhnya shalat itu mencegah dari (perbuatan) keji dan mungkar.', en = 'Establish prayer. Indeed, prayer prohibits immorality and wrongdoing.' },
   [10] = { ref = 'QS. At-Talaq: 3', id = 'Dan barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.', en = 'And whoever relies upon Allah - then He is sufficient for him.' },
-  [11] = { ref = 'QS. Ad-Duha: 3', id = 'Tuhanmu tidak meninggalkan engkau (Muhammad) dan tidak (pula) membencimu.', en = 'Your Lord has not taken leave of you, [O Muhammad], nor has He detested [you].' },
-  [12] = { ref = 'QS. Ad-Duha: 5', id = 'Dan sungguh, kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, sehingga engkau menjadi puas.', en = 'And your Lord is going to give you, and you will be satisfied.' },
-  [13] = { ref = 'QS. Ghafir: 60', id = 'Berdoalah kepada-Ku, niscaya akan Kuperkenankan bagimu.', en = 'Call upon Me; I will respond to you.' },
-  [14] = { ref = 'QS. Ar-Rahman: 13', id = 'Maka nikmat Tuhanmu yang manakah yang kamu dustakan?', en = 'So which of the favors of your Lord would you deny?' },
-  [15] = { ref = "QS. Al-A'la: 1", id = 'Sucikanlah nama Tuhanmu Yang Mahatinggi.', en = 'Exalt the name of your Lord, the Most High.' },
-  [16] = { ref = 'QS. An-Nasr: 3', id = 'Maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampunan kepada-Nya.', en = 'Then exalt [Him] with praise of your Lord and ask forgiveness of Him.' },
-  [17] = { ref = "QS. Asy-Syu'ara: 80", id = 'Dan apabila aku sakit, Dialah yang menyembuhkan aku.', en = 'And when I am ill, it is He who cures me.' },
-  [18] = { ref = 'QS. Al-Hadid: 4', id = 'Dan Dia bersama kamu di mana saja kamu berada.', en = 'And He is with you wherever you are.' },
-  [19] = { ref = 'QS. Al-Baqarah: 152', id = 'Maka ingatlah kepada-Ku, Aku pun akan ingat kepadamu. Bersyukurlah kepada-Ku, dan janganlah kamu ingkar kepada-Ku.', en = 'So remember Me; I will remember you. And be grateful to Me and do not deny Me.' },
-  [20] = { ref = 'QS. Al-Baqarah: 153', id = 'Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan shalat.', en = 'O you who have believed, seek help through patience and prayer.' },
-  [21] = { ref = 'QS. Al-Hujurat: 10', id = 'Sesungguhnya orang-orang mukmin itu bersaudara, karena itu damaikanlah antara kedua saudaramu.', en = 'The believers are but brothers, so make settlement between your brothers.' },
-  [22] = { ref = 'QS. Al-Hujurat: 13', id = 'Sesungguhnya yang paling mulia di antara kamu di sisi Allah ialah orang yang paling bertakwa.', en = 'Indeed, the most noble of you in the sight of Allah is the most righteous of you.' },
-  [23] = { ref = 'QS. An-Nahl: 128', id = 'Sungguh, Allah beserta orang-orang yang bertakwa dan orang-orang yang berbuat kebaikan.', en = 'Indeed, Allah is with those who fear Him and those who are doers of good.' },
-  [24] = { ref = 'QS. Al-Baqarah: 195', id = 'Dan berbuat baiklah. Sungguh, Allah menyukai orang-orang yang berbuat baik.', en = 'And do good; indeed, Allah loves the doers of good.' },
-  [25] = { ref = "QS. Ali 'Imran: 139", id = 'Dan janganlah kamu (merasa) lemah, dan jangan (pula) bersedih hati, sebab kamu paling tinggi (derajatnya), jika kamu orang beriman.', en = 'So do not weaken and do not grieve, and you will be superior if you are [true] believers.' },
-  [26] = { ref = "QS. Ali 'Imran: 200", id = 'Wahai orang-orang yang beriman! Bersabarlah kamu dan kuatkanlah kesabaranmu dan tetaplah bersiap-siaga dan bertakwalah kepada Allah.', en = 'O you who have believed, persevere and endure and remain stationed and fear Allah.' },
-  [27] = { ref = 'QS. An-Nisa: 103', id = 'Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman.', en = 'Indeed, prayer has been decreed upon the believers a decree of specified times.' },
-  [28] = { ref = 'QS. Al-Fajr: 27', id = 'Wahai jiwa yang tenang!', en = 'O reassured soul,' },
-  [29] = { ref = 'QS. Al-Fajr: 28', id = 'Kembalilah kepada Tuhanmu dengan hati yang ridha dan diridhai-Nya.', en = 'Return to your Lord, well-pleased and pleasing [to Him],' },
-  [30] = { ref = 'QS. Al-Furqan: 74', id = 'Ya Tuhan kami, anugerahkanlah kepada kami pasangan kami dan keturunan kami sebagai penyenang hati (kami).', en = 'Our Lord, grant us from among our wives and offspring comfort to our eyes.' },
 }
 
 function S.wrap_lines(s, max_w, fname)
@@ -1609,14 +1571,11 @@ function S.force_refresh_quote(now_info, cfg, info, on_done)
     local req_key = 'manual_' .. tostring(next_idx) .. '_' .. tostring(t_now)
 
     if cfg and cfg.qrefresh == 4 then
-      local L_id = S.LANGS.id
-      local L_en = S.LANGS.en
-      local q_id = L_id.quotes[((next_idx - 1) % #L_id.quotes) + 1]
-      local q_en = L_en.quotes[((next_idx - 1) % #L_en.quotes) + 1]
+      local b = S.BUILTIN_AYAHS[((next_idx - 1) % #S.BUILTIN_AYAHS) + 1]
       local parsed = {
-        id_text = q_id[1] .. ' ' .. q_id[2],
-        en_text = q_en[1] .. ' ' .. q_en[2],
-        ref = q_id[3],
+        id_text = b.id,
+        en_text = b.en,
+        ref = b.ref,
         pool_idx = next_idx,
       }
       S.save_cached_quote(parsed, req_key)
@@ -1636,14 +1595,11 @@ function S.force_refresh_quote(now_info, cfg, info, on_done)
         quote_fetching = false
         pcall(function()
           if type(resp) ~= 'table' or type(resp.body) ~= 'string' then
-            local L_id = S.LANGS.id
-            local L_en = S.LANGS.en
-            local q_id = L_id.quotes[((next_idx - 1) % #L_id.quotes) + 1]
-            local q_en = L_en.quotes[((next_idx - 1) % #L_en.quotes) + 1]
+            local b = S.BUILTIN_AYAHS[((next_idx - 1) % #S.BUILTIN_AYAHS) + 1]
             local parsed = {
-              id_text = q_id[1] .. ' ' .. q_id[2],
-              en_text = q_en[1] .. ' ' .. q_en[2],
-              ref = q_id[3],
+              id_text = b.id,
+              en_text = b.en,
+              ref = b.ref,
               pool_idx = next_idx,
             }
             S.save_cached_quote(parsed, req_key)
@@ -1713,22 +1669,12 @@ function S.get_effective_quote(cfg, day)
     if b_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[b_idx] then
       text = S.BUILTIN_AYAHS[b_idx].en
       ref = S.BUILTIN_AYAHS[b_idx].ref
-    elseif S.LANGS and S.LANGS.en and S.LANGS.en.quotes then
-      local L = S.LANGS.en
-      local q = L.quotes[((day or 0) % #L.quotes) + 1]
-      text = q[1] .. ' ' .. q[2]
-      ref = q[3]
     end
   elseif not is_en and (not text or text == '') then
     local b_idx = (pool_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[pool_idx] and pool_idx) or (S.BUILTIN_AYAHS and (((day or 0) % #S.BUILTIN_AYAHS) + 1))
     if b_idx and S.BUILTIN_AYAHS and S.BUILTIN_AYAHS[b_idx] then
       text = S.BUILTIN_AYAHS[b_idx].id
       ref = S.BUILTIN_AYAHS[b_idx].ref
-    elseif S.LANGS and S.LANGS.id and S.LANGS.id.quotes then
-      local L = S.LANGS.id
-      local q = L.quotes[((day or 0) % #L.quotes) + 1]
-      text = q[1] .. ' ' .. q[2]
-      ref = q[3]
     end
   end
 
@@ -1780,8 +1726,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.2.5'
-S.APP_BUILD = 125
+S.APP_VERSION = '1.2.6'
+S.APP_BUILD = 126
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'

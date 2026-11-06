@@ -168,54 +168,138 @@ local function _PSI()
 end
 F.SEED_DOA_INDEX = _PSI()
 
--- Smart Multi-Field & Synonym Search Function
+-- Smart Multi-Token & Synonym Search Engine with Relevance Ranking
+local SYN_GROUPS = {
+  'sholat shalat salat solat prayer namaz adzan azan wudhu sujud ruku iftitah tahiyat tahajud dhuha witir tarawih masjid imam saf jumat',
+  'tidur sleep sleeping bed malam night bangun wake waking mimpi dream rebahan istirahat',
+  'makan food eat eating meal minum drink bismillah kenyang lapar hidangan rezeki sahur berbuka',
+  'safar travel journey kendaraan vehicle perjalanan mobil pesawat naik singgah jalan trip',
+  'sakit sick pain ill health sembuh cure demam obat luka penyakit sehat gundah medis',
+  'ortu orang tua parents parent ayah ibu bapak father mother keluarga family anak rahmat',
+  'rumah home house keluar masuk leave leaving enter entering pintu selamat',
+  'toilet wc kamar mandi restroom lavatory hajat istinja buang air kencing',
+  'wudhu ablution bersuci bersihkan sholat prayer suci kumur',
+  'hujan rain rainfall petir thunder angin wind cuaca weather mendung badai lebat air',
+  'puasa fast fasting iftar berbuka sahur ramadhan tarawih lapar dahaga',
+  'sedih sad gundah gelisah anxiety takut fear troubled bingung duka derita musibah cemas',
+  'rezeki rizki sustenance wealth kaya utang debt harta miskin usaha rejeki nafkah berkah',
+  'pagi morning subuh fajr terbit matahari dzikir pagi petang',
+  'petang sore evening maghrib sunset dzikir malam night',
+  'istighfar ampun taubat tobat forgive forgiveness pardon dosa sin khilaf salah sesal',
+}
+local SYN_MAP = {}
+for _, g in ipairs(SYN_GROUPS) do
+  for w in g:gmatch('%S+') do SYN_MAP[w] = g end
+end
+
 function F.filter_duas(items, q)
   if not q or q == '' then return items end
   local clean = q:lower():gsub('^%s+', ''):gsub('%s+$', '')
   if clean == '' then return items end
 
-  local syns = {}
-  syns[clean] = true
-  local syn_groups = {
-    'sholat shalat salat solat prayer namaz adzan wudhu sujud ruku masjid iftitah tahiyat',
-    'tidur sleep night malam bed bangun',
-    'makan food eat meal minum',
-    'safar travel journey kendaraan perjalanan',
-    'sakit sick ill health sembuh demam cure',
-    'ortu parents ayah ibu',
-    'pagi morning petang evening dzikir',
-    'istighfar ampun taubat forgive pardon',
-  }
-  for _, g in ipairs(syn_groups) do
-    if (' ' .. g .. ' '):find(' ' .. clean .. ' ', 1, true) then
-      for w in g:gmatch('%S+') do syns[w] = true end
-      break
+  local tokens = {}
+  for w in clean:gmatch('%S+') do
+    tokens[#tokens + 1] = w
+  end
+  if #tokens == 0 then return items end
+
+  local token_syns = {}
+  for _, tok in ipairs(tokens) do
+    local sset = { [tok] = true }
+    local sgroup = SYN_MAP[tok]
+    if sgroup then
+      for sw in sgroup:gmatch('%S+') do sset[sw] = true end
+    else
+      for k, g in pairs(SYN_MAP) do
+        if k:find(tok, 1, true) or tok:find(k, 1, true) then
+          for sw in g:gmatch('%S+') do sset[sw] = true end
+          break
+        end
+      end
     end
+    token_syns[#token_syns + 1] = { token = tok, set = sset }
   end
 
-  local res = {}
+  local scored = {}
   for _, it in ipairs(items) do
-    local nid = it.nama_id or it.n_id or ''
-    local nen = it.nama_en or it.n_en or ''
-    local gid = it.grup_id or it.g_id or ''
-    local gen = it.grup_en or it.g_en or ''
-    local tag_str = ''
+    local nid = (it.nama_id or it.n_id or ''):lower()
+    local nen = (it.nama_en or it.n_en or ''):lower()
+    local gid = (it.grup_id or it.g_id or ''):lower()
+    local gen = (it.grup_en or it.g_en or ''):lower()
+    local tags_str = ''
     if type(it.tags) == 'table' then
-      tag_str = table.concat(it.tags, ' ')
+      tags_str = table.concat(it.tags, ' '):lower()
     elseif it.tags then
-      tag_str = tostring(it.tags)
+      tags_str = tostring(it.tags):lower()
     end
-    local blob = (nid .. ' ' .. nen .. ' ' .. gid .. ' ' .. gen .. ' ' .. tag_str):lower()
-    local matched = false
-    for w in pairs(syns) do
-      if blob:find(w, 1, true) then
-        matched = true
+
+    local score = 0
+    local all_match = true
+
+    if nid:find(clean, 1, true) or nen:find(clean, 1, true) then
+      score = score + 120
+    elseif gid:find(clean, 1, true) or gen:find(clean, 1, true) then
+      score = score + 50
+    end
+
+    for _, ts in ipairs(token_syns) do
+      local t_match = false
+      local tok = ts.token
+
+      if nid:find(tok, 1, true) or nen:find(tok, 1, true) then
+        score = score + 60
+        t_match = true
+      elseif tags_str:find(tok, 1, true) then
+        score = score + 35
+        t_match = true
+      elseif gid:find(tok, 1, true) or gen:find(tok, 1, true) then
+        score = score + 25
+        t_match = true
+      else
+        for syn in pairs(ts.set) do
+          if nid:find(syn, 1, true) or nen:find(syn, 1, true) then
+            score = score + 40
+            t_match = true
+            break
+          elseif tags_str:find(syn, 1, true) then
+            score = score + 25
+            t_match = true
+            break
+          elseif gid:find(syn, 1, true) or gen:find(syn, 1, true) then
+            score = score + 15
+            t_match = true
+            break
+          end
+        end
+      end
+
+      if not t_match and #tok >= 3 then
+        local p_pat = '%f[%w]' .. tok
+        if nid:find(p_pat) or nen:find(p_pat) or tags_str:find(p_pat) then
+          score = score + 30
+          t_match = true
+        end
+      end
+
+      if not t_match then
+        all_match = false
         break
       end
     end
-    if matched then
-      res[#res + 1] = it
+
+    if all_match and score > 0 then
+      scored[#scored + 1] = { item = it, score = score, id = it.id or 0 }
     end
+  end
+
+  table.sort(scored, function(a, b)
+    if a.score ~= b.score then return a.score > b.score end
+    return a.id < b.id
+  end)
+
+  local res = {}
+  for i = 1, #scored do
+    res[i] = scored[i].item
   end
   return res
 end
@@ -877,8 +961,14 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       end
 
       if d.src and d.src ~= '' then
-        local src_s = S.fit_text(tostring(d.src):sub(1, 120):gsub('\r', ' '):gsub('\n', ' '), 'small', W - 76)
-        S.center_text(gg, W // 2, 678, src_s, 'small', W - 64)
+        local clean_src = tostring(d.src):gsub('[\r\n]+', ' ')
+        local src_lines = F.wrap_lines(clean_src, 'small', W - 80)
+        local sl_n = math.min(#src_lines, 2)
+        local base_sy = 684 - (sl_n - 1) * 18
+        S.divider(gg, base_sy - 8, 40, W - 40)
+        for si = 1, sl_n do
+          S.center_text(gg, W // 2, base_sy + (si - 1) * 18, src_lines[si], 'small', W - 64)
+        end
       end
     end
 
@@ -961,6 +1051,7 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       local it = items[i]
       local slot = i - start_idx
       local ry = 222 + slot * 96
+      if state.keyboard and ry >= 440 then break end
       local is_saved = (it.id and state.saved_set and state.saved_set[it.id])
 
       S.round_rect(gg, 20, ry, W - 40, 90, 12, nil, true, 0)
@@ -969,13 +1060,18 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       -- ID & Category Capsule Pill (y = ry + 8..ry + 28)
       local cat_name = is_en and (it.grup_en or it.g_en or it.grup_id or it.g_id or '') or (it.grup_id or it.g_id or '')
       local pill_str = '#' .. tostring(it.id or '') .. ' • ' .. cat_name
-      local pw = math.min(S.text_w(pill_str, 'small') + 18, 250)
+      local max_pw = is_saved and (W - 138) or (W - 96)
+      local pw = math.min(S.text_w(pill_str, 'small') + 18, max_pw)
       S.round_rect(gg, 32, ry + 8, pw, 20, 6, nil, true, 0)
       S.round_rect(gg, 32, ry + 8, pw, 20, 6, 1)
       gg:text(38, ry + 9, S.fit_text(pill_str, 'small', pw - 10), { font = S.font('small') })
 
       if is_saved then
-        gg:text(W - 74, ry + 9, '*', { font = S.font('medium') })
+        local bw = is_en and 54 or 62
+        local bx = W - bw - 38
+        S.round_rect(gg, bx, ry + 8, bw, 20, 6, nil, true, 0)
+        S.round_rect(gg, bx, ry + 8, bw, 20, 6, 1)
+        S.center_text(gg, bx + bw // 2, ry + 10, is_en and 'SAVED' or 'SIMPAN', 'small', bw - 6)
       end
 
       -- Title Text (wrapped across 1-2 lines so it never cuts off awkwardly!)
@@ -1021,31 +1117,39 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
     S.center_text(gg, W // 2, 478, S.fit_text(preview, 'small', 220), 'small', 220)
     draw_btn(gg, W - 120, 468, 100, 38, is_en and 'Del' or 'Hapus', false, 'small')
 
+    local lk = state.last_key or ''
+
     -- Row 1: Q W E R T Y U I O P (10 keys)
     local r1 = { 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P' }
     for k = 1, 10 do
       local kx = 16 + (k - 1) * 45
-      S.round_rect(gg, kx, 514, 41, 46, 6, nil, true, 0)
-      S.round_rect(gg, kx, 514, 41, 46, 6, 1)
-      S.center_text(gg, kx + 20, 526, r1[k], 'medium', 36)
+      local ch = r1[k]
+      local is_hit = (lk == ch:lower())
+      gg:rect(kx, 514, 41, 46, { fill = true, color = is_hit and 1 or 0 })
+      gg:rect(kx, 514, 41, 46, { line_width = is_hit and 2 or 1 })
+      S.center_text(gg, kx + 20, 526, ch, 'medium', 36)
     end
 
     -- Row 2: A S D F G H J K L (9 keys)
     local r2 = { 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L' }
     for k = 1, 9 do
       local kx = 38 + (k - 1) * 45
-      S.round_rect(gg, kx, 568, 41, 46, 6, nil, true, 0)
-      S.round_rect(gg, kx, 568, 41, 46, 6, 1)
-      S.center_text(gg, kx + 20, 580, r2[k], 'medium', 36)
+      local ch = r2[k]
+      local is_hit = (lk == ch:lower())
+      gg:rect(kx, 568, 41, 46, { fill = true, color = is_hit and 1 or 0 })
+      gg:rect(kx, 568, 41, 46, { line_width = is_hit and 2 or 1 })
+      S.center_text(gg, kx + 20, 580, ch, 'medium', 36)
     end
 
     -- Row 3: Z X C V B N M (7 keys)
     local r3 = { 'Z', 'X', 'C', 'V', 'B', 'N', 'M' }
     for k = 1, 7 do
       local kx = 24 + (k - 1) * 46
-      S.round_rect(gg, kx, 622, 42, 46, 6, nil, true, 0)
-      S.round_rect(gg, kx, 622, 42, 46, 6, 1)
-      S.center_text(gg, kx + 21, 634, r3[k], 'medium', 36)
+      local ch = r3[k]
+      local is_hit = (lk == ch:lower())
+      gg:rect(kx, 622, 42, 46, { fill = true, color = is_hit and 1 or 0 })
+      gg:rect(kx, 622, 42, 46, { line_width = is_hit and 2 or 1 })
+      S.center_text(gg, kx + 21, 634, ch, 'medium', 36)
     end
     -- Backspace Key in Row 3
     draw_btn(gg, 352, 622, 108, 46, 'Del', false, 'small')
@@ -1432,7 +1536,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   local is_exp = (about_expanded == true)
   local ab_body_h = is_exp and 680 or 0
   local ab_h = 64 + ab_body_h
-  local total_content_bottom = 622 + ab_h + 20
+  local total_content_bottom = 690 + ab_h + 20
   local viewport_bottom = 726
   local max_scroll = math.max(0, total_content_bottom - viewport_bottom)
 
@@ -1459,15 +1563,15 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   -- 1. Scrollable Content Layer (offset by scroll_y)
   -- ==============================================================
 
-  -- Grouped Card 1: Core Settings (y = 66..610, h = 544, 8 rows)
+  -- Grouped Card 1: Core Settings (y = 66..678, h = 612, 9 rows)
   local card1_y = 66 - scroll_y
-  if (card1_y + 544) >= 60 and card1_y <= 726 then
-    S.round_rect(gg, 20, card1_y, W - 40, 544, 14, nil, true, 0)
-    S.round_rect(gg, 20, card1_y, W - 40, 544, 14, 2)
+  if (card1_y + 612) >= 60 and card1_y <= 726 then
+    S.round_rect(gg, 20, card1_y, W - 40, 612, 14, nil, true, 0)
+    S.round_rect(gg, 20, card1_y, W - 40, 612, 14, 2)
   end
 
   -- 1px Hairline dividers between grouped rows
-  for i = 1, 7 do
+  for i = 1, 8 do
     local ly = card1_y + i * 68
     if ly >= 60 and ly <= 720 then
       gg:line(36, ly, W - 36, ly, { line_width = 1 })
@@ -1554,8 +1658,17 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     draw_btn(gg, W - 124, ry8 + 15, 88, 38, is_en and 'Check >' or 'Cek >', false, 'small')
   end
 
+  -- Row 9: Storage & Cache Management
+  local ry9 = card1_y + 544
+  vtext(36, ry9 + 12, is_en and 'Storage & Cache' or 'Penyimpanan & Cache', { font = S.font('medium') })
+  local stor_sub = is_en and 'Manage offline data & Doa cache' or 'Kelola data offline & cache doa'
+  vtext(36, ry9 + 38, S.fit_text(stor_sub, 'small', 250), { font = S.font('small') })
+  if ry9 >= 40 and ry9 <= 680 then
+    draw_btn(gg, W - 124, ry9 + 15, 88, 38, is_en and 'Manage >' or 'Kelola >', false, 'small')
+  end
+
   -- Grouped Card 2: Accordion About MuslimInk
-  local card2_y = 622 - scroll_y
+  local card2_y = 690 - scroll_y
   if (card2_y + ab_h) >= 60 and card2_y <= 726 then
     S.card(gg, 20, card2_y, W - 40, ab_h, 2, is_exp)
   end
@@ -1993,14 +2106,14 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     -- Success Badge Header
     S.round_rect(gg, bx + 16, by + 16, bw - 32, 36, 8, nil, true, 0)
     S.round_rect(gg, bx + 16, by + 16, bw - 32, 36, 8, 1)
-    local ok_lbl = is_en and '[ OK ] Versi Terbaru Aktif' or '[ OK ] Versi Terbaru Aktif'
+    local ok_lbl = is_en and '[ OK ] Up to Date' or '[ OK ] Versi Terbaru Aktif'
     S.center_text(gg, bx + bw // 2, by + 24, ok_lbl, 'medium')
 
     local desc1 = is_en
-      and 'Aplikasi MuslimInk pada perangkat Anda sudah menggunakan versi rilis terbaru dari GitHub.'
+      and 'MuslimInk is already running the latest release from GitHub.'
       or 'Aplikasi MuslimInk pada perangkat Anda sudah menggunakan versi rilis terbaru dari GitHub.'
     local desc2 = is_en
-      and 'Tidak ada pembaruan yang diperlukan saat ini.'
+      and 'No updates needed at this time.'
       or 'Tidak ada pembaruan yang diperlukan saat ini.'
 
     local w1 = S.wrap_lines(desc1, bw - 40, 'small')
@@ -2380,6 +2493,87 @@ function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
   -- Bottom Action Bar (y = 716..776, h = 60)
   draw_btn(gg, 16, 716, 136, 60, is_en and 'Cancel' or 'Batal', false, 'medium')
   draw_btn(gg, 160, 716, W - 176, 60, is_en and 'Simpan & Hitung' or 'Simpan & Hitung', true, 'medium')
+end
+
+------------------------------------------------------------------ Modal: Storage & Cache Management
+
+function F.draw_storage_modal(gg, cfg, draw_btn, cache_count, saved_count)
+  local W, H = S.W, S.H
+  local is_en = (cfg.lang == 'en')
+  local mx, my, mw, mh = 20, 100, W - 40, 580
+
+  -- Dim background with authentic e-ink scrim (every 4px scanlines)
+  for sy = 0, H, 4 do
+    gg:line(0, sy, W, sy, { line_width = 1 })
+  end
+
+  -- Solid white modal card
+  gg:rect(mx, my, mw, mh, { fill = true, color = 0 })
+  S.round_rect(gg, mx, my, mw, mh, 16, nil, true, 0)
+  S.round_rect(gg, mx, my, mw, mh, 16, 2)
+
+  -- Sheet grabber pill (━)
+  S.sheet_grabber(gg, W // 2, my + 10)
+
+  -- Header text
+  local title = is_en and 'Storage & Cache' or 'Penyimpanan & Cache'
+  local sub = is_en and 'Manage offline data & Doa cache' or 'Kelola data offline & cache doa'
+  gg:text(mx + 20, my + 24, title, { font = S.font('medium') })
+  gg:text(mx + 20, my + 48, sub, { font = S.font('small') })
+
+  -- Close button (✕) at top right
+  local cx, cy = mx + mw - 32, my + 30
+  gg:line(cx - 7, cy - 7, cx + 7, cy + 7, { line_width = 2 })
+  gg:line(cx - 7, cy + 7, cx + 7, cy - 7, { line_width = 2 })
+
+  -- Hairline divider
+  gg:line(mx + 16, my + 72, mx + mw - 16, my + 72, { line_width = 1 })
+
+  -- Storage Overview Card (y = my + 82, h = 110)
+  local cy_box = my + 82
+  S.round_rect(gg, mx + 16, cy_box, mw - 32, 110, 10, nil, true, 0)
+  S.round_rect(gg, mx + 16, cy_box, mw - 32, 110, 1)
+
+  local s_title = is_en and 'LOCAL STORAGE OVERVIEW' or 'RINGKASAN PENYIMPANAN'
+  gg:text(mx + 28, cy_box + 12, s_title, { font = S.font('small') })
+  gg:line(mx + 28, cy_box + 30, mx + mw - 28, cy_box + 30, { line_width = 1 })
+
+  local s1 = (is_en and 'Saved Bookmarks : ' or 'Doa Tersimpan   : ') .. tostring(saved_count or 0) .. ' item'
+  local s2 = (is_en and 'Cached Doa Files: ' or 'Cache File Doa  : ') .. tostring(cache_count or 0) .. ' file'
+  local s3 = (is_en and 'Catalog Index   : 227 Duas (Complete)' or 'Katalog Indeks  : 227 Doa (Lengkap)')
+  gg:text(mx + 28, cy_box + 40, s1, { font = S.font('small') })
+  gg:text(mx + 28, cy_box + 62, s2, { font = S.font('small') })
+  gg:text(mx + 28, cy_box + 84, s3, { font = S.font('small') })
+
+  -- Action 1: Clear Doa Files Cache (y = my + 208, h = 76)
+  local ay1 = my + 208
+  S.round_rect(gg, mx + 16, ay1, mw - 32, 76, 10, nil, true, 0)
+  S.round_rect(gg, mx + 16, ay1, mw - 32, 76, 1)
+  gg:text(mx + 28, ay1 + 14, is_en and '1. Clear Doa Files Cache' or '1. Hapus Cache File Doa', { font = S.font('medium') })
+  local tip1 = is_en and 'Clears cached files to re-download fresh text' or 'Hapus file cache agar teks doa terunduh ulang segar'
+  gg:text(mx + 28, ay1 + 42, S.fit_text(tip1, 'small', mw - 150), { font = S.font('small') })
+  draw_btn(gg, mx + mw - 128, ay1 + 18, 96, 40, is_en and 'Clear' or 'Hapus', false, 'small')
+
+  -- Action 2: Sync Doa Index from GitHub (y = my + 296, h = 76)
+  local ay2 = my + 296
+  S.round_rect(gg, mx + 16, ay2, mw - 32, 76, 10, nil, true, 0)
+  S.round_rect(gg, mx + 16, ay2, mw - 32, 76, 1)
+  gg:text(mx + 28, ay2 + 14, is_en and '2. Sync Doa Catalog (GitHub)' or '2. Segarkan Indeks Doa (GitHub)', { font = S.font('medium') })
+  local tip2 = is_en and 'Updates full list of 227 prayers via Wi-Fi' or 'Perbarui daftar lengkap 227 doa via Wi-Fi'
+  gg:text(mx + 28, ay2 + 42, S.fit_text(tip2, 'small', mw - 150), { font = S.font('small') })
+  draw_btn(gg, mx + mw - 128, ay2 + 18, 96, 40, is_en and 'Sync' or 'Segarkan', false, 'small')
+
+  -- Action 3: Reset Saved Bookmarks (y = my + 384, h = 76)
+  local ay3 = my + 384
+  S.round_rect(gg, mx + 16, ay3, mw - 32, 76, 10, nil, true, 0)
+  S.round_rect(gg, mx + 16, ay3, mw - 32, 76, 1)
+  gg:text(mx + 28, ay3 + 14, is_en and '3. Reset Saved Bookmarks' or '3. Reset Bookmark Doa', { font = S.font('medium') })
+  local tip3 = is_en and 'Restore default 10 essential prayer bookmarks' or 'Kembalikan bookmark ke 10 doa bawaan'
+  gg:text(mx + 28, ay3 + 42, S.fit_text(tip3, 'small', mw - 150), { font = S.font('small') })
+  draw_btn(gg, mx + mw - 128, ay3 + 18, 96, 40, is_en and 'Reset' or 'Reset', false, 'small')
+
+  -- Bottom Done / Close button
+  draw_btn(gg, mx + 20, my + mh - 54, mw - 40, 44, is_en and 'Close' or 'Tutup', true, 'medium')
 end
 
 return F

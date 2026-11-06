@@ -9,7 +9,6 @@ CF[6]={name="Arabic",big={h=81,w=[=[ON[b[U^__[E]=],c=[=[<DTWodF{{aJ]=],r=[=[5I%$
 return CF
 end)()
 local S=(function()
-local function A(r,i,e)return{ref=r,id=i,en=e}end
 local S={}
 S.W,S.H=480,800
 S.KEYS={'imsak','subuh','terbit','dhuha','dzuhur','ashar','maghrib','isya'}
@@ -729,36 +728,36 @@ S.AYAH_POOL={
 '3:200','4:103','89:27','89:28','25:74'
 }
 S.BUILTIN_AYAHS={
-[1]=A('QS. Ash-Sharh: 5','Maka sesungguhnya bersama kesulitan ada kemudahan,','For indeed, with hardship [will be] ease.'),
-[2]=A('QS. Ash-Sharh: 6','Sesungguhnya bersama kesulitan ada kemudahan.','Indeed, with hardship [will be] ease.'),
-[3]=A('QS. Ash-Sharh: 7','Maka apabila engkau telah selesai (dari suatu urusan), tetaplah bekerja keras (untuk urusan yang lain),','So when you have finished [your duties], then stand up [for worship].'),
-[4]=A('QS. Ash-Sharh: 8','Dan hanya kepada Tuhanmulah engkau berharap.','And to your Lord direct [your] longing.'),
+[1]={ref='QS. Ash-Sharh: 5',id='Maka sesungguhnya bersama kesulitan ada kemudahan,',en='For indeed, with hardship [will be] ease.'},
+[2]={ref='QS. Ash-Sharh: 6',id='Sesungguhnya bersama kesulitan ada kemudahan.',en='Indeed, with hardship [will be] ease.'},
+[3]={ref='QS. Ash-Sharh: 7',id='Maka apabila engkau telah selesai (dari suatu urusan), tetaplah bekerja keras (untuk urusan yang lain),',en='So when you have finished [your duties], then stand up [for worship].'},
+[4]={ref='QS. Ash-Sharh: 8',id='Dan hanya kepada Tuhanmulah engkau berharap.',en='And to your Lord direct [your] longing.'},
 [5]={ref="QS. Ar-Ra'd: 28",id='(yaitu) orang-orang yang beriman dan hati mereka manjadi tenteram dengan mengingat Allah. Ingatlah, hanya dengan mengingati Allah-lah hati menjadi tenteram.',en='Those who have believed and whose hearts are assured by the remembrance of Allah. Unquestionably, by the remembrance of Allah hearts are assured.'},
-[6]=A('QS. Ibrahim: 7','Sesungguhnya jika kamu bersyukur, niscaya Aku akan menambah (nikmat) kepadamu.','If you are grateful, I will surely increase you [in favor].'),
-[7]=A('QS. Ta-Ha: 14','Sungguh, Aku ini Allah, tidak ada tuhan selain Aku, maka sembahlah Aku dan laksanakanlah shalat untuk mengingat-Ku.','Indeed, I am Allah. There is no deity except Me, so worship Me and establish prayer for My remembrance.'),
-[8]=A('QS. Al-Anbiya: 87','Tidak ada tuhan selain Engkau, Mahasuci Engkau. Sungguh, aku termasuk orang-orang yang zalim.','There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.'),
+[6]={ref='QS. Ibrahim: 7',id='Sesungguhnya jika kamu bersyukur, niscaya Aku akan menambah (nikmat) kepadamu.',en='If you are grateful, I will surely increase you [in favor].'},
+[7]={ref='QS. Ta-Ha: 14',id='Sungguh, Aku ini Allah, tidak ada tuhan selain Aku, maka sembahlah Aku dan laksanakanlah shalat untuk mengingat-Ku.',en='Indeed, I am Allah. There is no deity except Me, so worship Me and establish prayer for My remembrance.'},
+[8]={ref='QS. Al-Anbiya: 87',id='Tidak ada tuhan selain Engkau, Mahasuci Engkau. Sungguh, aku termasuk orang-orang yang zalim.',en='There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.'},
 [9]={ref="QS. Al-'Ankabut: 45",id='Dirikanlah shalat. Sesungguhnya shalat itu mencegah dari (perbuatan) keji dan mungkar.',en='Establish prayer. Indeed, prayer prohibits immorality and wrongdoing.'},
-[10]=A('QS. At-Talaq: 3','Dan barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.','And whoever relies upon Allah - then He is sufficient for him.'),
-[11]=A('QS. Ad-Duha: 3','Tuhanmu tidak meninggalkan engkau (Muhammad) dan tidak (pula) membencimu.','Your Lord has not taken leave of you, [O Muhammad], nor has He detested [you].'),
-[12]=A('QS. Ad-Duha: 5','Dan sungguh, kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, sehingga engkau menjadi puas.','And your Lord is going to give you, and you will be satisfied.'),
-[13]=A('QS. Ghafir: 60','Berdoalah kepada-Ku, niscaya akan Kuperkenankan bagimu.','Call upon Me; I will respond to you.'),
-[14]=A('QS. Ar-Rahman: 13','Maka nikmat Tuhanmu yang manakah yang kamu dustakan?','So which of the favors of your Lord would you deny?'),
+[10]={ref='QS. At-Talaq: 3',id='Dan barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.',en='And whoever relies upon Allah - then He is sufficient for him.'},
+[11]={ref='QS. Ad-Duha: 3',id='Tuhanmu tidak meninggalkan engkau (Muhammad) dan tidak (pula) membencimu.',en='Your Lord has not taken leave of you, [O Muhammad], nor has He detested [you].'},
+[12]={ref='QS. Ad-Duha: 5',id='Dan sungguh, kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, sehingga engkau menjadi puas.',en='And your Lord is going to give you, and you will be satisfied.'},
+[13]={ref='QS. Ghafir: 60',id='Berdoalah kepada-Ku, niscaya akan Kuperkenankan bagimu.',en='Call upon Me; I will respond to you.'},
+[14]={ref='QS. Ar-Rahman: 13',id='Maka nikmat Tuhanmu yang manakah yang kamu dustakan?',en='So which of the favors of your Lord would you deny?'},
 [15]={ref="QS. Al-A'la: 1",id='Sucikanlah nama Tuhanmu Yang Mahatinggi.',en='Exalt the name of your Lord, the Most High.'},
-[16]=A('QS. An-Nasr: 3','Maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampunan kepada-Nya.','Then exalt [Him] with praise of your Lord and ask forgiveness of Him.'),
+[16]={ref='QS. An-Nasr: 3',id='Maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampunan kepada-Nya.',en='Then exalt [Him] with praise of your Lord and ask forgiveness of Him.'},
 [17]={ref="QS. Asy-Syu'ara: 80",id='Dan apabila aku sakit, Dialah yang menyembuhkan aku.',en='And when I am ill, it is He who cures me.'},
-[18]=A('QS. Al-Hadid: 4','Dan Dia bersama kamu di mana saja kamu berada.','And He is with you wherever you are.'),
-[19]=A('QS. Al-Baqarah: 152','Maka ingatlah kepada-Ku, Aku pun akan ingat kepadamu. Bersyukurlah kepada-Ku, dan janganlah kamu ingkar kepada-Ku.','So remember Me; I will remember you. And be grateful to Me and do not deny Me.'),
-[20]=A('QS. Al-Baqarah: 153','Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan shalat.','O you who have believed, seek help through patience and prayer.'),
-[21]=A('QS. Al-Hujurat: 10','Sesungguhnya orang-orang mukmin itu bersaudara, karena itu damaikanlah antara kedua saudaramu.','The believers are but brothers, so make settlement between your brothers.'),
-[22]=A('QS. Al-Hujurat: 13','Sesungguhnya yang paling mulia di antara kamu di sisi Allah ialah orang yang paling bertakwa.','Indeed, the most noble of you in the sight of Allah is the most righteous of you.'),
-[23]=A('QS. An-Nahl: 128','Sungguh, Allah beserta orang-orang yang bertakwa dan orang-orang yang berbuat kebaikan.','Indeed, Allah is with those who fear Him and those who are doers of good.'),
-[24]=A('QS. Al-Baqarah: 195','Dan berbuat baiklah. Sungguh, Allah menyukai orang-orang yang berbuat baik.','And do good; indeed, Allah loves the doers of good.'),
+[18]={ref='QS. Al-Hadid: 4',id='Dan Dia bersama kamu di mana saja kamu berada.',en='And He is with you wherever you are.'},
+[19]={ref='QS. Al-Baqarah: 152',id='Maka ingatlah kepada-Ku, Aku pun akan ingat kepadamu. Bersyukurlah kepada-Ku, dan janganlah kamu ingkar kepada-Ku.',en='So remember Me; I will remember you. And be grateful to Me and do not deny Me.'},
+[20]={ref='QS. Al-Baqarah: 153',id='Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan shalat.',en='O you who have believed, seek help through patience and prayer.'},
+[21]={ref='QS. Al-Hujurat: 10',id='Sesungguhnya orang-orang mukmin itu bersaudara, karena itu damaikanlah antara kedua saudaramu.',en='The believers are but brothers, so make settlement between your brothers.'},
+[22]={ref='QS. Al-Hujurat: 13',id='Sesungguhnya yang paling mulia di antara kamu di sisi Allah ialah orang yang paling bertakwa.',en='Indeed, the most noble of you in the sight of Allah is the most righteous of you.'},
+[23]={ref='QS. An-Nahl: 128',id='Sungguh, Allah beserta orang-orang yang bertakwa dan orang-orang yang berbuat kebaikan.',en='Indeed, Allah is with those who fear Him and those who are doers of good.'},
+[24]={ref='QS. Al-Baqarah: 195',id='Dan berbuat baiklah. Sungguh, Allah menyukai orang-orang yang berbuat baik.',en='And do good; indeed, Allah loves the doers of good.'},
 [25]={ref="QS. Ali 'Imran: 139",id='Dan janganlah kamu (merasa) lemah, dan jangan (pula) bersedih hati, sebab kamu paling tinggi (derajatnya), jika kamu orang beriman.',en='So do not weaken and do not grieve, and you will be superior if you are [true] believers.'},
 [26]={ref="QS. Ali 'Imran: 200",id='Wahai orang-orang yang beriman! Bersabarlah kamu dan kuatkanlah kesabaranmu dan tetaplah bersiap-siaga dan bertakwalah kepada Allah.',en='O you who have believed, persevere and endure and remain stationed and fear Allah.'},
-[27]=A('QS. An-Nisa: 103','Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman.','Indeed, prayer has been decreed upon the believers a decree of specified times.'),
-[28]=A('QS. Al-Fajr: 27','Wahai jiwa yang tenang!','O reassured soul,'),
-[29]=A('QS. Al-Fajr: 28','Kembalilah kepada Tuhanmu dengan hati yang ridha dan diridhai-Nya.','Return to your Lord, well-pleased and pleasing [to Him],'),
-[30]=A('QS. Al-Furqan: 74','Ya Tuhan kami, anugerahkanlah kepada kami pasangan kami dan keturunan kami sebagai penyenang hati (kami).','Our Lord, grant us from among our wives and offspring comfort to our eyes.'),
+[27]={ref='QS. An-Nisa: 103',id='Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman.',en='Indeed, prayer has been decreed upon the believers a decree of specified times.'},
+[28]={ref='QS. Al-Fajr: 27',id='Wahai jiwa yang tenang!',en='O reassured soul,'},
+[29]={ref='QS. Al-Fajr: 28',id='Kembalilah kepada Tuhanmu dengan hati yang ridha dan diridhai-Nya.',en='Return to your Lord, well-pleased and pleasing [to Him],'},
+[30]={ref='QS. Al-Furqan: 74',id='Ya Tuhan kami, anugerahkanlah kepada kami pasangan kami dan keturunan kami sebagai penyenang hati (kami).',en='Our Lord, grant us from among our wives and offspring comfort to our eyes.'},
 }
 function S.wrap_lines(s,max_w,fname)
 max_w=max_w or(S.W - 48)
@@ -1000,6 +999,18 @@ total_h=(n - 1)*lh+ref_gap+14
 end
 local base_y=math.floor(y+(avail_h - total_h)/ 2)
 if base_y<y then base_y=y end
+if(base_y+total_h)>(y+avail_h)then
+base_y=(y+avail_h)- total_h
+end
+for i=1,n do
+local ly=base_y+(i - 1)*lh
+local lw=S.text_w(lines[i],'small')
+gg:text(math.floor((S.W - lw)/ 2),ly,lines[i],{font=S.font('small')})
+end
+local ry=base_y+(n - 1)*lh+ref_gap
+local rw=S.text_w(ref or '','small')
+gg:text(math.floor((S.W - rw)/ 2),ry,ref or '',{font=S.font('small')})
+end
 return S
 end)()
 local asked_at=nil

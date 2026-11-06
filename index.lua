@@ -9,7 +9,6 @@ CF[6]={name="Arabic",big={h=81,w=[=[ON[b[U^__[E]=],c=[=[<DTWodF{{aJ]=],r=[=[5I%$
 return CF
 end)()
 local S=(function()
-local function A(r,i,e)return{ref=r,id=i,en=e}end
 local S={}
 S.W,S.H=480,800
 S.KEYS={'imsak','subuh','terbit','dhuha','dzuhur','ashar','maghrib','isya'}
@@ -1160,36 +1159,36 @@ S.AYAH_POOL={
 '3:200','4:103','89:27','89:28','25:74'
 }
 S.BUILTIN_AYAHS={
-[1]=A('QS. Ash-Sharh: 5','Maka sesungguhnya bersama kesulitan ada kemudahan,','For indeed, with hardship [will be] ease.'),
-[2]=A('QS. Ash-Sharh: 6','Sesungguhnya bersama kesulitan ada kemudahan.','Indeed, with hardship [will be] ease.'),
-[3]=A('QS. Ash-Sharh: 7','Maka apabila engkau telah selesai (dari suatu urusan), tetaplah bekerja keras (untuk urusan yang lain),','So when you have finished [your duties], then stand up [for worship].'),
-[4]=A('QS. Ash-Sharh: 8','Dan hanya kepada Tuhanmulah engkau berharap.','And to your Lord direct [your] longing.'),
+[1]={ref='QS. Ash-Sharh: 5',id='Maka sesungguhnya bersama kesulitan ada kemudahan,',en='For indeed, with hardship [will be] ease.'},
+[2]={ref='QS. Ash-Sharh: 6',id='Sesungguhnya bersama kesulitan ada kemudahan.',en='Indeed, with hardship [will be] ease.'},
+[3]={ref='QS. Ash-Sharh: 7',id='Maka apabila engkau telah selesai (dari suatu urusan), tetaplah bekerja keras (untuk urusan yang lain),',en='So when you have finished [your duties], then stand up [for worship].'},
+[4]={ref='QS. Ash-Sharh: 8',id='Dan hanya kepada Tuhanmulah engkau berharap.',en='And to your Lord direct [your] longing.'},
 [5]={ref="QS. Ar-Ra'd: 28",id='(yaitu) orang-orang yang beriman dan hati mereka manjadi tenteram dengan mengingat Allah. Ingatlah, hanya dengan mengingati Allah-lah hati menjadi tenteram.',en='Those who have believed and whose hearts are assured by the remembrance of Allah. Unquestionably, by the remembrance of Allah hearts are assured.'},
-[6]=A('QS. Ibrahim: 7','Sesungguhnya jika kamu bersyukur, niscaya Aku akan menambah (nikmat) kepadamu.','If you are grateful, I will surely increase you [in favor].'),
-[7]=A('QS. Ta-Ha: 14','Sungguh, Aku ini Allah, tidak ada tuhan selain Aku, maka sembahlah Aku dan laksanakanlah shalat untuk mengingat-Ku.','Indeed, I am Allah. There is no deity except Me, so worship Me and establish prayer for My remembrance.'),
-[8]=A('QS. Al-Anbiya: 87','Tidak ada tuhan selain Engkau, Mahasuci Engkau. Sungguh, aku termasuk orang-orang yang zalim.','There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.'),
+[6]={ref='QS. Ibrahim: 7',id='Sesungguhnya jika kamu bersyukur, niscaya Aku akan menambah (nikmat) kepadamu.',en='If you are grateful, I will surely increase you [in favor].'},
+[7]={ref='QS. Ta-Ha: 14',id='Sungguh, Aku ini Allah, tidak ada tuhan selain Aku, maka sembahlah Aku dan laksanakanlah shalat untuk mengingat-Ku.',en='Indeed, I am Allah. There is no deity except Me, so worship Me and establish prayer for My remembrance.'},
+[8]={ref='QS. Al-Anbiya: 87',id='Tidak ada tuhan selain Engkau, Mahasuci Engkau. Sungguh, aku termasuk orang-orang yang zalim.',en='There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.'},
 [9]={ref="QS. Al-'Ankabut: 45",id='Dirikanlah shalat. Sesungguhnya shalat itu mencegah dari (perbuatan) keji dan mungkar.',en='Establish prayer. Indeed, prayer prohibits immorality and wrongdoing.'},
-[10]=A('QS. At-Talaq: 3','Dan barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.','And whoever relies upon Allah - then He is sufficient for him.'),
-[11]=A('QS. Ad-Duha: 3','Tuhanmu tidak meninggalkan engkau (Muhammad) dan tidak (pula) membencimu.','Your Lord has not taken leave of you, [O Muhammad], nor has He detested [you].'),
-[12]=A('QS. Ad-Duha: 5','Dan sungguh, kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, sehingga engkau menjadi puas.','And your Lord is going to give you, and you will be satisfied.'),
-[13]=A('QS. Ghafir: 60','Berdoalah kepada-Ku, niscaya akan Kuperkenankan bagimu.','Call upon Me; I will respond to you.'),
-[14]=A('QS. Ar-Rahman: 13','Maka nikmat Tuhanmu yang manakah yang kamu dustakan?','So which of the favors of your Lord would you deny?'),
+[10]={ref='QS. At-Talaq: 3',id='Dan barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.',en='And whoever relies upon Allah - then He is sufficient for him.'},
+[11]={ref='QS. Ad-Duha: 3',id='Tuhanmu tidak meninggalkan engkau (Muhammad) dan tidak (pula) membencimu.',en='Your Lord has not taken leave of you, [O Muhammad], nor has He detested [you].'},
+[12]={ref='QS. Ad-Duha: 5',id='Dan sungguh, kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, sehingga engkau menjadi puas.',en='And your Lord is going to give you, and you will be satisfied.'},
+[13]={ref='QS. Ghafir: 60',id='Berdoalah kepada-Ku, niscaya akan Kuperkenankan bagimu.',en='Call upon Me; I will respond to you.'},
+[14]={ref='QS. Ar-Rahman: 13',id='Maka nikmat Tuhanmu yang manakah yang kamu dustakan?',en='So which of the favors of your Lord would you deny?'},
 [15]={ref="QS. Al-A'la: 1",id='Sucikanlah nama Tuhanmu Yang Mahatinggi.',en='Exalt the name of your Lord, the Most High.'},
-[16]=A('QS. An-Nasr: 3','Maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampunan kepada-Nya.','Then exalt [Him] with praise of your Lord and ask forgiveness of Him.'),
+[16]={ref='QS. An-Nasr: 3',id='Maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampunan kepada-Nya.',en='Then exalt [Him] with praise of your Lord and ask forgiveness of Him.'},
 [17]={ref="QS. Asy-Syu'ara: 80",id='Dan apabila aku sakit, Dialah yang menyembuhkan aku.',en='And when I am ill, it is He who cures me.'},
-[18]=A('QS. Al-Hadid: 4','Dan Dia bersama kamu di mana saja kamu berada.','And He is with you wherever you are.'),
-[19]=A('QS. Al-Baqarah: 152','Maka ingatlah kepada-Ku, Aku pun akan ingat kepadamu. Bersyukurlah kepada-Ku, dan janganlah kamu ingkar kepada-Ku.','So remember Me; I will remember you. And be grateful to Me and do not deny Me.'),
-[20]=A('QS. Al-Baqarah: 153','Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan shalat.','O you who have believed, seek help through patience and prayer.'),
-[21]=A('QS. Al-Hujurat: 10','Sesungguhnya orang-orang mukmin itu bersaudara, karena itu damaikanlah antara kedua saudaramu.','The believers are but brothers, so make settlement between your brothers.'),
-[22]=A('QS. Al-Hujurat: 13','Sesungguhnya yang paling mulia di antara kamu di sisi Allah ialah orang yang paling bertakwa.','Indeed, the most noble of you in the sight of Allah is the most righteous of you.'),
-[23]=A('QS. An-Nahl: 128','Sungguh, Allah beserta orang-orang yang bertakwa dan orang-orang yang berbuat kebaikan.','Indeed, Allah is with those who fear Him and those who are doers of good.'),
-[24]=A('QS. Al-Baqarah: 195','Dan berbuat baiklah. Sungguh, Allah menyukai orang-orang yang berbuat baik.','And do good; indeed, Allah loves the doers of good.'),
+[18]={ref='QS. Al-Hadid: 4',id='Dan Dia bersama kamu di mana saja kamu berada.',en='And He is with you wherever you are.'},
+[19]={ref='QS. Al-Baqarah: 152',id='Maka ingatlah kepada-Ku, Aku pun akan ingat kepadamu. Bersyukurlah kepada-Ku, dan janganlah kamu ingkar kepada-Ku.',en='So remember Me; I will remember you. And be grateful to Me and do not deny Me.'},
+[20]={ref='QS. Al-Baqarah: 153',id='Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan shalat.',en='O you who have believed, seek help through patience and prayer.'},
+[21]={ref='QS. Al-Hujurat: 10',id='Sesungguhnya orang-orang mukmin itu bersaudara, karena itu damaikanlah antara kedua saudaramu.',en='The believers are but brothers, so make settlement between your brothers.'},
+[22]={ref='QS. Al-Hujurat: 13',id='Sesungguhnya yang paling mulia di antara kamu di sisi Allah ialah orang yang paling bertakwa.',en='Indeed, the most noble of you in the sight of Allah is the most righteous of you.'},
+[23]={ref='QS. An-Nahl: 128',id='Sungguh, Allah beserta orang-orang yang bertakwa dan orang-orang yang berbuat kebaikan.',en='Indeed, Allah is with those who fear Him and those who are doers of good.'},
+[24]={ref='QS. Al-Baqarah: 195',id='Dan berbuat baiklah. Sungguh, Allah menyukai orang-orang yang berbuat baik.',en='And do good; indeed, Allah loves the doers of good.'},
 [25]={ref="QS. Ali 'Imran: 139",id='Dan janganlah kamu (merasa) lemah, dan jangan (pula) bersedih hati, sebab kamu paling tinggi (derajatnya), jika kamu orang beriman.',en='So do not weaken and do not grieve, and you will be superior if you are [true] believers.'},
 [26]={ref="QS. Ali 'Imran: 200",id='Wahai orang-orang yang beriman! Bersabarlah kamu dan kuatkanlah kesabaranmu dan tetaplah bersiap-siaga dan bertakwalah kepada Allah.',en='O you who have believed, persevere and endure and remain stationed and fear Allah.'},
-[27]=A('QS. An-Nisa: 103','Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman.','Indeed, prayer has been decreed upon the believers a decree of specified times.'),
-[28]=A('QS. Al-Fajr: 27','Wahai jiwa yang tenang!','O reassured soul,'),
-[29]=A('QS. Al-Fajr: 28','Kembalilah kepada Tuhanmu dengan hati yang ridha dan diridhai-Nya.','Return to your Lord, well-pleased and pleasing [to Him],'),
-[30]=A('QS. Al-Furqan: 74','Ya Tuhan kami, anugerahkanlah kepada kami pasangan kami dan keturunan kami sebagai penyenang hati (kami).','Our Lord, grant us from among our wives and offspring comfort to our eyes.'),
+[27]={ref='QS. An-Nisa: 103',id='Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman.',en='Indeed, prayer has been decreed upon the believers a decree of specified times.'},
+[28]={ref='QS. Al-Fajr: 27',id='Wahai jiwa yang tenang!',en='O reassured soul,'},
+[29]={ref='QS. Al-Fajr: 28',id='Kembalilah kepada Tuhanmu dengan hati yang ridha dan diridhai-Nya.',en='Return to your Lord, well-pleased and pleasing [to Him],'},
+[30]={ref='QS. Al-Furqan: 74',id='Ya Tuhan kami, anugerahkanlah kepada kami pasangan kami dan keturunan kami sebagai penyenang hati (kami).',en='Our Lord, grant us from among our wives and offspring comfort to our eyes.'},
 }
 function S.wrap_lines(s,max_w,fname)
 max_w=max_w or(S.W - 48)
@@ -1844,7 +1843,6 @@ end
 return S
 end)()
 local F=(function()
-local function D(ci,ce,ti,te,l,ai,ae,s)return{cat_id=ci,cat_en=ce,title_id=ti,title_en=te,latin=l,arti_id=ai,arti_en=ae,src=s}end
 local F={}
 F.TARGETS={33,99,100,1000,0}
 F.DHIKR_LIST={
@@ -1971,8 +1969,24 @@ return title,"Laa ilaaha illallaahu wahdahu laa syariika lah, lahul-mulku wa lah
 end
 end
 F.DUA_LIST={
-D('DOA HARIAN UTAMA','ESSENTIAL DAILY DUA','1. Doa Kebaikan Dunia & Akhirat','1. Goodness in This World & Hereafter',"Rabbanaa aatinaa fid-dun-yaa hasanah, wa fil-aakhirati hasanah, wa qinaa 'adzaaban-naar.",'Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, serta lindungilah kami dari siksa neraka.','Our Lord, grant us good in this world and good in the Hereafter, and protect us from the torment of the Fire.','QS. Al-Baqarah: 201'),
-D('DZIKIR SESUDAH SHALAT','POST-PRAYER ADHKAR','2. Doa Mohon Bantuan Dzikir & Ibadah','2. Dua for Remembrance & Worship',"Allaahumma a'innii 'alaa dzikrika wa syukrika wa husni 'ibaadatik.",'Ya Allah, tolonglah aku untuk senantiasa mengingat-Mu, bersyukur kepada-Mu, dan beribadah dengan baik kepada-Mu.','O Allah, help me to remember You, to give thanks to You, and to worship You in the best manner.',
+{
+cat_id='DOA HARIAN UTAMA',
+cat_en='ESSENTIAL DAILY DUA',
+title_id='1. Doa Kebaikan Dunia & Akhirat',
+title_en='1. Goodness in This World & Hereafter',
+latin="Rabbanaa aatinaa fid-dun-yaa hasanah, wa fil-aakhirati hasanah, wa qinaa 'adzaaban-naar.",
+arti_id='Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, serta lindungilah kami dari siksa neraka.',
+arti_en='Our Lord, grant us good in this world and good in the Hereafter, and protect us from the torment of the Fire.',
+src='QS. Al-Baqarah: 201',
+},
+{
+cat_id='DZIKIR SESUDAH SHALAT',
+cat_en='POST-PRAYER ADHKAR',
+title_id='2. Doa Mohon Bantuan Dzikir & Ibadah',
+title_en='2. Dua for Remembrance & Worship',
+latin="Allaahumma a'innii 'alaa dzikrika wa syukrika wa husni 'ibaadatik.",
+arti_id='Ya Allah, tolonglah aku untuk senantiasa mengingat-Mu, bersyukur kepada-Mu, dan beribadah dengan baik kepada-Mu.',
+arti_en='O Allah, help me to remember You, to give thanks to You, and to worship You in the best manner.',
 src='HR. Abu Dawud & An-Nasa\'i',
 },
 {
@@ -1982,10 +1996,37 @@ title_id='3. Dzikir Keselamatan Bakda Salam',
 title_en='3. PeaceInvocation After Taslim',
 latin='Allaahumma antas-salaam, wa minkas-salaam, tabaarakta yaa dzal-jalaali wal-ikraam.',
 arti_id='Ya Allah, Engkaulah sumber keselamatan dan dari-Mu datangnya keselamatan. Maha Berkah Engkau wahai Pemilik Keagungan dan Kemuliaan.',
-arti_en='O Allah, You are Peace and from You comes peace. Blessed are You, O Possessor of Majesty and Honor.','HR. Muslim no. 591'),
-D('DZIKIR PAGI & PETANG','MORNING & EVENING ADHKAR','4. Sayyidul Istighfar (Penghulu Istighfar)','4. Sayyidul Istighfar (Master Supplication)',"Allaahumma anta Rabbii laa ilaaha illaa anta, khalaqtanii wa anaa 'abduka, wa anaa 'alaa 'ahdika wa wa'dika mastatha'tu, a'uudzu bika min syarri maa shana'tu, abuu'u laka bini'matika 'alayya, wa abuu'u bidzanbii faghfir lii.",'Ya Allah, Engkau Tuhanku, tiada Tuhan selain Engkau. Engkau menciptakanku dan aku hamba-Mu. Aku berlindung kepada-Mu dari keburukan perbuatanku, aku mengakui nikmat-Mu dan mengakui dosaku, maka ampunilah aku.','O Allah, You are my Lord, there is no deity but You. You created me and I am Your servant. I acknowledge Your favor upon me and I confess my sin, so forgive me.','HR. Bukhari no. 6306'),
-D('DOA SESUDAH ADZAN','DUA AFTER ADHAN','5. Doa Sesudah Mendengar Adzan','5. Supplication After the Call to Prayer',"Allaahumma Rabba haadzihid-da'watit-taammah, wash-shalaatil-qaa'imah, aati Muhammadanil-wasiilata wal-fadhiilah, wab'atshu maqaamam-mahmuudanil-ladzii wa'adtah.",'Ya Allah, pemilik panggilan yang sempurna ini dan shalat yang akan didirikan, berikanlah kepada Nabi Muhammad al-wasilah dan keutamaan, serta bangkitkanlah beliau pada kedudukan terpuji yang telah Engkau janjikan.','O Allah, Lord of this perfect call and established prayer, grant Muhammad the intercession and favor, and raise him to the praised station You promised him.','HR. Bukhari no. 614'),
-D('DOA HARIAN & KELUARGA','FAMILY & PARENTS DUA','6. Doa untuk Kedua Orang Tua','6. Supplication for Parents','Rabbighfir lii wa liwaalidayya warhamhumaa kamaa rabbayaanii shaghiiraa.','Ya Tuhanku, ampunilah dosaku dan dosa kedua orang tuaku, serta sayangilah mereka sebagaimana mereka menyayangiku di waktu kecil.','My Lord, forgive me and my parents, and have mercy on them both as they raised me when I was small.',
+arti_en='O Allah, You are Peace and from You comes peace. Blessed are You, O Possessor of Majesty and Honor.',
+src='HR. Muslim no. 591',
+},
+{
+cat_id='DZIKIR PAGI & PETANG',
+cat_en='MORNING & EVENING ADHKAR',
+title_id='4. Sayyidul Istighfar (Penghulu Istighfar)',
+title_en='4. Sayyidul Istighfar (Master Supplication)',
+latin="Allaahumma anta Rabbii laa ilaaha illaa anta, khalaqtanii wa anaa 'abduka, wa anaa 'alaa 'ahdika wa wa'dika mastatha'tu, a'uudzu bika min syarri maa shana'tu, abuu'u laka bini'matika 'alayya, wa abuu'u bidzanbii faghfir lii.",
+arti_id='Ya Allah, Engkau Tuhanku, tiada Tuhan selain Engkau. Engkau menciptakanku dan aku hamba-Mu. Aku berlindung kepada-Mu dari keburukan perbuatanku, aku mengakui nikmat-Mu dan mengakui dosaku, maka ampunilah aku.',
+arti_en='O Allah, You are my Lord, there is no deity but You. You created me and I am Your servant. I acknowledge Your favor upon me and I confess my sin, so forgive me.',
+src='HR. Bukhari no. 6306',
+},
+{
+cat_id='DOA SESUDAH ADZAN',
+cat_en='DUA AFTER ADHAN',
+title_id='5. Doa Sesudah Mendengar Adzan',
+title_en='5. Supplication After the Call to Prayer',
+latin="Allaahumma Rabba haadzihid-da'watit-taammah, wash-shalaatil-qaa'imah, aati Muhammadanil-wasiilata wal-fadhiilah, wab'atshu maqaamam-mahmuudanil-ladzii wa'adtah.",
+arti_id='Ya Allah, pemilik panggilan yang sempurna ini dan shalat yang akan didirikan, berikanlah kepada Nabi Muhammad al-wasilah dan keutamaan, serta bangkitkanlah beliau pada kedudukan terpuji yang telah Engkau janjikan.',
+arti_en='O Allah, Lord of this perfect call and established prayer, grant Muhammad the intercession and favor, and raise him to the praised station You promised him.',
+src='HR. Bukhari no. 614',
+},
+{
+cat_id='DOA HARIAN & KELUARGA',
+cat_en='FAMILY & PARENTS DUA',
+title_id='6. Doa untuk Kedua Orang Tua',
+title_en='6. Supplication for Parents',
+latin='Rabbighfir lii wa liwaalidayya warhamhumaa kamaa rabbayaanii shaghiiraa.',
+arti_id='Ya Tuhanku, ampunilah dosaku dan dosa kedua orang tuaku, serta sayangilah mereka sebagaimana mereka menyayangiku di waktu kecil.',
+arti_en='My Lord, forgive me and my parents, and have mercy on them both as they raised me when I was small.',
 src='QS. Al-Isra\': 24',
 },
 {
@@ -1995,10 +2036,39 @@ title_id='7. Doa Ilmu, Rezeki & Amal Diterima',
 title_en='7. Beneficial Knowledge & Provision',
 latin="Allaahumma innii as'aluka 'ilman naafi'an, wa rizqan thayyiban, wa 'amalan mutaqabbalan.",
 arti_id='Ya Allah, sesungguhnya aku memohon kepada-Mu ilmu yang bermanfaat, rezeki yang halal lagi baik, dan amal ibadah yang diterima.',
-arti_en='O Allah, I ask You for beneficial knowledge, pure and wholesome provision, and deeds that are accepted.','HR. Ibnu Majah no. 925'),
-D('DOA KETEGUHAN IMAN','STEADFASTNESS IN FAITH','8. Doa Keteguhan Hati di Atas Agama','8. Steadfastness of the Heart',"Yaa Muqallibal-quluub, tsabbit qalbii 'alaa diinik. Rabbanaa laa tuzigh quluubanaa ba'da idz hadaitanaa wa hab lanaa mil-ladunka rahmah.",'Wahai Dzat yang membolak-balikkan hati, teguhkanlah hatiku di atas agama-Mu. Ya Tuhan kami, janganlah Engkau condongkan hati kami kepada kesesatan setelah Engkau beri petunjuk.','O Turner of the hearts, keep my heart firm upon Your religion. Our Lord, let not our hearts deviate after You have guided us.','HR. Tirmidzi & QS. Ali Imran: 8'),
-D('DOA KEMUDAHAN URUSAN','EASE IN DIFFICULTY','9. Doa Kelapangan Dada & Kemudahan','9. Expansion of the Chest & Ease','Rabbisyrah lii shadrii, wa yassir lii amrii, wahlul \'uqdatam-mil-lisaanii, yafqahuu qaulii.','Ya Tuhanku, lapangkanlah dadaku, mudahkanlah urusanku, dan lepaskanlah kekakuan dari lidahku agar mereka memahami perkataanku.','My Lord, expand for me my breast, ease for me my task, and untie the knot from my tongue that they may understand my speech.','QS. Thaha: 25-28'),
-D('DOA PERJALANAN & RUMAH','LEAVING HOME & TRAVEL','10. Doa Keluar Rumah & Tawakkal','10. Leaving Home & Reliance on Allah',"Bismillaahi tawakkaltu 'alallaah, laa haula wa laa quwwata illaa billaah.",'Dengan nama Allah, aku bertawakkal kepada Allah. Tiada daya dan kekuatan kecuali dengan pertolongan Allah.','In the name of Allah, I place my trust in Allah; there is no power and no strength except through Allah.','HR. Abu Dawud & Tirmidzi'),
+arti_en='O Allah, I ask You for beneficial knowledge, pure and wholesome provision, and deeds that are accepted.',
+src='HR. Ibnu Majah no. 925',
+},
+{
+cat_id='DOA KETEGUHAN IMAN',
+cat_en='STEADFASTNESS IN FAITH',
+title_id='8. Doa Keteguhan Hati di Atas Agama',
+title_en='8. Steadfastness of the Heart',
+latin="Yaa Muqallibal-quluub, tsabbit qalbii 'alaa diinik. Rabbanaa laa tuzigh quluubanaa ba'da idz hadaitanaa wa hab lanaa mil-ladunka rahmah.",
+arti_id='Wahai Dzat yang membolak-balikkan hati, teguhkanlah hatiku di atas agama-Mu. Ya Tuhan kami, janganlah Engkau condongkan hati kami kepada kesesatan setelah Engkau beri petunjuk.',
+arti_en='O Turner of the hearts, keep my heart firm upon Your religion. Our Lord, let not our hearts deviate after You have guided us.',
+src='HR. Tirmidzi & QS. Ali Imran: 8',
+},
+{
+cat_id='DOA KEMUDAHAN URUSAN',
+cat_en='EASE IN DIFFICULTY',
+title_id='9. Doa Kelapangan Dada & Kemudahan',
+title_en='9. Expansion of the Chest & Ease',
+latin='Rabbisyrah lii shadrii, wa yassir lii amrii, wahlul \'uqdatam-mil-lisaanii, yafqahuu qaulii.',
+arti_id='Ya Tuhanku, lapangkanlah dadaku, mudahkanlah urusanku, dan lepaskanlah kekakuan dari lidahku agar mereka memahami perkataanku.',
+arti_en='My Lord, expand for me my breast, ease for me my task, and untie the knot from my tongue that they may understand my speech.',
+src='QS. Thaha: 25-28',
+},
+{
+cat_id='DOA PERJALANAN & RUMAH',
+cat_en='LEAVING HOME & TRAVEL',
+title_id='10. Doa Keluar Rumah & Tawakkal',
+title_en='10. Leaving Home & Reliance on Allah',
+latin="Bismillaahi tawakkaltu 'alallaah, laa haula wa laa quwwata illaa billaah.",
+arti_id='Dengan nama Allah, aku bertawakkal kepada Allah. Tiada daya dan kekuatan kecuali dengan pertolongan Allah.',
+arti_en='In the name of Allah, I place my trust in Allah; there is no power and no strength except through Allah.',
+src='HR. Abu Dawud & Tirmidzi',
+},
 }
 F.ISLAMIC_EVENTS={
 {hm=1,hd=1,id='Tahun Baru Islam',en='Islamic New Year'},

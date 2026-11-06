@@ -295,8 +295,8 @@ function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
 
     # Apply data compactors
     print("Compacting world cities, duas, and daily ayahs...")
-    feat_proc = compact_duas(pack_world_countries(feat_src))
-    core_proc = compact_ayahs(core_src_packed)
+    feat_proc = pack_world_countries(feat_src)
+    core_proc = core_src_packed
 
     # Build lean lock_core: keep essential core functions, drop unused UI, updater, monthly cal
     core_lines = core_proc.splitlines()
@@ -339,7 +339,7 @@ function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
         if 1143 <= i <= 1189: continue
         if 1415 <= i <= 1426: continue
         if 1578 <= i <= 1647: continue
-        if i >= 1745: continue
+        if i >= 1758: continue
         kept_lock.append(l)
 
     kept_lock.append('return S')

@@ -29,7 +29,6 @@ LOCK_LANGS_DEF = """S.LANGS = {
     lock_no_data = 'Jadwal Bulan Ini Belum Ada', lock_no_l1 = 'Buka aplikasi Jadwal Sholat & Wi-Fi', lock_no_l2 = 'untuk memilih lokasi dan unduh jadwal.',
     hari = { 'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu' },
     bulan = { 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember' },
-    bulan_short = { 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des' },
     hijri_bulan = { 'Muharram', 'Safar', 'Rabiul Awwal', 'Rabiul Akhir', 'Jumadil Ula', 'Jumadil Akhira', 'Rajab', 'Syaban', 'Ramadhan', 'Syawwal', 'Dzulqadah', 'Dzulhijjah' },
   },
   en = {
@@ -40,9 +39,16 @@ LOCK_LANGS_DEF = """S.LANGS = {
     lock_no_data = 'No Prayer Schedule Found', lock_no_l1 = 'Open Jadwal Sholat app & connect Wi-Fi', lock_no_l2 = 'to select location and download schedule.',
     hari = { 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' },
     bulan = { 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' },
-    bulan_short = { 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' },
     hijri_bulan = { 'Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani', 'Jumada al-Ula', 'Jumada al-Akhirah', 'Rajab', 'Shaban', 'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah' },
   }
+}"""
+
+LOCK_AYAHS_DEF = """S.AYAH_POOL = {}
+S.BUILTIN_AYAHS = {
+  [1] = { ref = 'QS. Ash-Sharh: 5', id = 'Maka sesungguhnya bersama kesulitan ada kemudahan,', en = 'For indeed, with hardship [will be] ease.' },
+  [2] = { ref = 'QS. Ash-Sharh: 6', id = 'Sesungguhnya bersama kesulitan ada kemudahan.', en = 'Indeed, with hardship [will be] ease.' },
+  [3] = { ref = 'QS. Ash-Sharh: 7', id = 'Maka apabila engkau telah selesai (dari suatu urusan), tetaplah bekerja keras (untuk urusan yang lain),', en = 'So when you have finished [your duties], then stand up [for worship].' },
+  [4] = { ref = 'QS. Ash-Sharh: 8', id = 'Dan hanya kepada Tuhanmulah engkau berharap.', en = 'And to your Lord direct [your] longing.' },
 }"""
 
 
@@ -250,14 +256,14 @@ def minify_lua(source):
         for m in str_pat.finditer(l):
             non_str = l[pos:m.start()]
             non_str = re.sub(r"[ \t]+", " ", non_str)
-            for op in [",", ";", "{", "}", "(", ")", "=", "+", "*", "<", ">"]:
+            for op in [",", ";", "{", "}", "(", ")", "==", ">=", "<=", "~=", "=", "+", "*", "<", ">", ":"]:
                 non_str = non_str.replace(" " + op, op).replace(op + " ", op)
             parts.append(non_str)
             parts.append(m.group(0))
             pos = m.end()
         non_str = l[pos:]
         non_str = re.sub(r"[ \t]+", " ", non_str)
-        for op in [",", ";", "{", "}", "(", ")", "=", "+", "*", "<", ">"]:
+        for op in [",", ";", "{", "}", "(", ")", "==", ">=", "<=", "~=", "=", "+", "*", "<", ">", ":"]:
             non_str = non_str.replace(" " + op, op).replace(op + " ", op)
         parts.append(non_str)
         tight = "".join(parts).strip()
@@ -268,7 +274,7 @@ def minify_lua(source):
 
 def bundle():
     print("Packing TrueType clock fonts...")
-    fonts_idx_lua = build_packed_fonts(include_sm=False)
+    fonts_idx_lua = build_packed_fonts(include_sm=True)
     fonts_lock_lua = build_packed_fonts(include_sm=False)
 
     core_src = pack_ayahs(read_text("src/core.lua"))
@@ -288,6 +294,11 @@ def bundle():
     start_langs = core_src.find("S.LANGS = {")
     end_langs = core_src.find("function S.L(cfg)")
     lock_core = core_src[:start_langs] + LOCK_LANGS_DEF + "\n" + core_src[end_langs:]
+
+    start_ayahs = lock_core.find("S.AYAH_POOL = {")
+    end_ayahs = lock_core.find("function S.wrap_lines")
+    if start_ayahs != -1 and end_ayahs != -1:
+        lock_core = lock_core[:start_ayahs] + LOCK_AYAHS_DEF + "\n" + lock_core[end_ayahs:]
 
     updater_marker = "------------------------------------------------------------------ Auto-Updater Engine"
     if updater_marker in lock_core:

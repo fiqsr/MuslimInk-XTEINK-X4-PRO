@@ -1417,23 +1417,8 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   local sub_loc = (cfg.country == 'Indonesia' or not cfg.country) and (cfg.prov or 'DKI Jakarta') or (cfg.country or 'Indonesia')
   local loc_sub = (cfg.kab or 'Kota Jakarta') .. ' • ' .. sub_loc
 
-  local fnames_id = {
-    '1. Modern Bulat',
-    '2. Klasik Serif',
-    '3. Tegas Bold',
-    '4. Geometris Slab',
-    '5. Artistik Inline',
-    '6. Angka Arab'
-  }
-  local fnames_en = {
-    '1. Modern Sans',
-    '2. Classic Serif',
-    '3. Bold Sans',
-    '4. Geometric Slab',
-    '5. Artistic Inline',
-    '6. Arabic Numerals'
-  }
-  local cfont_lbl = is_en and (fnames_en[cfg.cfont or 1] or fnames_en[1]) or (fnames_id[cfg.cfont or 1] or fnames_id[1])
+  local cnames = is_en and S.CFONT_NAMES.en or S.CFONT_NAMES.id
+  local cfont_lbl = cnames[cfg.cfont or 1] or cnames[1]
 
   local adj = cfg.adj or 0
   local adj_s
@@ -1734,22 +1719,7 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
   -- Hairline divider
   gg:line(mx + 16, my + 72, mx + mw - 16, my + 72, { line_width = 1 })
 
-  local fnames_id = {
-    '1. Modern Bulat',
-    '2. Klasik Serif',
-    '3. Tegas Bold',
-    '4. Geometris Slab',
-    '5. Artistik Inline',
-    '6. Angka Arab'
-  }
-  local fnames_en = {
-    '1. Modern Rounded',
-    '2. Classic Serif',
-    '3. Bold Geometric',
-    '4. Geometric Slab',
-    '5. Artistic Inline',
-    '6. Arabic Numerals'
-  }
+  local fnames = is_en and S.CFONT_NAMES.en or S.CFONT_NAMES.id
   local fsubs_id = {
     'Sans bulat halus',
     'Serif elegan',
@@ -1796,22 +1766,14 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
     end
 
     -- Font Name & Subtitle
-    local fn = is_en and fnames_en[i] or fnames_id[i]
+    local fn = fnames[i]
     local fs = is_en and fsubs_en[i] or fsubs_id[i]
     gg:text(rx + 38, ry + 14, fn, { font = S.font('medium') })
     gg:text(rx + 38, ry + 40, fs, { font = S.font('small') })
 
-    -- Live Sample Preview Badge on Right (Authentic TrueType Scaled Digits)
-    local pw, ph = 106, 40
-    local px = rx + rw - pw - 12
-    local py = ry + (rh - ph) // 2
-
-    -- Clean white pill with 2px border if selected, 1px if unselected
-    S.round_rect(gg, px, py, pw, ph, 8, nil, true, 0)
-    S.round_rect(gg, px, py, pw, ph, 8, is_sel and 2 or 1)
-
-    -- Real Scaled TrueType Digits (24px height, perfectly centered in badge)
-    S.big_clock(gg, sample_time, px + pw // 2, py + (ph - 24) // 2, 24, i)
+    -- Live Clock Sample Preview (TrueType scanline renderer)
+    local sample_cx = rx + rw - 64
+    S.big_clock(gg, sample_time, sample_cx, ry + 14, 44, i)
   end
 
   -- Bottom Done / Close button

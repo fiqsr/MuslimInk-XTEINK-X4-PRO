@@ -1,6 +1,6 @@
 {
-  "version": "1.2.4",
-  "build": 124,
+  "version": "1.2.5",
+  "build": 125,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,15 +9,17 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 260832,
+  "size_bytes": 261264,
   "changelog_id": [
-    "Pratinjau Font Jam TrueType Asli (100% Visual): Setiap baris font (Modern Bulat, Klasik Serif, Tegas Bold, Geometris Slab, Artistik Inline, dan Angka Arab) kini menampilkan angka jam waktu nyata sesuai dengan bentuk font aslinya, bukan lagi font sistem standar yang seragam",
-    "Angka Arab Naskh Terlihat Nyata: Memperbaiki pratinjau font ke-6 (Angka Arab) yang sebelumnya kosong, kini menampilkan angka Arab kaligrafi asli yang indah dan jelas",
-    "Proporsional & Presisi: Menggunakan render TrueType berskala dinamis sehingga proporsional di dalam badge pratinjau tanpa merusak tata letak"
+    "Restorasi Pratinjau Font Jam Asli (Sesuai v1.1.7): Mengembalikan sistem render pratinjau font jam v1.1.7 yang terbukti stabil di perangkat fisik XTEINK X4 Pro dengan font scanline pre-compiled bawaan",
+    "Perbaikan Bug Crash / Freeze Modal Font: Mengeliminasi error render baris 2 (Klasik Serif) yang sebelumnya memotong tampilan dan menyebabkan baris lainnya hilang",
+    "Enam Gaya Font Jam Berfungsi Sempurna: Seluruh font (Modern Bulat, Klasik Serif, Tegas Bold, Geometris Slab, Artistik Inline, dan Angka Arab) tampil rapi, proporsional, dan lancar dipilih",
+    "Optimasi Paket OTA (<256 KB): Ukuran paket tetap berada di bawah batas 262.144 bytes sehingga update via OTA/In-App berjalan tanpa kendala memori"
   ],
   "changelog_en": [
-    "Authentic TrueType Font Previews (100% Visual): Each clock font option (Modern Rounded, Classic Serif, Bold Geometric, Geometric Slab, Artistic Inline, and Arabic Numerals) now displays real-time clock digits matching their actual unique font design instead of identical system text",
-    "Visible Arabic Calligraphy Numerals: Fixed font option #6 (Arabic Numerals) which previously showed a blank box; it now renders crisp, authentic Naskh Arabic numerals",
-    "Proportional & Precise: Dynamic proportional scaling renders every TrueType font sharply within its preview badge without any overflow"
+    "Restored Authentic Font Preview Engine (Matching v1.1.7): Reverted to the rock-solid v1.1.7 preview renderer using native pre-compiled TrueType scanlines verified on physical XTEINK X4 Pro hardware",
+    "Fixed Font Modal Freeze / Truncation Bug: Eliminated the row 2 (Classic Serif) rendering crash that previously truncated glyphs and hid remaining options",
+    "All 6 Clock Fonts 100% Operational: All styles (Modern Rounded, Classic Serif, Bold Geometric, Geometric Slab, Artistic Inline, and Arabic Numerals) render smoothly and are fully selectable",
+    "OTA Package Optimization (<256 KB): Cleanly fits under the strict 262,144 bytes OTA limit for smooth in-app firmware updating"
   ]
 }

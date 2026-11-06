@@ -25,7 +25,6 @@ sec_today='JADWAL HARI INI',sec_tomorrow='JADWAL BESOK',now_prayer='Saatnya wakt
 lock_no_data='Jadwal Bulan Ini Belum Ada',lock_no_l1='Buka aplikasi Jadwal Sholat & Wi-Fi',lock_no_l2='untuk memilih lokasi dan unduh jadwal.',
 hari={'Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'},
 bulan={'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'},
-bulan_short={'Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'},
 hijri_bulan={'Muharram','Safar','Rabiul Awwal','Rabiul Akhir','Jumadil Ula','Jumadil Akhira','Rajab','Syaban','Ramadhan','Syawwal','Dzulqadah','Dzulhijjah'},
 },
 en={
@@ -36,7 +35,6 @@ sec_today="TODAY'S SCHEDULE",sec_tomorrow="TOMORROW'S SCHEDULE",now_prayer="It's
 lock_no_data='No Prayer Schedule Found',lock_no_l1='Open Jadwal Sholat app & connect Wi-Fi',lock_no_l2='to select location and download schedule.',
 hari={'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'},
 bulan={'January','February','March','April','May','June','July','August','September','October','November','December'},
-bulan_short={'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'},
 hijri_bulan={'Muharram','Safar','Rabi al-Awwal','Rabi al-Thani','Jumada al-Ula','Jumada al-Akhirah','Rajab','Shaban','Ramadan','Shawwal','Dhu al-Qadah','Dhu al-Hijjah'},
 }
 }
@@ -60,9 +58,9 @@ end
 local cf=tonumber(t.cfont)or 1
 if cf<1 or cf>6 then cf=1 end
 return{
-country=(t.country and t.country ~='')and t.country or 'Indonesia',
-prov=(t.prov and t.prov ~='')and t.prov or 'DKI Jakarta',
-kab=(t.kab and t.kab ~='')and t.kab or 'Kota Jakarta',
+country=(t.country and t.country~='')and t.country or 'Indonesia',
+prov=(t.prov and t.prov~='')and t.prov or 'DKI Jakarta',
+kab=(t.kab and t.kab~='')and t.kab or 'Kota Jakarta',
 lat=tonumber(t.lat)or -6.21,
 lon=tonumber(t.lon)or 106.85,
 tz=tonumber(t.tz)or 7,
@@ -70,15 +68,15 @@ fajr_ang=tonumber(t.fajr_ang)or 20.0,
 isha_ang=tonumber(t.isha_ang)or 18.0,
 asr_factor=tonumber(t.asr_factor)or 1.0,
 isha_fixed_min=tonumber(t.isha_fixed_min)or nil,
-method=(t.method and t.method ~='')and t.method or 'Kemenag',
+method=(t.method and t.method~='')and t.method or 'Kemenag',
 method_id=tonumber(t.method_id)or 3,
 adj=tonumber(t.adj)or 0,
 lock=(t.lock=='true'),
 lang=(t.lang=='en')and 'en' or 'id',
 cfont=cf,
 qrefresh=(tonumber(t.qrefresh)and tonumber(t.qrefresh)>=1 and tonumber(t.qrefresh)<=4)and tonumber(t.qrefresh)or 1,
-maghrib=(t.maghrib ~='false'),
-has_saved=(raw ~=nil and t.prov ~=nil and t.prov ~=''),
+maghrib=(t.maghrib~='false'),
+has_saved=(raw~=nil and t.prov~=nil and t.prov~=''),
 }
 end
 function S.days(y,m,d)
@@ -137,7 +135,7 @@ local days_cur=S.load_month(now_info.y,now_info.m,cfg and cfg.prov,cfg and cfg.k
 today_row=days_cur and days_cur[now_info.d] or nil
 end
 local maghrib_min=(today_row and S.hhmm_to_min(today_row[7]))or(18*60)
-local use_maghrib=(cfg==nil or cfg.maghrib ~=false)
+local use_maghrib=(cfg==nil or cfg.maghrib~=false)
 local after_maghrib=use_maghrib and((now_info.cur_min or 0)>=maghrib_min)
 local eff_day=after_maghrib and(now_info.day+1)or now_info.day
 local hy,hm,hd,hijri_str=S.hijri(eff_day,cfg and cfg.adj or 0,L)
@@ -392,7 +390,7 @@ function S.center_text(gg,cx,y,s,fname,max_w,color)
 s=S.fit_text(s,fname,max_w or(S.W - 24))
 local w=S.text_w(s,fname)
 local opts={font=S.font(fname)}
-if color ~=nil then opts.color=color end
+if color~=nil then opts.color=color end
 gg:text(math.floor(cx - w / 2),y,s,opts)
 end
 function S.right_text(gg,rx,y,s,fname)
@@ -511,52 +509,47 @@ end
 p.g=g
 return p
 end
+S.CFONT_NAMES={
+id={'1. Modern Bulat','2. Klasik Serif','3. Tegas Bold','4. Geometris Slab','5. Artistik Inline','6. Angka Arab'},
+en={'1. Modern Rounded','2. Classic Serif','3. Bold Geometric','4. Geometric Slab','5. Artistic Inline','6. Arabic Numerals'},
+id_s={'Modern Bulat','Klasik Serif','Tegas Bold','Geometris Slab','Artistik Inline','Angka Arab'},
+en_s={'Modern Rounded','Classic Serif','Bold Geometric','Geometric Slab','Artistic Inline','Arabic Numerals'},
+}
 function S.big_clock(gg,hhmm,cx,y,h,cfont_idx)
 local fset=(CF and CF[cfont_idx or 1])or(CF and CF[1])
 if not fset then
 S.center_text(gg,cx,y+(h - 30)// 2,hhmm,'large')
 return
 end
-local raw_pack=fset.big
+local raw_pack=(h>=60)and fset.big or(fset.sm or(h>=40 and fset.big or nil))
 if not raw_pack then
 S.center_text(gg,cx,y+(h - 26)// 2,hhmm,'large')
 return
 end
 local pack=unpack_pack(raw_pack)
 if not pack or not pack.g then return end
-local scale=(h>=60)and 1.0 or(h / pack.h)
-local gap=(h>=60)and 8 or math.max(2,math.floor(6*scale))
+local gap=(h>=60)and 8 or 4
 local total_w=0
 for idx=1,#hhmm do
 local ch=hhmm:sub(idx,idx)
 local gl=pack.g[ch]
 if gl then
-local gw=(scale==1.0)and gl.w or math.floor(gl.w*scale)
-total_w=total_w+gw
+total_w=total_w+gl.w
 if idx<#hhmm then total_w=total_w+gap end
 end
 end
 local x=math.floor(cx - total_w / 2)
-local dy=(scale==1.0)and(y+(h - pack.h)// 2)or y
+local dy=y+(h - pack.h)// 2
 for idx=1,#hhmm do
 local ch=hhmm:sub(idx,idx)
 local gl=pack.g[ch]
 if gl then
-local gw=(scale==1.0)and gl.w or math.floor(gl.w*scale)
 local rects=gl.dec or{}
 for r_i=1,#rects do
 local r=rects[r_i]
-if scale==1.0 then
 gg:rect(x+r[1],dy+r[2],r[3],r[4],BLACK)
-else
-local rx=x+math.floor(r[1]*scale)
-local ry=dy+math.floor(r[2]*scale)
-local rw=math.max(1,math.ceil(r[3]*scale))
-local rh=math.max(1,math.ceil(r[4]*scale))
-gg:rect(rx,ry,rw,rh,BLACK)
 end
-end
-x=x+gw+gap
+x=x+gl.w+gap
 end
 end
 end
@@ -634,46 +627,12 @@ end
 end
 end
 end
-S.AYAH_POOL={
-'94:5','94:6','94:7','94:8',
-'13:28','14:7','20:14','21:87','29:45',
-'65:3','93:3','93:5','40:60','55:13','87:1',
-'110:3','26:80','57:4','2:152','2:153',
-'49:10','49:13','16:128','2:195','3:139',
-'3:200','4:103','89:27','89:28','25:74'
-}
-local function _BA(r,i,e)return{ref=r,id=i,en=e}end
+S.AYAH_POOL={}
 S.BUILTIN_AYAHS={
-_BA('QS. Ash-Sharh: 5','Maka sesungguhnya bersama kesulitan ada kemudahan,','For indeed, with hardship [will be] ease.'),
-_BA('QS. Ash-Sharh: 6','Sesungguhnya bersama kesulitan ada kemudahan.','Indeed, with hardship [will be] ease.'),
-_BA('QS. Ash-Sharh: 7','Maka apabila engkau telah selesai (dari suatu urusan), tetaplah bekerja keras (untuk urusan yang lain),','So when you have finished [your duties], then stand up [for worship].'),
-_BA('QS. Ash-Sharh: 8','Dan hanya kepada Tuhanmulah engkau berharap.','And to your Lord direct [your] longing.'),
-_BA("QS. Ar-Ra'd: 28",'(yaitu) orang-orang yang beriman dan hati mereka manjadi tenteram dengan mengingat Allah. Ingatlah, hanya dengan mengingati Allah-lah hati menjadi tenteram.','Those who have believed and whose hearts are assured by the remembrance of Allah. Unquestionably, by the remembrance of Allah hearts are assured.'),
-_BA('QS. Ibrahim: 7','Sesungguhnya jika kamu bersyukur, niscaya Aku akan menambah (nikmat) kepadamu.','If you are grateful, I will surely increase you [in favor].'),
-_BA('QS. Ta-Ha: 14','Sungguh, Aku ini Allah, tidak ada tuhan selain Aku, maka sembahlah Aku dan laksanakanlah shalat untuk mengingat-Ku.','Indeed, I am Allah. There is no deity except Me, so worship Me and establish prayer for My remembrance.'),
-_BA('QS. Al-Anbiya: 87','Tidak ada tuhan selain Engkau, Mahasuci Engkau. Sungguh, aku termasuk orang-orang yang zalim.','There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.'),
-_BA("QS. Al-'Ankabut: 45",'Dirikanlah shalat. Sesungguhnya shalat itu mencegah dari (perbuatan) keji dan mungkar.','Establish prayer. Indeed, prayer prohibits immorality and wrongdoing.'),
-_BA('QS. At-Talaq: 3','Dan barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.','And whoever relies upon Allah - then He is sufficient for him.'),
-_BA('QS. Ad-Duha: 3','Tuhanmu tidak meninggalkan engkau (Muhammad) dan tidak (pula) membencimu.','Your Lord has not taken leave of you, [O Muhammad], nor has He detested [you].'),
-_BA('QS. Ad-Duha: 5','Dan sungguh, kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, sehingga engkau menjadi puas.','And your Lord is going to give you, and you will be satisfied.'),
-_BA('QS. Ghafir: 60','Berdoalah kepada-Ku, niscaya akan Kuperkenankan bagimu.','Call upon Me; I will respond to you.'),
-_BA('QS. Ar-Rahman: 13','Maka nikmat Tuhanmu yang manakah yang kamu dustakan?','So which of the favors of your Lord would you deny?'),
-_BA("QS. Al-A'la: 1",'Sucikanlah nama Tuhanmu Yang Mahatinggi.','Exalt the name of your Lord, the Most High.'),
-_BA('QS. An-Nasr: 3','Maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampunan kepada-Nya.','Then exalt [Him] with praise of your Lord and ask forgiveness of Him.'),
-_BA("QS. Asy-Syu'ara: 80",'Dan apabila aku sakit, Dialah yang menyembuhkan aku.','And when I am ill, it is He who cures me.'),
-_BA('QS. Al-Hadid: 4','Dan Dia bersama kamu di mana saja kamu berada.','And He is with you wherever you are.'),
-_BA('QS. Al-Baqarah: 152','Maka ingatlah kepada-Ku, Aku pun akan ingat kepadamu. Bersyukurlah kepada-Ku, dan janganlah kamu ingkar kepada-Ku.','So remember Me; I will remember you. And be grateful to Me and do not deny Me.'),
-_BA('QS. Al-Baqarah: 153','Wahai orang-orang yang beriman! Mohonlah pertolongan (kepada Allah) dengan sabar dan shalat.','O you who have believed, seek help through patience and prayer.'),
-_BA('QS. Al-Hujurat: 10','Sesungguhnya orang-orang mukmin itu bersaudara, karena itu damaikanlah antara kedua saudaramu.','The believers are but brothers, so make settlement between your brothers.'),
-_BA('QS. Al-Hujurat: 13','Sesungguhnya yang paling mulia di antara kamu di sisi Allah ialah orang yang paling bertakwa.','Indeed, the most noble of you in the sight of Allah is the most righteous of you.'),
-_BA('QS. An-Nahl: 128','Sungguh, Allah beserta orang-orang yang bertakwa dan orang-orang yang berbuat kebaikan.','Indeed, Allah is with those who fear Him and those who are doers of good.'),
-_BA('QS. Al-Baqarah: 195','Dan berbuat baiklah. Sungguh, Allah menyukai orang-orang yang berbuat baik.','And do good; indeed, Allah loves the doers of good.'),
-_BA("QS. Ali 'Imran: 139",'Dan janganlah kamu (merasa) lemah, dan jangan (pula) bersedih hati, sebab kamu paling tinggi (derajatnya), jika kamu orang beriman.','So do not weaken and do not grieve, and you will be superior if you are [true] believers.'),
-_BA("QS. Ali 'Imran: 200",'Wahai orang-orang yang beriman! Bersabarlah kamu dan kuatkanlah kesabaranmu dan tetaplah bersiap-siaga dan bertakwalah kepada Allah.','O you who have believed, persevere and endure and remain stationed and fear Allah.'),
-_BA('QS. An-Nisa: 103','Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman.','Indeed, prayer has been decreed upon the believers a decree of specified times.'),
-_BA('QS. Al-Fajr: 27','Wahai jiwa yang tenang!','O reassured soul,'),
-_BA('QS. Al-Fajr: 28','Kembalilah kepada Tuhanmu dengan hati yang ridha dan diridhai-Nya.','Return to your Lord, well-pleased and pleasing [to Him],'),
-_BA('QS. Al-Furqan: 74','Ya Tuhan kami, anugerahkanlah kepada kami pasangan kami dan keturunan kami sebagai penyenang hati (kami).','Our Lord, grant us from among our wives and offspring comfort to our eyes.'),
+[1]={ref='QS. Ash-Sharh: 5',id='Maka sesungguhnya bersama kesulitan ada kemudahan,',en='For indeed, with hardship [will be] ease.'},
+[2]={ref='QS. Ash-Sharh: 6',id='Sesungguhnya bersama kesulitan ada kemudahan.',en='Indeed, with hardship [will be] ease.'},
+[3]={ref='QS. Ash-Sharh: 7',id='Maka apabila engkau telah selesai (dari suatu urusan), tetaplah bekerja keras (untuk urusan yang lain),',en='So when you have finished [your duties], then stand up [for worship].'},
+[4]={ref='QS. Ash-Sharh: 8',id='Dan hanya kepada Tuhanmulah engkau berharap.',en='And to your Lord direct [your] longing.'},
 }
 function S.wrap_lines(s,max_w,fname)
 max_w=max_w or(S.W - 48)
@@ -683,14 +642,14 @@ local lines={}
 local cur=''
 for w in tostring(s or ''):gmatch('%S+')do
 local cand=(cur=='')and w or(cur .. ' ' .. w)
-if cur ~='' and S.text_w(cand,fname)>limit_w then
+if cur~='' and S.text_w(cand,fname)>limit_w then
 lines[#lines+1]=cur
 cur=w
 else
 cur=cand
 end
 end
-if cur ~='' then
+if cur~='' then
 lines[#lines+1]=cur
 end
 return lines
@@ -700,7 +659,7 @@ local raw=S.read('quote_cache.txt')
 if not raw then return nil end
 local t={}
 for k,v in raw:gmatch('([%w_]+)=([^\r\n]*)')do t[k]=v end
-if(t.id_text and t.id_text ~='')or(t.id_l1 and t.id_l1 ~='')then
+if(t.id_text and t.id_text~='')or(t.id_l1 and t.id_l1~='')then
 return t
 end
 return nil
@@ -733,13 +692,13 @@ end
 if q_cache then
 if is_en then
 local cand=q_cache.en_text
-if cand and cand ~='' and not S.is_indonesian_text(cand)and cand ~=q_cache.id_text then
+if cand and cand~='' and not S.is_indonesian_text(cand)and cand~=q_cache.id_text then
 text=cand
-ref=(q_cache.en_ref and q_cache.en_ref ~='')and q_cache.en_ref or q_cache.ref
+ref=(q_cache.en_ref and q_cache.en_ref~='')and q_cache.en_ref or q_cache.ref
 end
 else
 local cand=q_cache.id_text
-if cand and cand ~='' then
+if cand and cand~='' then
 text=cand
 ref=q_cache.ref or q_cache.id_ref
 end

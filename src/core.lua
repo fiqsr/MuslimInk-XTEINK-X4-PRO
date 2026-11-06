@@ -1217,56 +1217,51 @@ local function unpack_pack(p)
   return p
 end
 
+S.CFONT_NAMES = {
+  id = { '1. Modern Bulat', '2. Klasik Serif', '3. Tegas Bold', '4. Geometris Slab', '5. Artistik Inline', '6. Angka Arab' },
+  en = { '1. Modern Rounded', '2. Classic Serif', '3. Bold Geometric', '4. Geometric Slab', '5. Artistic Inline', '6. Arabic Numerals' },
+  id_s = { 'Modern Bulat', 'Klasik Serif', 'Tegas Bold', 'Geometris Slab', 'Artistik Inline', 'Angka Arab' },
+  en_s = { 'Modern Rounded', 'Classic Serif', 'Bold Geometric', 'Geometric Slab', 'Artistic Inline', 'Arabic Numerals' },
+}
+
 function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
   local fset = (CF and CF[cfont_idx or 1]) or (CF and CF[1])
   if not fset then
     S.center_text(gg, cx, y + (h - 30) // 2, hhmm, 'large')
     return
   end
-  local raw_pack = fset.big
+  local raw_pack = (h >= 60) and fset.big or (fset.sm or (h >= 40 and fset.big or nil))
   if not raw_pack then
     S.center_text(gg, cx, y + (h - 26) // 2, hhmm, 'large')
     return
   end
   local pack = unpack_pack(raw_pack)
   if not pack or not pack.g then return end
-
-  local scale = (h >= 60) and 1.0 or (h / pack.h)
-  local gap = (h >= 60) and 8 or math.max(2, math.floor(6 * scale))
+  local gap = (h >= 60) and 8 or 4
 
   local total_w = 0
   for idx = 1, #hhmm do
     local ch = hhmm:sub(idx, idx)
     local gl = pack.g[ch]
     if gl then
-      local gw = (scale == 1.0) and gl.w or math.floor(gl.w * scale)
-      total_w = total_w + gw
+      total_w = total_w + gl.w
       if idx < #hhmm then total_w = total_w + gap end
     end
   end
 
   local x = math.floor(cx - total_w / 2)
-  local dy = (scale == 1.0) and (y + (h - pack.h) // 2) or y
+  local dy = y + (h - pack.h) // 2
 
   for idx = 1, #hhmm do
     local ch = hhmm:sub(idx, idx)
     local gl = pack.g[ch]
     if gl then
-      local gw = (scale == 1.0) and gl.w or math.floor(gl.w * scale)
       local rects = gl.dec or {}
       for r_i = 1, #rects do
         local r = rects[r_i]
-        if scale == 1.0 then
-          gg:rect(x + r[1], dy + r[2], r[3], r[4], BLACK)
-        else
-          local rx = x + math.floor(r[1] * scale)
-          local ry = dy + math.floor(r[2] * scale)
-          local rw = math.max(1, math.ceil(r[3] * scale))
-          local rh = math.max(1, math.ceil(r[4] * scale))
-          gg:rect(rx, ry, rw, rh, BLACK)
-        end
+        gg:rect(x + r[1], dy + r[2], r[3], r[4], BLACK)
       end
-      x = x + gw + gap
+      x = x + gl.w + gap
     end
   end
 end
@@ -1785,8 +1780,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.2.4'
-S.APP_BUILD = 124
+S.APP_VERSION = '1.2.5'
+S.APP_BUILD = 125
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'

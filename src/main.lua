@@ -480,11 +480,8 @@ end
 local function cycle_cfont()
   cfg.cfont = ((cfg.cfont or 1) % 6) + 1
   S.save_cfg(cfg)
-  local fnames_id = { 'Modern Bulat', 'Klasik Serif', 'Tegas Bold', 'Geometris Slab', 'Artistik Inline', 'Angka Arab' }
-  local fnames_en = { 'Modern Rounded', 'Classic Serif', 'Bold Geometric', 'Geometric Slab', 'Artistic Inline', 'Arabic Numerals' }
-  status = (cfg.lang == 'en')
-    and ('Clock font: ' .. fnames_en[cfg.cfont])
-    or ('Gaya jam: ' .. fnames_id[cfg.cfont])
+  local fnames = (cfg.lang == 'en') and S.CFONT_NAMES.en_s or S.CFONT_NAMES.id_s
+  status = (cfg.lang == 'en' and 'Clock font: ' or 'Gaya jam: ') .. (fnames[cfg.cfont] or '')
 end
 
 ------------------------------------------------------------------ UI buttons & 5-Tab Bar (Android Material 3 Navigation Bar)
@@ -1105,9 +1102,8 @@ local function check_cfont_modal_tap(x, y)
       cfg.cfont = i
       S.save_cfg(cfg)
       local is_en = (cfg.lang == 'en')
-      local fnames_id = { 'Modern Bulat', 'Klasik Serif', 'Tegas Bold', 'Geometris Slab', 'Artistik Inline', 'Angka Arab' }
-      local fnames_en = { 'Modern Rounded', 'Classic Serif', 'Bold Geometric', 'Geometric Slab', 'Artistic Inline', 'Arabic Numerals' }
-      status = (is_en and 'Clock font: ' or 'Gaya jam: ') .. (is_en and fnames_en[i] or fnames_id[i])
+      local fnames = is_en and S.CFONT_NAMES.en_s or S.CFONT_NAMES.id_s
+      status = (is_en and 'Clock font: ' or 'Gaya jam: ') .. (fnames[i] or '')
       cfont_modal = false
       return true
     end

@@ -934,7 +934,7 @@ function S.divider(gg, y, x1, x2)
   gg:line(x1, y, x2, y, { line_width = 1 })
 end
 
--- Apple UISegmentedControl styled for 1-bit monochrome E-ink
+-- Apple UISegmentedControl styled for 1-bit monochrome E-ink (Matching Hijri Calendar full-black inverted style)
 function S.segmented_control(gg, x, y, w, h, segments, active_idx)
   local r = h // 2
   -- Outer capsule container with clean border
@@ -948,11 +948,10 @@ function S.segmented_control(gg, x, y, w, h, segments, active_idx)
     local cx = sx + sw // 2
     local cy = y + (h - 18) // 2
     if i == active_idx then
-      -- Active segment: High-contrast E-ink Pill with bold border & accent underline
+      -- Active segment: FULL BLACK capsule pill with WHITE text (like Hijri Calendar today cell)
       local pr = (h - 4) // 2
-      S.round_rect(gg, sx + 2, y + 2, sw - 4, h - 4, pr, 2)
-      gg:rect(sx + 8, y + h - 5, sw - 16, 2, { fill = true })
-      S.center_text(gg, cx, cy - 1, seg, 'medium', sw - 6)
+      gg:rect(sx + 2, y + 2, sw - 4, h - 4, { fill = true, radius = pr })
+      S.center_text(gg, cx, cy, seg, 'small', sw - 6, 0)
     else
       -- Subtle hairline divider between inactive segments
       if i < n and (i + 1) ~= active_idx and i ~= active_idx then
@@ -1041,47 +1040,63 @@ function S.draw_settings_btn(gg, x, y, w, h)
 end
 
 -- Micro-vector icons for Slider / Side Drawer Menu
-function S.draw_menu_icon(gg, kind, cx, cy)
+function S.draw_menu_icon(gg, kind, cx, cy, color)
+  local is_inv = (color == 0)
+  local fg = is_inv and 0 or 1
+  local bg = is_inv and 1 or 0
   if kind == 'shalat' then
     -- Classical mosque dome
-    gg:rect(cx - 9, cy + 2, 18, 8, { fill = true })
-    gg:circle(cx, cy + 2, 6, { fill = true })
-    gg:line(cx, cy - 8, cx, cy - 4, { line_width = 1 })
-    gg:rect(cx - 3, cy + 4, 6, 6, { fill = true, color = 0 })
+    gg:rect(cx - 9, cy + 2, 18, 8, { fill = true, color = fg })
+    gg:circle(cx, cy + 2, 6, { fill = true, color = fg })
+    gg:line(cx, cy - 8, cx, cy - 4, { line_width = 1, color = fg })
+    gg:rect(cx - 3, cy + 4, 6, 6, { fill = true, color = bg })
   elseif kind == 'tasbih' then
     -- Circular prayer beads
     for deg = 0, 315, 45 do
       local rad = deg * math.pi / 180.0
       local bx = cx + math.floor(8 * math.cos(rad) + 0.5)
       local by = cy + math.floor(8 * math.sin(rad) + 0.5)
-      gg:circle(bx, by, 2, { fill = true })
+      gg:circle(bx, by, 2, { fill = true, color = fg })
     end
   elseif kind == 'doa' then
     -- Open book
-    gg:rect(cx - 9, cy - 6, 8, 12, { line_width = 1 })
-    gg:rect(cx + 1, cy - 6, 8, 12, { line_width = 1 })
-    gg:line(cx - 7, cy - 2, cx - 3, cy - 2)
-    gg:line(cx - 7, cy + 2, cx - 3, cy + 2)
-    gg:line(cx + 3, cy - 2, cx + 7, cy - 2)
-    gg:line(cx + 3, cy + 2, cx + 7, cy + 2)
+    if is_inv then
+      gg:rect(cx - 9, cy - 6, 8, 12, { fill = true, color = 0 })
+      gg:rect(cx + 1, cy - 6, 8, 12, { fill = true, color = 0 })
+    else
+      gg:rect(cx - 9, cy - 6, 8, 12, { line_width = 1 })
+      gg:rect(cx + 1, cy - 6, 8, 12, { line_width = 1 })
+    end
+    gg:line(cx - 7, cy - 2, cx - 3, cy - 2, { color = bg })
+    gg:line(cx - 7, cy + 2, cx - 3, cy + 2, { color = bg })
+    gg:line(cx + 3, cy - 2, cx + 7, cy - 2, { color = bg })
+    gg:line(cx + 3, cy + 2, cx + 7, cy + 2, { color = bg })
   elseif kind == 'hijri' then
     -- Calendar sheet
-    gg:rect(cx - 8, cy - 7, 16, 15, { line_width = 1 })
-    gg:line(cx - 8, cy - 2, cx + 8, cy - 2, { line_width = 1 })
-    gg:line(cx - 4, cy - 9, cx - 4, cy - 7, { line_width = 2 })
-    gg:line(cx + 4, cy - 9, cx + 4, cy - 7, { line_width = 2 })
-    gg:circle(cx, cy + 4, 2, { fill = true })
+    if is_inv then
+      gg:rect(cx - 8, cy - 7, 16, 15, { fill = true, color = 0 })
+    else
+      gg:rect(cx - 8, cy - 7, 16, 15, { line_width = 1 })
+    end
+    gg:line(cx - 8, cy - 2, cx + 8, cy - 2, { line_width = 1, color = bg })
+    gg:circle(cx, cy + 4, 2, { fill = true, color = bg })
+    gg:line(cx - 4, cy - 9, cx - 4, cy - 7, { line_width = 2, color = fg })
+    gg:line(cx + 4, cy - 9, cx + 4, cy - 7, { line_width = 2, color = fg })
   elseif kind == 'kiblat' then
     -- Compass
-    gg:circle(cx, cy, 9, { line_width = 1 })
-    gg:line(cx - 4, cy + 4, cx + 4, cy - 4, { line_width = 2 })
-    gg:polygon({ cx + 4, cy - 4, cx + 1, cy - 1, cx + 4, cy - 1 }, { fill = true })
+    if is_inv then
+      gg:circle(cx, cy, 9, { fill = true, color = 0 })
+    else
+      gg:circle(cx, cy, 9, { line_width = 1 })
+    end
+    gg:line(cx - 4, cy + 4, cx + 4, cy - 4, { line_width = 2, color = bg })
+    gg:polygon({ cx + 4, cy - 4, cx + 1, cy - 1, cx + 4, cy - 1 }, { fill = true, color = bg })
   elseif kind == 'settings' then
     -- Gear / Cog
-    gg:circle(cx, cy, 6, { line_width = 2 })
-    gg:circle(cx, cy, 2, { fill = true })
-    gg:line(cx, cy - 9, cx, cy + 9, { line_width = 2 })
-    gg:line(cx - 9, cy, cx + 9, cy, { line_width = 2 })
+    gg:circle(cx, cy, 6, { line_width = 2, color = fg })
+    gg:circle(cx, cy, 2, { fill = true, color = fg })
+    gg:line(cx, cy - 9, cx, cy + 9, { line_width = 2, color = fg })
+    gg:line(cx - 9, cy, cx + 9, cy, { line_width = 2, color = fg })
   end
 end
 

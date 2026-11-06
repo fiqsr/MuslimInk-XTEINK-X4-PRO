@@ -639,9 +639,8 @@ local cx=sx+sw//2
 local cy=y+(h - 18)//2
 if i==active_idx then
 local pr=(h - 4)//2
-S.round_rect(gg,sx+2,y+2,sw - 4,h - 4,pr,2)
-gg:rect(sx+8,y+h - 5,sw - 16,2,{fill=true})
-S.center_text(gg,cx,cy - 1,seg,'medium',sw - 6)
+gg:rect(sx+2,y+2,sw - 4,h - 4,{fill=true,radius=pr})
+S.center_text(gg,cx,cy,seg,'small',sw - 6,0)
 else
 if i<n and(i+1)~=active_idx and i~=active_idx then
 gg:line(sx+sw,y+6,sx+sw,y+h - 6,{line_width=1})
@@ -703,41 +702,57 @@ gg:line(x,ly,x+w,ly,{line_width=3})
 gg:line(x,ly+8,x+w,ly+8,{line_width=3})
 gg:line(x,ly+16,x+w,ly+16,{line_width=3})
 end
-function S.draw_menu_icon(gg,kind,cx,cy)
+function S.draw_menu_icon(gg,kind,cx,cy,color)
+local is_inv=(color==0)
+local fg=is_inv and 0 or 1
+local bg=is_inv and 1 or 0
 if kind=='shalat' then
-gg:rect(cx - 9,cy+2,18,8,{fill=true})
-gg:circle(cx,cy+2,6,{fill=true})
-gg:line(cx,cy - 8,cx,cy - 4,{line_width=1})
-gg:rect(cx - 3,cy+4,6,6,{fill=true,color=0})
+gg:rect(cx - 9,cy+2,18,8,{fill=true,color=fg})
+gg:circle(cx,cy+2,6,{fill=true,color=fg})
+gg:line(cx,cy - 8,cx,cy - 4,{line_width=1,color=fg})
+gg:rect(cx - 3,cy+4,6,6,{fill=true,color=bg})
 elseif kind=='tasbih' then
 for deg=0,315,45 do
 local rad=deg*math.pi/180.0
 local bx=cx+math.floor(8*math.cos(rad)+0.5)
 local by=cy+math.floor(8*math.sin(rad)+0.5)
-gg:circle(bx,by,2,{fill=true})
+gg:circle(bx,by,2,{fill=true,color=fg})
 end
 elseif kind=='doa' then
+if is_inv then
+gg:rect(cx - 9,cy - 6,8,12,{fill=true,color=0})
+gg:rect(cx+1,cy - 6,8,12,{fill=true,color=0})
+else
 gg:rect(cx - 9,cy - 6,8,12,{line_width=1})
 gg:rect(cx+1,cy - 6,8,12,{line_width=1})
-gg:line(cx - 7,cy - 2,cx - 3,cy - 2)
-gg:line(cx - 7,cy+2,cx - 3,cy+2)
-gg:line(cx+3,cy - 2,cx+7,cy - 2)
-gg:line(cx+3,cy+2,cx+7,cy+2)
+end
+gg:line(cx - 7,cy - 2,cx - 3,cy - 2,{color=bg})
+gg:line(cx - 7,cy+2,cx - 3,cy+2,{color=bg})
+gg:line(cx+3,cy - 2,cx+7,cy - 2,{color=bg})
+gg:line(cx+3,cy+2,cx+7,cy+2,{color=bg})
 elseif kind=='hijri' then
+if is_inv then
+gg:rect(cx - 8,cy - 7,16,15,{fill=true,color=0})
+else
 gg:rect(cx - 8,cy - 7,16,15,{line_width=1})
-gg:line(cx - 8,cy - 2,cx+8,cy - 2,{line_width=1})
-gg:line(cx - 4,cy - 9,cx - 4,cy - 7,{line_width=2})
-gg:line(cx+4,cy - 9,cx+4,cy - 7,{line_width=2})
-gg:circle(cx,cy+4,2,{fill=true})
+end
+gg:line(cx - 8,cy - 2,cx+8,cy - 2,{line_width=1,color=bg})
+gg:circle(cx,cy+4,2,{fill=true,color=bg})
+gg:line(cx - 4,cy - 9,cx - 4,cy - 7,{line_width=2,color=fg})
+gg:line(cx+4,cy - 9,cx+4,cy - 7,{line_width=2,color=fg})
 elseif kind=='kiblat' then
+if is_inv then
+gg:circle(cx,cy,9,{fill=true,color=0})
+else
 gg:circle(cx,cy,9,{line_width=1})
-gg:line(cx - 4,cy+4,cx+4,cy - 4,{line_width=2})
-gg:polygon({cx+4,cy - 4,cx+1,cy - 1,cx+4,cy - 1},{fill=true})
+end
+gg:line(cx - 4,cy+4,cx+4,cy - 4,{line_width=2,color=bg})
+gg:polygon({cx+4,cy - 4,cx+1,cy - 1,cx+4,cy - 1},{fill=true,color=bg})
 elseif kind=='settings' then
-gg:circle(cx,cy,6,{line_width=2})
-gg:circle(cx,cy,2,{fill=true})
-gg:line(cx,cy - 9,cx,cy+9,{line_width=2})
-gg:line(cx - 9,cy,cx+9,cy,{line_width=2})
+gg:circle(cx,cy,6,{line_width=2,color=fg})
+gg:circle(cx,cy,2,{fill=true,color=fg})
+gg:line(cx,cy - 9,cx,cy+9,{line_width=2,color=fg})
+gg:line(cx - 9,cy,cx+9,cy,{line_width=2,color=fg})
 end
 end
 local BLACK={fill=true}
@@ -3551,14 +3566,12 @@ local iy=start_y+(i - 1)*item_h
 local is_act=(screen==it.id)
 local lbl=is_en and it.en_lbl or it.id_lbl
 if is_act then
-S.round_rect(gg,DX+14,iy,DW - 28,48,10,2)
-gg:rect(DX+18,iy+10,4,28,{fill=true,radius=2})
-gg:text(DX+DW - 32,iy+12,'>',{font=S.font('medium')})
-S.draw_menu_icon(gg,it.icon,DX+38,iy+24)
-gg:text(DX+60,iy+12,S.fit_text(lbl,'medium',DW - 96),{font=S.font('medium')})
+gg:rect(DX+14,iy,DW - 28,48,{fill=true,radius=10})
+S.draw_menu_icon(gg,it.icon,DX+36,iy+24,0)
+gg:text(DX+58,iy+12,S.fit_text(lbl,'medium',DW - 74),{font=S.font('medium'),color=0})
 else
-S.draw_menu_icon(gg,it.icon,DX+38,iy+24)
-gg:text(DX+60,iy+12,S.fit_text(lbl,'medium',DW - 78),{font=S.font('medium')})
+S.draw_menu_icon(gg,it.icon,DX+36,iy+24,1)
+gg:text(DX+58,iy+12,S.fit_text(lbl,'medium',DW - 74),{font=S.font('medium')})
 end
 end
 local qx,qy,qw,qh=DX+14,436,DW - 28,278

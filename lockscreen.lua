@@ -1887,8 +1887,9 @@ function S.get_effective_quote(cfg, day)
   return text, ref, pool_idx
 end
 
-function S.draw_quote(gg, y, day, cfg, max_w)
-  max_w = max_w or (S.W - 48)
+function S.draw_quote(gg, y, day, cfg, max_w, max_h)
+  max_w = max_w or (S.W - 36)
+  local avail_h = max_h or math.max(60, 788 - y)
   local text, ref = S.get_effective_quote(cfg, day)
   if not text or text == '' then return end
 
@@ -1899,12 +1900,24 @@ function S.draw_quote(gg, y, day, cfg, max_w)
   lines[1] = '"' .. lines[1]
   lines[n] = lines[n] .. '"'
 
-  local lh = (n >= 5) and 17 or ((n >= 4) and 18 or 21)
-  local ref_gap = (n >= 5) and 16 or ((n >= 4) and 18 or 23)
+  -- Dynamic line height & reference gap according to line count
+  local lh = (n >= 7) and 15 or ((n >= 5) and 16 or ((n >= 3) and 18 or 20))
+  local ref_gap = (n >= 7) and 12 or ((n >= 5) and 14 or ((n >= 3) and 16 or 18))
   local total_h = (n - 1) * lh + ref_gap + 14
-  local base_y = math.floor(y + 36 - total_h / 2)
-  if y > 650 and base_y < 696 then
-    base_y = 696
+
+  -- Safeguard: prevent text overflow beyond screen bottom (792px)
+  -- If text is extraordinarily long, truncate excess lines so reference is never lost
+  while n > 2 and total_h > avail_h do
+    table.remove(lines, n)
+    n = #lines
+    lines[n] = lines[n]:gsub('%.+$', ''):gsub('"+$', '') .. '..."'
+    total_h = (n - 1) * lh + ref_gap + 14
+  end
+
+  local base_y = math.floor(y + (avail_h - total_h) / 2)
+  if base_y < y then base_y = y end
+  if (base_y + total_h) > (y + avail_h) then
+    base_y = (y + avail_h) - total_h
   end
 
   for i = 1, n do
@@ -1919,8 +1932,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.1.5'
-S.APP_BUILD = 115
+S.APP_VERSION = '1.1.6'
+S.APP_BUILD = 116
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
@@ -2355,42 +2368,42 @@ function on_draw(c, gg)
     local info = S.compute(now_info, cfg)
 
     -- Top Header: Classical Mosque App Icon + Gregorian & Hijri Dates
-    S.draw_app_icon(gg, 20, 14, 52)
-    gg:text(84, 16, S.fit_text(now_info.date_str, 'medium', S.W - 104), { font = S.font('medium') })
-    gg:text(84, 44, S.fit_text(info.hijri_str, 'small', S.W - 104), { font = S.font('small') })
+    S.draw_app_icon(gg, 20, 12, 50)
+    gg:text(82, 14, S.fit_text(now_info.date_str, 'medium', S.W - 102), { font = S.font('medium') })
+    gg:text(82, 40, S.fit_text(info.hijri_str, 'small', S.W - 102), { font = S.font('small') })
 
     -- Big TrueType Wall Clock (Seamlessly below dates without harsh divider)
-    S.big_clock(gg, now_info.hhmm, S.W // 2, 86, 96, cfg.cfont)
+    S.big_clock(gg, now_info.hhmm, S.W // 2, 68, 96, cfg.cfont)
 
     -- Apple Lockscreen Capsule Widget for Location
     local sub_loc = (cfg.country == 'Indonesia' or not cfg.country) and (cfg.prov or 'DKI Jakarta') or (cfg.country or 'Indonesia')
     local loc_str = (cfg.kab or 'Kota Jakarta') .. '  •  ' .. sub_loc
     local lw = math.min(S.text_w(loc_str, 'small') + 28, S.W - 40)
     local lx = (S.W - lw) // 2
-    S.round_rect(gg, lx, 196, lw, 28, 14, nil, true, 0)
-    S.round_rect(gg, lx, 196, lw, 28, 14, 1)
-    S.center_text(gg, S.W // 2, 201, loc_str, 'small', lw - 16)
+    S.round_rect(gg, lx, 172, lw, 26, 13, nil, true, 0)
+    S.round_rect(gg, lx, 172, lw, 26, 13, 1)
+    S.center_text(gg, S.W // 2, 176, loc_str, 'small', lw - 16)
 
     if not info.has_data then
       try_fetch_month(now_info, cfg)
-      S.card(gg, 24, 250, S.W - 48, 180, 2, true)
-      S.center_text(gg, S.W // 2, 284, L.lock_no_data, 'large', S.W - 80)
-      S.center_text(gg, S.W // 2, 330, L.lock_no_l1, 'small', S.W - 80)
-      S.center_text(gg, S.W // 2, 356, L.lock_no_l2, 'small', S.W - 80)
+      S.card(gg, 24, 218, S.W - 48, 180, 2, true)
+      S.center_text(gg, S.W // 2, 252, L.lock_no_data, 'large', S.W - 80)
+      S.center_text(gg, S.W // 2, 298, L.lock_no_l1, 'small', S.W - 80)
+      S.center_text(gg, S.W // 2, 324, L.lock_no_l2, 'small', S.W - 80)
     else
       -- Next Prayer Live Activity Highlight Card
-      S.draw_next_card(gg, 20, 238, S.W - 40, 130, info, cfg.cfont)
+      S.draw_next_card(gg, 20, 208, S.W - 40, 114, info, cfg.cfont)
 
       -- 8-Row Prayer Timeline
-      S.draw_timeline(gg, 20, 382, S.W - 40, 37, info)
+      S.draw_timeline(gg, 20, 332, S.W - 40, 34, info)
     end
 
     -- Trigger background online quote sync if scheduled
     S.try_fetch_quote(now_info, cfg, info)
 
-    -- Bottom Divider & 3-Line Daily Quote
-    S.divider(gg, 692, 24, S.W - 24)
-    S.draw_quote(gg, 706, now_info.day, cfg)
+    -- Bottom Divider & Multi-Line Daily Quote (with 164px+ clean budget)
+    S.divider(gg, 614, 24, S.W - 24)
+    S.draw_quote(gg, 624, now_info.day, cfg)
   end)
   if not ok then
     pcall(function()

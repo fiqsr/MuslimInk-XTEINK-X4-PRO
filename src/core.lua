@@ -1712,8 +1712,9 @@ function S.get_effective_quote(cfg, day)
   return text, ref, pool_idx
 end
 
-function S.draw_quote(gg, y, day, cfg, max_w)
-  max_w = max_w or (S.W - 48)
+function S.draw_quote(gg, y, day, cfg, max_w, max_h)
+  max_w = max_w or (S.W - 36)
+  local avail_h = max_h or math.max(60, 788 - y)
   local text, ref = S.get_effective_quote(cfg, day)
   if not text or text == '' then return end
 
@@ -1724,12 +1725,24 @@ function S.draw_quote(gg, y, day, cfg, max_w)
   lines[1] = '"' .. lines[1]
   lines[n] = lines[n] .. '"'
 
-  local lh = (n >= 5) and 17 or ((n >= 4) and 18 or 21)
-  local ref_gap = (n >= 5) and 16 or ((n >= 4) and 18 or 23)
+  -- Dynamic line height & reference gap according to line count
+  local lh = (n >= 7) and 15 or ((n >= 5) and 16 or ((n >= 3) and 18 or 20))
+  local ref_gap = (n >= 7) and 12 or ((n >= 5) and 14 or ((n >= 3) and 16 or 18))
   local total_h = (n - 1) * lh + ref_gap + 14
-  local base_y = math.floor(y + 36 - total_h / 2)
-  if y > 650 and base_y < 696 then
-    base_y = 696
+
+  -- Safeguard: prevent text overflow beyond screen bottom (792px)
+  -- If text is extraordinarily long, truncate excess lines so reference is never lost
+  while n > 2 and total_h > avail_h do
+    table.remove(lines, n)
+    n = #lines
+    lines[n] = lines[n]:gsub('%.+$', ''):gsub('"+$', '') .. '..."'
+    total_h = (n - 1) * lh + ref_gap + 14
+  end
+
+  local base_y = math.floor(y + (avail_h - total_h) / 2)
+  if base_y < y then base_y = y end
+  if (base_y + total_h) > (y + avail_h) then
+    base_y = (y + avail_h) - total_h
   end
 
   for i = 1, n do
@@ -1744,8 +1757,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.1.5'
-S.APP_BUILD = 115
+S.APP_VERSION = '1.1.6'
+S.APP_BUILD = 116
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'

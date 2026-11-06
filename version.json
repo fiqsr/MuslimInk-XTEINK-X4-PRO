@@ -1,6 +1,6 @@
 {
-  "version": "1.1.2",
-  "build": 112,
+  "version": "1.1.3",
+  "build": 113,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -8,21 +8,22 @@
   "release_date": "2026-11-06",
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
-  "size_bytes": 427680,
+  "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
+  "size_bytes": 435808,
   "changelog_id": [
-    "Pembaruan Auto-Updater: Unduhan bertahap chunked HTTP Range (64 KB) mengatasi batas socket buffer firmware ESP32",
-    "Indikator Progres: Tampilan langsung persentase (%), ukuran terunduh (KB), dan progress bar real-time",
-    "Perbaikan Tipografi: Judul modal saat gagal tidak lagi terpotong ('Pembaruan Gagal')",
-    "Perbaikan Tata Letak: Kalimat petunjuk Wi-Fi dibungkus rapi tanpa terpotong di border",
-    "Peningkatan Stabilitas: Mekanisme auto-retry 3x per-chunk jika koneksi Wi-Fi fluktuatif",
-    "Fitur Sebelumnya: Input Koordinat Manual (GPS), Kompas Kiblat & 6 Gaya Jam TrueType"
+    "Fitur Baru: QR Code Rilis Pembaruan di Modal Update untuk pemindaian langsung lewat kamera ponsel (HP)",
+    "Tab Switcher: Pilihan tab [ Catatan Rilis ] dan [ Scan QR HP ] pada jendela pembaruan aplikasi",
+    "Pembaruan Info Aplikasi: Informasi detail hisab Kemenag, Aladhan, Meeus, GPS Numpad, dan spesifikasi X4 Pro",
+    "Fitur Baru: QR Code Repositori GitHub di accordion 'Tentang MuslimInk' untuk akses source code & dokumentasi",
+    "Peningkatan Scroll: Area scroll pengaturan diperluas (780px) untuk navigasi halus seluruh informasi & QR code",
+    "Mesin Pembaruan: Chunked HTTP Range Downloader 64 KB anti-corrupt dan auto-retry 3x per-blok"
   ],
   "changelog_en": [
-    "Auto-Updater: 64 KB HTTP Range chunked downloader overcoming ESP32 firmware 128 KB buffer limit",
-    "Live Progress Indicator: Real-time percentage (%), downloaded KB / total KB, and animated progress bar",
-    "Typography Polish: Modal error title zero-truncation ('Update Failed')",
-    "Layout Polish: Proper multi-line text wrapping for Wi-Fi tips without border cut-offs",
-    "Reliability: 3x automatic chunk retry on unstable Wi-Fi connections",
-    "Previous Features: Manual GPS Coordinates Input, Qibla Compass & 6 TrueType Clock Styles"
+    "New Feature: Update Release QR Code in modal dialog for seamless smartphone camera scanning",
+    "Tab Switcher: Dual tabs [ Changelog ] and [ Scan QR (Phone) ] inside the app update modal",
+    "Updated App Info: Comprehensive calculation engines, Meeus, MABIMS, GPS Numpad, and hardware specs",
+    "New Feature: GitHub Repository QR Code in 'About MuslimInk' accordion for instant mobile access",
+    "Smooth Scrolling: Expanded scroll viewport (780px) accommodating rich specs and repository QR code",
+    "Update Engine: 64 KB Chunked HTTP Range downloader with 3x retry overcoming ESP32 buffer limits"
   ]
 }

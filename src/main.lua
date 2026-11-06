@@ -16,6 +16,7 @@ local update_state = 'idle'
 local update_err = nil
 local update_saved_path = nil
 local update_progress = nil
+local update_tab = 'notes'
 local about_expanded = false
 local settings_scroll_y = 0
 local touch_down_y = nil
@@ -835,7 +836,7 @@ function on_draw(c, gg)
     end
 
     if update_modal then
-      F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress)
+      F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress, update_tab)
     end
 
     -- Draw sliding navigation drawer if open
@@ -1061,12 +1062,25 @@ local function check_update_modal_tap(x, y)
     end
 
   elseif update_state == 'idle' then
+    -- Segmented tab tap: [ Catatan Rilis ] vs [ Scan QR HP ]
+    local tab_y = my + 144
+    if y >= tab_y and y <= tab_y + 38 and x >= mx + 16 and x <= mx + mw - 16 then
+      local mid_x = mx + mw // 2
+      if x < mid_x then
+        update_tab = 'notes'
+      else
+        update_tab = 'qr'
+      end
+      refresh()
+      return true
+    end
+
     -- Button 1: [ Unduh & Simpan ke SD Card ]
     local b1_y = my + mh - 110
     if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_state = 'downloading'
       update_err = nil
-      local exp_total = (update_info and update_info.size_bytes) or 422144
+      local exp_total = (update_info and update_info.size_bytes) or 427680
       update_progress = { current = 0, total = exp_total }
       local is_en = (cfg.lang == 'en')
       status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
@@ -1095,7 +1109,7 @@ local function check_update_modal_tap(x, y)
       return true
     end
 
-    -- Button 2: [ Nanti ]
+    -- Button 2: [ Nanti / Tutup ]
     local b2_y = my + mh - 56
     if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
       update_modal = false
@@ -1136,12 +1150,22 @@ local function check_update_modal_tap(x, y)
     end
 
   elseif update_state == 'error' then
-    -- Button 1: [ Coba Unduh Lagi ]
+    -- Button 0: [ Unduh Lewat HP (Scan QR) ] (y = my + mh - 164)
+    local b0_y = my + mh - 164
+    if y >= b0_y and y <= b0_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
+      update_tab = 'qr'
+      update_state = 'idle'
+      update_err = nil
+      refresh()
+      return true
+    end
+
+    -- Button 1: [ Coba Lagi di Perangkat ] (y = my + mh - 110)
     local b1_y = my + mh - 110
     if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_state = 'downloading'
       update_err = nil
-      local exp_total = (update_info and update_info.size_bytes) or 422144
+      local exp_total = (update_info and update_info.size_bytes) or 427680
       update_progress = { current = 0, total = exp_total }
       local is_en = (cfg.lang == 'en')
       status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
@@ -1165,7 +1189,7 @@ local function check_update_modal_tap(x, y)
       return true
     end
 
-    -- Button 2: [ Tutup ]
+    -- Button 2: [ Tutup ] (y = my + mh - 56)
     local b2_y = my + mh - 56
     if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
       update_modal = false
@@ -1816,7 +1840,7 @@ function on_input(c, ev)
 
         if screen == 'settings' then
           local is_exp = (about_expanded == true)
-          local max_scroll = is_exp and 420 or 0
+          local max_scroll = is_exp and 780 or 0
           if max_scroll > 0 and touch_down_y and math.abs(touch_down_y - y) > 25 then
             local delta = touch_down_y - y
             settings_scroll_y = math.max(0, math.min(max_scroll, settings_scroll_y + delta))
@@ -1988,7 +2012,7 @@ end
       return false
     elseif screen == 'settings' then
       local is_exp = (about_expanded == true)
-      local max_scroll = is_exp and 370 or 0
+      local max_scroll = is_exp and 780 or 0
       if ev.key == 'down' or ev.key == 'right' then
         settings_scroll_y = math.min(max_scroll, settings_scroll_y + 160)
         refresh()

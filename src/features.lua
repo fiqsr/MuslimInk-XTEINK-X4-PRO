@@ -1324,7 +1324,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
   end
 
   local is_exp = (about_expanded == true)
-  local ab_body_h = is_exp and 448 or 0
+  local ab_body_h = is_exp and 800 or 0
   local ab_h = 64 + ab_body_h
   local total_content_bottom = 622 + ab_h + 20
   local viewport_bottom = 726
@@ -1436,45 +1436,68 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     dy = dy + 10
     gg:text(36, dy, is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK', { font = S.font('small') })
     dy = dy + 22
-    gg:text(36, dy, 'Developer : fiqsr', { font = S.font('small') })
+    gg:text(36, dy, 'Developer : fiqsr (Taufiq)', { font = S.font('small') })
     dy = dy + 20
     gg:text(36, dy, 'GitHub    : github.com/fiqsr', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'License   : Open Source (MIT)' or 'Lisensi   : Open Source (MIT)', { font = S.font('small') })
+    gg:text(36, dy, 'Repo      : MuslimInk-XTEINK-X4-PRO', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Design    : Apple HIG Monochrome' or 'Desain    : Apple HIG Monochrome', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'License   : Open Source (MIT License)' or 'Lisensi   : Open Source (MIT License)', { font = S.font('small') })
+    dy = dy + 20
+    gg:text(36, dy, is_en and ('App Vers. : v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')') or ('Versi App : v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')'), { font = S.font('small') })
 
     -- Section 2: Calculation Engine & Astronomics
     dy = dy + 28
     S.divider(gg, dy - 8, 36, W - 36)
     gg:text(36, dy, is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS', { font = S.font('small') })
     dy = dy + 22
-    gg:text(36, dy, is_en and 'Indonesia : Kemenag RI (514 Kota)' or 'Indonesia : Kemenag RI (514 Kota)', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'Indonesia : Kemenag RI (514 Kab/Kota)' or 'Indonesia : Kemenag RI (514 Kab/Kota)', { font = S.font('small') })
     dy = dy + 20
     gg:text(36, dy, is_en and 'Global/LN : Aladhan API (230+ Kota)' or 'Global/LN : Aladhan API (230+ Kota)', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Methods   : Ummul Quro, MUIS, MWL' or 'Metode LN : Ummul Quro, MUIS, MWL', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'Methods   : Ummul Quro, MWL, MUIS, dll' or 'Metode LN : Ummul Quro, MWL, MUIS, dll', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Offline   : Hisab Surya Meeus' or 'Offline   : Hisab Surya Meeus', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'Offline   : Hisab Surya Meeus & MABIMS' or 'Offline   : Hisab Surya Meeus & MABIMS', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Calendar  : Aladhan & MABIMS' or 'Kalender  : Aladhan & MABIMS', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'GPS Coords: Custom Lat/Lon/TZ Numpad' or 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Qibla Dir : Kaaba (Trigonometry)' or 'Arah Kiblat: Ka\'bah (Trigonometri)', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle Math)' or 'Arah Kiblat: Ka\'bah (Trigonometri Bola)', { font = S.font('small') })
 
     -- Section 3: Hardware & Runtime Status
     dy = dy + 28
     S.divider(gg, dy - 8, 36, W - 36)
-    gg:text(36, dy, is_en and 'HARDWARE & RUNTIME' or 'SPESIFIKASI & STATUS', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT', { font = S.font('small') })
     dy = dy + 22
-    gg:text(36, dy, is_en and 'Hardware  : XTEINK X4 Pro' or 'Perangkat : XTEINK X4 Pro', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'Hardware  : XTEINK X4 Pro ONLY' or 'Perangkat : Khusus XTEINK X4 Pro', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Screen    : 480x800 1-bit E-ink' or 'Layar     : 480x800 1-bit E-ink', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'Display   : 480x800 1-bit E-ink Monokrom' or 'Layar     : 480x800 1-bit E-ink Monokrom', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Lockscreen: Standalone Service' or 'Lockscreen: Layar Kunci Mandiri', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'Lockscreen: Standalone Service (60s)' or 'Lockscreen: Layar Kunci Mandiri (60s)', { font = S.font('small') })
     dy = dy + 20
-    gg:text(36, dy, is_en and 'Features  : Tasbih, Doa, Kiblat' or 'Fitur Lain: Tasbih, Doa, Kiblat', { font = S.font('small') })
+    gg:text(36, dy, is_en and 'Auto-Updt : 64 KB Chunked Downloader' or 'Updater   : Chunked Range 64 KB (Aman)', { font = S.font('small') })
     dy = dy + 20
     gg:text(36, dy, 'Status    : ' .. S.short(loc_sub, 26), { font = S.font('small') })
+
+    -- Section 4: GitHub Repository QR Code
+    dy = dy + 28
+    S.divider(gg, dy - 8, 36, W - 36)
+    gg:text(36, dy, is_en and 'GITHUB REPOSITORY (SCAN QR)' or 'REPOSITORI GITHUB (PINDAI QR)', { font = S.font('small') })
+    dy = dy + 20
+    local qr_tip = is_en and 'Scan with phone camera to open GitHub repo:' or 'Pindai dengan kamera HP untuk buka proyek GitHub:'
+    gg:text(36, dy, qr_tip, { font = S.font('small') })
+    dy = dy + 20
+
+    -- Center QR Code (150x150)
+    local qr_sz = 150
+    S.draw_qr(gg, S.PROJECT_GITHUB_URL, W // 2, dy, qr_sz)
+    dy = dy + qr_sz + 16
+
+    local gh_lbl = 'github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
+    S.center_text(gg, W // 2, dy, gh_lbl, 'small')
+    dy = dy + 20
+
+    local gh_note = is_en and 'Source Code • Panduan • Rilis • Dukungan' or 'Source Code • Panduan • Rilis • Dukungan'
+    S.center_text(gg, W // 2, dy, gh_note, 'small')
   end
 
   -- ==============================================================
@@ -1742,7 +1765,7 @@ end
 
 ------------------------------------------------------------------ Modal: App Auto-Update (GitHub Releases)
 
-function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress)
+function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress, update_tab)
   if type(update_saved_path) == 'function' and draw_btn == nil then
     draw_btn = update_saved_path
     update_saved_path = nil
@@ -1991,22 +2014,23 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
 
     my_y = math.max(my_y + 8, by + 130)
     local tip = is_en
-      and 'Ensure Wi-Fi is active and stable, then tap Retry below.'
-      or 'Pastikan koneksi Wi-Fi aktif dan stabil lalu tekan Coba Lagi.'
+      and 'Ensure Wi-Fi is active and stable, or scan QR code via phone below.'
+      or 'Pastikan Wi-Fi stabil, atau pindai QR code lewat HP di bawah ini.'
     local w_tips = S.wrap_lines(tip, bw - 40, 'small')
     for i = 1, #w_tips do
       gg:text(bx + 20, my_y, w_tips[i], { font = S.font('small') })
       my_y = my_y + 20
     end
 
-    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Retry' or 'Coba Lagi', true, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 164, mw - 40, 44, is_en and 'Download via Phone (Scan QR)' or 'Unduh Lewat HP (Scan QR)', false, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Retry on Device' or 'Coba Lagi di Perangkat', true, 'medium')
     draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
 
   else
     -- Idle State View: Changelog and Download Action
     local cur_v = S.APP_VERSION
     local rem_v = (update_info and update_info.version) or cur_v
-    local sz_kb = math.floor(((update_info and update_info.size_bytes) or 410080) / 1024)
+    local sz_kb = math.floor(((update_info and update_info.size_bytes) or 427680) / 1024)
     local rel_date = (update_info and update_info.release_date) or '2026-11-06'
 
     -- Info Card
@@ -2023,39 +2047,82 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     gg:text(ix + 16, iy + 10, t_line1, { font = S.font('medium') })
     gg:text(ix + 16, iy + 32, t_line2, { font = S.font('small') })
 
-    -- Changelog Box (Properly bounds-checked to prevent overflow)
-    local cx, cy, cw, ch = mx + 16, my + 146, mw - 32, 400
+    -- Segmented Tab at y = my + 144: [ Catatan Rilis ]  [ Scan QR HP ]
+    local tab_y = my + 144
+    local tab_w = mw - 32
+    local tab_h = 36
+    local active_tab_idx = (update_tab == 'qr') and 2 or 1
+    local tab_labels = is_en and { 'Changelog', 'Scan QR (Phone)' } or { 'Catatan Rilis', 'Scan QR HP' }
+    S.segmented_control(gg, mx + 16, tab_y, tab_w, tab_h, tab_labels, active_tab_idx)
+
+    local cx, cy, cw, ch = mx + 16, tab_y + 44, mw - 32, 396
     S.round_rect(gg, cx, cy, cw, ch, 10, nil, true, 0)
     S.round_rect(gg, cx, cy, cw, ch, 10, 1)
 
-    gg:text(cx + 14, cy + 12, is_en and 'WHAT\'S NEW / CHANGELOG:' or 'CATATAN RILIS TERBARU:', { font = S.font('small') })
-    gg:line(cx + 14, cy + 30, cx + cw - 14, cy + 30, { line_width = 1 })
+    if update_tab == 'qr' then
+      -- QR Code Card for Phone Scanning
+      local qr_title = is_en and 'SCAN VIA PHONE CAMERA:' or 'PINDAI DENGAN KAMERA HP:'
+      gg:text(cx + 14, cy + 12, qr_title, { font = S.font('small') })
+      gg:line(cx + 14, cy + 30, cx + cw - 14, cy + 30, { line_width = 1 })
 
-    local logs = is_en
-      and (update_info and update_info.changelog_en or { 'Bug fixes and performance improvements' })
-      or (update_info and update_info.changelog_id or { 'Perbaikan bug dan peningkatan performa' })
+      local rel_url = (update_info and (update_info.release_page_url or update_info.download_url)) or S.RELEASE_LATEST_URL
+      local qr_size = 150
+      S.draw_qr(gg, rel_url, cx + cw // 2, cy + 38, qr_size)
 
-    local ly = cy + 38
-    for idx, item in ipairs(logs) do
-      if ly + 20 <= cy + ch - 14 then
-        local w_sub = S.wrap_lines('• ' .. item, cw - 28, 'small')
-        for _, sub in ipairs(w_sub) do
-          if ly + 18 <= cy + ch - 14 then
-            gg:text(cx + 14, ly, sub, { font = S.font('small') })
-            ly = ly + 18
-          end
-        end
-        ly = ly + 4
-      elseif idx <= #logs then
-        gg:text(cx + 14, cy + ch - 18, is_en and '• ... and further optimizations.' or '• ... serta optimasi performa lainnya.', { font = S.font('small') })
-        break
+      local qy = cy + 38 + qr_size + 14
+      local rel_short = 'github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases'
+      S.center_text(gg, cx + cw // 2, qy, rel_short, 'small')
+      qy = qy + 22
+
+      local steps = is_en and {
+        '1. Scan QR with your phone camera',
+        '2. Download muslimink.xtapp to phone',
+        '3. Copy to X4 Pro via USB / SD Card'
+      } or {
+        '1. Pindai QR di atas dengan kamera HP',
+        '2. Unduh berkas muslimink.xtapp ke HP',
+        '3. Salin ke X4 Pro via USB / SD Card'
+      }
+      for _, st in ipairs(steps) do
+        S.center_text(gg, cx + cw // 2, qy, st, 'small')
+        qy = qy + 19
       end
-    end
 
-    -- Bottom action buttons
-    local btn_dl = is_en and 'Download & Save to SD Card' or 'Unduh & Simpan ke SD Card'
-    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, btn_dl, true, 'medium')
-    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Later' or 'Nanti', false, 'medium')
+      -- Bottom action buttons
+      local btn_dl = is_en and 'Download on Device (Wi-Fi)' or 'Unduh di X4 Pro (Wi-Fi)'
+      draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, btn_dl, true, 'medium')
+      draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
+    else
+      -- Changelog Box
+      gg:text(cx + 14, cy + 12, is_en and 'WHAT\'S NEW / CHANGELOG:' or 'CATATAN RILIS TERBARU:', { font = S.font('small') })
+      gg:line(cx + 14, cy + 30, cx + cw - 14, cy + 30, { line_width = 1 })
+
+      local logs = is_en
+        and (update_info and update_info.changelog_en or { 'Bug fixes and performance improvements' })
+        or (update_info and update_info.changelog_id or { 'Perbaikan bug dan peningkatan performa' })
+
+      local ly = cy + 38
+      for idx, item in ipairs(logs) do
+        if ly + 20 <= cy + ch - 14 then
+          local w_sub = S.wrap_lines('• ' .. item, cw - 28, 'small')
+          for _, sub in ipairs(w_sub) do
+            if ly + 18 <= cy + ch - 14 then
+              gg:text(cx + 14, ly, sub, { font = S.font('small') })
+              ly = ly + 18
+            end
+          end
+          ly = ly + 4
+        elseif idx <= #logs then
+          gg:text(cx + 14, cy + ch - 18, is_en and '• ... and further optimizations.' or '• ... serta optimasi performa lainnya.', { font = S.font('small') })
+          break
+        end
+      end
+
+      -- Bottom action buttons
+      local btn_dl = is_en and 'Download & Save to SD Card' or 'Unduh & Simpan ke SD Card'
+      draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, btn_dl, true, 'medium')
+      draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Later' or 'Nanti', false, 'medium')
+    end
   end
 end
 

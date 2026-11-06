@@ -1153,6 +1153,55 @@ function S.sheet_grabber(gg, cx, y)
   S.round_rect(gg, cx - 20, y, 40, 4, 2, nil, true, 1)
 end
 
+-- Hardware QR Code renderer (uses XTOS Licorice API 2.9 ctx.qr:encode with solid white frame)
+local qr_cache = {}
+
+function S.draw_qr(gg, text, cx, cy, size)
+  size = size or 160
+  local img = qr_cache[text]
+  if img == nil then
+    local ok, res = pcall(function()
+      if ctx and ctx.qr and ctx.qr.encode then
+        local r = ctx.qr:encode(text, { size = size })
+        if not r then r = ctx.qr:encode(text) end
+        return r
+      end
+      return nil
+    end)
+    img = (ok and res) or false
+    qr_cache[text] = img
+  end
+
+  local x = cx - size // 2
+  local y = cy
+
+  -- Solid white backing container with 1px border for maximum optical scan contrast
+  S.round_rect(gg, x - 10, y - 10, size + 20, size + 20, 10, nil, true, 0)
+  S.round_rect(gg, x - 10, y - 10, size + 20, size + 20, 10, 1)
+
+  if img then
+    local ok = pcall(function()
+      local w = tonumber(img.width) or 0
+      local sz = size
+      if w > 0 then sz = w * math.max(1, size // w) end
+      gg:image(img, cx - sz // 2, y + (size - sz) // 2, { w = sz, h = sz })
+    end)
+    if not ok then
+      pcall(function() gg:image(img, x, y) end)
+    end
+  else
+    -- Clean vector fallback outline if ctx.qr is unavailable (e.g. testing/simulator)
+    gg:rect(x, y, size, size, { line_width = 1 })
+    for sy = y + 8, y + size - 8, 12 do
+      gg:line(x + 8, sy, x + size - 8, sy, { line_width = 1 })
+    end
+    S.round_rect(gg, cx - 64, y + size // 2 - 20, 128, 40, 6, nil, true, 0)
+    S.round_rect(gg, cx - 64, y + size // 2 - 20, 128, 40, 6, 1)
+    S.center_text(gg, cx, y + size // 2 - 12, '[ QR CODE ]', 'medium')
+    S.center_text(gg, cx, y + size // 2 + 8, 'Scan via HP', 'small')
+  end
+end
+
 -- Modern minimal crescent moon icon
 function S.draw_crescent(gg, cx, cy, r)
   gg:circle(cx, cy, r, { fill = true })
@@ -1870,15 +1919,20 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.1.2'
-S.APP_BUILD = 112
+S.APP_VERSION = '1.1.3'
+S.APP_BUILD = 113
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
+S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
+S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
 
 function S.parse_version_json(str)
   if type(str) ~= 'string' or #str == 0 then return nil end
   if ctx and ctx.json and ctx.json.decode then
     local ok, res = pcall(function() return ctx.json:decode(str) end)
     if ok and type(res) == 'table' and res.version then
+      if not res.release_page_url then
+        res.release_page_url = S.RELEASE_LATEST_URL
+      end
       return res
     end
   end
@@ -1891,8 +1945,9 @@ function S.parse_version_json(str)
   t.release_date = str:match('"release_date"%s*:%s*"([^"]+)"')
   t.download_url = str:match('"download_url"%s*:%s*"([^"]+)"')
   t.raw_package_url = str:match('"raw_package_url"%s*:%s*"([^"]+)"')
+  t.release_page_url = str:match('"release_page_url"%s*:%s*"([^"]+)"') or S.RELEASE_LATEST_URL
   local sz = str:match('"size_bytes"%s*:%s*(%d+)')
-  t.size_bytes = sz and tonumber(sz) or 370416
+  t.size_bytes = sz and tonumber(sz) or 427680
 
   local function parse_array(key)
     local arr = {}

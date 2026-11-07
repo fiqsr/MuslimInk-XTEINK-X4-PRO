@@ -925,22 +925,33 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
     else
       local cur_y = 192
 
-      -- Section 1: Arabic Text (Alur 1)
+      -- Section 1: Arabic Text Probe
       local ar_text = tostring(d.ar or ''):sub(1, 800)
       if ar_text ~= '' then
         gg:text(38, cur_y, is_en and 'ARABIC TEXT:' or 'TEKS ARAB:', { font = S.font('small') })
         cur_y = cur_y + 18
-        local ar_lines = F.wrap_lines(ar_text, 'medium', W - 76)
-        local use_sml_ar = (#ar_lines > 3)
-        if use_sml_ar then ar_lines = F.wrap_lines(ar_text, 'small', W - 76) end
-        local ar_font = use_sml_ar and 'small' or 'medium'
-        local ar_lh = use_sml_ar and 24 or 28
-        local max_ar_lines = math.min(#ar_lines, 4)
-        for i = 1, max_ar_lines do
-          gg:text(38, cur_y, ar_lines[i], { font = S.font(ar_font) })
-          cur_y = cur_y + ar_lh
+
+        -- Test 1: Default gg:text (without overriding font)
+        pcall(function() gg:text(38, cur_y, ar_text) end)
+        cur_y = cur_y + 24
+
+        -- Test 2: List all keys in ctx.fonts
+        local f_keys = {}
+        if ctx and ctx.fonts then
+          for k, _ in pairs(ctx.fonts) do table.insert(f_keys, tostring(k)) end
         end
-        cur_y = cur_y + 6
+        local f_str = 'Fonts: ' .. table.concat(f_keys, ', ')
+        gg:text(38, cur_y, S.fit_text(f_str, 'small', W - 76), { font = S.font('small') })
+        cur_y = cur_y + 18
+
+        -- Test 3: Named font Amiri-Regular
+        pcall(function()
+          local f_amiri = (ctx.fonts and ctx.fonts['Amiri-Regular']) or 'Amiri-Regular'
+          gg:text(38, cur_y, ar_text, { font = f_amiri })
+        end)
+        cur_y = cur_y + 24
+
+        cur_y = cur_y + 4
         S.divider(gg, cur_y, 40, W - 40)
         cur_y = cur_y + 10
       end

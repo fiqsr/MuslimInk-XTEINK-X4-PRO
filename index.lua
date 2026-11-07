@@ -1938,54 +1938,31 @@ if state.fetching then
 S.center_text(gg,W//2,340,is_en and 'Downloading supplication...' or 'Mengunduh doa dari API...','medium')
 S.center_text(gg,W//2,375,is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...','small')
 else
-local cur_y=192
-local ar_text=tostring(d.ar or ''):sub(1,800)
-if ar_text~='' then
-gg:text(38,cur_y,is_en and 'ARABIC TEXT:' or 'TEKS ARAB:',{font=S.font('small')})
-cur_y=cur_y+18
-pcall(function()gg:text(38,cur_y,ar_text)end)
-cur_y=cur_y+24
-local f_keys={}
-if ctx and ctx.fonts then
-for k,_ in pairs(ctx.fonts)do table.insert(f_keys,tostring(k))end
-end
-local f_str='Fonts: '..table.concat(f_keys,', ')
-gg:text(38,cur_y,S.fit_text(f_str,'small',W - 76),{font=S.font('small')})
-cur_y=cur_y+18
-pcall(function()
-local f_amiri=(ctx.fonts and ctx.fonts['Amiri-Regular'])or 'Amiri-Regular'
-gg:text(38,cur_y,ar_text,{font=f_amiri})
-end)
-cur_y=cur_y+24
-cur_y=cur_y+4
-S.divider(gg,cur_y,40,W - 40)
-cur_y=cur_y+10
-end
 local tr_text=tostring(d.tr or d.latin or ''):sub(1,600)
-gg:text(38,cur_y,is_en and 'TRANSLITERATION (LATIN):' or 'BACAAN LATIN:',{font=S.font('small')})
-cur_y=cur_y+18
+gg:text(38,192,is_en and 'TRANSLITERATION (LATIN):' or 'BACAAN LATIN:',{font=S.font('small')})
 local lat_lines=F.wrap_lines(tr_text,'medium',W - 76)
-local use_sml=(#lat_lines>3)
+local use_sml=(#lat_lines>4)
 if use_sml then lat_lines=F.wrap_lines(tr_text,'small',W - 76)end
 local font_n=use_sml and 'small' or 'medium'
 local lh=use_sml and 22 or 26
-local max_lat_lines=math.min(#lat_lines,5)
+local ly=216
+local max_lat_lines=math.min(#lat_lines,6)
 for i=1,max_lat_lines do
-gg:text(38,cur_y,lat_lines[i],{font=S.font(font_n)})
-cur_y=cur_y+lh
+gg:text(38,ly,lat_lines[i],{font=S.font(font_n)})
+ly=ly+lh
 end
-local div_y=cur_y+6
+local div_y=ly+10
 S.divider(gg,div_y,40,W - 40)
-cur_y=div_y+10
-gg:text(38,cur_y,is_en and 'MEANING & TRANSLATION:' or 'ARTINYA:',{font=S.font('small')})
-cur_y=cur_y+18
+local my=div_y+12
+gg:text(38,my,is_en and 'MEANING & TRANSLATION:' or 'ARTINYA:',{font=S.font('small')})
 local raw_arti=is_en and(d.arti_en or d.arti_id or '')or(d.arti_id or '')
 local arti_text=tostring(raw_arti):sub(1,600)
 local arti_lines=F.wrap_lines('"'..arti_text..'"','small',W - 76)
-local max_arti_lines=math.min(#arti_lines,5)
+local ay=my+22
+local max_arti_lines=math.min(#arti_lines,8)
 for i=1,max_arti_lines do
-gg:text(38,cur_y,arti_lines[i],{font=S.font('small')})
-cur_y=cur_y+20
+gg:text(38,ay,arti_lines[i],{font=S.font('small')})
+ay=ay+20
 end
 if d.src and d.src~='' then
 local clean_src=tostring(d.src):gsub('[\r\n]+',' ')
@@ -3944,7 +3921,7 @@ end
 end
 if not need_refresh then return end
 else
-doa_state.viewing={id=it.id,nama_id=it.nama_id or it.n_id or '',nama_en=it.nama_en or it.n_en or '',grup_id=it.grup_id or it.g_id or '',grup_en=it.grup_en or it.g_en or '',ar=(it.id==1 and 'بِاسْمِكَ رَبِّيْ وَضَعْتُ جَنْبِيْ، وَبِكَ أَرْفَعُهُ')or it.ar or '',latin=is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...',arti_id='Sedang mengunduh teks doa...',arti_en='Downloading supplication text...',src='Hisnul Muslim',}
+doa_state.viewing={id=it.id,nama_id=it.nama_id or it.n_id or '',nama_en=it.nama_en or it.n_en or '',grup_id=it.grup_id or it.g_id or '',grup_en=it.grup_en or it.g_en or '',latin=is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...',arti_id='Sedang mengunduh teks doa...',arti_en='Downloading supplication text...',src='Hisnul Muslim',}
 end
 doa_state.fetching=true
 pcall(function()

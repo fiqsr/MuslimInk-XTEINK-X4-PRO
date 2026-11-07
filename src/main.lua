@@ -947,7 +947,6 @@ local function open_doa_detail(it)
       nama_en = it.nama_en or it.n_en or '',
       grup_id = it.grup_id or it.g_id or '',
       grup_en = it.grup_en or it.g_en or '',
-      ar = (it.id == 1 and 'بِاسْمِكَ رَبِّيْ وَضَعْتُ جَنْبِيْ، وَبِكَ أَرْفَعُهُ') or it.ar or '',
       latin = is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...',
       arti_id = 'Sedang mengunduh teks doa...',
       arti_en = 'Downloading supplication text...',

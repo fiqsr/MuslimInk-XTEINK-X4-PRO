@@ -923,68 +923,33 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       S.center_text(gg, W // 2, 340, is_en and 'Downloading supplication...' or 'Mengunduh doa dari API...', 'medium')
       S.center_text(gg, W // 2, 375, is_en and 'Connecting to network...' or 'Menghubungkan ke jaringan...', 'small')
     else
-      local cur_y = 192
-
-      -- Section 1: Arabic Text Probe
-      local ar_text = tostring(d.ar or ''):sub(1, 800)
-      if ar_text ~= '' then
-        gg:text(38, cur_y, is_en and 'ARABIC TEXT:' or 'TEKS ARAB:', { font = S.font('small') })
-        cur_y = cur_y + 18
-
-        -- Test 1: Default gg:text (without overriding font)
-        pcall(function() gg:text(38, cur_y, ar_text) end)
-        cur_y = cur_y + 24
-
-        -- Test 2: List all keys in ctx.fonts
-        local f_keys = {}
-        if ctx and ctx.fonts then
-          for k, _ in pairs(ctx.fonts) do table.insert(f_keys, tostring(k)) end
-        end
-        local f_str = 'Fonts: ' .. table.concat(f_keys, ', ')
-        gg:text(38, cur_y, S.fit_text(f_str, 'small', W - 76), { font = S.font('small') })
-        cur_y = cur_y + 18
-
-        -- Test 3: Named font Amiri-Regular
-        pcall(function()
-          local f_amiri = (ctx.fonts and ctx.fonts['Amiri-Regular']) or 'Amiri-Regular'
-          gg:text(38, cur_y, ar_text, { font = f_amiri })
-        end)
-        cur_y = cur_y + 24
-
-        cur_y = cur_y + 4
-        S.divider(gg, cur_y, 40, W - 40)
-        cur_y = cur_y + 10
-      end
-
-      -- Section 2: Transliteration (Latin)
       local tr_text = tostring(d.tr or d.latin or ''):sub(1, 600)
-      gg:text(38, cur_y, is_en and 'TRANSLITERATION (LATIN):' or 'BACAAN LATIN:', { font = S.font('small') })
-      cur_y = cur_y + 18
+      gg:text(38, 192, is_en and 'TRANSLITERATION (LATIN):' or 'BACAAN LATIN:', { font = S.font('small') })
       local lat_lines = F.wrap_lines(tr_text, 'medium', W - 76)
-      local use_sml = (#lat_lines > 3)
+      local use_sml = (#lat_lines > 4)
       if use_sml then lat_lines = F.wrap_lines(tr_text, 'small', W - 76) end
       local font_n = use_sml and 'small' or 'medium'
       local lh = use_sml and 22 or 26
-      local max_lat_lines = math.min(#lat_lines, 5)
+      local ly = 216
+      local max_lat_lines = math.min(#lat_lines, 6)
       for i = 1, max_lat_lines do
-        gg:text(38, cur_y, lat_lines[i], { font = S.font(font_n) })
-        cur_y = cur_y + lh
+        gg:text(38, ly, lat_lines[i], { font = S.font(font_n) })
+        ly = ly + lh
       end
 
-      local div_y = cur_y + 6
+      local div_y = ly + 10
       S.divider(gg, div_y, 40, W - 40)
-      cur_y = div_y + 10
 
-      -- Section 3: Meaning & Translation
-      gg:text(38, cur_y, is_en and 'MEANING & TRANSLATION:' or 'ARTINYA:', { font = S.font('small') })
-      cur_y = cur_y + 18
+      local my = div_y + 12
+      gg:text(38, my, is_en and 'MEANING & TRANSLATION:' or 'ARTINYA:', { font = S.font('small') })
       local raw_arti = is_en and (d.arti_en or d.arti_id or '') or (d.arti_id or '')
       local arti_text = tostring(raw_arti):sub(1, 600)
       local arti_lines = F.wrap_lines('"' .. arti_text .. '"', 'small', W - 76)
-      local max_arti_lines = math.min(#arti_lines, 5)
+      local ay = my + 22
+      local max_arti_lines = math.min(#arti_lines, 8)
       for i = 1, max_arti_lines do
-        gg:text(38, cur_y, arti_lines[i], { font = S.font('small') })
-        cur_y = cur_y + 20
+        gg:text(38, ay, arti_lines[i], { font = S.font('small') })
+        ay = ay + 20
       end
 
       if d.src and d.src ~= '' then

@@ -9,15 +9,17 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 228592,
+  "size_bytes": 227312,
   "changelog_id": [
+    "Database Wilayah Luar Negeri Modular: Seluruh daftar 26 negara dan 80+ kota internasional kini dimodularisasi penuh via GitHub (api/countries.json), menghemat ukuran instalasi aplikasi bawaan secara signifikan.",
     "Arsitektur Font Modular On-Demand (Hemat ~21 KB): Hanya font bawaan (Modern Bulat) yang dikompilasi langsung ke dalam aplikasi. Font Klasik Serif, Tegas Bold, Geometris Slab, dan Angka Arab kini diunduh secara on-demand via GitHub (api/fonts/) dan dicache di penyimpanan perangkat.",
-    "Ukuran Paket Rekor Terendah 228.5 KB: Ukuran file muslimink.xtapp terpangkas drastis dari 249.8 KB menjadi hanya 228.5 KB (228,592 byte), menyisakan ruang bebas raksasa ~33.5 KB dari batas 256 KB.",
+    "Ukuran Paket Rekor Terendah 227.3 KB: Ukuran file muslimink.xtapp kini hanya 227.312 byte (221.9 KB), menyisakan ruang bebas raksasa ~34.8 KB dari batas 256 KB.",
     "Sinkronisasi Otomatis Lockscreen: Font yang telah diunduh di aplikasi otomatis dapat digunakan di lockscreen tanpa error maupun konsumsi memori berlebih."
   ],
   "changelog_en": [
+    "Modular International Countries Database: The full 26-nation & 80+ city catalog is now loaded on-demand via GitHub (api/countries.json), substantially cutting bundle size.",
     "Modular On-Demand Clock Fonts (~21 KB Saved): Only default Rounded font is baked in-app. Serif, Bold, Slab, and Arabic numerals are downloaded on-demand from GitHub (api/fonts/) and cached in local storage.",
-    "All-Time Record Slim 228.5 KB Package: File size slashed down to just 228,592 bytes (223.2 KB), giving a massive ~33.5 KB safety margin below the 256 KB limit.",
+    "All-Time Record Slim 227.3 KB Package: File size slashed down to just 227,312 bytes (221.9 KB), giving a massive ~34.8 KB safety margin below the 256 KB limit.",
     "Seamless Lockscreen Integration: Downloaded custom fonts automatically render on the lockscreen clock and next prayer cards with zero extra overhead."
   ]
 }

@@ -413,39 +413,11 @@ F.CUSTOM_METHODS = _PCM()
 
 
 local function _PSC()
-  local C = {
-    { name = 'Indonesia', is_id = true, method_id = 20, cities_count = '38 Provinsi', cities = {} },
-    { name = 'Koordinat Manual (GPS)', name_en = 'Manual GPS Coordinates', is_custom = true, cities_count = 'Lat/Long', cities = {} }
+  return {
+    { name = 'Indonesia', is_id = true, method_id = 20, cities_count = '38 Provinsi', cities = {}, name_en = 'Indonesia' },
+    { name = 'Koordinat Manual (GPS)', name_en = 'Manual GPS Coordinates', is_custom = true, cities_count = 'Lat/Long', cities = {} },
+    { name = '🌍 Luar Negeri (Unduh Katalog)...', name_en = '🌍 World Countries (Download Catalog)...', is_sync = true, cities_count = 'Online', cities = {} }
   }
-  local function U(cname, nen, mid, data)
-    local list = {}
-    for s in data:gmatch('[^;]+') do
-      local n, la, lo, tz, m, f, i, fx = s:match('^([^:]+):([^:]+):([^:]+):([^:]+):?([^:]*):?([^:]*):?([^:]*):?([^:]*)$')
-      if n then
-        list[#list + 1] = {
-          name = n, lat = tonumber(la), lon = tonumber(lo), tz = tonumber(tz),
-          method = (m ~= '' and m) or 'MWL',
-          fajr_ang = tonumber(f) or 18.0, isha_ang = tonumber(i) or 18.0, isha_fixed_min = tonumber(fx)
-        }
-      end
-    end
-    C[#C + 1] = { name = cname, name_en = nen, method_id = mid, cities_count = tostring(#list) .. ' Kota', cities = list }
-  end
-
-  U('Arab Saudi', 'Saudi Arabia', 4, 'Makkah:21.4225:39.8262:3:Umm Al-Qura:18.5:18:90')
-  U('Malaysia', 'Malaysia', 17, 'Kuala Lumpur:3.1390:101.6869:8:JAKIM:20:18')
-  U('Singapura', 'Singapore', 11, 'Singapore:1.3521:103.8198:8:MUIS:20:18')
-  U('Brunei Darussalam', 'Brunei', 20, 'Bandar Seri Begawan:4.9031:114.9398:8:MUIS:20:18')
-  U('Turki', 'Turkey', 13, 'Istanbul:41.0082:28.9784:3:Diyanet:18:17')
-  U('Mesir', 'Egypt', 5, 'Kairo:30.0444:31.2357:2:Egyptian:19.5:17.5')
-  U('Uni Emirat Arab', 'United Arab Emirates', 16, 'Dubai:25.2048:55.2708:4:Dubai:18.2:18.2')
-  U('Palestina', 'Palestine', 3, 'Al-Quds:31.7683:35.2137:2:MWL:18:17')
-  U('Inggris (UK)', 'United Kingdom', 3, 'London:51.5074:-0.1278:0')
-  U('Amerika Serikat (USA)', 'United States', 2, 'New York:40.7128:-74.0060:-5:ISNA:15:15')
-  U('Jepang', 'Japan', 3, 'Tokyo:35.6762:139.6503:9')
-
-  C[#C + 1] = { name = '🌍 Sinkronkan Semua Negara...', name_en = '🌍 Sync All Countries (GitHub)...', is_sync = true, cities_count = 'Online', cities = {} }
-  return C
 end
 
 F.SEED_WORLD_COUNTRIES = _PSC()

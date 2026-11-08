@@ -2087,7 +2087,7 @@ function F.draw_storage_modal(gg, cfg, draw_btn, cache_count, saved_count)
 end
 
 -- ================================================================
--- ABOUT MUSLIMINK: MODERN DEVELOPER PORTFOLIO & SHOWCASE SCREEN
+-- ABOUT MUSLIMINK: CLEAN, ELEGANT DEVELOPER SHOWCASE & QR PORTFOLIO
 -- ================================================================
 function F.draw_about_screen(gg, cfg, now_info, draw_btn)
   local W, H = S.W, S.H
@@ -2108,145 +2108,93 @@ function F.draw_about_screen(gg, cfg, now_info, draw_btn)
   -- Hamburger Menu Button on right
   draw_btn(gg, W - 52, 8, 40, 40, '≡', false, 'medium')
 
-  -- 2. Hero Card: MuslimInk Developer Showcase (y = 66, h = 126)
-  S.round_rect(gg, 20, 66, W - 40, 126, 14, nil, true, 0)
-  S.round_rect(gg, 20, 66, W - 40, 126, 14, 2)
+  -- 2. Hero Profile: Minimalist, Centered, Apple/Kindle aesthetic (y = 68..198)
+  local ix = (W - 54) // 2
+  local iy = 68
+  S.round_rect(gg, ix, iy, 54, 54, 12, 1, true, 0)
+  S.draw_app_icon(gg, ix + 3, iy + 3, 48)
 
-  -- App Icon 48x48
-  S.draw_app_icon(gg, 34, 80, 48)
+  S.center_text(gg, W // 2, 128, 'MuslimInk', 'large')
+  local sub1 = (is_en and 'Version ' or 'Versi ') .. S.APP_VERSION .. '  •  fiqsr (Syafiq)'
+  S.center_text(gg, W // 2, 160, sub1, 'small')
+  local sub2 = is_en and 'Islamic Prayer & Companion OS for XTEINK X4 Pro' or 'Sistem Ibadah & E-Paper OS Khusus XTEINK X4 Pro'
+  S.center_text(gg, W // 2, 182, sub2, 'small')
 
-  -- Title & Tagline
-  gg:text(94, 76, 'MuslimInk', { font = S.font('large') })
-  local hero_sub = is_en and 'The Ultimate Islamic E-Paper OS' or 'Sistem Operasi Islami E-Paper XTEINK'
-  gg:text(94, 110, hero_sub, { font = S.font('small') })
+  -- 3. Centerpiece Showcase Card: Large 190x190 QR Code (y = 210..594, h = 384)
+  local card_y = 210
+  local card_h = 384
+  S.round_rect(gg, 24, card_y, W - 48, card_h, 16, nil, true, 0)
+  S.round_rect(gg, 24, card_y, W - 48, card_h, 16, 2)
 
-  -- Badges Row (y = 142)
-  -- Badge 1: Solid black pill "fiqsr (Syafiq)"
-  local b1_w = S.text_w('fiqsr (Syafiq)', 'small') + 20
-  gg:rect(94, 142, b1_w, 26, { fill = true, radius = 13 })
-  S.center_text(gg, 94 + b1_w // 2, 146, 'fiqsr (Syafiq)', 'small', nil, 0)
+  -- Card Header Capsule Badge
+  local badge_lbl = is_en and 'GITHUB REPOSITORY & PORTFOLIO' or 'REPOSITORI GITHUB & PORTOFOLIO'
+  local bw = S.text_w(badge_lbl, 'small') + 24
+  gg:rect((W - bw) // 2, card_y + 14, bw, 22, { fill = true, radius = 11 })
+  S.center_text(gg, W // 2, card_y + 16, badge_lbl, 'small', nil, 0)
 
-  -- Badge 2: Outline pill "Solo Developer" / "Pengembang Mandiri"
-  local b2_txt = is_en and 'Solo Developer' or 'Pengembang Mandiri'
+  -- Large 190x190 QR Code (Top Y = card_y + 46 = 256)
+  local qr_sz = 190
+  local qr_y = card_y + 46
+  S.draw_qr(gg, S.PROJECT_GITHUB_URL, W // 2, qr_y, qr_sz)
+
+  -- Under QR Description
+  local tip1 = is_en and 'Scan with phone camera to open repository,' or 'Pindai via kamera HP untuk membuka repositori,'
+  local tip2 = is_en and 'architecture docs, and open source codebase.' or 'dokumentasi arsitektur, dan kode sumber proyek.'
+  S.center_text(gg, W // 2, qr_y + qr_sz + 12, tip1, 'small')
+  S.center_text(gg, W // 2, qr_y + qr_sz + 30, tip2, 'small')
+
+  -- Repository URL
+  local gh_url = 'github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
+  S.center_text(gg, W // 2, qr_y + qr_sz + 52, gh_url, 'small')
+
+  -- Badges Row below URL
+  local b1_txt = 'OPEN SOURCE'
+  local b2_txt = 'MIT LICENSE'
+  local b1_w = S.text_w(b1_txt, 'small') + 18
   local b2_w = S.text_w(b2_txt, 'small') + 18
-  local b2_x = 94 + b1_w + 8
-  S.round_rect(gg, b2_x, 142, b2_w, 26, 13, 1)
-  S.center_text(gg, b2_x + b2_w // 2, 146, b2_txt, 'small')
+  local tot_b = b1_w + b2_w + 14
+  local bx1 = (W - tot_b) // 2
+  local bx2 = bx1 + b1_w + 14
+  local by_badge = card_y + card_h - 32
+  S.round_rect(gg, bx1, by_badge, b1_w, 22, 11, 1)
+  S.center_text(gg, bx1 + b1_w // 2, by_badge + 2, b1_txt, 'small')
+  S.round_rect(gg, bx2, by_badge, b2_w, 22, 11, 1)
+  S.center_text(gg, bx2 + b2_w // 2, by_badge + 2, b2_txt, 'small')
 
-  -- Badge 3: Outline pill "v1.3.0"
-  local b3_txt = 'v' .. S.APP_VERSION
-  local b3_w = S.text_w(b3_txt, 'small') + 16
-  local b3_x = b2_x + b2_w + 8
-  if b3_x + b3_w <= W - 26 then
-    S.round_rect(gg, b3_x, 142, b3_w, 26, 13, 1)
-    S.center_text(gg, b3_x + b3_w // 2, 146, b3_txt, 'small')
-  end
+  -- 4. Clean 3-Column Highlights Card (y = 608..706, h = 98)
+  local spec_y = 608
+  local spec_h = 98
+  S.round_rect(gg, 24, spec_y, W - 48, spec_h, 14, nil, true, 0)
+  S.round_rect(gg, 24, spec_y, W - 48, spec_h, 14, 1)
 
-  -- 3. Bento Grid: 2x2 Highlights (y = 202..440, card_w = 214, card_h = 114)
-  local bento = {
-    {
-      x = 20, y = 202,
-      cat = is_en and 'ARCHITECTURE' or 'ARSITEKTUR',
-      big = '< 250 KB',
-      b1 = 'Lua 5.5 + C-Engine',
-      b2 = '60ms Instant Boot'
-    },
-    {
-      x = 246, y = 202,
-      cat = is_en and 'CALCULATION' or 'HISAB & AKURASI',
-      big = 'DUAL-HISAB',
-      b1 = is_en and 'Kemenag 514 Cities' or 'Kemenag 514 Kota',
-      b2 = 'Meeus Solar + MABIMS'
-    },
-    {
-      x = 20, y = 326,
-      cat = is_en and 'E-PAPER UX' or 'DESAIN E-PAPER',
-      big = '1-BIT MONO',
-      b1 = is_en and 'RLE Vector Raster' or 'Raster Vektor RLE',
-      b2 = 'Zero-Ghosting Refresh'
-    },
-    {
-      x = 246, y = 326,
-      cat = is_en and 'LOCKSCREEN' or 'LAYAR KUNCI',
-      big = 'STANDALONE',
-      b1 = is_en and '60s Standalone Daemon' or 'Daemon Latar 60s',
-      b2 = 'Live Dynamic Widget'
-    }
-  }
+  local col_w = (W - 48) // 3
+  local c1 = 24 + col_w
+  local c2 = 24 + 2 * col_w
+  gg:line(c1, spec_y + 14, c1, spec_y + spec_h - 14, { line_width = 1 })
+  gg:line(c2, spec_y + 14, c2, spec_y + spec_h - 14, { line_width = 1 })
 
-  for _, b in ipairs(bento) do
-    S.round_rect(gg, b.x, b.y, 214, 114, 12, nil, true, 0)
-    S.round_rect(gg, b.x, b.y, 214, 114, 12, 2)
-    -- Category black pill
-    local cw = S.text_w(b.cat, 'small') + 14
-    gg:rect(b.x + 12, b.y + 10, cw, 20, { fill = true, radius = 10 })
-    S.center_text(gg, b.x + 12 + cw // 2, b.y + 12, b.cat, 'small', nil, 0)
-    -- Large metric text
-    gg:text(b.x + 12, b.y + 36, b.big, { font = S.font('large') })
-    -- Bullet rows
-    gg:text(b.x + 12, b.y + 70, b.b1, { font = S.font('small') })
-    gg:text(b.x + 12, b.y + 90, b.b2, { font = S.font('small') })
-  end
+  -- Col 1: Architecture & Lightweight
+  local col1_x = 24 + col_w // 2
+  S.center_text(gg, col1_x, spec_y + 14, is_en and 'SIZE' or 'UKURAN', 'small')
+  S.center_text(gg, col1_x, spec_y + 36, '< 250 KB', 'medium')
+  S.center_text(gg, col1_x, spec_y + 66, 'Boot 60ms', 'small')
 
-  -- 4. Open Source Showcase Card (y = 450, h = 264, w = 440)
-  S.round_rect(gg, 20, 450, W - 40, 264, 14, nil, true, 0)
-  S.round_rect(gg, 20, 450, W - 40, 264, 14, 2)
+  -- Col 2: Calculation Engine
+  local col2_x = c1 + col_w // 2
+  S.center_text(gg, col2_x, spec_y + 14, is_en and 'CALCULATION' or 'HISAB', 'small')
+  S.center_text(gg, col2_x, spec_y + 36, 'DUAL-ENGINE', 'medium')
+  S.center_text(gg, col2_x, spec_y + 66, is_en and '514 Cities + Meeus' or '514 Kota + Meeus', 'small')
 
-  -- QR Code on left
-  local qr_cx, qr_cy, qr_sz = 88, 466, 110
-  S.draw_qr(gg, S.PROJECT_GITHUB_URL, qr_cx, qr_cy, qr_sz)
-  local qr_tip1 = is_en and 'Scan via phone' or 'Pindai via kamera HP'
-  local qr_tip2 = is_en and 'to open repository' or 'buka repositori'
-  S.center_text(gg, qr_cx, 590, qr_tip1, 'small', 130)
-  S.center_text(gg, qr_cx, 608, qr_tip2, 'small', 130)
-
-  -- Vertical divider between QR code and info column
-  gg:line(156, 466, 156, 626, { line_width = 1 })
-
-  -- Right Info Column (x = 170)
-  -- Badges Row
-  gg:rect(170, 466, 60, 22, { fill = true, radius = 11 })
-  S.center_text(gg, 200, 469, 'GITHUB', 'small', nil, 0)
-
-  S.round_rect(gg, 236, 466, 92, 22, 11, 1)
-  S.center_text(gg, 282, 469, 'MIT LICENSE', 'small')
-
-  S.round_rect(gg, 334, 466, 52, 22, 11, 1)
-  S.center_text(gg, 360, 469, 'OPEN', 'small')
-
-  -- Project Title & URL
-  gg:text(170, 498, 'MuslimInk XTEINK', { font = S.font('medium') })
-  gg:text(170, 526, 'github.com/fiqsr', { font = S.font('small') })
-
-  -- Dedicated description lines
-  if is_en then
-    gg:text(170, 552, 'Crafted for the XTEINK community.', { font = S.font('small') })
-    gg:text(170, 572, 'Precise Islamic prayer calculations', { font = S.font('small') })
-    gg:text(170, 592, 'with 1-bit monochrome aesthetics.', { font = S.font('small') })
-  else
-    gg:text(170, 552, 'Didedikasikan untuk komunitas XTEINK.', { font = S.font('small') })
-    gg:text(170, 572, 'Hisab astronomi Islam presisi dengan', { font = S.font('small') })
-    gg:text(170, 592, 'estetika minimalis 1-bit monochrome.', { font = S.font('small') })
-  end
-
-  -- Divider above hardware / stack specs
-  gg:line(36, 638, W - 36, 638, { line_width = 1 })
-
-  -- System Specs
-  local l_dev = is_en and 'Perangkat : Khusus XTEINK X4 Pro (480x800 E-ink)' or 'Perangkat : Khusus XTEINK X4 Pro (480x800 E-ink)'
-  if is_en then l_dev = 'Device    : XTEINK X4 Pro ONLY (480x800 E-ink)' end
-  local l_run = 'Runtime   : Licorice OS • Lua 5.5 • C Graphics Engine'
-  local sub_loc = (cfg.country == 'Indonesia' or not cfg.country) and (cfg.prov or 'DKI Jakarta') or (cfg.country or 'Indonesia')
-  local loc_sub = (cfg.kab or 'Kota Jakarta') .. ' • ' .. sub_loc
-  local l_sta = 'Status    : ' .. S.short(loc_sub, 22) .. ' • GPS OK'
-  gg:text(36, 648, l_dev, { font = S.font('small') })
-  gg:text(36, 668, l_run, { font = S.font('small') })
-  gg:text(36, 688, l_sta, { font = S.font('small') })
+  -- Col 3: Standalone 60s Lockscreen
+  local col3_x = c2 + col_w // 2
+  S.center_text(gg, col3_x, spec_y + 14, is_en and 'LOCKSCREEN' or 'LAYAR KUNCI', 'small')
+  S.center_text(gg, col3_x, spec_y + 36, is_en and 'STANDALONE' or 'MANDIRI', 'medium')
+  S.center_text(gg, col3_x, spec_y + 66, 'Daemon 60s', 'small')
 
   -- 5. Docked Bottom Action Button (y = 724..800)
   gg:line(0, 724, W, 724, { line_width = 1 })
   local done_lbl = is_en and '< Done / Back to Settings' or '< Selesai / Kembali ke Pengaturan'
-  draw_btn(gg, 20, 736, W - 40, 48, done_lbl, true, 'medium')
+  draw_btn(gg, 24, 736, W - 48, 48, done_lbl, true, 'medium')
 end
 
 return F

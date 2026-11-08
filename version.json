@@ -1,27 +1,21 @@
 {
-  "version": "1.2.6",
-  "build": 126,
+  "version": "1.2.7",
+  "build": 127,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
   "target_device": "XTEINK X4 Pro ONLY",
-  "release_date": "2026-11-06",
+  "release_date": "2026-11-08",
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 260944,
+  "size_bytes": 261808,
   "changelog_id": [
-    "Peningkatan Kecepatan & Responsivitas Keyboard: Pengetikan pada keyboard virtual E-ink di tab Doa kini instan tanpa lag dengan render tombol langsung dan efek sorot tombol yang diketuk",
-    "Mesin Pencari Doa Cerdas Multi-Token: Pencarian doa ala Google mendukung kata kunci majemuk, pencocokan awalan, sinonim dwibahasa (sholat/prayer, tidur/sleep, makan/food, sakit/sick), dan pemeringkatan relevansi",
-    "Menu Pengaturan Penyimpanan & Cache Baru: Tambahan opsi di Pengaturan untuk hapus cache berkas doa, sinkronisasi katalog 227 doa via GitHub, dan reset bookmark doa tersimpan",
-    "Tampilan UI Rapi & Bebas Terpotong: Seluruh judul doa, pill kategori, dan sumber/hadits kini otomatis dibungkus multi-baris rapi tanpa terpotong atau keluar batas",
-    "Migrasi Dwibahasa Otomatis untuk Doa Terunduh: Deteksi otomatis teks terjemahan campuran/lama pada doa unduhan saat berganti bahasa serta opsi pembersihan sekali klik"
+    "Rombak Total Card Shalat Berikutnya Bergaya Apple Design Language: Tampilan baru ala Live Activity / Dynamic Island dengan pill badge hitam inversi, timer pill waktu tersisa, kartu jam inset squircle bersudut halus, subjudul klasifikasi shalat & rakaat, serta capsule progress bar modern",
+    "Peningkatan Responsivitas & Efisiensi Memori: Optimasi rendering ikon kubah masjid modern dan deduplikasi tabel langkah instalasi sehingga ukuran berkas tetap hemat dan stabil di memori X4 Pro"
   ],
   "changelog_en": [
-    "High-Speed Virtual Keyboard Responsiveness: Keystroke responsiveness in the Doa tab is now instantaneous with direct hardware rect rendering and tactile tap highlight feedback",
-    "Smart Multi-Token Google-Style Search: Supplication search now supports multi-word queries, token prefix matching, rich bilingual synonyms (prayer/sholat, sleep/tidur, food/makan), and relevance ranking",
-    "Dedicated Storage & Cache Management: New Settings screen row allowing 1-tap cache clearance, GitHub 227-prayer catalog synchronization, and bookmark resetting",
-    "Perfect UI Layout & Zero Truncation: Category pills, supplication titles, and hadith references now wrap gracefully across multiple lines with clean borders and no clipping",
-    "Bilingual Auto-Migration for Downloaded Prayers: Automatic re-fetch and language switching for cached prayer files ensuring consistent English or Indonesian text"
+    "Next Prayer Hero Card Overhaul to Apple Design Language: Sleek Apple HIG Live Activity / Dynamic Island styling with inverted capsule badge, live countdown pill, inset squircle time card, prayer classification subhead, and rounded capsule playback progress bar",
+    "Enhanced Responsiveness & Memory Footprint: Streamlined modern mosque dome vector icon rendering and installation steps deduplication for ultra-compact runtime performance on X4 Pro"
   ]
 }

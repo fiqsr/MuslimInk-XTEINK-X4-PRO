@@ -2218,17 +2218,12 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     gg:text(bx + 16, ty, is_en and 'Steps to Install on X4 Pro:' or 'Langkah Pemasangan di X4 Pro:', { font = S.font('medium') })
     ty = ty + 24
 
-    local steps = is_root and {
+    local steps = {
       '1. Menu Samping -> All Files',
-      '2. Klik "muslimink_update.xtapp"',
-      '3. Tekan OK untuk pasang',
-      '4. Buka kembali di Ink App',
-    } or {
-      '1. Menu Samping -> All Files',
-      '2. Buka AppFiles > muslimink',
-      '3. Klik "muslimink_update.xtapp"',
-      '4. Tekan OK untuk pasang',
-      '5. Buka kembali di Ink App',
+      is_root and '2. Klik "muslimink_update.xtapp"' or '2. Buka AppFiles > muslimink',
+      is_root and '3. Tekan OK untuk pasang' or '3. Klik "muslimink_update.xtapp"',
+      is_root and '4. Buka kembali di Ink App' or '4. Tekan OK untuk pasang',
+      is_root and nil or '5. Buka kembali di Ink App',
     }
 
     for _, s in ipairs(steps) do

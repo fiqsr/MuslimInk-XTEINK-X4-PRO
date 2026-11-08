@@ -87,19 +87,6 @@ local hm=(total_m%12)+1
 if hm<1 then hm=1 elseif hm>12 then hm=12 end
 return hy,hm,hd,tostring(hd)..' '..L.hijri_bulan[hm]..' '..tostring(hy)..' H'
 end
-function S.effective_hijri(now_info,cfg,today_row)
-local L=S.L(cfg)
-if not today_row then
-local days_cur=S.load_month(now_info.y,now_info.m,cfg and cfg.prov,cfg and cfg.kab)
-today_row=days_cur and days_cur[now_info.d] or nil
-end
-local maghrib_min=(today_row and S.hhmm_to_min(today_row[7]))or(18*60)
-local use_maghrib=(cfg==nil or cfg.maghrib~=false)
-local after_maghrib=use_maghrib and((now_info.cur_min or 0)>=maghrib_min)
-local eff_day=after_maghrib and(now_info.day+1)or now_info.day
-local hy,hm,hd,hijri_str=S.hijri(eff_day,cfg and cfg.adj or 0,L)
-return hy,hm,hd,hijri_str,after_maghrib,eff_day
-end
 function S.now(cfg)
 local L=S.L(cfg)
 local ok,t=pcall(function()return ctx.clock:now()end)
@@ -356,30 +343,15 @@ gg:line(x1,y,x2,y,{line_width=1})
 end
 local qr_cache={}
 function S.draw_app_icon(gg,x,y,sz)
-sz=sz or 54
-local function sc(v)return math.floor(v*sz/96+0.5)end
-S.round_rect(gg,x,y,sz,sz,sc(14),nil,true,0)
-S.round_rect(gg,x,y,sz,sz,sc(14),2)
-S.round_rect(gg,x+sc(4),y+sc(4),sz - sc(8),sz - sc(8),sc(10),1)
-gg:rect(x+sc(16),y+sc(76),sc(64),sc(4),{fill=true})
-gg:rect(x+sc(20),y+sc(72),sc(56),sc(4),{fill=true})
-gg:rect(x+sc(28),y+sc(54),sc(40),sc(18),{fill=true})
-gg:rect(x+sc(18),y+sc(32),sc(6),sc(40),{fill=true})
-gg:rect(x+sc(16),y+sc(42),sc(10),sc(2),{fill=true})
-gg:circle(x+sc(21),y+sc(31),sc(3),{fill=true})
-gg:line(x+sc(21),y+sc(20),x+sc(21),y+sc(28),{line_width=1})
-gg:rect(x+sc(72),y+sc(32),sc(6),sc(40),{fill=true})
-gg:rect(x+sc(70),y+sc(42),sc(10),sc(2),{fill=true})
-gg:circle(x+sc(75),y+sc(31),sc(3),{fill=true})
-gg:line(x+sc(75),y+sc(20),x+sc(75),y+sc(28),{line_width=1})
-gg:circle(x+sc(32),y+sc(52),sc(6),{fill=true})
-gg:circle(x+sc(64),y+sc(52),sc(6),{fill=true})
-gg:circle(x+sc(48),y+sc(48),sc(14),{fill=true})
-gg:line(x+sc(48),y+sc(24),x+sc(48),y+sc(34),{line_width=1})
-gg:circle(x+sc(48),y+sc(19),sc(6),{fill=true})
-gg:circle(x+sc(51),y+sc(16),sc(5),{fill=true,color=0})
-gg:rect(x+sc(43),y+sc(60),sc(10),sc(12),{fill=true,color=0})
-gg:circle(x+sc(48),y+sc(60),sc(5),{fill=true,color=0})
+sz=sz or 50
+S.round_rect(gg,x,y,sz,sz,12,nil,true,0)
+S.round_rect(gg,x,y,sz,sz,12,2)
+local cx,cy=x+sz//2,y+sz//2
+gg:rect(cx - 16,cy+8,32,6,{fill=true})
+gg:circle(cx,cy+4,12,{fill=true})
+gg:circle(cx,cy - 12,5,{fill=true})
+gg:circle(cx+2,cy - 14,4,{fill=true,color=0})
+gg:line(cx,cy - 7,cx,cy - 4,{line_width=1})
 end
 local BLACK={fill=true}
 local function unpack_pack(p)
@@ -449,27 +421,53 @@ end
 end
 function S.draw_next_card(gg,x,y,w,h,info,cfont_idx)
 local L=info.L or S.LANGS.id
-S.card(gg,x,y,w,h,2,true)
+local is_en=(L==S.LANGS.en)
+local is_c=(h<124)
+S.round_rect(gg,x,y,w,h,18,nil,true,0)
+S.round_rect(gg,x,y,w,h,18,2)
 local label=info.is_tomorrow and L.next_card_tom or L.next_card
-local badge_w=S.text_w(label,'small')+22
-S.round_rect(gg,x+18,y+8,badge_w,22,6,nil,true,0)
-S.round_rect(gg,x+18,y+8,badge_w,22,6,1)
-gg:circle(x+28,y+19,3,{fill=true})
-gg:text(x+36,y+9,label,{font=S.font('small')})
-gg:text(x+20,y+36,info.next_name or '',{font=S.font('large')})
-gg:text(x+20,y+68,S.fit_text(info.cd_str or '','medium',w - 176),{font=S.font('medium')})
-local bx,by,bw,bh=x+w - 142,y+32,124,54
-S.round_rect(gg,bx,by,bw,bh,10,nil,true,0)
-S.round_rect(gg,bx,by,bw,bh,10,2)
-S.round_rect(gg,bx+2,by+2,bw - 4,bh - 4,8,1)
-S.big_clock(gg,info.next_time,bx+bw//2,by+8,36,cfont_idx)
-local px,py,pw,ph=x+20,y+h - 18,w - 40,7
-gg:rect(px,py,pw,ph,{fill=true,color=0})
-gg:rect(px,py,pw,ph,{line_width=1})
-local fill_w=math.floor(pw*(info.progress or 0))
-if fill_w>2 then
-gg:rect(px,py,fill_w,ph,{fill=true})
-gg:circle(px+fill_w,py+ph//2,4,{fill=true})
+local bw,bh,br=S.text_w(label,'small')+26,22,11
+local bx,by=x+16,y+12
+gg:rect(bx,by,bw,bh,{fill=true,radius=br,color=1})
+gg:circle(bx+10,by+11,3,{fill=true,color=0})
+gg:text(bx+19,by+1,label,{font=S.font('small'),color=0})
+local cd=info.cd_str or ''
+local cw=S.text_w(cd,'small')+26
+local cx=x+w - 16 - cw
+if cx<bx+bw+8 then
+cx=bx+bw+8
+cw=x+w - 16 - cx
+cd=S.fit_text(cd,'small',cw - 24)
+end
+S.round_rect(gg,cx,by,cw,bh,br,1)
+local ix,iy=cx+10,by+11
+gg:circle(ix,iy,4,{line_width=1})
+gg:line(ix,iy - 2,ix,iy,{line_width=1})
+gg:line(ix,iy,ix+2,iy,{line_width=1})
+gg:text(cx+19,by+1,cd,{font=S.font('small')})
+local tw,th=is_c and 120 or 124,is_c and 44 or 48
+local tx,ty=x+w - 16 - tw,is_c and(y+36)or(y+40)
+S.round_rect(gg,tx,ty,tw,th,14,nil,true,0)
+S.round_rect(gg,tx,ty,tw,th,14,2)
+S.big_clock(gg,info.next_time or '--:--',tx+tw//2,ty+(is_c and 4 or 6),is_c and 34 or 38,cfont_idx)
+gg:text(x+18,is_c and(y+36)or(y+42),info.next_name or '',{font=S.font('large')})
+local n_idx=info.next_idx or 1
+local p_rak={'Batas Sahur','Wajib • 2 Rakaat','Syuruq','Sunnah','Wajib • 4 Rakaat','Wajib • 4 Rakaat','Wajib • 3 Rakaat','Wajib • 4 Rakaat'}
+local sub=p_rak[n_idx] or 'Shalat'
+if n_idx==5 and info.wday==5 then sub='Shalat Jumat • 2 Rakaat' end
+if is_en then
+sub=(n_idx==1 and 'Sahur Deadline')or(n_idx==3 and 'Sunrise')or(n_idx==4 and 'Sunnah')or(n_idx==5 and info.wday==5 and 'Friday Prayer')or('Fardhu • '..tostring(n_idx==2 and 2 or(n_idx==7 and 3 or 4))..' Rak\'ah')
+end
+gg:text(x+18,is_c and(y+68)or(y+76),S.fit_text(sub,'small',tx - x - 24),{font=S.font('small')})
+local bar_y=y+h -(is_c and 14 or 18)
+local bar_w,bar_h,bar_r=w - 32,9,4
+S.round_rect(gg,x+16,bar_y,bar_w,bar_h,bar_r,1)
+local prog=math.max(0,math.min(1,info.progress or 0))
+local fill_w=math.floor(bar_w*prog)
+if fill_w>=8 then
+gg:rect(x+16,bar_y,fill_w,bar_h,{fill=true,radius=bar_r})
+elseif fill_w>1 then
+gg:rect(x+16,bar_y,fill_w,bar_h,{fill=true})
 end
 end
 function S.draw_timeline(gg,x,y,w,row_h,info)
@@ -542,16 +540,6 @@ if cur~='' then
 lines[#lines+1]=cur
 end
 return lines
-end
-function S.load_cached_quote()
-local raw=S.read('quote_cache.txt')
-if not raw then return nil end
-local t={}
-for k,v in raw:gmatch('([%w_]+)=([^\r\n]*)')do t[k]=v end
-if(t.id_text and t.id_text~='')or(t.id_l1 and t.id_l1~='')then
-return t
-end
-return nil
 end
 local quote_fetching=false
 local last_quote_req_ms=0

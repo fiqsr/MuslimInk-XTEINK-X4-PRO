@@ -849,27 +849,53 @@ end
 end
 function S.draw_next_card(gg,x,y,w,h,info,cfont_idx)
 local L=info.L or S.LANGS.id
-S.card(gg,x,y,w,h,2,true)
+local is_en=(L==S.LANGS.en)
+local is_c=(h<124)
+S.round_rect(gg,x,y,w,h,18,nil,true,0)
+S.round_rect(gg,x,y,w,h,18,2)
 local label=info.is_tomorrow and L.next_card_tom or L.next_card
-local badge_w=S.text_w(label,'small')+22
-S.round_rect(gg,x+18,y+8,badge_w,22,6,nil,true,0)
-S.round_rect(gg,x+18,y+8,badge_w,22,6,1)
-gg:circle(x+28,y+19,3,{fill=true})
-gg:text(x+36,y+9,label,{font=S.font('small')})
-gg:text(x+20,y+36,info.next_name or '',{font=S.font('large')})
-gg:text(x+20,y+68,S.fit_text(info.cd_str or '','medium',w - 176),{font=S.font('medium')})
-local bx,by,bw,bh=x+w - 142,y+32,124,54
-S.round_rect(gg,bx,by,bw,bh,10,nil,true,0)
-S.round_rect(gg,bx,by,bw,bh,10,2)
-S.round_rect(gg,bx+2,by+2,bw - 4,bh - 4,8,1)
-S.big_clock(gg,info.next_time,bx+bw//2,by+8,36,cfont_idx)
-local px,py,pw,ph=x+20,y+h - 18,w - 40,7
-gg:rect(px,py,pw,ph,{fill=true,color=0})
-gg:rect(px,py,pw,ph,{line_width=1})
-local fill_w=math.floor(pw*(info.progress or 0))
-if fill_w>2 then
-gg:rect(px,py,fill_w,ph,{fill=true})
-gg:circle(px+fill_w,py+ph//2,4,{fill=true})
+local bw,bh,br=S.text_w(label,'small')+26,22,11
+local bx,by=x+16,y+12
+gg:rect(bx,by,bw,bh,{fill=true,radius=br,color=1})
+gg:circle(bx+10,by+11,3,{fill=true,color=0})
+gg:text(bx+19,by+1,label,{font=S.font('small'),color=0})
+local cd=info.cd_str or ''
+local cw=S.text_w(cd,'small')+26
+local cx=x+w - 16 - cw
+if cx<bx+bw+8 then
+cx=bx+bw+8
+cw=x+w - 16 - cx
+cd=S.fit_text(cd,'small',cw - 24)
+end
+S.round_rect(gg,cx,by,cw,bh,br,1)
+local ix,iy=cx+10,by+11
+gg:circle(ix,iy,4,{line_width=1})
+gg:line(ix,iy - 2,ix,iy,{line_width=1})
+gg:line(ix,iy,ix+2,iy,{line_width=1})
+gg:text(cx+19,by+1,cd,{font=S.font('small')})
+local tw,th=is_c and 120 or 124,is_c and 44 or 48
+local tx,ty=x+w - 16 - tw,is_c and(y+36)or(y+40)
+S.round_rect(gg,tx,ty,tw,th,14,nil,true,0)
+S.round_rect(gg,tx,ty,tw,th,14,2)
+S.big_clock(gg,info.next_time or '--:--',tx+tw//2,ty+(is_c and 4 or 6),is_c and 34 or 38,cfont_idx)
+gg:text(x+18,is_c and(y+36)or(y+42),info.next_name or '',{font=S.font('large')})
+local n_idx=info.next_idx or 1
+local p_rak={'Batas Sahur','Wajib • 2 Rakaat','Syuruq','Sunnah','Wajib • 4 Rakaat','Wajib • 4 Rakaat','Wajib • 3 Rakaat','Wajib • 4 Rakaat'}
+local sub=p_rak[n_idx] or 'Shalat'
+if n_idx==5 and info.wday==5 then sub='Shalat Jumat • 2 Rakaat' end
+if is_en then
+sub=(n_idx==1 and 'Sahur Deadline')or(n_idx==3 and 'Sunrise')or(n_idx==4 and 'Sunnah')or(n_idx==5 and info.wday==5 and 'Friday Prayer')or('Fardhu • '..tostring(n_idx==2 and 2 or(n_idx==7 and 3 or 4))..' Rak\'ah')
+end
+gg:text(x+18,is_c and(y+68)or(y+76),S.fit_text(sub,'small',tx - x - 24),{font=S.font('small')})
+local bar_y=y+h -(is_c and 14 or 18)
+local bar_w,bar_h,bar_r=w - 32,9,4
+S.round_rect(gg,x+16,bar_y,bar_w,bar_h,bar_r,1)
+local prog=math.max(0,math.min(1,info.progress or 0))
+local fill_w=math.floor(bar_w*prog)
+if fill_w>=8 then
+gg:rect(x+16,bar_y,fill_w,bar_h,{fill=true,radius=bar_r})
+elseif fill_w>1 then
+gg:rect(x+16,bar_y,fill_w,bar_h,{fill=true})
 end
 end
 function S.draw_timeline(gg,x,y,w,row_h,info)
@@ -2891,7 +2917,7 @@ gg:line(bx+16,ty,bx+bw - 16,ty,{line_width=1})
 ty=ty+12
 gg:text(bx+16,ty,is_en and 'Steps to Install on X4 Pro:' or 'Langkah Pemasangan di X4 Pro:',{font=S.font('medium')})
 ty=ty+24
-local steps=is_root and{'1. Menu Samping -> All Files','2. Klik "muslimink_update.xtapp"','3. Tekan OK untuk pasang','4. Buka kembali di Ink App',}or{'1. Menu Samping -> All Files','2. Buka AppFiles > muslimink','3. Klik "muslimink_update.xtapp"','4. Tekan OK untuk pasang','5. Buka kembali di Ink App',}
+local steps={'1. Menu Samping -> All Files',is_root and '2. Klik "muslimink_update.xtapp"' or '2. Buka AppFiles > muslimink',is_root and '3. Tekan OK untuk pasang' or '3. Klik "muslimink_update.xtapp"',is_root and '4. Buka kembali di Ink App' or '4. Tekan OK untuk pasang',is_root and nil or '5. Buka kembali di Ink App',}
 for _,s in ipairs(steps)do
 local w_s=S.wrap_lines(s,bw - 32,'small')
 for _,sub in ipairs(w_s)do

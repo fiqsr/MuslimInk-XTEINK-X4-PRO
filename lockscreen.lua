@@ -452,12 +452,12 @@ S.round_rect(gg,tx,ty,tw,th,14,2)
 S.big_clock(gg,info.next_time or '--:--',tx+tw//2,ty+(is_c and 4 or 6),is_c and 34 or 38,cfont_idx)
 gg:text(x+18,is_c and(y+36)or(y+42),info.next_name or '',{font=S.font('large')})
 local n_idx=info.next_idx or 1
-local p_rak={'Batas Sahur','Wajib • 2 Rakaat','Syuruq','Sunnah','Wajib • 4 Rakaat','Wajib • 4 Rakaat','Wajib • 3 Rakaat','Wajib • 4 Rakaat'}
-local sub=p_rak[n_idx] or 'Shalat'
-if n_idx==5 and info.wday==5 then sub='Shalat Jumat • 2 Rakaat' end
-if is_en then
-sub=(n_idx==1 and 'Sahur Deadline')or(n_idx==3 and 'Sunrise')or(n_idx==4 and 'Sunnah')or(n_idx==5 and info.wday==5 and 'Friday Prayer')or('Fardhu • '..tostring(n_idx==2 and 2 or(n_idx==7 and 3 or 4))..' Rak\'ah')
-end
+local rk=(n_idx==2 and 2)or(n_idx==7 and 3)or 4
+local sub=(n_idx==1 and(is_en and 'Sahur Deadline' or 'Batas Sahur'))
+or(n_idx==3 and(is_en and 'Sunrise' or 'Syuruq'))
+or(n_idx==4 and 'Sunnah')
+or(n_idx==5 and info.wday==5 and(is_en and 'Friday Prayer' or 'Shalat Jumat • 2 Rakaat'))
+or(is_en and('Fardhu • '..rk..' Rak\'ah')or('Wajib • '..rk..' Rakaat'))
 gg:text(x+18,is_c and(y+68)or(y+76),S.fit_text(sub,'small',tx - x - 24),{font=S.font('small')})
 local bar_y=y+h -(is_c and 14 or 18)
 local bar_w,bar_h,bar_r=w - 32,9,4

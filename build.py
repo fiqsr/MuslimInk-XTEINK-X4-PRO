@@ -154,54 +154,8 @@ def build_packed_fonts(include_sm=True):
 
 
 def pack_world_countries(features_content):
-    m_start = features_content.find("F.WORLD_COUNTRIES = {")
-    m_end = features_content.find("\n}\n", m_start) + 3
-    orig_table = features_content[m_start:m_end]
+    return features_content
 
-    out_lines = ['''local function _PWC()
-  local C = {
-    { name = 'Indonesia', is_id = true, method_id = 20, cities_count = '38 Provinsi', cities = {} },
-    { name = 'Koordinat Manual (GPS)', name_en = 'Manual GPS Coordinates', is_custom = true, cities_count = 'Lat/Long', cities = {} }
-  }
-  local function U(cname, mid, data)
-    local list = {}
-    for s in data:gmatch('[^;]+') do
-      local n, la, lo, tz, m, f, i, fx = s:match('^([^:]+):([^:]+):([^:]+):([^:]+):?([^:]*):?([^:]*):?([^:]*):?([^:]*)$')
-      if n then
-        list[#list + 1] = {
-          name = n, lat = tonumber(la), lon = tonumber(lo), tz = tonumber(tz),
-          method = (m ~= '' and m) or 'MWL',
-          fajr_ang = tonumber(f) or 18.0, isha_ang = tonumber(i) or 18.0, isha_fixed_min = tonumber(fx)
-        }
-      end
-    end
-    C[#C + 1] = { name = cname, method_id = mid, cities_count = tostring(#list) .. ' Kota', cities = list }
-  end
-''']
-    c_blocks = re.findall(r"\{\s*name\s*=\s*'([^']+)',\s*method_id\s*=\s*(\d+),\s*cities_count\s*=\s*'([^']+)',\s*cities\s*=\s*\{(.*?)\}\s*\}", orig_table, re.DOTALL)
-    for cname, mid, ccount, cbody in c_blocks:
-        cities = []
-        max_c = 2
-        matches = list(re.finditer(r"\{\s*name\s*=\s*'([^']+)',\s*lat\s*=\s*([-\d.]+),\s*lon\s*=\s*([-\d.]+),\s*tz\s*=\s*([-\d.]+),\s*method\s*=\s*'([^']+)'(?:,\s*fajr_ang\s*=\s*([-\d.]+))?(?:,\s*isha_ang\s*=\s*([-\d.]+))?(?:,\s*isha_fixed_min\s*=\s*([-\d.]+))?\s*\}", cbody))
-        for cm in matches[:max_c]:
-            n, la, lo, tz, meth = cm.group(1), cm.group(2), cm.group(3), cm.group(4), cm.group(5)
-            f = cm.group(6) or ''
-            i = cm.group(7) or ''
-            fx = cm.group(8) or ''
-            m_code = '' if meth == 'MWL' else meth
-            if fx:
-                cities.append(f"{n}:{la}:{lo}:{tz}:{m_code}:{f}:{i}:{fx}")
-            elif i or f:
-                cities.append(f"{n}:{la}:{lo}:{tz}:{m_code}:{f}:{i}")
-            elif m_code:
-                cities.append(f"{n}:{la}:{lo}:{tz}:{m_code}")
-            else:
-                cities.append(f"{n}:{la}:{lo}:{tz}")
-        p_str = ";".join(cities)
-        out_lines.append(f"  U('{cname}', {mid}, '{p_str}')\n")
-
-    out_lines.append('  return C\nend\nF.WORLD_COUNTRIES = _PWC()\n')
-    return features_content[:m_start] + "".join(out_lines) + features_content[m_end:]
 
 
 def pack_ayahs(core_content):

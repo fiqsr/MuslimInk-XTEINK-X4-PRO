@@ -1,6 +1,6 @@
 {
-  "version": "1.2.7",
-  "build": 127,
+  "version": "1.2.8",
+  "build": 128,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,13 +9,15 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 261808,
+  "size_bytes": 261680,
   "changelog_id": [
-    "Rombak Total Card Shalat Berikutnya Bergaya Apple Design Language: Tampilan baru ala Live Activity / Dynamic Island dengan pill badge hitam inversi, timer pill waktu tersisa, kartu jam inset squircle bersudut halus, subjudul klasifikasi shalat & rakaat, serta capsule progress bar modern",
-    "Peningkatan Responsivitas & Efisiensi Memori: Optimasi rendering ikon kubah masjid modern dan deduplikasi tabel langkah instalasi sehingga ukuran berkas tetap hemat dan stabil di memori X4 Pro"
+    "Arsitektur Lokasi Dunia Dinamis via GitHub: Katalog lengkap 26 negara dan seluruh kotanya kini di-hosting di GitHub (api/countries.json), dengan seed offline in-app yang super ringkas dan opsi sinkronisasi satu sentuhan ('🌍 Sinkronkan Semua Negara...')",
+    "Optimasi Ukuran Paket Ekstrem: Penghematan memori signifikan menghasilkan ukuran paket .xtapp hanya 261.680 byte (di bawah batas 256 KB) dengan performa loading instan di X4 Pro",
+    "Dukungan Penuh Dwi-Bahasa (ID/EN): Nama negara internasional kini otomatis menyesuaikan bahasa aktif (Indonesia / English) saat dipilih di Pengaturan"
   ],
   "changelog_en": [
-    "Next Prayer Hero Card Overhaul to Apple Design Language: Sleek Apple HIG Live Activity / Dynamic Island styling with inverted capsule badge, live countdown pill, inset squircle time card, prayer classification subhead, and rounded capsule playback progress bar",
-    "Enhanced Responsiveness & Memory Footprint: Streamlined modern mosque dome vector icon rendering and installation steps deduplication for ultra-compact runtime performance on X4 Pro"
+    "Dynamic World Countries Architecture via GitHub: Full catalog of 26 countries with all major cities is now hosted on GitHub (api/countries.json), featuring an ultra-compact offline in-app seed with one-tap on-demand sync ('🌍 Sync All Countries...')",
+    "Extreme Package Size Optimization: Significant memory savings keeping the .xtapp bundle at only 261,680 bytes (comfortably under the strict 256 KB limit) for blazing-fast loading on X4 Pro",
+    "Full Bilingual Country Name Support: International country names seamlessly adapt to the selected active language (Indonesian / English)"
   ]
 }

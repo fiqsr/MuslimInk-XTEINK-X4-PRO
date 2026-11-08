@@ -880,12 +880,12 @@ S.round_rect(gg,tx,ty,tw,th,14,2)
 S.big_clock(gg,info.next_time or '--:--',tx+tw//2,ty+(is_c and 4 or 6),is_c and 34 or 38,cfont_idx)
 gg:text(x+18,is_c and(y+36)or(y+42),info.next_name or '',{font=S.font('large')})
 local n_idx=info.next_idx or 1
-local p_rak={'Batas Sahur','Wajib • 2 Rakaat','Syuruq','Sunnah','Wajib • 4 Rakaat','Wajib • 4 Rakaat','Wajib • 3 Rakaat','Wajib • 4 Rakaat'}
-local sub=p_rak[n_idx] or 'Shalat'
-if n_idx==5 and info.wday==5 then sub='Shalat Jumat • 2 Rakaat' end
-if is_en then
-sub=(n_idx==1 and 'Sahur Deadline')or(n_idx==3 and 'Sunrise')or(n_idx==4 and 'Sunnah')or(n_idx==5 and info.wday==5 and 'Friday Prayer')or('Fardhu • '..tostring(n_idx==2 and 2 or(n_idx==7 and 3 or 4))..' Rak\'ah')
-end
+local rk=(n_idx==2 and 2)or(n_idx==7 and 3)or 4
+local sub=(n_idx==1 and(is_en and 'Sahur Deadline' or 'Batas Sahur'))
+or(n_idx==3 and(is_en and 'Sunrise' or 'Syuruq'))
+or(n_idx==4 and 'Sunnah')
+or(n_idx==5 and info.wday==5 and(is_en and 'Friday Prayer' or 'Shalat Jumat • 2 Rakaat'))
+or(is_en and('Fardhu • '..rk..' Rak\'ah')or('Wajib • '..rk..' Rakaat'))
 gg:text(x+18,is_c and(y+68)or(y+76),S.fit_text(sub,'small',tx - x - 24),{font=S.font('small')})
 local bar_y=y+h -(is_c and 14 or 18)
 local bar_w,bar_h,bar_r=w - 32,9,4
@@ -1215,8 +1215,8 @@ local ry=base_y+(n - 1)*lh+ref_gap
 local rw=S.text_w(ref or '','small')
 gg:text(math.floor((S.W - rw)/2),ry,ref or '',{font=S.font('small')})
 end
-S.APP_VERSION='1.2.6'
-S.APP_BUILD=126
+S.APP_VERSION='1.2.8'
+S.APP_BUILD=128
 S.UPDATE_URL='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
@@ -1765,9 +1765,9 @@ M('Univ. Karachi (Hanafi)',18,18,2,1,'Subuh 18°, Isya 18°, Ashar 2x')
 return C
 end
 F.CUSTOM_METHODS=_PCM()
-local function _PWC()
+local function _PSC()
 local C={{name='Indonesia',is_id=true,method_id=20,cities_count='38 Provinsi',cities={}},{name='Koordinat Manual (GPS)',name_en='Manual GPS Coordinates',is_custom=true,cities_count='Lat/Long',cities={}}}
-local function U(cname,mid,data)
+local function U(cname,nen,mid,data)
 local list={}
 for s in data:gmatch('[^;]+')do
 local n,la,lo,tz,m,f,i,fx=s:match('^([^:]+):([^:]+):([^:]+):([^:]+):?([^:]*):?([^:]*):?([^:]*):?([^:]*)$')
@@ -1775,35 +1775,46 @@ if n then
 list[#list+1]={name=n,lat=tonumber(la),lon=tonumber(lo),tz=tonumber(tz),method=(m~='' and m)or 'MWL',fajr_ang=tonumber(f)or 18.0,isha_ang=tonumber(i)or 18.0,isha_fixed_min=tonumber(fx)}
 end
 end
-C[#C+1]={name=cname,method_id=mid,cities_count=tostring(#list)..' Kota',cities=list}
+C[#C+1]={name=cname,name_en=nen,method_id=mid,cities_count=tostring(#list)..' Kota',cities=list}
 end
-U('Arab Saudi',4,'Makkah:21.4225:39.8262:3:Umm Al-Qura:18.5:18.0:90;Madinah:24.4672:39.6111:3:Umm Al-Qura:18.5:18.0:90')
-U('Malaysia',17,'Kuala Lumpur:3.1390:101.6869:8:JAKIM:20.0:18.0;Putrajaya:2.9264:101.6964:8:JAKIM:20.0:18.0')
-U('Singapura',11,'Singapore:1.3521:103.8198:8:MUIS:20.0:18.0')
-U('Brunei Darussalam',17,'Bandar Seri Begawan:4.9031:114.9398:8:KHEU:20.0:18.0;Kuala Belait:4.5836:114.2312:8:KHEU:20.0:18.0')
-U('Turki',13,'Istanbul:41.0082:28.9784:3:Diyanet:18.0:17.0;Ankara:39.9334:32.8597:3:Diyanet:18.0:17.0')
-U('Mesir',5,'Kairo:30.0444:31.2357:2:Egypt General:19.5:17.5;Alexandria:31.2001:29.9187:2:Egypt General:19.5:17.5')
-U('Uni Emirat Arab',16,'Dubai:25.2048:55.2708:4:UAE Awqaf:18.2:18.2;Abu Dhabi:24.4539:54.3773:4:UAE Awqaf:18.2:18.2')
-U('Palestina',23,'Al-Quds (Yerusalem):31.7683:35.2137:3::18.0:17.0;Gaza:31.5017:34.4668:3::18.0:17.0')
-U('Qatar',10,'Doha:25.2854:51.5310:3:Qatar Awqaf:18.0:18.0;Al Rayyan:25.2919:51.4244:3:Qatar Awqaf:18.0:18.0')
-U('Kuwait',9,'Kuwait City:29.3759:47.9774:3:Kuwait Awqaf:18.0:17.5;Hawalli:29.3328:48.0283:3:Kuwait Awqaf:18.0:17.5')
-U('Yordania',23,'Amman:31.9539:35.9106:3:Jordan Awqaf:18.0:18.0;Zarqa:32.0728:36.0880:3:Jordan Awqaf:18.0:18.0')
-U('Maroko',21,'Casablanca:33.5731:-7.5898:1:Morocco Awqaf:19.0:17.0;Rabat:34.0209:-6.8416:1:Morocco Awqaf:19.0:17.0')
-U('Jepang',3,'Tokyo:35.6762:139.6503:9:Japan Muslim Assoc:18.0:18.0;Osaka:34.6937:135.5023:9:Japan Muslim Assoc:18.0:18.0')
-U('Korea Selatan',3,'Seoul:37.5665:126.9780:9:Korea Muslim Fed:18.0:18.0;Busan:35.1796:129.0756:9:Korea Muslim Fed:18.0:18.0')
-U('Australia',3,'Sydney:-33.8688:151.2093:10:Muslim World League:18.0:17.0;Melbourne:-37.8136:144.9631:10:Muslim World League:18.0:17.0')
-U('Inggris (UK)',3,'London:51.5074:-0.1278:0:London Central Mosque:18.0:18.0;Birmingham:52.4862:-1.8904:0::18.0:18.0')
-U('Amerika Serikat (USA)',2,'New York:40.7128:-74.0060:-5:ISNA:15.0:15.0;Los Angeles:34.0522:-118.2437:-8:ISNA:15.0:15.0')
-U('Jerman',3,'Berlin:52.5200:13.4050:1::18.0:17.0;Frankfurt:50.1109:8.6821:1::18.0:17.0')
-U('Prancis',12,'Paris:48.8566:2.3522:1:UOIF:12.0:12.0;Lyon:45.7640:4.8357:1:UOIF:12.0:12.0')
-U('Belanda',3,'Amsterdam:52.3676:4.9041:1::18.0:17.0;Rotterdam:51.9244:4.4777:1::18.0:17.0')
-U('Rusia',14,'Moskwa:55.7558:37.6173:3:Russia DUM:16.0:15.0;St. Petersburg:59.9343:30.3351:3:Russia DUM:16.0:15.0')
-U('Tiongkok',3,'Beijing:39.9042:116.4074:8::18.0:17.0;Shanghai:31.2304:121.4737:8::18.0:17.0')
-U('Pakistan',1,'')
-U('India',1,'')
+U('Arab Saudi','Saudi Arabia',4,'Makkah:21.4225:39.8262:3:Umm Al-Qura:18.5:18:90;Madinah:24.4672:39.6111:3:Umm Al-Qura:18.5:18:90')
+U('Malaysia','Malaysia',17,'Kuala Lumpur:3.1390:101.6869:8:JAKIM:20:18')
+U('Singapura','Singapore',11,'Singapore:1.3521:103.8198:8:MUIS:20:18')
+U('Brunei Darussalam','Brunei',20,'Bandar Seri Begawan:4.9031:114.9398:8:MUIS:20:18')
+U('Turki','Turkey',13,'Istanbul:41.0082:28.9784:3:Diyanet:18:17')
+U('Mesir','Egypt',5,'Kairo:30.0444:31.2357:2:Egyptian:19.5:17.5')
+U('Uni Emirat Arab','United Arab Emirates',16,'Dubai:25.2048:55.2708:4:Dubai:18.2:18.2')
+U('Palestina','Palestine',3,'Al-Quds:31.7683:35.2137:2:MWL:18:17')
+U('Inggris (UK)','United Kingdom',3,'London:51.5074:-0.1278:0')
+U('Amerika Serikat (USA)','United States',2,'New York:40.7128:-74.0060:-5:ISNA:15:15')
+U('Jepang','Japan',3,'Tokyo:35.6762:139.6503:9')
+C[#C+1]={name='🌍 Sinkronkan Semua Negara...',name_en='🌍 Sync All Countries (GitHub)...',is_sync=true,cities_count='Online',cities={}}
 return C
 end
-F.WORLD_COUNTRIES=_PWC()
+F.SEED_WORLD_COUNTRIES=_PSC()
+F.WORLD_COUNTRIES=F.SEED_WORLD_COUNTRIES
+function F.ensure_countries_loaded()
+if F.countries_loaded then return F.WORLD_COUNTRIES end
+local raw=S.read('countries.json')
+if raw and raw~='' then
+local ok,res=pcall(function()return ctx.json:decode(raw)end)
+if ok and type(res)=='table' and #res>0 then
+local has_sync=false
+for _,c in ipairs(res)do
+if c.is_sync then has_sync=true break end
+end
+if not has_sync then
+res[#res+1]={name='🌍 Perbarui Katalog Negara...',name_en='🌍 Refresh Countries Catalog...',is_sync=true,cities_count='Online',cities={}}
+end
+F.WORLD_COUNTRIES=res
+F.countries_loaded=true
+return F.WORLD_COUNTRIES
+end
+end
+F.WORLD_COUNTRIES=F.SEED_WORLD_COUNTRIES
+F.countries_loaded=true
+return F.WORLD_COUNTRIES
+end
 function F.compute_qibla(prov,cfg)
 local lat_deg=(cfg and cfg.lat)or(prov and F.PROV_COORDS[prov] and F.PROV_COORDS[prov][1])or -6.21
 local lon_deg=(cfg and cfg.lon)or(prov and F.PROV_COORDS[prov] and F.PROV_COORDS[prov][2])or 106.85
@@ -2810,9 +2821,7 @@ local bx,by,bw,bh=mx+16,my+90,mw - 32,300
 S.round_rect(gg,bx,by,bw,bh,12,nil,true,0)
 S.round_rect(gg,bx,by,bw,bh,12,1)
 gg:text(bx+20,by+24,is_en and 'CONNECTING TO GITHUB' or 'MENGHUBUNGI GITHUB',{font=S.font('medium')})
-local msg=is_en
-and 'Checking latest release availability from GitHub repository...'
-or 'Menghubungi server GitHub untuk memeriksa ketersediaan rilis versi terbaru...'
+local msg=is_en and 'Checking latest release from GitHub...' or 'Memeriksa rilis terbaru dari server GitHub...'
 local w_msg=S.wrap_lines(msg,bw - 40,'small')
 for i=1,#w_msg do
 gg:text(bx+20,by+56+(i - 1)*20,w_msg[i],{font=S.font('small')})
@@ -2917,7 +2926,7 @@ gg:line(bx+16,ty,bx+bw - 16,ty,{line_width=1})
 ty=ty+12
 gg:text(bx+16,ty,is_en and 'Steps to Install on X4 Pro:' or 'Langkah Pemasangan di X4 Pro:',{font=S.font('medium')})
 ty=ty+24
-local steps={'1. Menu Samping -> All Files',is_root and '2. Klik "muslimink_update.xtapp"' or '2. Buka AppFiles > muslimink',is_root and '3. Tekan OK untuk pasang' or '3. Klik "muslimink_update.xtapp"',is_root and '4. Buka kembali di Ink App' or '4. Tekan OK untuk pasang',is_root and nil or '5. Buka kembali di Ink App',}
+local steps={'1. Buka Menu Samping -> All Files','2. Buka folder AppFiles > muslimink','3. Klik "muslimink_update.xtapp"','4. Tekan OK untuk pasang & buka di Ink App'}
 for _,s in ipairs(steps)do
 local w_s=S.wrap_lines(s,bw - 32,'small')
 for _,sub in ipairs(w_s)do
@@ -2930,9 +2939,7 @@ gg:line(bx+16,ty,bx+bw - 16,ty,{line_width=1})
 ty=ty+12
 gg:text(bx+16,ty,is_en and 'Quick Install:' or 'Instalasi Cepat:',{font=S.font('medium')})
 ty=ty+22
-local tip_desc=is_en
-and 'Tap "Exit App & Install" below, or follow the steps above.'
-or 'Tekan "Keluar Aplikasi & Pasang" atau ikuti langkah di atas.'
+local tip_desc=is_en and 'Tap "Exit App & Install" below.' or 'Tekan "Keluar Aplikasi & Pasang" di bawah.'
 local w_tip=S.wrap_lines(tip_desc,bw - 32,'small')
 for i=1,#w_tip do
 gg:text(bx+16,ty,w_tip[i],{font=S.font('small')})
@@ -3424,7 +3431,36 @@ selected_hd=hd
 status=nil
 refresh()
 end
+local function sync_countries_online()
+local is_en=(cfg.lang=='en')
+status=is_en and 'Syncing countries catalog from GitHub...' or 'Mengunduh katalog negara dari GitHub...'
+refresh()
+pcall(function()
+ctx.net:request({url='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/countries.json',method='GET',headers={['Accept']='application/json'},timeout_ms=15000,},function(c,resp)
+pcall(function()
+if type(resp)~='table' or type(resp.body)~='string' then
+status=is_en and 'Sync failed: No response' or 'Gagal sinkronisasi: Tidak ada respon'
+refresh()
+return
+end
+local ok,res=pcall(function()return ctx.json:decode(resp.body)end)
+if ok and type(res)=='table' and #res>0 then
+S.write('countries.json',resp.body)
+F.countries_loaded=false
+F.ensure_countries_loaded()
+open_country_list()
+status=is_en and('Updated: '..tostring(#res)..' countries!')or('Berhasil diperbarui: '..tostring(#res)..' negara!')
+refresh()
+else
+status=is_en and 'Sync failed: Invalid data' or 'Gagal: Format data tidak valid'
+refresh()
+end
+end)
+end)
+end)
+end
 local function open_country_list()
+F.ensure_countries_loaded()
 country_names={}
 for i,c in ipairs(F.WORLD_COUNTRIES)do
 local c_name=(cfg.lang=='en' and c.name_en)or c.name
@@ -5109,7 +5145,9 @@ if screen=='country' then
 handle_tap_list(x,y,country_names,function(item,idx)
 local c=F.WORLD_COUNTRIES[idx]
 if c then
-if c.is_id then
+if c.is_sync then
+sync_countries_online()
+elseif c.is_id then
 open_prov_list()
 elseif c.is_custom then
 open_custom_coords_screen()

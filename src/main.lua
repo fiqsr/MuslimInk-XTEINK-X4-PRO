@@ -325,7 +325,42 @@ local function goto_today_hijri()
 end
 
 
+local function sync_countries_online()
+  local is_en = (cfg.lang == 'en')
+  status = is_en and 'Syncing countries catalog from GitHub...' or 'Mengunduh katalog negara dari GitHub...'
+  refresh()
+  pcall(function()
+    ctx.net:request({
+      url = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/countries.json',
+      method = 'GET',
+      headers = { ['Accept'] = 'application/json' },
+      timeout_ms = 15000,
+    }, function(c, resp)
+      pcall(function()
+        if type(resp) ~= 'table' or type(resp.body) ~= 'string' then
+          status = is_en and 'Sync failed: No response' or 'Gagal sinkronisasi: Tidak ada respon'
+          refresh()
+          return
+        end
+        local ok, res = pcall(function() return ctx.json:decode(resp.body) end)
+        if ok and type(res) == 'table' and #res > 0 then
+          S.write('countries.json', resp.body)
+          F.countries_loaded = false
+          F.ensure_countries_loaded()
+          open_country_list()
+          status = is_en and ('Updated: ' .. tostring(#res) .. ' countries!') or ('Berhasil diperbarui: ' .. tostring(#res) .. ' negara!')
+          refresh()
+        else
+          status = is_en and 'Sync failed: Invalid data' or 'Gagal: Format data tidak valid'
+          refresh()
+        end
+      end)
+    end)
+  end)
+end
+
 local function open_country_list()
+  F.ensure_countries_loaded()
   country_names = {}
   for i, c in ipairs(F.WORLD_COUNTRIES) do
     local c_name = (cfg.lang == 'en' and c.name_en) or c.name
@@ -336,6 +371,7 @@ local function open_country_list()
   status = nil
   refresh()
 end
+
 
 local function open_custom_coords_screen()
   coords_state.lat = string.format('%.4f', cfg.lat or -6.2088)
@@ -2307,7 +2343,9 @@ function on_input(c, ev)
           handle_tap_list(x, y, country_names, function(item, idx)
             local c = F.WORLD_COUNTRIES[idx]
             if c then
-              if c.is_id then
+              if c.is_sync then
+                sync_countries_online()
+              elseif c.is_id then
                 open_prov_list()
               elseif c.is_custom then
                 open_custom_coords_screen()

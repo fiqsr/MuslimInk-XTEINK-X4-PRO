@@ -777,6 +777,17 @@ end
 end
 end
 local APP_ICON_RLE="+%C$)&G$('&$8'%$K'&$'(%$6(&$M(%$&)%%5)&$<)$%N)%%5*%$%+%C4+&'9+)$O+%C:,'%:.$$=.$$5/&$50'$61'$82'$:3%$;4$%:6&$;7$$:8&$89*$7:,%6<.%5>0$3?4$1@8$/A<$.B>$-C@$,DB)-J@%&K%%NK%%+LC%'M%$MM%$(N&$KN&$)OG$+PC$"
+function S.draw_app_icon(gg,x,y,sz)
+sz=sz or 50
+gg:rect(x,y,sz,sz,{fill=true,color=0})
+local ox=x+(sz - 48)//2
+local oy=y+(sz - 48)//2
+local d=APP_ICON_RLE
+for i=1,#d,4 do
+local b1,b2,b3,b4=string.byte(d,i,i+3)
+gg:rect(ox+b1 - 35,oy+b2 - 35,b3 - 35,b4 - 35,{fill=true})
+end
+end
 local BLACK={fill=true}
 local function unpack_pack(p)
 if not p then return nil end

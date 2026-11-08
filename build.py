@@ -255,7 +255,6 @@ def bundle():
     core_proc = strip_function(core_proc, "S.draw_crescent")
     core_proc = strip_function(core_proc, "S.draw_settings_btn")
     core_proc = strip_function(core_proc, "S.split_quote_lines")
-    core_proc = strip_function(core_proc, "S.draw_app_icon")
 
     # Build safe lock_core using semantic block replacements
     start_langs = core_src.find("S.LANGS = {")

@@ -808,11 +808,11 @@ function F.draw_doa(gg, cfg, state, draw_btn, now_info)
       gg:text(38, ry + 9, S.fit_text(pill_str, 'small', pw - 10), { font = S.font('small') })
 
       if is_saved then
-        local bw = is_en and 56 or 74
+        local bw = is_en and 56 or 86
         local bx = W - bw - 36
         S.round_rect(gg, bx, ry + 8, bw, 20, 6, nil, true, 0)
         S.round_rect(gg, bx, ry + 8, bw, 20, 6, 1)
-        S.center_text(gg, bx + bw // 2, ry + 10, is_en and 'SAVED' or 'SIMPAN', 'small', bw - 6)
+        S.center_text(gg, bx + bw // 2, ry + 10, is_en and 'SAVED' or 'TERSIMPAN', 'small', bw - 6)
       end
 
       -- Title Text (wrapped across 1-2 lines so it never cuts off awkwardly!)
@@ -1334,45 +1334,45 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     dy = dy + 10
     vtext(36, dy, is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK', { font = S.font('small') })
     dy = dy + 22
-    vtext(36, dy, 'Developer : fiqsr (Syafiq)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Developer  : fiqsr (Syafiq)' or 'Pengembang : fiqsr (Syafiq)', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'GitHub    : github.com/fiqsr', { font = S.font('small') })
+    vtext(36, dy, 'GitHub     : github.com/fiqsr', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'License   : MIT Open Source', { font = S.font('small') })
+    vtext(36, dy, is_en and 'License    : MIT Open Source' or 'Lisensi    : Sumber Terbuka MIT', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Versi App : v' .. S.APP_VERSION, { font = S.font('small') })
+    vtext(36, dy, (is_en and 'App Version: v' or 'Versi App  : v') .. S.APP_VERSION, { font = S.font('small') })
 
     -- Section 2: Calculation Engine & Astronomics
     dy = dy + 26
     vdivider(dy - 8)
     vtext(36, dy, is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS', { font = S.font('small') })
     dy = dy + 22
-    vtext(36, dy, 'Indonesia : Kemenag RI (514 Kota)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Indonesia  : Kemenag RI (514 Cities)' or 'Indonesia  : Kemenag RI (514 Kota)', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Global/LN : Aladhan API (230+ Kota)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Global/Int : Aladhan API (230+ Cities)' or 'Global/LN  : Aladhan API (230+ Kota)', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Metode LN : Ummul Quro, MWL, MUIS', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Int Methods: Umm al-Qura, MWL, MUIS' or 'Metode LN  : Ummul Quro, MWL, MUIS', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Offline   : Hisab Meeus & MABIMS', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Offline    : Meeus Solar & MABIMS' or 'Offline    : Hisab Meeus & MABIMS', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Koordinat : GPS Input Manual Numpad', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Coordinates: Manual GPS Numpad' or 'Koordinat  : GPS Input Manual Numpad', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri)', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Qibla Dir  : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri)', { font = S.font('small') })
 
     -- Section 3: Hardware & Runtime Status
     dy = dy + 26
     vdivider(dy - 8)
     vtext(36, dy, is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT', { font = S.font('small') })
     dy = dy + 22
-    vtext(36, dy, 'Perangkat : XTEINK X4 Pro ONLY', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Device     : XTEINK X4 Pro ONLY' or 'Perangkat  : Khusus XTEINK X4 Pro', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Display   : 480x800 1-bit E-ink', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Display    : 480x800 1-bit E-ink' or 'Layar      : 480x800 1-bit E-ink', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Lockscreen: Standalone 60s Service', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Lockscreen : Standalone 60s Service' or 'Layar Kunci: Layanan Mandiri 60s', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Updater   : Chunked Range 64 KB', { font = S.font('small') })
+    vtext(36, dy, is_en and 'Updater    : Chunked Range 64 KB' or 'Pembaruan  : Chunked Range 64 KB', { font = S.font('small') })
     dy = dy + 20
-    vtext(36, dy, 'Status    : ' .. S.short(loc_sub, 26), { font = S.font('small') })
+    vtext(36, dy, 'Status     : ' .. S.short(loc_sub, 26), { font = S.font('small') })
 
     -- Section 4: GitHub Repository QR Code
     dy = dy + 26
@@ -1394,7 +1394,7 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
     vcenter_text(W // 2, dy, gh_lbl, 'small')
     dy = dy + 22
 
-    local gh_note = 'Source Code • Panduan • Rilis • Dukungan'
+    local gh_note = is_en and 'Source Code • Guide • Releases • Support' or 'Kode Sumber • Panduan • Rilis • Dukungan'
     vcenter_text(W // 2, dy, gh_note, 'small')
   end
 
@@ -1462,19 +1462,20 @@ function F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, scr
 
   -- Row 6: Prayer Lockscreen
   local ry6 = card1_y + 340
-  vtext(36, ry6 + 12, is_en and 'Prayer Lockscreen' or 'Mode Lockscreen', { font = S.font('medium') })
+  vtext(36, ry6 + 12, is_en and 'Prayer Lockscreen' or 'Mode Layar Kunci', { font = S.font('medium') })
   local lock_sub = cfg.lock
     and (is_en and 'Active on lockscreen' or 'Aktif di layar kunci')
     or (is_en and 'Disabled' or 'Tidak aktif')
   vtext(36, ry6 + 38, lock_sub, { font = S.font('small') })
   if ry6 >= 40 and ry6 <= 680 then
     local lock_idx = cfg.lock and 2 or 1
-    S.segmented_control(gg, W - 146, ry6 + 15, 110, 38, { 'OFF', 'ON' }, lock_idx)
+    local lock_segs = is_en and { 'OFF', 'ON' } or { 'MATI', 'AKTIF' }
+    S.segmented_control(gg, W - 146, ry6 + 15, 110, 38, lock_segs, lock_idx)
   end
 
   -- Row 7: Lockscreen Ayah Quote Refresh
   local ry7 = card1_y + 408
-  vtext(36, ry7 + 12, is_en and 'Ayah Quote Refresh' or 'Rotasi Ayat Lockscreen', { font = S.font('medium') })
+  vtext(36, ry7 + 12, is_en and 'Ayah Quote Refresh' or 'Rotasi Ayat Layar Kunci', { font = S.font('medium') })
   local qref_names_id = { 'Tiap Hari', 'Tiap Waktu Shalat', 'Tiap Jam', 'Offline Saja' }
   local qref_names_en = { 'Daily', 'Prayer Times', 'Hourly', 'Offline Only' }
   local qref_cur = cfg.qrefresh or 1
@@ -1881,7 +1882,7 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
         gg:line(sx, py + 3, sx + 3, py + p_h - 4, { line_width = 2 })
       end
     end
-    gg:text(bx + 20, by + 124, 'Lokasi: AppFiles/muslimink/muslimink_update.xtapp', { font = S.font('small') })
+    gg:text(bx + 20, by + 124, (is_en and 'Location: ' or 'Lokasi: ') .. 'AppFiles/muslimink/muslimink_update.xtapp', { font = S.font('small') })
     draw_btn(gg, mx + 20, my + mh - 54, mw - 40, 42, is_en and 'Cancel' or 'Batal', false, 'medium')
 
   elseif update_state == 'done' then
@@ -1894,15 +1895,20 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     local lbox_y = by + 64
     S.round_rect(gg, bx + 16, lbox_y, bw - 32, 60, 8, nil, true, 0)
     S.round_rect(gg, bx + 16, lbox_y, bw - 32, 60, 8, 1)
-    gg:text(bx + 26, lbox_y + 8, 'Folder : AppFiles/muslimink/', { font = S.font('small') })
-    gg:text(bx + 26, lbox_y + 32, 'Berkas : muslimink_update.xtapp', { font = S.font('medium') })
+    gg:text(bx + 26, lbox_y + 8, (is_en and 'Folder: ' or 'Folder : ') .. 'AppFiles/muslimink/', { font = S.font('small') })
+    gg:text(bx + 26, lbox_y + 32, (is_en and 'File  : ' or 'Berkas : ') .. 'muslimink_update.xtapp', { font = S.font('medium') })
     local ty = lbox_y + 76
     gg:text(bx + 16, ty, is_en and 'Installation Steps:' or 'Langkah Pemasangan:', { font = S.font('medium') })
     ty = ty + 24
-    local steps = {
+    local steps = is_en and {
+      '1. Open Side Menu -> All Files',
+      '2. Open AppFiles > muslimink folder',
+      '3. Tap "muslimink_update.xtapp"',
+      '4. Tap OK to install & open in Ink App'
+    } or {
       '1. Buka Menu Samping -> All Files',
       '2. Buka folder AppFiles > muslimink',
-      '3. Klik "muslimink_update.xtapp"',
+      '3. Klik berkas "muslimink_update.xtapp"',
       '4. Tekan OK untuk pasang & buka di Ink App'
     }
     for _, s in ipairs(steps) do
@@ -1935,8 +1941,8 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     local ix, iy, iw, ih = mx + 16, my + 84, mw - 32, 60
     S.round_rect(gg, ix, iy, iw, ih, 10, nil, true, 0)
     S.round_rect(gg, ix, iy, iw, ih, 10, 1)
-    local t_line1 = (is_en and 'New Version: v' or 'Versi Baru: v') .. rem_v .. '  (Aktif: v' .. cur_v .. ')'
-    local t_line2 = (is_en and 'Date: ' or 'Rilis: ') .. rel_date .. ' • Ukuran: ~' .. sz_kb .. ' KB'
+    local t_line1 = (is_en and 'New Version: v' or 'Versi Baru: v') .. rem_v .. (is_en and '  (Current: v' or '  (Aktif: v') .. cur_v .. ')'
+    local t_line2 = (is_en and 'Date: ' or 'Rilis: ') .. rel_date .. (is_en and ' • Size: ~' or ' • Ukuran: ~') .. sz_kb .. ' KB'
     gg:text(ix + 16, iy + 10, t_line1, { font = S.font('medium') })
     gg:text(ix + 16, iy + 34, t_line2, { font = S.font('small') })
 
@@ -1990,7 +1996,7 @@ function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
   if f1_active then
     gg:rect(28, 64, 6, 54, { fill = true, radius = 3 })
   end
-  local l_lat = is_en and 'Latitude / Lintang (-90.0 s.d +90.0)' or 'Lintang / Latitude (-90.0 s.d +90.0)'
+  local l_lat = is_en and 'Latitude (-90.0 to +90.0)' or 'Lintang (-90.0 s.d +90.0)'
   gg:text(42, 66, l_lat, { font = S.font('small') })
   local lat_display = (state.lat == '' and '0.0000' or state.lat) .. (f1_active and ' |' or '')
   gg:text(42, 88, lat_display, { font = S.font('medium') })
@@ -2002,7 +2008,7 @@ function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
   if f2_active then
     gg:rect(28, 132, 6, 54, { fill = true, radius = 3 })
   end
-  local l_lon = is_en and 'Longitude / Bujur (-180.0 s.d +180.0)' or 'Bujur / Longitude (-180.0 s.d +180.0)'
+  local l_lon = is_en and 'Longitude (-180.0 to +180.0)' or 'Bujur (-180.0 s.d +180.0)'
   gg:text(42, 134, l_lon, { font = S.font('small') })
   local lon_display = (state.lon == '' and '0.0000' or state.lon) .. (f2_active and ' |' or '')
   gg:text(42, 156, lon_display, { font = S.font('medium') })
@@ -2014,7 +2020,7 @@ function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
   if f3_active then
     gg:rect(28, 200, 6, 48, { fill = true, radius = 3 })
   end
-  local l_tz = is_en and 'Timezone / Zona Waktu (UTC: +7, +8, +3, -5)' or 'Zona Waktu / Timezone (UTC: +7, +8, +3, -5)'
+  local l_tz = is_en and 'Timezone (UTC: +7, +8, +3, -5)' or 'Zona Waktu (UTC: +7, +8, +3, -5)'
   gg:text(42, 200, l_tz, { font = S.font('small') })
   local tz_display = 'UTC ' .. (state.tz == '' and '+7' or state.tz) .. (f3_active and ' |' or '')
   gg:text(42, 222, tz_display, { font = S.font('medium') })
@@ -2047,10 +2053,10 @@ function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
   local row_h = 80
 
   local keys = {
-    { { lbl = '1', fn = 'large' }, { lbl = '2', fn = 'large' }, { lbl = '3', fn = 'large' }, { lbl = 'Hapus', fn = 'small' } },
+    { { lbl = '1', fn = 'large' }, { lbl = '2', fn = 'large' }, { lbl = '3', fn = 'large' }, { lbl = is_en and 'Del' or 'Hapus', fn = 'small' } },
     { { lbl = '4', fn = 'large' }, { lbl = '5', fn = 'large' }, { lbl = '6', fn = 'large' }, { lbl = '+/-', fn = 'medium' } },
     { { lbl = '7', fn = 'large' }, { lbl = '8', fn = 'large' }, { lbl = '9', fn = 'large' }, { lbl = '.', fn = 'large' } },
-    { { lbl = 'Tab', fn = 'small' }, { lbl = '0', fn = 'large' }, { lbl = 'Clear', fn = 'small' }, { lbl = 'Auto UTC', fn = 'small' } }
+    { { lbl = 'Tab', fn = 'small' }, { lbl = '0', fn = 'large' }, { lbl = is_en and 'Clear' or 'Bersih', fn = 'small' }, { lbl = 'Auto UTC', fn = 'small' } }
   }
 
   for r = 1, 4 do
@@ -2069,7 +2075,7 @@ function F.draw_custom_coords_screen(gg, cfg, now_info, state, draw_btn)
 
   -- Bottom Action Bar (y = 716..776, h = 60)
   draw_btn(gg, 16, 716, 136, 60, is_en and 'Cancel' or 'Batal', false, 'medium')
-  draw_btn(gg, 160, 716, W - 176, 60, is_en and 'Simpan & Hitung' or 'Simpan & Hitung', true, 'medium')
+  draw_btn(gg, 160, 716, W - 176, 60, is_en and 'Save & Compute' or 'Simpan & Hitung', true, 'medium')
 end
 
 ------------------------------------------------------------------ Modal: Storage & Cache Management

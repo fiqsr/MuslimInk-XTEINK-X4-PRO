@@ -182,7 +182,7 @@ local function net_request(opts, label, on_done)
         on_done(resp.body, nil)
       end)
       if not ok_cb then
-        status = 'Galat: ' .. S.short(tostring(cb_err), 38)
+        status = (cfg.lang == 'en' and 'Error: ' or 'Galat: ') .. S.short(tostring(cb_err), 38)
       end
       refresh()
     end)
@@ -190,7 +190,7 @@ local function net_request(opts, label, on_done)
 
   if not ok then
     pending, busy_label = nil, nil
-    status = 'Gagal koneksi Wi-Fi: ' .. S.short(tostring(err), 30)
+    status = (cfg.lang == 'en' and 'Wi-Fi connection failed: ' or 'Gagal koneksi Wi-Fi: ') .. S.short(tostring(err), 30)
     refresh()
   end
 end
@@ -677,11 +677,11 @@ end
 
 local function shalat_action_labels()
   local is_en = (cfg.lang == 'en')
-  if is_en then
-    return { 'Location', 'Refresh', 'Monthly', cfg.lock and 'Lock: On' or 'Lock: Off' }
-  else
-    return { 'Lokasi', 'Perbarui', 'Sebulan', cfg.lock and 'Lock: On' or 'Lock: Off' }
-  end
+  local L = S.L(cfg)
+  local lock_txt = is_en
+    and (cfg.lock and 'Lock: On' or 'Lock: Off')
+    or (cfg.lock and 'Kunci: Aktif' or 'Kunci: Mati')
+  return { L.btn_loc, L.btn_refresh, L.btn_month, lock_txt }
 end
 
 local function draw_hijri_modal(gg, now_info, info)

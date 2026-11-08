@@ -33,8 +33,8 @@ S.LANGS = {
     btn_loc = 'Lokasi',
     btn_refresh = 'Perbarui',
     btn_month = 'Sebulan',
-    btn_lock_on = 'Lock: Aktif',
-    btn_lock_off = 'Lock: Mati',
+    btn_lock_on = 'Kunci: Aktif',
+    btn_lock_off = 'Kunci: Mati',
     btn_hijri = 'Atur H',
     btn_prev = '< Seb',
     btn_cancel = 'Batal',
@@ -60,7 +60,7 @@ S.LANGS = {
     month_empty_2 = ' Belum Ada',
     month_empty_sub = 'Ketuk tombol "Unduh" di bawah untuk memuat.',
     col_day = 'Tgl',
-    col_headers = { 'Tgl', 'Imsak', 'Subuh', 'Dzuhur', 'Ashar', 'Magrib', 'Isya' },
+    col_headers = { 'Tgl', 'Imsak', 'Subuh', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya' },
   },
   en = {
     code = 'EN',
@@ -115,7 +115,7 @@ S.LANGS = {
     month_empty_2 = '',
     month_empty_sub = 'Tap "Fetch" below to download this month.',
     col_day = 'Day',
-    col_headers = { 'Day', 'Imsak', 'Fajr', 'Dhuhr', 'Asr', 'Magrib', 'Isha' },
+    col_headers = { 'Day', 'Imsak', 'Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha' },
   },
 }
 

@@ -11,7 +11,7 @@ S.W,S.H=480,800
 S.KEYS={'imsak','subuh','terbit','dhuha','dzuhur','ashar','maghrib','isya'}
 S.IS_WAJIB={false,true,false,false,true,true,true,true}
 S.WAJIB_IDX={2,5,6,7,8}
-S.LANGS={id={code='ID',app_title='MuslimInk',labels={'Imsak','Subuh','Terbit','Dhuha','Dzuhur','Ashar','Maghrib','Isya'},jumat='Jumat',hari={'Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'},bulan={'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'},bulan_short={'Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'},hijri_bulan={'Muharram','Safar','Rabiul Awal','Rabiul Akhir','Jumadil Awal','Jumadil Akhir','Rajab',"Sya'ban",'Ramadhan','Syawal',"Dzulqa'dah",'Dzulhijjah'},next_card='MENUJU WAKTU SHALAT',next_card_tom='MENUJU SHALAT (BESOK)',next_badge='Berikutnya',sec_today='JADWAL HARI INI',sec_tomorrow='JADWAL BESOK',now_prayer='Saatnya waktu shalat!',footer_info='Sumber: Kemenag RI (equran.id) - Offline',btn_loc='Lokasi',btn_refresh='Perbarui',btn_month='Sebulan',btn_lock_on='Lock: Aktif',btn_lock_off='Lock: Mati',btn_hijri='Atur H',btn_prev='< Seb',btn_cancel='Batal',btn_next='Ber >',btn_back='Kembali',btn_next_mo='Bln Depan',btn_this_mo='Bln Ini',btn_download='Unduh',btn_done='Selesai',hijri_title='Koreksi Tanggal Hijriah',hijri_cur='Koreksi saat ini: ',hijri_day=' hari',no_data_title='Jadwal Belum Tersedia',no_data_l1='Pastikan Wi-Fi menyala, lalu ketuk',no_data_l2='"Perbarui" atau "Ganti Lokasi" di bawah.',lock_no_data='Jadwal Bulan Ini Belum Ada',lock_no_l1='Buka aplikasi Jadwal Sholat & Wi-Fi',lock_no_l2='untuk memilih lokasi dan unduh jadwal.',pick_prov='Pilih Provinsi',pick_kab='Kab/Kota: ',month_title='Jadwal ',month_empty_1='Data ',month_empty_2=' Belum Ada',month_empty_sub='Ketuk tombol "Unduh" di bawah untuk memuat.',col_day='Tgl',col_headers={'Tgl','Imsak','Subuh','Dzuhur','Ashar','Magrib','Isya'},},en={code='EN',app_title='MuslimInk',labels={'Imsak','Fajr','Sunrise','Dhuha','Dhuhr','Asr','Maghrib','Isha'},jumat="Jumu'ah",hari={'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'},bulan={'January','February','March','April','May','June','July','August','September','October','November','December'},bulan_short={'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'},hijri_bulan={'Muharram','Safar',"Rabi' al-Awwal","Rabi' al-Thani",'Jumada al-Ula','Jumada al-Thani','Rajab',"Sha'ban",'Ramadan','Shawwal',"Dhu al-Qi'dah",'Dhu al-Hijjah'},next_card='NEXT PRAYER TIME',next_card_tom='NEXT PRAYER (TOMORROW)',next_badge='Next',sec_today="TODAY'S SCHEDULE",sec_tomorrow="TOMORROW'S SCHEDULE",now_prayer='Time for prayer!',footer_info='Source: Kemenag RI (equran.id) - Offline',btn_loc='Location',btn_refresh='Refresh',btn_month='Monthly',btn_lock_on='Lock: On',btn_lock_off='Lock: Off',btn_hijri='Hijri',btn_prev='< Prev',btn_cancel='Cancel',btn_next='Next >',btn_back='Back',btn_next_mo='Next Mo',btn_this_mo='This Mo',btn_download='Fetch',btn_done='Done',hijri_title='Hijri Date Adjustment',hijri_cur='Current offset: ',hijri_day=' day(s)',no_data_title='Schedule Not Downloaded',no_data_l1='Turn on Wi-Fi, then tap "Refresh"',no_data_l2='or "Location" below to download.',lock_no_data='Monthly Schedule Not Found',lock_no_l1='Open the Prayer Times app with Wi-Fi on',lock_no_l2='to choose your city and download times.',pick_prov='Select Province',pick_kab='City/Regency: ',month_title='Schedule: ',month_empty_1='No Data for ',month_empty_2='',month_empty_sub='Tap "Fetch" below to download this month.',col_day='Day',col_headers={'Day','Imsak','Fajr','Dhuhr','Asr','Magrib','Isha'},},}
+S.LANGS={id={code='ID',app_title='MuslimInk',labels={'Imsak','Subuh','Terbit','Dhuha','Dzuhur','Ashar','Maghrib','Isya'},jumat='Jumat',hari={'Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'},bulan={'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'},bulan_short={'Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'},hijri_bulan={'Muharram','Safar','Rabiul Awal','Rabiul Akhir','Jumadil Awal','Jumadil Akhir','Rajab',"Sya'ban",'Ramadhan','Syawal',"Dzulqa'dah",'Dzulhijjah'},next_card='MENUJU WAKTU SHALAT',next_card_tom='MENUJU SHALAT (BESOK)',next_badge='Berikutnya',sec_today='JADWAL HARI INI',sec_tomorrow='JADWAL BESOK',now_prayer='Saatnya waktu shalat!',footer_info='Sumber: Kemenag RI (equran.id) - Offline',btn_loc='Lokasi',btn_refresh='Perbarui',btn_month='Sebulan',btn_lock_on='Kunci: Aktif',btn_lock_off='Kunci: Mati',btn_hijri='Atur H',btn_prev='< Seb',btn_cancel='Batal',btn_next='Ber >',btn_back='Kembali',btn_next_mo='Bln Depan',btn_this_mo='Bln Ini',btn_download='Unduh',btn_done='Selesai',hijri_title='Koreksi Tanggal Hijriah',hijri_cur='Koreksi saat ini: ',hijri_day=' hari',no_data_title='Jadwal Belum Tersedia',no_data_l1='Pastikan Wi-Fi menyala, lalu ketuk',no_data_l2='"Perbarui" atau "Ganti Lokasi" di bawah.',lock_no_data='Jadwal Bulan Ini Belum Ada',lock_no_l1='Buka aplikasi Jadwal Sholat & Wi-Fi',lock_no_l2='untuk memilih lokasi dan unduh jadwal.',pick_prov='Pilih Provinsi',pick_kab='Kab/Kota: ',month_title='Jadwal ',month_empty_1='Data ',month_empty_2=' Belum Ada',month_empty_sub='Ketuk tombol "Unduh" di bawah untuk memuat.',col_day='Tgl',col_headers={'Tgl','Imsak','Subuh','Dzuhur','Ashar','Maghrib','Isya'},},en={code='EN',app_title='MuslimInk',labels={'Imsak','Fajr','Sunrise','Dhuha','Dhuhr','Asr','Maghrib','Isha'},jumat="Jumu'ah",hari={'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'},bulan={'January','February','March','April','May','June','July','August','September','October','November','December'},bulan_short={'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'},hijri_bulan={'Muharram','Safar',"Rabi' al-Awwal","Rabi' al-Thani",'Jumada al-Ula','Jumada al-Thani','Rajab',"Sha'ban",'Ramadan','Shawwal',"Dhu al-Qi'dah",'Dhu al-Hijjah'},next_card='NEXT PRAYER TIME',next_card_tom='NEXT PRAYER (TOMORROW)',next_badge='Next',sec_today="TODAY'S SCHEDULE",sec_tomorrow="TOMORROW'S SCHEDULE",now_prayer='Time for prayer!',footer_info='Source: Kemenag RI (equran.id) - Offline',btn_loc='Location',btn_refresh='Refresh',btn_month='Monthly',btn_lock_on='Lock: On',btn_lock_off='Lock: Off',btn_hijri='Hijri',btn_prev='< Prev',btn_cancel='Cancel',btn_next='Next >',btn_back='Back',btn_next_mo='Next Mo',btn_this_mo='This Mo',btn_download='Fetch',btn_done='Done',hijri_title='Hijri Date Adjustment',hijri_cur='Current offset: ',hijri_day=' day(s)',no_data_title='Schedule Not Downloaded',no_data_l1='Turn on Wi-Fi, then tap "Refresh"',no_data_l2='or "Location" below to download.',lock_no_data='Monthly Schedule Not Found',lock_no_l1='Open the Prayer Times app with Wi-Fi on',lock_no_l2='to choose your city and download times.',pick_prov='Select Province',pick_kab='City/Regency: ',month_title='Schedule: ',month_empty_1='No Data for ',month_empty_2='',month_empty_sub='Tap "Fetch" below to download this month.',col_day='Day',col_headers={'Day','Imsak','Fajr','Dhuhr','Asr','Maghrib','Isha'},},}
 function S.L(cfg)
 local code=(cfg and cfg.lang=='en')and 'en' or 'id'
 return S.LANGS[code]
@@ -2170,11 +2170,11 @@ S.round_rect(gg,32,ry+8,pw,20,6,nil,true,0)
 S.round_rect(gg,32,ry+8,pw,20,6,1)
 gg:text(38,ry+9,S.fit_text(pill_str,'small',pw - 10),{font=S.font('small')})
 if is_saved then
-local bw=is_en and 56 or 74
+local bw=is_en and 56 or 86
 local bx=W - bw - 36
 S.round_rect(gg,bx,ry+8,bw,20,6,nil,true,0)
 S.round_rect(gg,bx,ry+8,bw,20,6,1)
-S.center_text(gg,bx+bw//2,ry+10,is_en and 'SAVED' or 'SIMPAN','small',bw - 6)
+S.center_text(gg,bx+bw//2,ry+10,is_en and 'SAVED' or 'TERSIMPAN','small',bw - 6)
 end
 local title_str=is_en and(it.nama_en or it.n_en or it.nama_id or it.n_id or '')or(it.nama_id or it.n_id or '')
 local max_tw=W - 92
@@ -2574,41 +2574,41 @@ vdivider(dy)
 dy=dy+10
 vtext(36,dy,is_en and 'DEVELOPER & PROJECT' or 'PENGEMBANG & PROYEK',{font=S.font('small')})
 dy=dy+22
-vtext(36,dy,'Developer : fiqsr (Syafiq)',{font=S.font('small')})
+vtext(36,dy,is_en and 'Developer  : fiqsr (Syafiq)' or 'Pengembang : fiqsr (Syafiq)',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'GitHub    : github.com/fiqsr',{font=S.font('small')})
+vtext(36,dy,'GitHub     : github.com/fiqsr',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'License   : MIT Open Source',{font=S.font('small')})
+vtext(36,dy,is_en and 'License    : MIT Open Source' or 'Lisensi    : Sumber Terbuka MIT',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Versi App : v'..S.APP_VERSION,{font=S.font('small')})
+vtext(36,dy,(is_en and 'App Version: v' or 'Versi App  : v')..S.APP_VERSION,{font=S.font('small')})
 dy=dy+26
 vdivider(dy - 8)
 vtext(36,dy,is_en and 'PRAYER & CALCULATION ENGINE' or 'SISTEM HISAB & ASTRONOMIS',{font=S.font('small')})
 dy=dy+22
-vtext(36,dy,'Indonesia : Kemenag RI (514 Kota)',{font=S.font('small')})
+vtext(36,dy,is_en and 'Indonesia  : Kemenag RI (514 Cities)' or 'Indonesia  : Kemenag RI (514 Kota)',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Global/LN : Aladhan API (230+ Kota)',{font=S.font('small')})
+vtext(36,dy,is_en and 'Global/Int : Aladhan API (230+ Cities)' or 'Global/LN  : Aladhan API (230+ Kota)',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Metode LN : Ummul Quro, MWL, MUIS',{font=S.font('small')})
+vtext(36,dy,is_en and 'Int Methods: Umm al-Qura, MWL, MUIS' or 'Metode LN  : Ummul Quro, MWL, MUIS',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Offline   : Hisab Meeus & MABIMS',{font=S.font('small')})
+vtext(36,dy,is_en and 'Offline    : Meeus Solar & MABIMS' or 'Offline    : Hisab Meeus & MABIMS',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Koordinat : GPS Input Manual Numpad',{font=S.font('small')})
+vtext(36,dy,is_en and 'Coordinates: Manual GPS Numpad' or 'Koordinat  : GPS Input Manual Numpad',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,is_en and 'Qibla Dir : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri)',{font=S.font('small')})
+vtext(36,dy,is_en and 'Qibla Dir  : Kaaba (Great-Circle)' or 'Arah Kiblat: Ka\'bah (Trigonometri)',{font=S.font('small')})
 dy=dy+26
 vdivider(dy - 8)
 vtext(36,dy,is_en and 'HARDWARE & COMPATIBILITY' or 'SPESIFIKASI & PERANGKAT',{font=S.font('small')})
 dy=dy+22
-vtext(36,dy,'Perangkat : XTEINK X4 Pro ONLY',{font=S.font('small')})
+vtext(36,dy,is_en and 'Device     : XTEINK X4 Pro ONLY' or 'Perangkat  : Khusus XTEINK X4 Pro',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Display   : 480x800 1-bit E-ink',{font=S.font('small')})
+vtext(36,dy,is_en and 'Display    : 480x800 1-bit E-ink' or 'Layar      : 480x800 1-bit E-ink',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Lockscreen: Standalone 60s Service',{font=S.font('small')})
+vtext(36,dy,is_en and 'Lockscreen : Standalone 60s Service' or 'Layar Kunci: Layanan Mandiri 60s',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Updater   : Chunked Range 64 KB',{font=S.font('small')})
+vtext(36,dy,is_en and 'Updater    : Chunked Range 64 KB' or 'Pembaruan  : Chunked Range 64 KB',{font=S.font('small')})
 dy=dy+20
-vtext(36,dy,'Status    : '..S.short(loc_sub,26),{font=S.font('small')})
+vtext(36,dy,'Status     : '..S.short(loc_sub,26),{font=S.font('small')})
 dy=dy+26
 vdivider(dy - 8)
 vtext(36,dy,is_en and 'GITHUB REPOSITORY (SCAN QR)' or 'REPOSITORI GITHUB (PINDAI QR)',{font=S.font('small')})
@@ -2624,7 +2624,7 @@ dy=dy+qr_sz+18
 local gh_lbl='github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 vcenter_text(W//2,dy,gh_lbl,'small')
 dy=dy+22
-local gh_note='Source Code • Panduan • Rilis • Dukungan'
+local gh_note=is_en and 'Source Code • Guide • Releases • Support' or 'Kode Sumber • Panduan • Rilis • Dukungan'
 vcenter_text(W//2,dy,gh_note,'small')
 end
 local card1_y=card_ab_y+ab_h+16
@@ -2676,17 +2676,18 @@ local magh_seg=is_en and 'Sunset' or 'Maghrib'
 S.segmented_control(gg,W - 200,ry5+15,180,38,{'00:00',magh_seg},magh_idx)
 end
 local ry6=card1_y+340
-vtext(36,ry6+12,is_en and 'Prayer Lockscreen' or 'Mode Lockscreen',{font=S.font('medium')})
+vtext(36,ry6+12,is_en and 'Prayer Lockscreen' or 'Mode Layar Kunci',{font=S.font('medium')})
 local lock_sub=cfg.lock
 and(is_en and 'Active on lockscreen' or 'Aktif di layar kunci')
 or(is_en and 'Disabled' or 'Tidak aktif')
 vtext(36,ry6+38,lock_sub,{font=S.font('small')})
 if ry6>=40 and ry6<=680 then
 local lock_idx=cfg.lock and 2 or 1
-S.segmented_control(gg,W - 146,ry6+15,110,38,{'OFF','ON'},lock_idx)
+local lock_segs=is_en and{'OFF','ON'}or{'MATI','AKTIF'}
+S.segmented_control(gg,W - 146,ry6+15,110,38,lock_segs,lock_idx)
 end
 local ry7=card1_y+408
-vtext(36,ry7+12,is_en and 'Ayah Quote Refresh' or 'Rotasi Ayat Lockscreen',{font=S.font('medium')})
+vtext(36,ry7+12,is_en and 'Ayah Quote Refresh' or 'Rotasi Ayat Layar Kunci',{font=S.font('medium')})
 local qref_names_id={'Tiap Hari','Tiap Waktu Shalat','Tiap Jam','Offline Saja'}
 local qref_names_en={'Daily','Prayer Times','Hourly','Offline Only'}
 local qref_cur=cfg.qrefresh or 1
@@ -2964,7 +2965,7 @@ for sx=px+4,px+fill_w - 2,8 do
 gg:line(sx,py+3,sx+3,py+p_h - 4,{line_width=2})
 end
 end
-gg:text(bx+20,by+124,'Lokasi: AppFiles/muslimink/muslimink_update.xtapp',{font=S.font('small')})
+gg:text(bx+20,by+124,(is_en and 'Location: ' or 'Lokasi: ')..'AppFiles/muslimink/muslimink_update.xtapp',{font=S.font('small')})
 draw_btn(gg,mx+20,my+mh - 54,mw - 40,42,is_en and 'Cancel' or 'Batal',false,'medium')
 elseif update_state=='done' then
 local bx,by,bw,bh=mx+16,my+84,mw - 32,430
@@ -2976,12 +2977,12 @@ S.center_text(gg,bx+bw//2,by+24,is_en and '[ OK ] Download Complete!' or '[ OK ]
 local lbox_y=by+64
 S.round_rect(gg,bx+16,lbox_y,bw - 32,60,8,nil,true,0)
 S.round_rect(gg,bx+16,lbox_y,bw - 32,60,8,1)
-gg:text(bx+26,lbox_y+8,'Folder : AppFiles/muslimink/',{font=S.font('small')})
-gg:text(bx+26,lbox_y+32,'Berkas : muslimink_update.xtapp',{font=S.font('medium')})
+gg:text(bx+26,lbox_y+8,(is_en and 'Folder: ' or 'Folder : ')..'AppFiles/muslimink/',{font=S.font('small')})
+gg:text(bx+26,lbox_y+32,(is_en and 'File  : ' or 'Berkas : ')..'muslimink_update.xtapp',{font=S.font('medium')})
 local ty=lbox_y+76
 gg:text(bx+16,ty,is_en and 'Installation Steps:' or 'Langkah Pemasangan:',{font=S.font('medium')})
 ty=ty+24
-local steps={'1. Buka Menu Samping -> All Files','2. Buka folder AppFiles > muslimink','3. Klik "muslimink_update.xtapp"','4. Tekan OK untuk pasang & buka di Ink App'}
+local steps=is_en and{'1. Open Side Menu -> All Files','2. Open AppFiles > muslimink folder','3. Tap "muslimink_update.xtapp"','4. Tap OK to install & open in Ink App'}or{'1. Buka Menu Samping -> All Files','2. Buka folder AppFiles > muslimink','3. Klik berkas "muslimink_update.xtapp"','4. Tekan OK untuk pasang & buka di Ink App'}
 for _,s in ipairs(steps)do
 gg:text(bx+16,ty,s,{font=S.font('small')})
 ty=ty+24
@@ -3008,8 +3009,8 @@ local rel_date=(update_info and update_info.release_date)or '2026-11-08'
 local ix,iy,iw,ih=mx+16,my+84,mw - 32,60
 S.round_rect(gg,ix,iy,iw,ih,10,nil,true,0)
 S.round_rect(gg,ix,iy,iw,ih,10,1)
-local t_line1=(is_en and 'New Version: v' or 'Versi Baru: v')..rem_v..'  (Aktif: v'..cur_v..')'
-local t_line2=(is_en and 'Date: ' or 'Rilis: ')..rel_date..' • Ukuran: ~'..sz_kb..' KB'
+local t_line1=(is_en and 'New Version: v' or 'Versi Baru: v')..rem_v..(is_en and '  (Current: v' or '  (Aktif: v')..cur_v..')'
+local t_line2=(is_en and 'Date: ' or 'Rilis: ')..rel_date..(is_en and ' • Size: ~' or ' • Ukuran: ~')..sz_kb..' KB'
 gg:text(ix+16,iy+10,t_line1,{font=S.font('medium')})
 gg:text(ix+16,iy+34,t_line2,{font=S.font('small')})
 local cx,cy,cw,ch=mx+16,my+154,mw - 32,380
@@ -3052,7 +3053,7 @@ S.round_rect(gg,20,60,W - 40,62,10,f1_active and 3 or 1)
 if f1_active then
 gg:rect(28,64,6,54,{fill=true,radius=3})
 end
-local l_lat=is_en and 'Latitude / Lintang (-90.0 s.d +90.0)' or 'Lintang / Latitude (-90.0 s.d +90.0)'
+local l_lat=is_en and 'Latitude (-90.0 to +90.0)' or 'Lintang (-90.0 s.d +90.0)'
 gg:text(42,66,l_lat,{font=S.font('small')})
 local lat_display=(state.lat=='' and '0.0000' or state.lat)..(f1_active and ' |' or '')
 gg:text(42,88,lat_display,{font=S.font('medium')})
@@ -3062,7 +3063,7 @@ S.round_rect(gg,20,128,W - 40,62,10,f2_active and 3 or 1)
 if f2_active then
 gg:rect(28,132,6,54,{fill=true,radius=3})
 end
-local l_lon=is_en and 'Longitude / Bujur (-180.0 s.d +180.0)' or 'Bujur / Longitude (-180.0 s.d +180.0)'
+local l_lon=is_en and 'Longitude (-180.0 to +180.0)' or 'Bujur (-180.0 s.d +180.0)'
 gg:text(42,134,l_lon,{font=S.font('small')})
 local lon_display=(state.lon=='' and '0.0000' or state.lon)..(f2_active and ' |' or '')
 gg:text(42,156,lon_display,{font=S.font('medium')})
@@ -3072,7 +3073,7 @@ S.round_rect(gg,20,196,W - 40,56,10,f3_active and 3 or 1)
 if f3_active then
 gg:rect(28,200,6,48,{fill=true,radius=3})
 end
-local l_tz=is_en and 'Timezone / Zona Waktu (UTC: +7, +8, +3, -5)' or 'Zona Waktu / Timezone (UTC: +7, +8, +3, -5)'
+local l_tz=is_en and 'Timezone (UTC: +7, +8, +3, -5)' or 'Zona Waktu (UTC: +7, +8, +3, -5)'
 gg:text(42,200,l_tz,{font=S.font('small')})
 local tz_display='UTC '..(state.tz=='' and '+7' or state.tz)..(f3_active and ' |' or '')
 gg:text(42,222,tz_display,{font=S.font('medium')})
@@ -3097,7 +3098,7 @@ local col_x={16,128,240,352}
 local col_w={104,104,104,112}
 local row_y={344,432,520,608}
 local row_h=80
-local keys={{{lbl='1',fn='large'},{lbl='2',fn='large'},{lbl='3',fn='large'},{lbl='Hapus',fn='small'}},{{lbl='4',fn='large'},{lbl='5',fn='large'},{lbl='6',fn='large'},{lbl='+/-',fn='medium'}},{{lbl='7',fn='large'},{lbl='8',fn='large'},{lbl='9',fn='large'},{lbl='.',fn='large'}},{{lbl='Tab',fn='small'},{lbl='0',fn='large'},{lbl='Clear',fn='small'},{lbl='Auto UTC',fn='small'}}}
+local keys={{{lbl='1',fn='large'},{lbl='2',fn='large'},{lbl='3',fn='large'},{lbl=is_en and 'Del' or 'Hapus',fn='small'}},{{lbl='4',fn='large'},{lbl='5',fn='large'},{lbl='6',fn='large'},{lbl='+/-',fn='medium'}},{{lbl='7',fn='large'},{lbl='8',fn='large'},{lbl='9',fn='large'},{lbl='.',fn='large'}},{{lbl='Tab',fn='small'},{lbl='0',fn='large'},{lbl=is_en and 'Clear' or 'Bersih',fn='small'},{lbl='Auto UTC',fn='small'}}}
 for r=1,4 do
 for c=1,4 do
 local k=keys[r][c]
@@ -3112,7 +3113,7 @@ S.center_text(gg,bx+bw//2,by+ty_off,k.lbl,k.fn,bw - 8)
 end
 end
 draw_btn(gg,16,716,136,60,is_en and 'Cancel' or 'Batal',false,'medium')
-draw_btn(gg,160,716,W - 176,60,is_en and 'Simpan & Hitung' or 'Simpan & Hitung',true,'medium')
+draw_btn(gg,160,716,W - 176,60,is_en and 'Save & Compute' or 'Simpan & Hitung',true,'medium')
 end
 function F.draw_storage_modal(gg,cfg,draw_btn,cache_count,saved_count)
 local W,H=S.W,S.H
@@ -3296,14 +3297,14 @@ end
 on_done(resp.body,nil)
 end)
 if not ok_cb then
-status='Galat: '..S.short(tostring(cb_err),38)
+status=(cfg.lang=='en' and 'Error: ' or 'Galat: ')..S.short(tostring(cb_err),38)
 end
 refresh()
 end)
 end)
 if not ok then
 pending,busy_label=nil,nil
-status='Gagal koneksi Wi-Fi: '..S.short(tostring(err),30)
+status=(cfg.lang=='en' and 'Wi-Fi connection failed: ' or 'Gagal koneksi Wi-Fi: ')..S.short(tostring(err),30)
 refresh()
 end
 end
@@ -3721,11 +3722,11 @@ return bx,716,bw,60
 end
 local function shalat_action_labels()
 local is_en=(cfg.lang=='en')
-if is_en then
-return{'Location','Refresh','Monthly',cfg.lock and 'Lock: On' or 'Lock: Off'}
-else
-return{'Lokasi','Perbarui','Sebulan',cfg.lock and 'Lock: On' or 'Lock: Off'}
-end
+local L=S.L(cfg)
+local lock_txt=is_en
+and(cfg.lock and 'Lock: On' or 'Lock: Off')
+or(cfg.lock and 'Kunci: Aktif' or 'Kunci: Mati')
+return{L.btn_loc,L.btn_refresh,L.btn_month,lock_txt}
 end
 local function draw_hijri_modal(gg,now_info,info)
 local L=S.L(cfg)

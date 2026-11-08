@@ -1,0 +1,64 @@
+[
+  {
+    "id_title": "1. Paket Wirid Bakda Shalat (Otomatis)",
+    "en_title": "1. Post-Prayer Wirid (Auto 33x3 + 1)",
+    "is_auto": true,
+    "def_target": 100
+  },
+  {
+    "id_title": "2. Tasbih",
+    "en_title": "2. Tasbih",
+    "latin": "Subhaanallaah",
+    "id_arti": "Maha Suci Allah",
+    "en_arti": "Glory be to Allah",
+    "def_target": 33
+  },
+  {
+    "id_title": "3. Tahmid",
+    "en_title": "3. Tahmid",
+    "latin": "Alhamdulillaah",
+    "id_arti": "Segala puji bagi Allah",
+    "en_arti": "All praise is due to Allah",
+    "def_target": 33
+  },
+  {
+    "id_title": "4. Takbir",
+    "en_title": "4. Takbir",
+    "latin": "Allaahu Akbar",
+    "id_arti": "Allah Maha Besar",
+    "en_arti": "Allah is the Greatest",
+    "def_target": 33
+  },
+  {
+    "id_title": "5. Tahlil",
+    "en_title": "5. Tahlil",
+    "latin": "Laa ilaaha illallaah",
+    "id_arti": "Tiada Tuhan selain Allah",
+    "en_arti": "There is no deity except Allah",
+    "def_target": 100
+  },
+  {
+    "id_title": "6. Istighfar",
+    "en_title": "6. Istighfar",
+    "latin": "Astaghfirullaahal 'azhiim",
+    "id_arti": "Aku memohon ampun kepada Allah Yang Maha Agung",
+    "en_arti": "I seek forgiveness from Allah the Almighty",
+    "def_target": 100
+  },
+  {
+    "id_title": "7. Shalawat Nabi",
+    "en_title": "7. Salawat upon the Prophet",
+    "latin": "Allaahumma shalli 'alaa Muhammad",
+    "id_arti": "Ya Allah, limpahkanlah rahmat kepada Nabi Muhammad",
+    "en_arti": "O Allah, send blessings upon Prophet Muhammad",
+    "def_target": 100
+  },
+  {
+    "id_title": "8. Hauqalah",
+    "en_title": "8. Hawqalah",
+    "latin": "Laa haula wa laa quwwata illaa billaah",
+    "id_arti": "Tiada daya dan kekuatan kecuali dengan pertolongan Allah",
+    "en_arti": "There is no power nor strength except through Allah",
+    "def_target": 33
+  }
+]

@@ -11,7 +11,7 @@ local F = {}
 
 F.TARGETS = { 33, 99, 100, 1000, 0 } -- 0 = Tanpa Batas (Infinity)
 
-F.DHIKR_LIST = {
+F.SEED_DHIKR_LIST = {
   {
     id_title = '1. Paket Wirid Bakda Shalat (Otomatis)',
     en_title = '1. Post-Prayer Wirid (Auto 33x3 + 1)',
@@ -42,39 +42,24 @@ F.DHIKR_LIST = {
     en_arti = 'Allah is the Greatest',
     def_target = 33,
   },
-  {
-    id_title = '5. Tahlil',
-    en_title = '5. Tahlil',
-    latin = 'Laa ilaaha illallaah',
-    id_arti = 'Tiada Tuhan selain Allah',
-    en_arti = 'There is no deity except Allah',
-    def_target = 100,
-  },
-  {
-    id_title = '6. Istighfar',
-    en_title = '6. Istighfar',
-    latin = "Astaghfirullaahal 'azhiim",
-    id_arti = 'Aku memohon ampun kepada Allah Yang Maha Agung',
-    en_arti = 'I seek forgiveness from Allah the Almighty',
-    def_target = 100,
-  },
-  {
-    id_title = '7. Shalawat Nabi',
-    en_title = '7. Salawat upon the Prophet',
-    latin = "Allaahumma shalli 'alaa Muhammad",
-    id_arti = 'Ya Allah, limpahkanlah rahmat kepada Nabi Muhammad',
-    en_arti = 'O Allah, send blessings upon Prophet Muhammad',
-    def_target = 100,
-  },
-  {
-    id_title = '8. Hauqalah',
-    en_title = '8. Hawqalah',
-    latin = 'Laa haula wa laa quwwata illaa billaah',
-    id_arti = 'Tiada daya dan kekuatan kecuali dengan pertolongan Allah',
-    en_arti = 'There is no power nor strength except through Allah',
-    def_target = 33,
-  },
 }
+F.DHIKR_LIST = F.SEED_DHIKR_LIST
+
+function F.ensure_dhikr_loaded()
+  if F.dhikr_loaded then return F.DHIKR_LIST end
+  local raw = S.read('dhikr_list.json')
+  if raw and #raw > 20 then
+    local ok, res = pcall(function() return ctx.json:decode(raw) end)
+    if ok and type(res) == 'table' and #res >= 2 then
+      F.DHIKR_LIST = res
+      F.dhikr_loaded = true
+      return res
+    end
+  end
+  F.DHIKR_LIST = F.SEED_DHIKR_LIST
+  F.dhikr_loaded = true
+  return F.DHIKR_LIST
+end
 
 function F.load_tasbih(today_day)
   local raw = S.read('tasbih.txt')
@@ -298,24 +283,36 @@ end
 
 ------------------------------------------------------------------ 3. Kalender Hijriah & Hari Besar Islam (PHBI)
 
-F.ISLAMIC_EVENTS = {
+F.SEED_ISLAMIC_EVENTS = {
   { hm = 1, hd = 1, id = 'Tahun Baru Islam', en = 'Islamic New Year' },
-  { hm = 1, hd = 10, id = 'Puasa Sunnah Asyura', en = 'Day of Ashura Fast' },
-  { hm = 3, hd = 12, id = 'Maulid Nabi Muhammad', en = 'Mawlid al-Nabi' },
-  { hm = 7, hd = 27, id = 'Isra Mi\'raj Nabi SAW', en = 'Isra and Mi\'raj' },
-  { hm = 8, hd = 15, id = 'Malam Nisfu Sya\'ban', en = 'Night of Mid-Sha\'ban' },
   { hm = 9, hd = 1, id = 'Awal Puasa Ramadhan', en = 'Start of Ramadan' },
-  { hm = 9, hd = 17, id = 'Malam Nuzulul Qur\'an', en = 'Nuzulul Quran' },
   { hm = 10, hd = 1, id = 'Hari Raya Idul Fitri', en = 'Eid al-Fitr' },
-  { hm = 12, hd = 9, id = 'Puasa Sunnah Arafah', en = 'Day of Arafah Fast' },
   { hm = 12, hd = 10, id = 'Hari Raya Idul Adha', en = 'Eid al-Adha' },
 }
+F.ISLAMIC_EVENTS = F.SEED_ISLAMIC_EVENTS
+
+function F.ensure_events_loaded()
+  if F.events_loaded then return F.ISLAMIC_EVENTS end
+  local raw = S.read('hijri_events.json')
+  if raw and #raw > 20 then
+    local ok, res = pcall(function() return ctx.json:decode(raw) end)
+    if ok and type(res) == 'table' and #res >= 4 then
+      F.ISLAMIC_EVENTS = res
+      F.events_loaded = true
+      return res
+    end
+  end
+  F.ISLAMIC_EVENTS = F.SEED_ISLAMIC_EVENTS
+  F.events_loaded = true
+  return F.ISLAMIC_EVENTS
+end
 
 -- Exact days until each Islamic holiday using astronomical MABIMS lunation table
 function F.upcoming_events(eff_day, hy, adj, L, is_en)
+  local ev_list = F.ensure_events_loaded()
   local list = {}
-  for i = 1, #F.ISLAMIC_EVENTS do
-    local ev = F.ISLAMIC_EVENTS[i]
+  for i = 1, #ev_list do
+    local ev = ev_list[i]
     local target_hy = hy
     local ev_day = S.hijri_event_day(target_hy, ev.hm, ev.hd, adj)
     if ev_day < eff_day then
@@ -1774,7 +1771,7 @@ end
 
 ------------------------------------------------------------------ Modal: App Auto-Update (GitHub Releases)
 
-function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress, update_tab)
+function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, update_saved_path, draw_btn, update_progress)
   if type(update_saved_path) == 'function' and draw_btn == nil then
     draw_btn = update_saved_path
     update_saved_path = nil
@@ -1786,12 +1783,12 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
 
   local W, H = S.W, S.H
   local is_en = (cfg.lang == 'en')
-  local mx, my, mw, mh = 16, 20, W - 32, 760
+  local mx, my, mw, mh = 20, 60, W - 40, 680
 
-  -- Solid clean mask behind modal to completely prevent background UI bleed-through
+  -- Solid clean mask behind modal
   S.round_rect(gg, 0, 0, W, H, 0, nil, true, 0)
 
-  -- Modal Sheet Card (Material 3 Surface)
+  -- Modal Sheet Card (Apple Compact Surface)
   S.round_rect(gg, mx, my, mw, mh, 16, nil, true, 0)
   S.round_rect(gg, mx, my, mw, mh, 16, 2)
 
@@ -1799,13 +1796,13 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
   gg:line(W // 2 - 20, my + 10, W // 2 + 20, my + 10, { line_width = 3 })
 
   -- Close button (✕)
-  local cx, cy = mx + mw - 28, my + 26
+  local cx, cy = mx + mw - 30, my + 28
   gg:line(cx - 6, cy - 6, cx + 6, cy + 6, { line_width = 2 })
   gg:line(cx - 6, cy + 6, cx + 6, cy - 6, { line_width = 2 })
 
   -- Title & Subtitle
   local u_ver = (update_info and update_info.version) or S.APP_VERSION
-  local m_title = is_en and 'App Updates' or 'Pembaruan Aplikasi'
+  local m_title = is_en and 'App Update' or 'Pembaruan Aplikasi'
   if update_state == 'done' then
     m_title = is_en and 'Update Ready!' or 'Pembaruan Siap'
   elseif update_state == 'up_to_date' then
@@ -1818,29 +1815,22 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     m_title = is_en and 'Update Failed' or 'Pembaruan Gagal'
   end
   gg:text(mx + 20, my + 20, S.fit_text(m_title, 'large', mw - 60), { font = S.font('large') })
-
-  local m_sub = is_en
-    and ('MuslimInk v' .. u_ver .. ' • Xteink X4 Pro')
-    or ('MuslimInk v' .. u_ver .. ' • Khusus Xteink X4 Pro')
+  local m_sub = 'MuslimInk v' .. u_ver .. ' • XTEINK X4 Pro'
   gg:text(mx + 20, my + 50, m_sub, { font = S.font('small') })
 
   -- Hairline divider
   gg:line(mx + 16, my + 74, mx + mw - 16, my + 74, { line_width = 1 })
 
   if update_state == 'checking' then
-    -- Checking for updates State View
-    local bx, by, bw, bh = mx + 16, my + 90, mw - 32, 300
+    local bx, by, bw, bh = mx + 16, my + 90, mw - 32, 280
     S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
     S.round_rect(gg, bx, by, bw, bh, 12, 1)
-
-    gg:text(bx + 20, by + 24, is_en and 'CONNECTING TO GITHUB' or 'MENGHUBUNGI GITHUB', { font = S.font('medium') })
+    gg:text(bx + 20, by + 24, is_en and 'CONNECTING TO GITHUB...' or 'MENGHUBUNGI GITHUB...', { font = S.font('medium') })
     local msg = is_en and 'Checking latest release from GitHub...' or 'Memeriksa rilis terbaru dari server GitHub...'
     local w_msg = S.wrap_lines(msg, bw - 40, 'small')
     for i = 1, #w_msg do
       gg:text(bx + 20, by + 56 + (i - 1) * 20, w_msg[i], { font = S.font('small') })
     end
-
-    -- Progress bar container
     local p_w, p_h = bw - 40, 18
     local px, py = bx + 20, by + 120
     S.round_rect(gg, px, py, p_w, p_h, 9, nil, true, 0)
@@ -1848,81 +1838,42 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     for sx = px + 4, px + p_w - 4, 12 do
       gg:line(sx, py + 2, sx + 4, py + p_h - 3, { line_width = 2 })
     end
-
-    local tip = is_en and 'Please ensure device Wi-Fi is connected.' or 'Pastikan koneksi Wi-Fi perangkat aktif.'
-    gg:text(bx + 20, by + 160, tip, { font = S.font('small') })
-
-    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Cancel' or 'Batal', false, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 54, mw - 40, 42, is_en and 'Cancel' or 'Batal', false, 'medium')
 
   elseif update_state == 'up_to_date' then
-    -- Already Up to Date State View
-    local bx, by, bw, bh = mx + 16, my + 84, mw - 32, 320
+    local bx, by, bw, bh = mx + 16, my + 90, mw - 32, 280
     S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
     S.round_rect(gg, bx, by, bw, bh, 12, 1)
-
-    -- Success Badge Header
-    S.round_rect(gg, bx + 16, by + 16, bw - 32, 36, 8, nil, true, 0)
-    S.round_rect(gg, bx + 16, by + 16, bw - 32, 36, 8, 1)
-    local ok_lbl = is_en and '[ OK ] Up to Date' or '[ OK ] Versi Terbaru Aktif'
-    S.center_text(gg, bx + bw // 2, by + 24, ok_lbl, 'medium')
-
-    local desc1 = is_en
-      and 'MuslimInk is already running the latest release from GitHub.'
-      or 'Aplikasi MuslimInk pada perangkat Anda sudah menggunakan versi rilis terbaru dari GitHub.'
-    local desc2 = is_en
-      and 'No updates needed at this time.'
-      or 'Tidak ada pembaruan yang diperlukan saat ini.'
-
-    local w1 = S.wrap_lines(desc1, bw - 40, 'small')
-    local ty = by + 68
+    S.round_rect(gg, bx + 16, by + 20, bw - 32, 36, 8, nil, true, 0)
+    S.round_rect(gg, bx + 16, by + 20, bw - 32, 36, 8, 1)
+    S.center_text(gg, bx + bw // 2, by + 28, is_en and '[ OK ] Up to Date' or '[ OK ] Versi Terbaru Aktif', 'medium')
+    local desc = is_en
+      and 'MuslimInk is running the latest release. No updates needed.'
+      or 'MuslimInk pada perangkat Anda sudah menggunakan versi rilis terbaru.'
+    local w1 = S.wrap_lines(desc, bw - 40, 'small')
     for i = 1, #w1 do
-      gg:text(bx + 20, ty, w1[i], { font = S.font('small') })
-      ty = ty + 20
+      gg:text(bx + 20, by + 76 + (i - 1) * 20, w1[i], { font = S.font('small') })
     end
-    ty = ty + 4
-    local w2 = S.wrap_lines(desc2, bw - 40, 'small')
-    for i = 1, #w2 do
-      gg:text(bx + 20, ty, w2[i], { font = S.font('small') })
-      ty = ty + 20
-    end
-    ty = ty + 24
-
-    local cur_info = is_en
-      and ('Active Version: v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')')
-      or ('Versi Aktif: v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')')
-    local dev_info = is_en and 'Device: XTEINK X4 Pro' or 'Perangkat: XTEINK X4 Pro'
-    gg:text(bx + 20, ty, cur_info, { font = S.font('medium') })
-    gg:text(bx + 20, ty + 24, dev_info, { font = S.font('small') })
-
-    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', true, 'medium')
+    gg:text(bx + 20, by + 140, 'v' .. S.APP_VERSION .. ' (Build ' .. S.APP_BUILD .. ')', { font = S.font('medium') })
+    draw_btn(gg, mx + 20, my + mh - 54, mw - 40, 42, is_en and 'Close' or 'Tutup', true, 'medium')
 
   elseif update_state == 'downloading' then
-    -- Downloading State View
-    local bx, by, bw, bh = mx + 16, my + 84, mw - 32, 320
+    local bx, by, bw, bh = mx + 16, my + 90, mw - 32, 280
     S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
     S.round_rect(gg, bx, by, bw, bh, 12, 1)
-
     gg:text(bx + 20, by + 24, is_en and 'DOWNLOADING PACKAGE' or 'SEDANG MENGUNDUH PAKET', { font = S.font('medium') })
     local cur_b = (update_progress and update_progress.current) or 0
-    local exp_b = (update_progress and update_progress.total) or ((update_info and update_info.size_bytes) or 422144)
+    local exp_b = (update_progress and update_progress.total) or ((update_info and update_info.size_bytes) or 230000)
     local cur_kb = math.floor(cur_b / 1024)
     local exp_kb = math.floor(exp_b / 1024)
-    local pct = 0
-    if exp_b > 0 then
-      pct = math.min(100, math.floor(cur_b * 100 / exp_b))
-    end
-
-    local sub_dl = is_en
-      and ('Progress: ' .. cur_kb .. ' / ' .. exp_kb .. ' KB (' .. pct .. '%)')
-      or ('Progres: ' .. cur_kb .. ' / ' .. exp_kb .. ' KB (' .. pct .. '%)')
+    local pct = exp_b > 0 and math.min(100, math.floor(cur_b * 100 / exp_b)) or 0
+    local sub_dl = is_en and ('Progress: ' .. cur_kb .. ' / ' .. exp_kb .. ' KB (' .. pct .. '%)')
+                          or ('Progres: ' .. cur_kb .. ' / ' .. exp_kb .. ' KB (' .. pct .. '%)')
     gg:text(bx + 20, by + 52, sub_dl, { font = S.font('medium') })
-
-    -- Progress bar container
     local p_w, p_h = bw - 40, 20
     local px, py = bx + 20, by + 86
     S.round_rect(gg, px, py, p_w, p_h, 10, nil, true, 0)
     S.round_rect(gg, px, py, p_w, p_h, 10, 2)
-    -- Fill bar proportionally
     local fill_w = math.floor((p_w - 4) * pct / 100)
     if fill_w > 0 then
       S.round_rect(gg, px + 2, py + 2, fill_w, p_h - 4, 8, nil, true, 0)
@@ -1930,195 +1881,89 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
         gg:line(sx, py + 3, sx + 3, py + p_h - 4, { line_width = 2 })
       end
     end
-
-    gg:text(bx + 20, by + 124, is_en and 'Path: XTApps/muslimink/files/' or 'Lokasi: XTApps/muslimink/files/', { font = S.font('small') })
-    gg:text(bx + 20, by + 152, is_en and 'Mode: 64 KB chunk transfer' or 'Metode: Unduhan bertahap 64 KB', { font = S.font('small') })
-    gg:text(bx + 20, by + 180, is_en and 'Keep Wi-Fi connected...' or 'Jangan matikan Wi-Fi...', { font = S.font('small') })
-
-    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Cancel' or 'Batal', false, 'medium')
+    gg:text(bx + 20, by + 124, 'Lokasi: AppFiles/muslimink/muslimink_update.xtapp', { font = S.font('small') })
+    draw_btn(gg, mx + 20, my + mh - 54, mw - 40, 42, is_en and 'Cancel' or 'Batal', false, 'medium')
 
   elseif update_state == 'done' then
-    -- Download Completed View
-    local bx, by, bw, bh = mx + 16, my + 78, mw - 32, 460
+    local bx, by, bw, bh = mx + 16, my + 84, mw - 32, 430
     S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
     S.round_rect(gg, bx, by, bw, bh, 12, 2)
-
-    -- Success Badge Header
-    S.round_rect(gg, bx + 16, by + 14, bw - 32, 34, 8, nil, true, 0)
-    S.round_rect(gg, bx + 16, by + 14, bw - 32, 34, 8, 1)
-    local succ_title = is_en and '[ OK ] Download Complete!' or '[ OK ] Unduhan Selesai!'
-    S.center_text(gg, bx + bw // 2, by + 22, succ_title, 'medium')
-
-    local final_path = update_saved_path or 'AppFiles/muslimink/muslimink_update.xtapp'
-    local is_appfiles = final_path:find('AppFiles')
-    local is_root = final_path:find('^/sdcard/muslimink') or final_path:find('^muslimink')
-
-    -- Inset Box for File Location
-    local lbox_y = by + 58
-    local lbox_h = 60
-    S.round_rect(gg, bx + 16, lbox_y, bw - 32, lbox_h, 8, nil, true, 0)
-    S.round_rect(gg, bx + 16, lbox_y, bw - 32, lbox_h, 8, 1)
-
-    local folder_val = is_appfiles and 'AppFiles/muslimink/' or (is_root and 'Kartu Memori (SD Root)' or 'XTApps/muslimink/files/')
-    local file_val = 'muslimink_update.xtapp'
-
-    gg:text(bx + 26, lbox_y + 8, (is_en and 'Folder : ' or 'Folder : ') .. folder_val, { font = S.font('small') })
-    gg:text(bx + 26, lbox_y + 32, (is_en and 'File   : ' or 'Berkas : ') .. file_val, { font = S.font('medium') })
-
-    local ty = lbox_y + lbox_h + 16
-    gg:line(bx + 16, ty, bx + bw - 16, ty, { line_width = 1 })
-    ty = ty + 12
-
-    gg:text(bx + 16, ty, is_en and 'Steps to Install on X4 Pro:' or 'Langkah Pemasangan di X4 Pro:', { font = S.font('medium') })
+    S.round_rect(gg, bx + 16, by + 16, bw - 32, 34, 8, nil, true, 0)
+    S.round_rect(gg, bx + 16, by + 16, bw - 32, 34, 8, 1)
+    S.center_text(gg, bx + bw // 2, by + 24, is_en and '[ OK ] Download Complete!' or '[ OK ] Unduhan Selesai!', 'medium')
+    local lbox_y = by + 64
+    S.round_rect(gg, bx + 16, lbox_y, bw - 32, 60, 8, nil, true, 0)
+    S.round_rect(gg, bx + 16, lbox_y, bw - 32, 60, 8, 1)
+    gg:text(bx + 26, lbox_y + 8, 'Folder : AppFiles/muslimink/', { font = S.font('small') })
+    gg:text(bx + 26, lbox_y + 32, 'Berkas : muslimink_update.xtapp', { font = S.font('medium') })
+    local ty = lbox_y + 76
+    gg:text(bx + 16, ty, is_en and 'Installation Steps:' or 'Langkah Pemasangan:', { font = S.font('medium') })
     ty = ty + 24
-
     local steps = {
       '1. Buka Menu Samping -> All Files',
       '2. Buka folder AppFiles > muslimink',
       '3. Klik "muslimink_update.xtapp"',
       '4. Tekan OK untuk pasang & buka di Ink App'
     }
-
     for _, s in ipairs(steps) do
-      local w_s = S.wrap_lines(s, bw - 32, 'small')
-      for _, sub in ipairs(w_s) do
-        gg:text(bx + 16, ty, sub, { font = S.font('small') })
-        ty = ty + 24
-      end
+      gg:text(bx + 16, ty, s, { font = S.font('small') })
+      ty = ty + 24
     end
-
-    -- Bottom tips divider & text
-    ty = ty + 8
-    gg:line(bx + 16, ty, bx + bw - 16, ty, { line_width = 1 })
-    ty = ty + 12
-
-    gg:text(bx + 16, ty, is_en and 'Quick Install:' or 'Instalasi Cepat:', { font = S.font('medium') })
-    ty = ty + 22
-    local tip_desc = is_en and 'Tap "Exit App & Install" below.' or 'Tekan "Keluar Aplikasi & Pasang" di bawah.'
-    local w_tip = S.wrap_lines(tip_desc, bw - 32, 'small')
-    for i = 1, #w_tip do
-      gg:text(bx + 16, ty, w_tip[i], { font = S.font('small') })
-      ty = ty + 20
-    end
-
-    -- Bottom action buttons
-    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Exit App & Install' or 'Keluar Aplikasi & Pasang', true, 'medium')
-    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 108, mw - 40, 44, is_en and 'Exit App & Install' or 'Keluar Aplikasi & Pasang', true, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 54, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
 
   elseif update_state == 'error' then
-    -- Error View
-    local bx, by, bw, bh = mx + 16, my + 84, mw - 32, 280
+    local bx, by, bw, bh = mx + 16, my + 90, mw - 32, 280
     S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
     S.round_rect(gg, bx, by, bw, bh, 12, 1)
-
-    local err_title = is_en and '[ ! ] Update Failed' or '[ ! ] Gagal Mengunduh'
-    gg:text(bx + 20, by + 20, err_title, { font = S.font('medium') })
+    gg:text(bx + 20, by + 20, is_en and '[ ! ] Update Failed' or '[ ! ] Gagal Mengunduh', { font = S.font('medium') })
     local msg = update_err or (is_en and 'Network error. Ensure Wi-Fi is active.' or 'Koneksi gagal. Pastikan Wi-Fi aktif.')
     local w_lines = S.wrap_lines(msg, bw - 40, 'small')
     for i = 1, #w_lines do
-      gg:text(bx + 20, by + 52 + (i - 1) * 20, w_lines[i], { font = S.font('small') })
+      gg:text(bx + 20, by + 56 + (i - 1) * 20, w_lines[i], { font = S.font('small') })
     end
-
-    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Retry' or 'Coba Lagi', true, 'medium')
-    draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 108, mw - 40, 44, is_en and 'Retry' or 'Coba Lagi', true, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 54, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
 
   else
-    -- Idle State View: Changelog and Download Action
+    -- Idle State: Update Available View
     local cur_v = S.APP_VERSION
     local rem_v = (update_info and update_info.version) or cur_v
-    local sz_kb = math.floor(((update_info and update_info.size_bytes) or 427680) / 1024)
-    local rel_date = (update_info and update_info.release_date) or '2026-11-06'
+    local sz_kb = math.floor(((update_info and update_info.size_bytes) or 228000) / 1024)
+    local rel_date = (update_info and update_info.release_date) or '2026-11-08'
 
-    -- Info Card
-    local ix, iy, iw, ih = mx + 16, my + 78, mw - 32, 58
+    local ix, iy, iw, ih = mx + 16, my + 84, mw - 32, 60
     S.round_rect(gg, ix, iy, iw, ih, 10, nil, true, 0)
     S.round_rect(gg, ix, iy, iw, ih, 10, 1)
-
-    local t_line1 = is_en
-      and ('Latest: v' .. rem_v .. '  (Current: v' .. cur_v .. ')')
-      or ('Versi Baru: v' .. rem_v .. '  (Saat ini: v' .. cur_v .. ')')
-    local t_line2 = is_en
-      and ('Date: ' .. rel_date .. ' • Size: ~' .. sz_kb .. ' KB')
-      or ('Rilis: ' .. rel_date .. ' • Ukuran: ~' .. sz_kb .. ' KB')
+    local t_line1 = (is_en and 'New Version: v' or 'Versi Baru: v') .. rem_v .. '  (Aktif: v' .. cur_v .. ')'
+    local t_line2 = (is_en and 'Date: ' or 'Rilis: ') .. rel_date .. ' • Ukuran: ~' .. sz_kb .. ' KB'
     gg:text(ix + 16, iy + 10, t_line1, { font = S.font('medium') })
-    gg:text(ix + 16, iy + 32, t_line2, { font = S.font('small') })
+    gg:text(ix + 16, iy + 34, t_line2, { font = S.font('small') })
 
-    -- Segmented Tab at y = my + 144: [ Catatan Rilis ]  [ Scan QR HP ]
-    local tab_y = my + 144
-    local tab_w = mw - 32
-    local tab_h = 36
-    local active_tab_idx = (update_tab == 'qr') and 2 or 1
-    local tab_labels = is_en and { 'Changelog', 'Scan QR (Phone)' } or { 'Catatan Rilis', 'Scan QR HP' }
-    S.segmented_control(gg, mx + 16, tab_y, tab_w, tab_h, tab_labels, active_tab_idx)
-
-    local cx, cy, cw, ch = mx + 16, tab_y + 44, mw - 32, 396
+    local cx, cy, cw, ch = mx + 16, my + 154, mw - 32, 380
     S.round_rect(gg, cx, cy, cw, ch, 10, nil, true, 0)
     S.round_rect(gg, cx, cy, cw, ch, 10, 1)
+    gg:text(cx + 14, cy + 12, is_en and 'WHAT\'S NEW / CHANGELOG:' or 'CATATAN RILIS TERBARU:', { font = S.font('small') })
+    gg:line(cx + 14, cy + 32, cx + cw - 14, cy + 32, { line_width = 1 })
 
-    if update_tab == 'qr' then
-      -- QR Code Card for Phone Scanning
-      local qr_title = is_en and 'SCAN VIA PHONE CAMERA:' or 'PINDAI DENGAN KAMERA HP:'
-      gg:text(cx + 14, cy + 12, qr_title, { font = S.font('small') })
-      gg:line(cx + 14, cy + 30, cx + cw - 14, cy + 30, { line_width = 1 })
-
-      local rel_url = (update_info and (update_info.release_page_url or update_info.download_url)) or S.RELEASE_LATEST_URL
-      local qr_size = 150
-      S.draw_qr(gg, rel_url, cx + cw // 2, cy + 38, qr_size)
-
-      local qy = cy + 38 + qr_size + 14
-      local rel_short = 'github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases'
-      S.center_text(gg, cx + cw // 2, qy, rel_short, 'small')
-      qy = qy + 22
-
-      local steps = is_en and {
-        '1. Scan QR with your phone camera',
-        '2. Download muslimink.xtapp to phone',
-        '3. Copy to X4 Pro via USB / SD Card'
-      } or {
-        '1. Pindai QR di atas dengan kamera HP',
-        '2. Unduh berkas muslimink.xtapp ke HP',
-        '3. Salin ke X4 Pro via USB / SD Card'
-      }
-      for _, st in ipairs(steps) do
-        S.center_text(gg, cx + cw // 2, qy, st, 'small')
-        qy = qy + 19
-      end
-
-      -- Bottom action buttons
-      local btn_dl = is_en and 'Download on Device (Wi-Fi)' or 'Unduh di X4 Pro (Wi-Fi)'
-      draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, btn_dl, true, 'medium')
-      draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
-    else
-      -- Changelog Box
-      gg:text(cx + 14, cy + 12, is_en and 'WHAT\'S NEW / CHANGELOG:' or 'CATATAN RILIS TERBARU:', { font = S.font('small') })
-      gg:line(cx + 14, cy + 30, cx + cw - 14, cy + 30, { line_width = 1 })
-
-      local logs = is_en
-        and (update_info and update_info.changelog_en or { 'Bug fixes and performance improvements' })
-        or (update_info and update_info.changelog_id or { 'Perbaikan bug dan peningkatan performa' })
-
-      local ly = cy + 38
-      for idx, item in ipairs(logs) do
-        if ly + 20 <= cy + ch - 14 then
-          local w_sub = S.wrap_lines('• ' .. item, cw - 28, 'small')
-          for _, sub in ipairs(w_sub) do
-            if ly + 18 <= cy + ch - 14 then
-              gg:text(cx + 14, ly, sub, { font = S.font('small') })
-              ly = ly + 18
-            end
+    local logs = is_en and (update_info and update_info.changelog_en or { 'Bug fixes and performance improvements' })
+                        or (update_info and update_info.changelog_id or { 'Perbaikan bug dan optimasi performa' })
+    local ly = cy + 40
+    for idx, item in ipairs(logs) do
+      if ly + 22 <= cy + ch - 12 then
+        local w_sub = S.wrap_lines('• ' .. item, cw - 28, 'small')
+        for _, sub in ipairs(w_sub) do
+          if ly + 18 <= cy + ch - 12 then
+            gg:text(cx + 14, ly, sub, { font = S.font('small') })
+            ly = ly + 18
           end
-          ly = ly + 4
-        elseif idx <= #logs then
-          gg:text(cx + 14, cy + ch - 18, is_en and '• ... and further optimizations.' or '• ... serta optimasi performa lainnya.', { font = S.font('small') })
-          break
         end
+        ly = ly + 6
       end
-
-      -- Bottom action buttons
-      local btn_dl = is_en and 'Download & Save to SD Card' or 'Unduh & Simpan ke SD Card'
-      draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, btn_dl, true, 'medium')
-      draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Later' or 'Nanti', false, 'medium')
     end
+
+    draw_btn(gg, mx + 20, my + mh - 108, mw - 40, 44, is_en and 'Download Update (Wi-Fi)' or 'Unduh Pembaruan (Wi-Fi)', true, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 54, mw - 40, 42, is_en and 'Later' or 'Nanti', false, 'medium')
   end
 end
 

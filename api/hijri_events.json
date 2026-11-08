@@ -1,0 +1,12 @@
+[
+  { "hm": 1, "hd": 1, "id": "Tahun Baru Islam", "en": "Islamic New Year" },
+  { "hm": 1, "hd": 10, "id": "Puasa Sunnah Asyura", "en": "Day of Ashura Fast" },
+  { "hm": 3, "hd": 12, "id": "Maulid Nabi Muhammad", "en": "Mawlid al-Nabi" },
+  { "hm": 7, "hd": 27, "id": "Isra Mi'raj Nabi SAW", "en": "Isra and Mi'raj" },
+  { "hm": 8, "hd": 15, "id": "Malam Nisfu Sya'ban", "en": "Night of Mid-Sha'ban" },
+  { "hm": 9, "hd": 1, "id": "Awal Puasa Ramadhan", "en": "Start of Ramadan" },
+  { "hm": 9, "hd": 17, "id": "Malam Nuzulul Qur'an", "en": "Nuzulul Quran" },
+  { "hm": 10, "hd": 1, "id": "Hari Raya Idul Fitri", "en": "Eid al-Fitr" },
+  { "hm": 12, "hd": 9, "id": "Puasa Sunnah Arafah", "en": "Day of Arafah Fast" },
+  { "hm": 12, "hd": 10, "id": "Hari Raya Idul Adha", "en": "Eid al-Adha" }
+]

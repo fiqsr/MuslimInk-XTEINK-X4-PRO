@@ -104,6 +104,7 @@ local function keep_wifi(ms)
 end
 
 local function ensure_tasbih()
+  F.ensure_dhikr_loaded()
   local now_info = S.now(cfg)
   if not tsb then
     tsb = F.load_tasbih(now_info.day)
@@ -356,6 +357,52 @@ local function sync_countries_online()
           refresh()
         end
       end)
+    end)
+  end)
+end
+
+local function sync_dhikr_online()
+  if S.read('dhikr_list.json') then return end
+  if not (ctx and ctx.net and ctx.net.request) then return end
+  pcall(function()
+    ctx.net:request({
+      url = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/dhikr.json',
+      method = 'GET',
+      headers = { ['Accept'] = 'application/json' },
+      timeout_ms = 10000,
+    }, function(c, resp)
+      if type(resp) == 'table' and type(resp.body) == 'string' and #resp.body > 20 then
+        local ok, res = pcall(function() return ctx.json:decode(resp.body) end)
+        if ok and type(res) == 'table' and #res >= 2 then
+          S.write('dhikr_list.json', resp.body)
+          F.dhikr_loaded = false
+          F.ensure_dhikr_loaded()
+          refresh()
+        end
+      end
+    end)
+  end)
+end
+
+local function sync_hijri_events_online()
+  if S.read('hijri_events.json') then return end
+  if not (ctx and ctx.net and ctx.net.request) then return end
+  pcall(function()
+    ctx.net:request({
+      url = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/hijri_events.json',
+      method = 'GET',
+      headers = { ['Accept'] = 'application/json' },
+      timeout_ms = 10000,
+    }, function(c, resp)
+      if type(resp) == 'table' and type(resp.body) == 'string' and #resp.body > 20 then
+        local ok, res = pcall(function() return ctx.json:decode(resp.body) end)
+        if ok and type(res) == 'table' and #res >= 4 then
+          S.write('hijri_events.json', resp.body)
+          F.events_loaded = false
+          F.ensure_events_loaded()
+          refresh()
+        end
+      end
     end)
   end)
 end
@@ -1140,6 +1187,11 @@ local function check_drawer_tap(x, y)
       if screen == 'doa' then
         ensure_doa_ready()
         sync_doa_index_online()
+      elseif screen == 'tasbih' then
+        ensure_tasbih()
+        sync_dhikr_online()
+      elseif screen == 'hijri' then
+        sync_hijri_events_online()
       end
       status = nil
       return true
@@ -1378,10 +1430,10 @@ end
 
 local function check_update_modal_tap(x, y)
   if not update_modal then return false end
-  local mx, my, mw, mh = 16, 20, W - 32, 760
+  local mx, my, mw, mh = 20, 60, W - 40, 680
 
   -- Close button (✕) at top right
-  if x >= mx + mw - 46 and x <= mx + mw and y >= my + 4 and y <= my + 46 then
+  if x >= mx + mw - 52 and x <= mx + mw and y >= my + 10 and y <= my + 54 then
     if update_state ~= 'downloading' then
       update_modal = false
       refresh()
@@ -1389,45 +1441,32 @@ local function check_update_modal_tap(x, y)
     end
   end
 
-  if update_state == 'checking' then
+  local b1_y = my + mh - 108
+  local b2_y = my + mh - 54
+
+  if update_state == 'checking' or update_state == 'downloading' then
     -- Cancel button
-    local b_cancel_y = my + mh - 56
-    if y >= b_cancel_y and y <= b_cancel_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+    if y >= b2_y and y <= b2_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_modal = false
-      status = (cfg.lang == 'en') and 'Check cancelled.' or 'Pemeriksaan dibatalkan.'
+      status = (cfg.lang == 'en') and 'Cancelled.' or 'Dibatalkan.'
       refresh()
       return true
     end
 
   elseif update_state == 'up_to_date' then
-    -- [ Selesai / Tutup ] button
-    local b_close_y = my + mh - 56
-    if y >= b_close_y and y <= b_close_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+    -- Close button
+    if y >= b2_y and y <= b2_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_modal = false
       refresh()
       return true
     end
 
   elseif update_state == 'idle' then
-    -- Segmented tab tap: [ Catatan Rilis ] vs [ Scan QR HP ]
-    local tab_y = my + 144
-    if y >= tab_y and y <= tab_y + 38 and x >= mx + 16 and x <= mx + mw - 16 then
-      local mid_x = mx + mw // 2
-      if x < mid_x then
-        update_tab = 'notes'
-      else
-        update_tab = 'qr'
-      end
-      refresh()
-      return true
-    end
-
-    -- Button 1: [ Unduh & Simpan ke SD Card ]
-    local b1_y = my + mh - 110
+    -- Primary Button: [ Unduh Pembaruan ]
     if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_state = 'downloading'
       update_err = nil
-      local exp_total = (update_info and update_info.size_bytes) or 427680
+      local exp_total = (update_info and update_info.size_bytes) or 228000
       update_progress = { current = 0, total = exp_total }
       local is_en = (cfg.lang == 'en')
       status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
@@ -1439,8 +1478,8 @@ local function check_update_modal_tap(x, y)
         if ok then
           update_state = 'done'
           update_progress = { current = exp_total, total = exp_total }
-          update_saved_path = saved_path or 'XTApps/muslimink/files/muslimink_update.xtapp'
-          status = is_en and 'Download complete! Saved to app storage.' or 'Unduhan selesai! Tersimpan di folder aplikasi.'
+          update_saved_path = saved_path or 'AppFiles/muslimink/muslimink_update.xtapp'
+          status = is_en and 'Download complete! Saved to AppFiles/muslimink/' or 'Unduhan selesai! Tersimpan di folder AppFiles/muslimink/'
           pcall(function()
             if ctx and ctx.system and ctx.system.open then
               ctx.system:open(update_saved_path)
@@ -1456,66 +1495,41 @@ local function check_update_modal_tap(x, y)
       return true
     end
 
-    -- Button 2: [ Nanti / Tutup ]
-    local b2_y = my + mh - 56
-    if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+    -- Secondary Button: [ Nanti ]
+    if y >= b2_y and y <= b2_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_modal = false
-      refresh()
-      return true
-    end
-
-  elseif update_state == 'downloading' then
-    -- Cancel button
-    local b_cancel_y = my + mh - 56
-    if y >= b_cancel_y and y <= b_cancel_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
-      update_modal = false
-      status = (cfg.lang == 'en') and 'Download cancelled.' or 'Unduhan dibatalkan.'
       refresh()
       return true
     end
 
   elseif update_state == 'done' then
-    -- Button 1: [ Keluar Aplikasi & Pasang ]
-    local b1_y = my + mh - 110
+    -- Primary Button: [ Keluar Aplikasi & Pasang ]
     if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_modal = false
       pcall(function()
         if ctx and ctx.system and ctx.system.open then
-          ctx.system:open(update_saved_path or 'XTApps/muslimink/files/muslimink_update.xtapp')
+          ctx.system:open(update_saved_path or 'AppFiles/muslimink/muslimink_update.xtapp')
         end
       end)
       pcall(function() ctx:quit() end)
       return true
     end
 
-    -- Button 2: [ Tutup ]
-    local b2_y = my + mh - 56
-    if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+    -- Secondary Button: [ Tutup ]
+    if y >= b2_y and y <= b2_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_modal = false
       refresh()
       return true
     end
 
   elseif update_state == 'error' then
-    -- Button 0: [ Unduh Lewat HP (Scan QR) ] (y = my + mh - 164)
-    local b0_y = my + mh - 164
-    if y >= b0_y and y <= b0_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
-      update_tab = 'qr'
-      update_state = 'idle'
-      update_err = nil
-      refresh()
-      return true
-    end
-
-    -- Button 1: [ Coba Lagi di Perangkat ] (y = my + mh - 110)
-    local b1_y = my + mh - 110
+    -- Primary Button: [ Coba Lagi ]
     if y >= b1_y and y <= b1_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_state = 'downloading'
       update_err = nil
-      local exp_total = (update_info and update_info.size_bytes) or 427680
+      local exp_total = (update_info and update_info.size_bytes) or 228000
       update_progress = { current = 0, total = exp_total }
-      local is_en = (cfg.lang == 'en')
-      status = is_en and 'Downloading update package...' or 'Mengunduh berkas pembaruan...'
+      status = (cfg.lang == 'en') and 'Retrying download...' or 'Mengulang unduhan...'
       refresh()
       S.download_update(update_info, function(cur, tot)
         update_progress = { current = cur, total = tot }
@@ -1523,29 +1537,25 @@ local function check_update_modal_tap(x, y)
       end, function(ok, saved_path, err)
         if ok then
           update_state = 'done'
-          update_progress = { current = exp_total, total = exp_total }
-          update_saved_path = saved_path or '/sdcard/muslimink.xtapp'
-          status = is_en and 'Download complete! Saved to SD Card.' or 'Unduhan selesai! Tersimpan di SD Card.'
+          update_saved_path = saved_path or 'AppFiles/muslimink/muslimink_update.xtapp'
         else
           update_state = 'error'
-          update_err = err or (is_en and 'Download failed' or 'Gagal mengunduh')
-          status = update_err
+          update_err = err
         end
         refresh()
       end)
       return true
     end
 
-    -- Button 2: [ Tutup ] (y = my + mh - 56)
-    local b2_y = my + mh - 56
-    if y >= b2_y and y <= b2_y + 42 and x >= mx + 20 and x <= mx + mw - 20 then
+    -- Secondary Button: [ Tutup ]
+    if y >= b2_y and y <= b2_y + 44 and x >= mx + 20 and x <= mx + mw - 20 then
       update_modal = false
       refresh()
       return true
     end
   end
 
-  -- Tap outside modal dismisses (only when not actively downloading)
+  -- Tap outside modal dismisses
   if (x < mx or x > mx + mw or y < my or y > my + mh) and update_state ~= 'downloading' then
     update_modal = false
     refresh()

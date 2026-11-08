@@ -9,17 +9,19 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 227312,
+  "size_bytes": 223696,
   "changelog_id": [
-    "Database Wilayah Luar Negeri Modular: Seluruh daftar 26 negara dan 80+ kota internasional kini dimodularisasi penuh via GitHub (api/countries.json), menghemat ukuran instalasi aplikasi bawaan secara signifikan.",
-    "Arsitektur Font Modular On-Demand (Hemat ~21 KB): Hanya font bawaan (Modern Bulat) yang dikompilasi langsung ke dalam aplikasi. Font Klasik Serif, Tegas Bold, Geometris Slab, dan Angka Arab kini diunduh secara on-demand via GitHub (api/fonts/) dan dicache di penyimpanan perangkat.",
-    "Ukuran Paket Rekor Terendah 227.3 KB: Ukuran file muslimink.xtapp kini hanya 227.312 byte (221.9 KB), menyisakan ruang bebas raksasa ~34.8 KB dari batas 256 KB.",
-    "Sinkronisasi Otomatis Lockscreen: Font yang telah diunduh di aplikasi otomatis dapat digunakan di lockscreen tanpa error maupun konsumsi memori berlebih."
+    "Perampingan Modal Auto-Updater (Hemat ~4 KB): Tampilan sheet pembaruan dirombak menjadi Apple Compact Sheet yang minimalis, cepat, dan hemat memori tanpa QR code berlebih.",
+    "Katalog Peristiwa Islam & Puasa Sunnah Modular (api/hijri_events.json): Seluruh daftar 10 hari besar Islam dan puasa sunnah dimodularisasi via GitHub untuk pembaruan hisab tahunan yang fleksibel.",
+    "Koleksi Dzikir & Wirid Tasbih Modular (api/dhikr.json): Wirid sekunder kini dimuat secara on-demand sehingga bundle bawaan aplikasi tetap super ringan.",
+    "Database Wilayah Luar Negeri Modular: Seluruh daftar 26 negara dan 80+ kota internasional kini dimodularisasi penuh via GitHub (api/countries.json).",
+    "Ukuran Paket Rekor Terendah 223.7 KB: Ukuran file muslimink.xtapp kini terpangkas menjadi hanya 223.696 byte (218.4 KB), menyisakan ruang bebas raksasa ~38.5 KB dari batas 256 KB."
   ],
   "changelog_en": [
-    "Modular International Countries Database: The full 26-nation & 80+ city catalog is now loaded on-demand via GitHub (api/countries.json), substantially cutting bundle size.",
-    "Modular On-Demand Clock Fonts (~21 KB Saved): Only default Rounded font is baked in-app. Serif, Bold, Slab, and Arabic numerals are downloaded on-demand from GitHub (api/fonts/) and cached in local storage.",
-    "All-Time Record Slim 227.3 KB Package: File size slashed down to just 227,312 bytes (221.9 KB), giving a massive ~34.8 KB safety margin below the 256 KB limit.",
-    "Seamless Lockscreen Integration: Downloaded custom fonts automatically render on the lockscreen clock and next prayer cards with zero extra overhead."
+    "Streamlined Auto-Updater Sheet (~4 KB Saved): Compact Apple-style sheet replaces bulky multi-tab update modal for lightning fast loading.",
+    "Modular Islamic Events Catalog (api/hijri_events.json): Full 10-holiday calendar & sunnah fasts loaded on-demand from GitHub for flexible yearly updates.",
+    "Modular Tasbih Dhikr Presets (api/dhikr.json): Additional wirid presets now sync on-demand, keeping app startup lean and fast.",
+    "Modular International Countries Database: Full 26-nation & 80+ city catalog loaded on-demand via GitHub (api/countries.json).",
+    "All-Time Record Slim 223.7 KB Package: File size slashed down to just 223,696 bytes (218.4 KB), giving a massive ~38.5 KB safety margin below the 256 KB limit."
   ]
 }

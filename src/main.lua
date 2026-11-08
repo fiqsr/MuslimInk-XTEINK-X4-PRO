@@ -1099,6 +1099,8 @@ function on_draw(c, gg)
       draw_month_screen(gg, now_info)
     elseif screen == 'settings' then
       F.draw_settings_screen(gg, cfg, now_info, draw_btn, about_expanded, settings_scroll_y, update_modal or cfont_modal or quote_modal or storage_modal)
+    elseif screen == 'about' then
+      F.draw_about_screen(gg, cfg, now_info, draw_btn)
     else
       if screen == 'tasbih' then
         ensure_tasbih()
@@ -1594,16 +1596,12 @@ local function handle_tap_settings(x, y)
 
   -- 3. Middle Scrollable Content (y = 57..725)
   local cy = y + settings_scroll_y
-  local is_exp = (about_expanded == true)
-  local ab_body_h = is_exp and 680 or 0
-  local ab_h = 64 + ab_body_h
+  local ab_h = 76
 
-  -- Card 1: Apple Disclosure Group / Accordion tap toggle (y = 66..130)
-  if cy >= 66 and cy <= 66 + 64 and x >= 20 and x <= W - 20 then
-    about_expanded = not about_expanded
-    if not about_expanded then
-      settings_scroll_y = 0
-    end
+  -- Card 1: About MuslimInk & Developer Portfolio Screen Entry tap (y = 66..142)
+  if cy >= 66 and cy <= 66 + 76 and x >= 20 and x <= W - 20 then
+    screen = 'about'
+    prev_screen = 'settings'
     return
   end
 
@@ -1688,6 +1686,32 @@ local function handle_tap_settings(x, y)
       end)
     elseif i == 9 then
       storage_modal = true
+    end
+    return
+  end
+end
+
+local function handle_tap_about(x, y)
+  -- 1. Top App Bar (y = 0..56)
+  if y <= 56 then
+    -- Back button [ < Pengaturan ] / [ < Settings ] (x = 12..160)
+    if x >= 12 and x <= 160 then
+      screen = 'settings'
+      return
+    end
+    -- Hamburger ☰ button on top right
+    if x >= W - 64 then
+      drawer_open = true
+      return
+    end
+    return
+  end
+
+  -- 2. Docked Bottom Button (y = 724..800)
+  if y >= 724 and y <= 800 then
+    if x >= 20 and x <= W - 20 then
+      screen = 'settings'
+      return
     end
     return
   end
@@ -2353,8 +2377,7 @@ function on_input(c, ev)
         if check_hijri_modal_tap(x, y) then return end
 
         if screen == 'settings' then
-          local is_exp = (about_expanded == true)
-          local max_scroll = is_exp and 740 or 70
+          local max_scroll = 70
           if max_scroll > 0 and touch_down_y and math.abs(touch_down_y - y) > 25 then
             local delta = touch_down_y - y
             settings_scroll_y = math.max(0, math.min(max_scroll, settings_scroll_y + delta))
@@ -2445,6 +2468,8 @@ function on_input(c, ev)
         handle_tap_custom_coords(x, y)
       elseif screen == 'settings' then
         handle_tap_settings(x, y)
+      elseif screen == 'about' then
+        handle_tap_about(x, y)
       else
         if screen == 'tasbih' then
           handle_tap_tasbih(x, y)
@@ -2499,6 +2524,10 @@ end
         screen = 'hijri'
         refresh()
         return true
+      elseif screen == 'about' then
+        screen = 'settings'
+        refresh()
+        return true
       elseif screen == 'settings' then
         screen = prev_screen or 'main'
         settings_scroll_y = 0
@@ -2537,8 +2566,7 @@ end
       end
       return false
     elseif screen == 'settings' then
-      local is_exp = (about_expanded == true)
-      local max_scroll = is_exp and 740 or 70
+      local max_scroll = 70
       if ev.key == 'down' or ev.key == 'right' then
         settings_scroll_y = math.min(max_scroll, settings_scroll_y + 160)
         refresh()

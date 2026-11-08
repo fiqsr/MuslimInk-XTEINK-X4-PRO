@@ -776,6 +776,7 @@ gg:circle(cx,cy,3,{fill=true,color=0})
 end
 end
 end
+local APP_ICON_RLE="+%C$)&G$('&$8'%$K'&$'(%$6(&$M(%$&)%%5)&$<)$%N)%%5*%$%+%C4+&'9+)$O+%C:,'%:.$$=.$$5/&$50'$61'$82'$:3%$;4$%:6&$;7$$:8&$89*$7:,%6<.%5>0$3?4$1@8$/A<$.B>$-C@$,DB)-J@%&K%%NK%%+LC%'M%$MM%$(N&$KN&$)OG$+PC$"
 local BLACK={fill=true}
 local function unpack_pack(p)
 if not p then return nil end

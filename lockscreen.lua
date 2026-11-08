@@ -350,16 +350,17 @@ x2=x2 or(S.W - 24)
 gg:line(x1,y,x2,y,{line_width=1})
 end
 local qr_cache={}
+local APP_ICON_RLE="+%C$)&G$('&$8'%$K'&$'(%$6(&$M(%$&)%%5)&$<)$%N)%%5*%$%+%C4+&'9+)$O+%C:,'%:.$$=.$$5/&$50'$61'$82'$:3%$;4$%:6&$;7$$:8&$89*$7:,%6<.%5>0$3?4$1@8$/A<$.B>$-C@$,DB)-J@%&K%%NK%%+LC%'M%$MM%$(N&$KN&$)OG$+PC$"
 function S.draw_app_icon(gg,x,y,sz)
 sz=sz or 50
-S.round_rect(gg,x,y,sz,sz,12,nil,true,0)
-S.round_rect(gg,x,y,sz,sz,12,2)
-local cx,cy=x+sz//2,y+sz//2
-gg:rect(cx - 16,cy+8,32,6,{fill=true})
-gg:circle(cx,cy+4,12,{fill=true})
-gg:circle(cx,cy - 12,5,{fill=true})
-gg:circle(cx+2,cy - 14,4,{fill=true,color=0})
-gg:line(cx,cy - 7,cx,cy - 4,{line_width=1})
+gg:rect(x,y,sz,sz,{fill=true,color=0})
+local ox=x+(sz - 48)//2
+local oy=y+(sz - 48)//2
+local d=APP_ICON_RLE
+for i=1,#d,4 do
+local b1,b2,b3,b4=string.byte(d,i,i+3)
+gg:rect(ox+b1 - 35,oy+b2 - 35,b3 - 35,b4 - 35,{fill=true})
+end
 end
 local BLACK={fill=true}
 local function unpack_pack(p)

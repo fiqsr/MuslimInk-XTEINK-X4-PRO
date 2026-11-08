@@ -1213,10 +1213,10 @@ local function unpack_pack(p)
 end
 
 S.CFONT_NAMES = {
-  id = { '1. Modern Bulat', '2. Klasik Serif', '3. Tegas Bold', '4. Geometris Slab', '5. Artistik Inline', '6. Angka Arab' },
-  en = { '1. Modern Rounded', '2. Classic Serif', '3. Bold Geometric', '4. Geometric Slab', '5. Artistic Inline', '6. Arabic Numerals' },
-  id_s = { 'Modern Bulat', 'Klasik Serif', 'Tegas Bold', 'Geometris Slab', 'Artistik Inline', 'Angka Arab' },
-  en_s = { 'Modern Rounded', 'Classic Serif', 'Bold Geometric', 'Geometric Slab', 'Artistic Inline', 'Arabic Numerals' },
+  id = { '1. Modern Bulat', '2. Klasik Serif', '3. Tegas Bold', '4. Geometris Slab', '5. Angka Arab' },
+  en = { '1. Modern Rounded', '2. Classic Serif', '3. Bold Geometric', '4. Geometric Slab', '5. Arabic Numerals' },
+  id_s = { 'Modern Bulat', 'Klasik Serif', 'Tegas Bold', 'Geometris Slab', 'Angka Arab' },
+  en_s = { 'Modern Rounded', 'Classic Serif', 'Bold Geometric', 'Geometric Slab', 'Arabic Numerals' },
 }
 
 function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
@@ -1408,14 +1408,8 @@ S.AYAH_POOL = {
 S.BUILTIN_AYAHS = {
   [1] = { ref = 'QS. Ash-Sharh: 5', id = 'Maka sesungguhnya bersama kesulitan ada kemudahan,', en = 'For indeed, with hardship [will be] ease.' },
   [2] = { ref = 'QS. Ash-Sharh: 6', id = 'Sesungguhnya bersama kesulitan ada kemudahan.', en = 'Indeed, with hardship [will be] ease.' },
-  [3] = { ref = 'QS. Ash-Sharh: 7', id = 'Maka apabila engkau telah selesai (dari suatu urusan), tetaplah bekerja keras (untuk urusan yang lain),', en = 'So when you have finished [your duties], then stand up [for worship].' },
-  [4] = { ref = 'QS. Ash-Sharh: 8', id = 'Dan hanya kepada Tuhanmulah engkau berharap.', en = 'And to your Lord direct [your] longing.' },
-  [5] = { ref = "QS. Ar-Ra'd: 28", id = '(yaitu) orang-orang yang beriman dan hati mereka manjadi tenteram dengan mengingat Allah. Ingatlah, hanya dengan mengingati Allah-lah hati menjadi tenteram.', en = 'Those who have believed and whose hearts are assured by the remembrance of Allah. Unquestionably, by the remembrance of Allah hearts are assured.' },
-  [6] = { ref = 'QS. Ibrahim: 7', id = 'Sesungguhnya jika kamu bersyukur, niscaya Aku akan menambah (nikmat) kepadamu.', en = 'If you are grateful, I will surely increase you [in favor].' },
-  [7] = { ref = 'QS. Ta-Ha: 14', id = 'Sungguh, Aku ini Allah, tidak ada tuhan selain Aku, maka sembahlah Aku dan laksanakanlah shalat untuk mengingat-Ku.', en = 'Indeed, I am Allah. There is no deity except Me, so worship Me and establish prayer for My remembrance.' },
-  [8] = { ref = 'QS. Al-Anbiya: 87', id = 'Tidak ada tuhan selain Engkau, Mahasuci Engkau. Sungguh, aku termasuk orang-orang yang zalim.', en = 'There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.' },
-  [9] = { ref = "QS. Al-'Ankabut: 45", id = 'Dirikanlah shalat. Sesungguhnya shalat itu mencegah dari (perbuatan) keji dan mungkar.', en = 'Establish prayer. Indeed, prayer prohibits immorality and wrongdoing.' },
-  [10] = { ref = 'QS. At-Talaq: 3', id = 'Dan barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.', en = 'And whoever relies upon Allah - then He is sufficient for him.' },
+  [3] = { ref = 'QS. Ibrahim: 7', id = 'Sesungguhnya jika kamu bersyukur, niscaya Aku akan menambah (nikmat) kepadamu.', en = 'If you are grateful, I will surely increase you [in favor].' },
+  [4] = { ref = 'QS. At-Talaq: 3', id = 'Dan barangsiapa bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.', en = 'And whoever relies upon Allah - then He is sufficient for him.' },
 }
 
 function S.wrap_lines(s, max_w, fname)
@@ -1770,8 +1764,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.2.8'
-S.APP_BUILD = 128
+S.APP_VERSION = '1.2.9'
+S.APP_BUILD = 129
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'

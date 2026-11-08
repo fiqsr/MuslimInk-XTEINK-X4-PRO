@@ -1,6 +1,6 @@
 {
-  "version": "1.2.8",
-  "build": 128,
+  "version": "1.2.9",
+  "build": 129,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,15 +9,15 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 261856,
+  "size_bytes": 249872,
   "changelog_id": [
-    "Arsitektur Lokasi Dunia Dinamis via GitHub: Katalog lengkap 26 negara dan seluruh kotanya kini di-hosting di GitHub (api/countries.json), dengan seed offline in-app yang super ringkas dan opsi sinkronisasi satu sentuhan ('🌍 Sinkronkan Semua Negara...')",
-    "Optimasi Ukuran Paket Ekstrem: Penghematan memori signifikan menghasilkan ukuran paket .xtapp hanya 261.856 byte (di bawah batas 256 KB) dengan performa loading instan di X4 Pro",
-    "Dukungan Penuh Dwi-Bahasa (ID/EN): Nama negara internasional kini otomatis menyesuaikan bahasa aktif (Indonesia / English) saat dipilih di Pengaturan"
+    "Perbaikan Bug Lockscreen (Line 571): Memulihkan fungsi pemuat quote cache S.load_cached_quote pada lockscreen sehingga tampilan kartu kutipan ayat Al-Qur'an dan perhitungan tanggal Hijriah tampil normal tanpa error",
+    "Pengurangan Ukuran Ekstrem (~12 KB Lebih Ringan): Menghapus font jam Inline bergaris ganda yang memakan memori berlebih dan memodularisasi koleksi ayat Qur'an ke GitHub (api/quotes.json)",
+    "Ukuran Paket 249.8 KB (Lega 12 KB di Bawah Limit): Ukuran .xtapp kini hanya 249.872 byte, memberikan ruang performa dan stabilitas tinggi di Licorice OS X4 Pro"
   ],
   "changelog_en": [
-    "Dynamic World Countries Architecture via GitHub: Full catalog of 26 countries with all major cities is now hosted on GitHub (api/countries.json), featuring an ultra-compact offline in-app seed with one-tap on-demand sync ('🌍 Sync All Countries...')",
-    "Extreme Package Size Optimization: Significant memory savings keeping the .xtapp bundle at only 261,680 bytes (comfortably under the strict 256 KB limit) for blazing-fast loading on X4 Pro",
-    "Full Bilingual Country Name Support: International country names seamlessly adapt to the selected active language (Indonesian / English)"
+    "Lockscreen Line 571 Bug Fix: Retained quote cache loader S.load_cached_quote in lockscreen core, fully resolving the crash and rendering daily Quranic quotes flawlessly",
+    "Massive Size Reduction (~12 KB Lighter): Trimmed oversized Inline clock font and modularized quotes collection to GitHub (api/quotes.json)",
+    "Ultra Slim 249.8 KB Package (12 KB Buffer): The .xtapp bundle now stands at only 249,872 bytes for maximum speed and memory headroom on X4 Pro"
   ]
 }

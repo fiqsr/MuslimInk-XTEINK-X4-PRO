@@ -1573,7 +1573,7 @@ end
 function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
   local W, H = S.W, S.H
   local is_en = (cfg.lang == 'en')
-  local mx, my, mw, mh = 20, 84, W - 40, 632
+  local mx, my, mw, mh = 20, 110, W - 40, 546
 
   -- Dim background with authentic e-ink scrim (exposed borders outside modal card)
   for sy = 0, my - 2, 8 do
@@ -1611,23 +1611,21 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
     'Serif elegan',
     'Sans tebal tegas',
     'Slab retro kokoh',
-    'Garis ganda outline',
     'Kaligrafi Islam Naskh'
   }
   local fsubs_en = {
     'Smooth rounded sans',
     'Classy serif',
-    'Bold contrast sans',
+    'Bold display sans',
     'Geometric slab',
-    'Modern outline',
     'Islamic Naskh Script'
   }
 
   local cur_cf = cfg.cfont or 1
   local sample_time = (now_info and now_info.hhmm) or '12:34'
 
-  -- 6 Font Option Rows
-  for i = 1, 6 do
+  -- 5 Font Option Rows
+  for i = 1, #fnames do
     local ry = my + 78 + (i - 1) * 78
     local rw = mw - 24
     local rh = 72

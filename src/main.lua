@@ -517,7 +517,7 @@ local function toggle_lang()
 end
 
 local function cycle_cfont()
-  cfg.cfont = ((cfg.cfont or 1) % 6) + 1
+  cfg.cfont = ((cfg.cfont or 1) % #S.CFONT_NAMES.id) + 1
   S.save_cfg(cfg)
   local fnames = (cfg.lang == 'en') and S.CFONT_NAMES.en_s or S.CFONT_NAMES.id_s
   status = (cfg.lang == 'en' and 'Clock font: ' or 'Gaya jam: ') .. (fnames[cfg.cfont] or '')
@@ -1185,7 +1185,7 @@ end
 
 local function check_cfont_modal_tap(x, y)
   if not cfont_modal then return false end
-  local mx, my, mw, mh = 20, 84, W - 40, 632
+  local mx, my, mw, mh = 20, 110, W - 40, 546
 
   -- Close button ✕ at top right
   if x >= mx + mw - 52 and x <= mx + mw and y >= my + 14 and y <= my + 54 then
@@ -1199,8 +1199,9 @@ local function check_cfont_modal_tap(x, y)
     return true
   end
 
-  -- Tap on one of the 6 font rows
-  for i = 1, 6 do
+  -- Tap on one of the font rows
+  local num_fonts = #S.CFONT_NAMES.id
+  for i = 1, num_fonts do
     local ry = my + 78 + (i - 1) * 78
     if y >= ry and y < ry + 74 and x >= mx + 12 and x <= mx + mw - 12 then
       cfg.cfont = i

@@ -1,7 +1,7 @@
 {
   "app_id": "muslimink",
   "display_name": "MuslimInk",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "author": "fiqsr (https://github.com/fiqsr)",
   "description": "MuslimInk — Modern All-in-One Islamic Companion untuk XTEINK E-Ink: Jadwal Sholat Kemenag RI, Tasbih Digital, Doa Harian, Kalender Hijriah MABIMS, Kompas Kiblat, dan Lockscreen.",
   "entry": "index.lua",

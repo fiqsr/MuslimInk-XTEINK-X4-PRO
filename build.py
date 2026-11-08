@@ -298,7 +298,7 @@ end
         "S.julian_date", "S.sun_position", "S.calc_day_prayer", "S.generate_month",
         "S.check_for_updates", "S.save_update_package", "S.download_update",
         "S.compare_versions", "S.parse_version_json",
-        "S.save_cached_quote", "S.quote_period_key", "S.parse_ayah_json", "S.try_fetch_quote", "S.effective_hijri", "S.load_cached_quote"
+        "S.save_cached_quote", "S.quote_period_key", "S.parse_ayah_json", "S.try_fetch_quote", "S.load_cached_quote"
     ]
     for fn in funcs_to_strip:
         lock_core = strip_function(lock_core, fn)

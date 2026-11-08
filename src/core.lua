@@ -1272,12 +1272,12 @@ function S.draw_next_card(gg, x, y, w, h, info, cfont_idx)
   S.round_rect(gg, x, y, w, h, 18, nil, true, 0)
   S.round_rect(gg, x, y, w, h, 18, 2)
 
-  local label = info.is_tomorrow and L.next_card_tom or L.next_card
+  local label = info.is_tomorrow and (is_en and 'TOMORROW' or 'BESOK') or (is_en and 'NEXT PRAYER' or 'BERIKUTNYA')
 
-  -- Top Left: Apple Dynamic Island Inverted Capsule Pill [ ● SHALAT BERIKUTNYA ]
+  -- Top Left: Apple Dynamic Island Inverted Capsule Pill [ ● NEXT PRAYER ]
   local bw, bh, br = S.text_w(label, 'small') + 26, 22, 11
   local bx, by = x + 16, y + 12
-  gg:rect(bx, by, bw, bh, { fill = true, radius = br, color = 1 })
+  gg:rect(bx, by, bw, bh, { fill = true, radius = br })
   gg:circle(bx + 10, by + 11, 3, { fill = true, color = 0 })
   gg:text(bx + 19, by + 1, label, { font = S.font('small'), color = 0 })
 

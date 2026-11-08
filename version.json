@@ -9,10 +9,10 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 261680,
+  "size_bytes": 261856,
   "changelog_id": [
     "Arsitektur Lokasi Dunia Dinamis via GitHub: Katalog lengkap 26 negara dan seluruh kotanya kini di-hosting di GitHub (api/countries.json), dengan seed offline in-app yang super ringkas dan opsi sinkronisasi satu sentuhan ('🌍 Sinkronkan Semua Negara...')",
-    "Optimasi Ukuran Paket Ekstrem: Penghematan memori signifikan menghasilkan ukuran paket .xtapp hanya 261.680 byte (di bawah batas 256 KB) dengan performa loading instan di X4 Pro",
+    "Optimasi Ukuran Paket Ekstrem: Penghematan memori signifikan menghasilkan ukuran paket .xtapp hanya 261.856 byte (di bawah batas 256 KB) dengan performa loading instan di X4 Pro",
     "Dukungan Penuh Dwi-Bahasa (ID/EN): Nama negara internasional kini otomatis menyesuaikan bahasa aktif (Indonesia / English) saat dipilih di Pengaturan"
   ],
   "changelog_en": [

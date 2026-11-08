@@ -432,7 +432,7 @@ local function _PSC()
     C[#C + 1] = { name = cname, name_en = nen, method_id = mid, cities_count = tostring(#list) .. ' Kota', cities = list }
   end
 
-  U('Arab Saudi', 'Saudi Arabia', 4, 'Makkah:21.4225:39.8262:3:Umm Al-Qura:18.5:18:90;Madinah:24.4672:39.6111:3:Umm Al-Qura:18.5:18:90')
+  U('Arab Saudi', 'Saudi Arabia', 4, 'Makkah:21.4225:39.8262:3:Umm Al-Qura:18.5:18:90')
   U('Malaysia', 'Malaysia', 17, 'Kuala Lumpur:3.1390:101.6869:8:JAKIM:20:18')
   U('Singapura', 'Singapore', 11, 'Singapore:1.3521:103.8198:8:MUIS:20:18')
   U('Brunei Darussalam', 'Brunei', 20, 'Bandar Seri Begawan:4.9031:114.9398:8:MUIS:20:18')
@@ -2032,28 +2032,15 @@ function F.draw_update_modal(gg, cfg, update_info, update_state, update_err, upd
     S.round_rect(gg, bx, by, bw, bh, 12, nil, true, 0)
     S.round_rect(gg, bx, by, bw, bh, 12, 1)
 
-    local err_title = is_en and '[ ! ] Update Incomplete' or '[ ! ] Unduhan Belum Selesai'
+    local err_title = is_en and '[ ! ] Update Failed' or '[ ! ] Gagal Mengunduh'
     gg:text(bx + 20, by + 20, err_title, { font = S.font('medium') })
-    local msg = update_err or (is_en and 'Network connection error.' or 'Terjadi kesalahan jaringan.')
+    local msg = update_err or (is_en and 'Network error. Ensure Wi-Fi is active.' or 'Koneksi gagal. Pastikan Wi-Fi aktif.')
     local w_lines = S.wrap_lines(msg, bw - 40, 'small')
-    local my_y = by + 52
     for i = 1, #w_lines do
-      gg:text(bx + 20, my_y, w_lines[i], { font = S.font('small') })
-      my_y = my_y + 20
+      gg:text(bx + 20, by + 52 + (i - 1) * 20, w_lines[i], { font = S.font('small') })
     end
 
-    my_y = math.max(my_y + 8, by + 130)
-    local tip = is_en
-      and 'Ensure Wi-Fi is active, or scan QR code below.'
-      or 'Pastikan Wi-Fi aktif, atau scan QR code di bawah.'
-    local w_tips = S.wrap_lines(tip, bw - 40, 'small')
-    for i = 1, #w_tips do
-      gg:text(bx + 20, my_y, w_tips[i], { font = S.font('small') })
-      my_y = my_y + 20
-    end
-
-    draw_btn(gg, mx + 20, my + mh - 164, mw - 40, 44, is_en and 'Download via Phone (Scan QR)' or 'Unduh Lewat HP (Scan QR)', false, 'medium')
-    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Retry on Device' or 'Coba Lagi di Perangkat', true, 'medium')
+    draw_btn(gg, mx + 20, my + mh - 110, mw - 40, 44, is_en and 'Retry' or 'Coba Lagi', true, 'medium')
     draw_btn(gg, mx + 20, my + mh - 56, mw - 40, 42, is_en and 'Close' or 'Tutup', false, 'medium')
 
   else

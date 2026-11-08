@@ -87,6 +87,19 @@ local hm=(total_m%12)+1
 if hm<1 then hm=1 elseif hm>12 then hm=12 end
 return hy,hm,hd,tostring(hd)..' '..L.hijri_bulan[hm]..' '..tostring(hy)..' H'
 end
+function S.effective_hijri(now_info,cfg,today_row)
+local L=S.L(cfg)
+if not today_row then
+local days_cur=S.load_month(now_info.y,now_info.m,cfg and cfg.prov,cfg and cfg.kab)
+today_row=days_cur and days_cur[now_info.d] or nil
+end
+local maghrib_min=(today_row and S.hhmm_to_min(today_row[7]))or(18*60)
+local use_maghrib=(cfg==nil or cfg.maghrib~=false)
+local after_maghrib=use_maghrib and((now_info.cur_min or 0)>=maghrib_min)
+local eff_day=after_maghrib and(now_info.day+1)or now_info.day
+local hy,hm,hd,hijri_str=S.hijri(eff_day,cfg and cfg.adj or 0,L)
+return hy,hm,hd,hijri_str,after_maghrib,eff_day
+end
 function S.now(cfg)
 local L=S.L(cfg)
 local ok,t=pcall(function()return ctx.clock:now()end)
@@ -425,10 +438,10 @@ local is_en=(L==S.LANGS.en)
 local is_c=(h<124)
 S.round_rect(gg,x,y,w,h,18,nil,true,0)
 S.round_rect(gg,x,y,w,h,18,2)
-local label=info.is_tomorrow and L.next_card_tom or L.next_card
+local label=info.is_tomorrow and(is_en and 'TOMORROW' or 'BESOK')or(is_en and 'NEXT PRAYER' or 'BERIKUTNYA')
 local bw,bh,br=S.text_w(label,'small')+26,22,11
 local bx,by=x+16,y+12
-gg:rect(bx,by,bw,bh,{fill=true,radius=br,color=1})
+gg:rect(bx,by,bw,bh,{fill=true,radius=br})
 gg:circle(bx+10,by+11,3,{fill=true,color=0})
 gg:text(bx+19,by+1,label,{font=S.font('small'),color=0})
 local cd=info.cd_str or ''

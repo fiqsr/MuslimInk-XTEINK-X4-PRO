@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Rounded",
+    "slug": "rounded",
+    "size": 3862,
+    "builtin": true
+  },
+  {
+    "id": 2,
+    "name": "Serif",
+    "slug": "serif",
+    "size": 3887,
+    "builtin": false
+  },
+  {
+    "id": 3,
+    "name": "Bold",
+    "slug": "bold",
+    "size": 3796,
+    "builtin": false
+  },
+  {
+    "id": 4,
+    "name": "Slab",
+    "slug": "slab",
+    "size": 3680,
+    "builtin": false
+  },
+  {
+    "id": 5,
+    "name": "Arabic",
+    "slug": "arabic",
+    "size": 3378,
+    "builtin": false
+  }
+]

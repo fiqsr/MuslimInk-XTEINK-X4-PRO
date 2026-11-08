@@ -122,32 +122,33 @@ def extract_font_size(font_path, px_size, is_arabic=False):
 
 def build_packed_fonts(include_sm=True):
     lines = ['local CF = {}']
-    for idx, (name, path, big_px, sm_px, is_ar) in enumerate(CLOCK_FONTS, start=1):
-        if not os.path.exists(path):
-            path = '/system/fonts/Roboto-Regular.ttf'
-        bh, bg = extract_font_size(path, big_px, is_ar)
+    # Font 1 (Rounded) is baked in-app as default offline fallback
+    name, path, big_px, sm_px, is_ar = CLOCK_FONTS[0]
+    if not os.path.exists(path):
+        path = '/system/fonts/Roboto-Regular.ttf'
+    bh, bg = extract_font_size(path, big_px, is_ar)
 
-        def pack_size(h, gmap):
-            w_str = "".join(chr(gmap[c][0] + 35) for c in "0123456789:")
-            c_str = "{" + ",".join(str(len(gmap[c][1]) // 8) for c in "0123456789:") + "}"
-            r_str = ""
-            for c in "0123456789:":
-                hex_s = gmap[c][1]
-                for i in range(0, len(hex_s), 8):
-                    r_str += chr(int(hex_s[i:i + 2], 16) + 35)
-                    r_str += chr(int(hex_s[i + 2:i + 4], 16) + 35)
-                    r_str += chr(int(hex_s[i + 4:i + 6], 16) + 35)
-                    r_str += chr(int(hex_s[i + 6:i + 8], 16) + 35)
-            return h, w_str, c_str, r_str
+    def pack_size(h, gmap):
+        w_str = "".join(chr(gmap[c][0] + 35) for c in "0123456789:")
+        c_str = "{" + ",".join(str(len(gmap[c][1]) // 8) for c in "0123456789:") + "}"
+        r_str = ""
+        for c in "0123456789:":
+            hex_s = gmap[c][1]
+            for i in range(0, len(hex_s), 8):
+                r_str += chr(int(hex_s[i:i + 2], 16) + 35)
+                r_str += chr(int(hex_s[i + 2:i + 4], 16) + 35)
+                r_str += chr(int(hex_s[i + 4:i + 6], 16) + 35)
+                r_str += chr(int(hex_s[i + 6:i + 8], 16) + 35)
+        return h, w_str, c_str, r_str
 
-        b_h, b_w, b_c, b_r = pack_size(bh, bg)
-        f_entry = [f'CF[{idx}] = {{ name = "{name}", big = {{ h = {b_h}, w = [=[{b_w}]=], c = {b_c}, r = [=[{b_r}]=] }}']
-        if include_sm:
-            sh, sg = extract_font_size(path, sm_px, is_ar)
-            s_h, s_w, s_c, s_r = pack_size(sh, sg)
-            f_entry.append(f', sm = {{ h = {s_h}, w = [=[{s_w}]=], c = {s_c}, r = [=[{s_r}]=] }}')
-        f_entry.append(' }')
-        lines.append("".join(f_entry))
+    b_h, b_w, b_c, b_r = pack_size(bh, bg)
+    f_entry = [f'CF[1] = {{ name = "{name}", big = {{ h = {b_h}, w = [=[{b_w}]=], c = {b_c}, r = [=[{b_r}]=] }}']
+    if include_sm:
+        sh, sg = extract_font_size(path, sm_px, is_ar)
+        s_h, s_w, s_c, s_r = pack_size(sh, sg)
+        f_entry.append(f', sm = {{ h = {s_h}, w = [=[{s_w}]=], c = {s_c}, r = [=[{s_r}]=] }}')
+    f_entry.append(' }')
+    lines.append("".join(f_entry))
     lines.append('return CF')
     return '\n'.join(lines)
 
@@ -297,7 +298,8 @@ end
         "S.julian_date", "S.sun_position", "S.calc_day_prayer", "S.generate_month",
         "S.check_for_updates", "S.save_update_package", "S.download_update",
         "S.compare_versions", "S.parse_version_json",
-        "S.save_cached_quote", "S.quote_period_key", "S.parse_ayah_json", "S.try_fetch_quote"
+        "S.save_cached_quote", "S.quote_period_key", "S.parse_ayah_json", "S.try_fetch_quote",
+        "S.download_cfont"
     ]
     for fn in funcs_to_strip:
         lock_core = strip_function(lock_core, fn)

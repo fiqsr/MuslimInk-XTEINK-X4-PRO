@@ -2,10 +2,6 @@
 local CF = (function()
 local CF = {}
 CF[1] = { name = "Rounded", big = { h = 82, w = [=[fW``ebc_ecD]=], c = {71,23,69,75,59,60,82,53,95,80,25}, r = [=[@$-$<%5$9&;$8'=$6(A$5)C$4*E$3+G$2,I$1-K$0.L$0/M$/04$I05$.14$K13$.22$L23$M32$-32%-51$N42%,62$O61$O72$,71%P81%Q:0$+91&+<0$Q;1'R?0$*=1'*A0%R@1+SH0,)C16*V0%RQ1*RX0%*X1'+\0$QZ1&Q]0$+]1&P^1&,`1%,b2$Oa1%-c1$Nc1$-d2$Md2$.e2$Le2$.f3$Kf3$/g4$Ig4$/hN$0iL$1jJ$2kI$2lH$3mF$4nD$6o@$7p>$9q:$;r6$?s/$>$)$<%-$:&0$8'3$6(5$4)7$2*:$0+<$.,>$--?$,.@$+/A%*1B%*33$+40$+5.$,6+$.7($;31_<o/%=q-$>r+$?s)$;$.$7%6$5&:$3'>$1(A$0)D$.*G$-+I$,,J$+-L$*.N%)06$D05$)14$G12$)22$H22$)31$I31$*4/$J40$*5.$+6,$-7($K50&L8/,KA/%JC0$JD/$IE0%HG0$GH1$FI1%EK1$DL2$CM2$BN2$AO3$@P3$?Q3$>R3$=S3$<T3$;U4$:V4$9W4$8X4$7Y4$6Z4$5[4$4\4$3]4$2^4$1_4$0`4$/a4$.b4$-c4$,d4$+e4$*f5$)gQ$)hS$(iU&(lV%)nT%*pR$+qP$-rM$:$/$6%7$3&<$1'@$0(C$.)F$-*H$,+J$+,L$*-N$*.O%*04$C07$*11$F14$*2/$H23$+3-$I32$,4*$.5&$J41%K60*K=/$J>0%I@0$HA1$FB2$DC4$>D9$9E=$7F=$7G<$6H;$6I9$6J<$6K>$6L@$7M@$7NA$9O@$>P<$DQ7$GR5$IS3$JT3$KU2$LV1$MW1&NZ0(M_1%La2$*b)$Lb1$)c,$Kc2$(d.$Jd3$(e0$Ie3$'f3$Gf5$'g6$Dg7$'hT$'iS$(jQ%)lO$*mL$,nI$-oG$/pC$1q?$4r9$9s0$L$)$K%+$J&-$I'/$H(1$G)2%F+3$E,4%D.5$C/6%B17$A28%@49$?5:%>7;$=8<$=9/$<:/$;;0$;</$:=/$9>0$9?/$8@0$7A0$7B/$6C0$5D0$5E/$4F0$3G0%2I0$1J0%0L0$/M0%.O0$-P1$-Q0$,R0$+S1$+T0$*U0$)V1$)W0$(X1$J9/C(Y0$IY7$'Z[$'[\%']]((b[$)cY$+dV$Ie0.Jp/$Jq.$Kr,$Ms)$2%E$0&I$/'K$.(M$-)N(-.M$,/M$,0L$,10',5/*+<0'>A0$;B6$+@/'9C:$+DJ$+EK$+FL$+GN%+IO$+JP$+KQ$+L3$FL6$,M0$IM4$-N-$JN3$.O*$KO3$LP2$MQ2%NS1&OV1*O]0$N^1&.a%$Ma2$+b*$*c-$Lb2%)d/$Kd3$)e1$Ie4$)f3$Gf6$)g6$Dg8$)hR%*jP$*kO$+lM$,mK$.nH$/oF$1pB$3q>$6r8$:s0$D$($C%+$B&-$A'/$@(0%?*1$>+2%=-2%</2$;02%:22$932%852$861$772$682$691$5:2$4;2%3=2$3>1$2?2$1@2$1A1$AA-$0BB$0CD$/DG$/EH$.FK$.GL$-HN$-IO$,JQ$,KR$+L9$FL8$+M6$JM5$+N4$LN3$*O4$MO3$*P3$NP2$*Q2$OQ2$)R2%PR1%PT2$)T1&(W1))]0$QU1.)^1&P`2$)a2$Pa1$*b1$Ob2$*c2$Nc3$*d3$Md3$+e3$Le4$+f5$Kf4$,g6$Hg7$,hR$-iP$.jO$/kM$0lK$1mI$2nF$3oD$5p@$7q<$9r8$=s0$+%M$*&Q$)'S$((U$')V'(-U%)/T$*0R$M1/$L20$L3/$K40$K5/$J60%J8/$I90$I:/$H;0%G=0%F?0&EB0%DD0%CF1$CG0%BI0%AK0%@M1$@N0$?O1$?P0%>R1$>S0$=T1$=U0$<V1%;X1%;Z0$:[1%9]1%8_1&7b1%6d1%5f2$5g1$4h2$4i1%3k2$3l1%3n0%3p/$4q.$5r,$7s($>$/$:%7$7&<$5'@$4(C$3)E$1*H$0+K$/,L$/-M$..8$E.8$-/4$I/4$-03$K03$-12$L12$,22$M22$,31%N31%,50$O50$+61'O61(,:0'O;0&,>1$N>1$-?0$N?0$-@1$M@1$.A1$LA1$.B2$KB2$/C3$IC3$0D6$DD7$1EI$2FG$3GE$5HA$6I?$4JC$2KF$1LI$0MK$/NM$.O6$FO7$-P4$JP4$,Q3$LQ3$,R2$MR2$+S2$NS2$+T1$OT1$*U1%PU1%QW0$)W1()\0$)]1(QX1-Pb2$)b2%Pc1$*d2$Od2$*e3$Ne3$+f3$Mf3$+g4$Lg4$,h6$Jh5$,iS$-jQ$.kO$/lM$0mK$1nI$2oG$4pC$6q?$9r9$=s1$=$/$9%7$6&<$4'@$3(C$1)F$0*I$/+K$.,M$--O$,.P$+/R$+07$G07$*15$J14$)24$K24$)33$L33$)42$M43$N52$(52%O61%(71%'92$':1+P81.OC2$(B1&OD1$(E2$(F3$NE2%)G2$MG3$)H3$LH3$*I4$KI4$*J5$IJ6$+K7$FK8$,LR$,MQ$-NP$.ON$/PM$0QK$2RI$3SG$5TE$8UA$;V.$GV2$GW1$FX1$EY2$EZ1$D[2$C\2$C]1$B^2$A_2%@a2$?b2%>d2$=e3$=f2$<g2%;i2$:j2%9l2$9m1%9o0$:p.%;r,$=s($0.)$./-$-0/$,11$,22$+33$+44)+:3$,;2$-<0$.=.$/>,$2?&$0S*$.T-$-U/$,V1$,W2$+X3$+Y4)+_3$,`2$-a0$.b.$/c+$]=] }, sm = { h = 26, w = [=[8366767677-]=], c = {25,8,21,22,18,21,28,16,31,25,8}, r = [=[*$*$)%,$(&.$''0$&(($0('$0)($&)'%%+($1*'%1,(%2.'(13($%,',%5($&6'$14'&&7($07($'8($/8($'90$(:.$);+$,<%$*$'$(%)$'&+$%'-%&)&$*)(5+;&$,<$$)$)$'%-$&&/$%'1$%('$.(($%)&$/)'$0*&%/,'&./'$-0($,1($+2($*3($)4($(5($'6($&7($%8)$%92&)$)$'%-$&&/$%'1$%('$.(($/)''--($).+$)/*$)0,$*1,$/2($03''%7&$/7($$8)$.8)$$92$%:0$';,$*<&$/$&$.%(%-')$,(*%+*+$*+'$*,&$)-'$(.'%'0'$&1'%%3'$/+',$44$$55%%73$/8''0<$$'$.$&%0&&('&&+&%%-'$*-*$%.0$%/1$&0'$.0)$'1$$/1($02((%7&$/7($%8($.8)$%91$&:/$';-$+<%$-$%$,%'$+&($+''$*(($))($)*'$(+($(,'$'--$&.0$&/1$%0*$.0)$%1($01($12'%14(%%2'(16'$%7($07($&8($/8)$&91$':/$);+$,<%$%$1$$%3%%'2$0(&$/)'%.+'%--'&,0'%+2'%*4($*5'$)6($)7'%(9($(:'%)<$$*$*$(%-$'&/$&')$/'($0('$0)($1*'$0+($&('(0,'$'-'$/-($(..$)/,$'0/$&1)$/1($%2($02($13'%15($%3''%7($16'%%8)$08($&91$':/$(;-$,<&$)$*$(%-$&&0$&'1$%(($/()$%)'$0)($$*('1*''%.'$0.($%/($//)$&01$'10$(2.$+3+$-4($-5'$,6($+7(%*9($*:'%+<$$'&%$&''$%()%&*'$'+%$&2'$%3)%&5'%]=] } }
-CF[2] = { name = "Serif", big = { h = 79, w = [=[lVdciee`jeB]=], c = {75,26,66,81,41,68,82,49,101,82,26}, r = [=[A$0$>%6$;&;$9'?$8(B$6)E$5*2$J*2$4+2$L+2$3,2$L,3$2-3$M-2$1.3$N.2$0/4$N/3$003$N04$O13$/14%O24$.34$O35$P44$-45&P55%P76$,75%Q85%+96'Q:6'Q>7%*=6'R@6&RC72)A75RR6&*S6'QU7%*W7$+X6&QW6'Q[5$P\6$,[5&-^5%P]5&P`4$.`4%Oa5$Ob4$/b4%Oc3$0d3$Nd4$1e3$Ne3$2f2$Mf3$2g3$Mg2$3h2$Lh2$4i2$Ki2$6j2$Jj2$7kD$8lB$:m>$<n:$>o5$Bp-$B%($@&*$>',$<(.$:)0$8*2$6+4$4,6$2-8$0.:$./<$,0>$*1@$(2B%(4&$149$258$367S2f8%2h9$1i:$0j<$/k?$,lD$*mI%*oH$<$/$9%6$6&;$5'>$3(B$2)D$1*F$0+H$/,J$.-L$-.M$,/O$,0P$+1Q$+2,$;2A$*3*$>3?$*4($?4>$*5'$A5<$)6'$*7%$B6;%+8$$C8:$D99$D::%E<8)EB7&EE6%DG6%DI5$CJ5%BL5$BM4$AN4$@O4$@P3$?Q3$>R3$=S3$<T2$;U2$:V1$9W1$8X0$7Y0$6Z/$5[.$Z[&$3\.$Y\'$2]-$X]($1^,$V^*$/_,$S_-$.`Q$,aS$+bT$)cV%)eU))kT(>$-$9%6$6&<$4'@$2(C$1)F$0*H$/+J$.,L$--N$,.O$,/+$=/?$+0)$?0=$*1)$@1=$*2($A2<$*3'$B3;$*4&$+5$$C4:%D69)D<8&C?8$C@7$BA7%AC6$@D6$>E6$<F5$7G7$6H9$6I=$6J?$9K>$>L;$@M:$BN9$CO9$DP9$EQ9$FR8$FS9$GT8$/U%$GU9$,V+$*W.$)X0$(Y2$(Z3%HV8,G_9$'\4('a3$G`8%(b2$Fb9$(c1$(d0$Ec9%)e.$De9$)f)$Cf9$*g)$Ag;$+h)$?h<$,i+$=i=$-jK$.kI$/lF$1mC$2n@$5o:$9p2$I%4$H&5$G'6%F)7$E*8%D,9$C-:%B/;$A0<%@2($?3(%>5($>6'$=7($<8($<9'$;:($:;(%9=($8>(%7@($6A(%5C($4D(%3F($2G(%1I($0J(%/L(%.N($-O(%,Q($+R(%*T($)U($F27G)V]$(W^$'X_%&Z`-Fd7/3%L&2(L)1.L)04M$05($06''/:($/;'(A?/$.@($=@7$:A<$8B@$6CC$.A''5DF$-E($3EI$-FP$-GQ$-H-$@H>$-I+$BI=$-J*$CJ<$,K*$DK<$,L)$EL;$,M($FM;%GO:%0U&$-V,$HQ:),W.$+X0$IW9%*Y2$*Z3$HY:&H\9')[4)G`9%)a3%Fb:$*c1$Fc9$*d0$Ed:$+e-$De:$+f)$Cf:$,g)$Bg:$-h*$@h;$.i,$=i=$/jJ$0kH$2lE$3mB$5n>$8o8$=p.$Q%.$K&4$G'8$D(8$A)6$?*5$=+5$;,5$:-4$8.5$7/5$605$416$326$236$146$056$065$/76$.86$-97$-:6$,;7$+<7%*>7&H@)$)A8$DA2$)B7$BB6$@C:$?D=$(C8&>E?$(FV$'G>$FG9$'H<$HH8$'I;$II7$JJ7$'J:%JK8$KL7$'L9%KM8$LN7%LP8$&N9'&R8%'T7*([6'MQ71)_5%*a4$M_6&*b5$Mb5$Lc6$+c4%Ld5$,e3$Le4$-f3$Kf5$.g2$Kg4$.h3$Kh3$0i1$Ji3$1j1$Ij3$2k1$Hk2$3l2$Fl3$5mB$7n>$:o8$?p.$*%U))+V)(1V$(2U$(3T%(5+$Q5*$'6*$P6*$'7($O7+$'8'$N8+$'9&$M9+$L:,$K;,$J<,$I=-$I>,$H?-$G@-$FA.$EB.%DD.$CE/$BF/%AH/$@I0%?K0$>L1%=N1$<O2%;Q2$:R3%9T3%8V4%7X4%6Z5$6[4$5\5%4^6%3`6%2b7%2d6$1e7%0g8&/j8&.m9&>$3$:%;$7&A$5'E$3(2$J(2$2)1$L)1$1*0$N*0$0+0$O+0$/,0$P,0$.-1$P-1$-.1%Q.1%Q02$,02&R11%+33'R32'+74%+95$Q73&+:6$+;7$P:3%+<9$O<3$+=;$N=4$,><$M>4$,?>$L?4$,@A$K@4$-AP$-BO$.CL$/DH$0EH$1FI$2GJ$4HI$5IJ$7JI$4KM$2LP$0MS$/NU$-OX$,P7$BPC$+Q7$DQB$+R6$FR@$HS?$*S6%JT=$)U6$KU<$)V5$MV;$NW:$(W6%OX9$PY8$QZ7$(Y5&R[6&S^5$(\4(S_4&)a3%)c4$Sb3%*d3$Sd2$+e2$+f3$Re2%,g2$Qg2$-h2$Ph2$.i2$Oi2$/j3$Nj2$1k2$Lk2$2l5$Il4$4mG$7nA$:o;$?p1$<$1$8%9$5&?$3'C$2(2$F(2$0)3$H)1$/*3$I*1$.+3$J+1$-,3$J,2$,-4$K-2$+.4$K.3$K/4$*/5%L03$L14$)15%L25%(36%'57$L46%M65$'66'M76'&:7(M;7(&?8%'A7'L@8)(E7&KF9&)H7%JI:$*J7$*K8$IJ;%+L8$GL<$,M9$EM>$-NV$.O?$KO8$0P<$1Q9$KP7%3R5$JR8$6S0$<T$$JS7&IV7%HX7$HY6$GZ7$G[6$F\7$F]6$E^6$D_6$D`5$Ca5$Bb5$Ac5$@d5$?e5$>f4$<g5$;h4$9i4$6j5$3k6$.l8$+m8$+n4$,o,$0-($..,$-/.$,00$+12%+33$*44'+83$+92$,:1$,;0$.<-$/=*$/Q*$.R-$-S/$,T1$+U2$+V3$*W4'+[3$+\2%,^0$-_.$.`,$1a'$]=] }, sm = { h = 25, w = [=[:377977697-]=], c = {26,8,21,25,18,23,25,18,28,24,8}, r = [=[*$+$)%($/%($(&($0&($''($0')$1(($&()%&*($1))&1,*%2.)&11*%%+)-13)&&5)%16($'7($07)$(8($08($)9'$/9($*:+$.;$$,$%$*%'$(&)$&'+$$(-$())3'9+$%:/$)$*$'%.$&&0$&'1$%(%$+(,$%)$$,)+$-**%.,)%-.)%-0($,1($+2($*3'$)4'$(5&$35%$&62$%73$%82&)$+$'%.$&&0$&'%$+',$%($$-(*'-,)$,-)$*.)$)/+$,0*$-1*$%3&$%4'$$5)$$6($.2*(%7'$.7)$%8%$,8+$&90$':-$+;&$.$)%-&*$,'+$,($$+)%$**%$*+$$),%$)-$$(.$$'/%$'0$$&1%$%2%$.().%35$$46'.8)&($0$(%/%''0%')$&+,)$&,%%)--$&.1$&/%$-/+$&0$$.0*%.2+$&3&$/3*%%4(&%7'$.5*&&8%$-8*$'9/$(:,$,;$$/$)$,%)$*&)$)'($((($'))$&*)%/,$$%,)%,-*$$.3$$/+$//)$/0*$$0*&$3)%01))%5)&07($&8($/8)$'9($/9($):,$,;%$%$3'%(2$$)%$1)%$0*&$/+&$.,&$--'$-.&$,/'$+0($+1'$*2($)3)$)4($(5)&'8*$'9)%)$-$'%($0%'$'&'$1&'$&''%%))%1'('&+*$0+)$&,2$'-/%)//$'02$&1)$-1-$/2+$%2)%03*$14)$%4('25(&&8($18($'9($09($):-$-;%$)$+$'%($.%($&&($/&($%')$%(($0'(%$))'$-*$0))(%.)%/.*%&0*$.0+$'12$)2'$/2)%.4)%-6)$,7)$+8($)9)$&:)$&''$%((%&*'$&+&$&2'$%3(%&5'$&6&$]=] } }
-CF[3] = { name = "Bold", big = { h = 81, w = [=[fW``ebc_ecD]=], c = {71,24,71,75,50,59,82,48,90,79,25}, r = [=[@#-$<$5$9%;$8&=$6'A$5(C$4)E$3*G$2+I$1,K$0-L$0.M$//4$I/5$.04$K03$.12$L13$M22$-22%-41$N32%,52$O51$O62$,61%P71%Q90$+81&+;0$Q:1'R>0$*<1'*@0%R?1+SG0,)B16*U0%RP1*RW0%*W1'+[0$QY1&Q\0$+\1&P]1&,_1%,a2$O`1%-b1$Nb1$-c2$Mc2$.d2$Ld2$.e3$Ke3$/f4$If4$/gN$0hL$1iJ$2jI$2kH$3lF$4mD$6n@$7o>$9p:$;q6$?r/$?$+$=%.$;&1$9'3$7(5$5)7$3*9$2+:$0,<$.->$,.@$+/A%*1B%*33$*42$*50$*6.$*7,$*8*$*9($*:'$;31`;p0$<q.$;#.$7$6$5%;$3&?$1'B$0(E$/)G$.*I$-+K$,,L$+-N$+.O$*/6$C/7$)04$F05$)12$H13$)21$I22$*3/$J32$+4-$-5*$K41%/6'$17$$L60%L81&M;0$L<0(KA1$KB0$JC1%IE1%HG1$GH2$FI2%EK2$DL2$CM3$BN3$AO3$@P3$?Q4$>R4$=S4$<T4$<U3$;V3$:W3$9X3$8Y3$7Z3$6[4$5\4$4]4$3^4$2_4$1`4$0a4$/b4$.c4$-d4$,e4$+fQ%*hS$)iT%(kU((pT$)qR$:#/$6$7$3%=$2&?$0'C$.(F$-)I$,*K$++L$*,N$)-P%)/4$C/7$)02$F04$*1/$H13$+2-$I22$,3+$-4)$J31%/5%$K50*K</$J=0%I?0$H@1$GA1$EB2$AC6$6D@$6E>$6F=$6G;$6H9$6I<$6J>$6K@$6LA$6MB$6NC$BO8$FP5$HQ4$JR2$KS2$LT1%MV1'NZ0%M\1'L`2$,a'$La1$+b)$Kb2$*c,$Jc3$)d.$Id3$(e1$Ge5$(f4$Df7$'gT$'hS$(iQ%)kO$*lM$,mI$-nG$/oC$1p?$4q:$8r1$L$,$K%.$J&/$I'0%H)1$G*2%F,3$E-4%D/5$C06%B27$A38%@59$?6:%>8;$=9/%<;/$<<.$;=/$:>/$:?.$9@/$8A/%7C/$6D/%5F/$4G0$4H/$3I/$2J0$2K/$1L0$0M0$0N/$/O0$.P0$.Q/$-R0$,S0%+U0$*V0%J9/B)X1$IX9$(YZ$(Z[$'[\+'c[$Id00Jq.$/$K$-%N,,.O$,/N$,00',4/*+;0(>@0$;A6$9B:$+@/'8C=$+DK$+EL$+FN$+GO%*IQ$*JR$*K4$FK7$+L1$IL4$,M.$JM4$.N+$KN3$2O%$LO2$MP2%NR1%OT0$OU1*O\0$N]1&/`%$M`2$.a'$-b*$La2%,c,$Kc3$+d/$Id4$*e2$Ge6$)f6$Df8$)gS$)hR$)iQ$*jO$+kM$,lK$.mH$0nE$1oB$3p>$6q8$:r1$C$/$A%1$@&2$?'3$?(2$>)2%=+2$<,2%;.2$;/1$:02$912$921$832$841$751$662$671$581%4:1$3;2$3<1$2=1$1>2$1?1$A@/$0@1%?A5$/BG$/CH$.DK$-EM$-FN$-GO$,HQ$,IR$+J9$GJ7$+K6$JK5$*L5$LL4$*M4$MM3$*N3$NN2$*O2$OO2$)P2%PP1%)R1&)U0$QR1)RX0%(V1))\1&QZ1(P_2$)_2%P`1$Oa2$*a2%Nb3$*c3$Nc2$+d3$Ld4$+e5$Ke4$,f7$Hf7$-gQ%.iO$/jM$0kK$1lI$2mG$4nC$5oA$7p=$:q7$=r1$)$S$'%W+'-V%(/T$M0/$L10$L2/$K30$K4/$J50%I70%I9/$H:0%G<0%F>0%F@/$EA0%DC0%CE0%BG1$BH0%AJ0%@L1$@M0$?N1$?O0%>Q1$>R0$=S1$=T0$<U1%;W1%;Y0$:Z1$:[0$9\1%8^1%7`1&6c1%5e1%4g2$4h1%3j1%2l2$2m1$1n2$1o1%1q/$>#/$:$7$8%<$6&@$4'C$3(F$1)I$0*K$0+L$/,M$.-7$F-7$..3$J.4$-/3$K/3$-02$,12$M02%,21%N21%O41*,40,O;0%,=1$N=1$->0$N>0$-?1$M?1$.@1$L@1$.A2$KA2$/B3$IB3$0C6$EC6$1DI$2EG$3FE$5GA$6H?$4IC$3JF$1KI$0LK$/MN$.N6$GN6$-O4$JO4$,P3$LP3$,Q2$NQ2$+R2$OR1$+S1$OS2$*T1%PT1%*V0$QV1(R[0$)W1-Q\1()a2$*b1$Pa2%*c2$*d3$Oc2%+e3$Ne3$+f4$Lf4$,g5$Jg6$,hS$-iQ$.jO$/kN$0lK$1mI$2nG$4oC$6p?$9q9$=r1$=#/$9$6$6%<$4&@$2'D$1(F$0)H$/*K$.+M$-,N$,-P$+.R$+/7$G/7$*05$I05$*13$K14$)23$L23$)32$M33$N42$(42%O51%(61%'82$'91,P71/(B1%OC1%(D2%NE2$)F2$MF3$)G3$MG2$*H3$KH4$*I4$JI5$+J6$HJ6$+KS$,LR$-MP$.NO$/OM$0PL$1QJ$3RH$5SE$7T3$IT1$;U+$HU1$GV1%FX1$EY2$EZ1$D[1%C]1$B^2$B_1$A`1$@a2$@b1$?c2$>d2$>e1$=f2$=g1$<h2$;i2%:k2$9l2%8n2%7p2$8q/$0-)$..-$-//$,01$,12$+23$+34)+93$,:2$-;0$.<.$/=,$2>&$0R*$.S-$-T/$,U1$,V2$+W3$+X4)+^3$,_2$-`0$.a.$/b+$]=] }, sm = { h = 26, w = [=[8366767677-]=], c = {25,8,21,23,17,23,28,15,30,27,8}, r = [=[*$*$)%,$(&.$''0$&(($0('$0)($&)'%%+($1*'%1,(%2.'(13($%,',%5($&6'$14'&&7($07($'8($/8($'90$(:.$);+$,<%$+$&$)%)$(&*$&',$%(-$%)'$%*&$*)(6)$)$'%-$&&/$%'1$%('$.(($&)%$/)($0*'&/-'%./($-0($,1($+2)$*3)$*4($)5($(6($'7($&8)$%92&)$)$'%-$&&/$%'1$%('$.(($&)%$/)''.-'$).+$)/*$)0,$)1-$/2($03''%7&$/7($%8'$.8)$$92$%:0$';-$+<%$0$%$/%'$.&($-')%,)*$+*+$++&$*,'$)-'%(/'$'0'%&2'$%3'$/+',%43$$55&/8'''$/$&%0&&('&&+&%%-'$*-*$%.0$%/1$%0($.0)$'1$$/1($02(%14'$05(%&7%$/7($%8($.8)$%91$&:/$(;,$+<%$-$&$,%'$+&($*'($*('$))($)*'$(+'$',($'--$&.0$&/1$%0)$/0)$%1($01($12'%14($%2'(15'%%7($07($&8($/8)$&91$':/$);,$,<%$%$2$$%3&0(&$/)'%.+'%--'&,0'%+2'%*4($*5'$)6($)7'%(9($(:'$';($*$)$(%-$'&/$&'($/'($0((%1*'$0+($&('(0,'$'-'$/-($(..$)/,$'0/$&1)$/1($&2'$02($13'%%3''15(%%7($17'$%8)$08($&91$':/$(;-$,<%$)$*$(%-$&&0$&'1$%(($/(($%)'$0)($$*('1*''%.'$0.($%/($//)$&01$'10$(2.$+3%$.3($.4'$-5'$,6($,7'$+8($+9'$*:($);($'&%$&''$%()%&*'$'+%$&2'$%3)%&5'%]=] } }
-CF[4] = { name = "Slab", big = { h = 78, w = [=[hWbcgee`geB]=], c = {65,16,70,85,41,59,79,45,90,79,26}, r = [=[?$0$;%8$9&<$7'@$6(B$4)F$3*H$2+J$1,L%0.N$//P$/06$H07$.16$J16$.25$K25$-35$L35$-44$M44$,55$M55$,64%N64%N85$+84&*;5$O94&O<5$*<4(P=4(PB5$QC43)A46PS5$)T5$PT4(*U4(+Z4&OY4'N]4%,]4&M_5$-`4$M`4$-a5$La5$.b5$Kb5$.c6$Jc6$/d7$Hd7$/eP$0fN$1gL%2iJ$3jH$4kF$6lB$7m@$9n<$<o6$@p.$:%/$7&2$5'4$3(6$1)8$/*:$-+<$*,?+*4-$*5*$*6($*7&$*8$$544S*dJ.*oI$<$/$9%6$6&;$4'?$3(A$1)D$0*G$/+H$.,J$--L$,.N%+0P$*18$C18$*25$F26$)34$H34$)43$I43$(53$J52$)61$J63$+7.$-8+$/9)$1:&$2;%$K72+K?1$J@2&IC2$HD3%GF3$FG4$EH4%DJ4$CK4$BL4$AM5$@N5$?O5$>P5$>Q4$=R4$<S5$;T5$:U5$9V5$8W5$7X5$6Y5$5Z5$4[5$3\6$2]6$Q[-&1^6$0_6$/`6$.a6$P^.'-b6$,c7$Ob/%,dR$+eS$*fT$)gU,<$0$8%8$5&>$3'A$2(D$0)G$/*I$.+K$-,M$,-N$,.O$+/P$+0Q$*16$E17$*24$G26$)34$H35$)43$I44$)52$)61$+7.$-8,$J53'/9)$1:'$K92%3;%$J;3%J=2$I>3%H@3$GA4$EB5$BC7$=D<$=E;$=F9$=G8$=H6$=I7$=J9$=K;$=L<$=M>%CO9$FP7$GQ7$IR5$-T*$JS5%+U.$KU4$*V0$KV5$)W2$)X3$(Y4$(Z5$LW4*K^5%'[6)J`6$Ja5$(a4%Ib6$(c3$Hc7$)d4$Fd8$)e7$Ce:$*fS$+gQ$+hP$,iN$-jL$/kI$0lF$2mB$4n>$7o8$<p/$F%4$E&5$D'6%C)7$B*8%A,9$@-:%?/;$>0<%=2=$<3>%;5?$:6@%98/$89/$8:.$7;/$6</%5>/$4?/%3A/$2B/%1D/$0E0$0F/$/G/%.I/$-J/%,L/$+M0$+N/$*O/$)P0$)Q/$(R/$F84>'S^%&U_+F]4+Ee5$=fE-.%O).+N%--O'-1/,E=$$>>2$<?7$,:/*:@;$,AK$,BL$,CN$,DO$,EP%+GR$+HS$+I4$DI:$+J1$GJ8$+K/$HK7$+L.$JL6$+M-$KM5$LN4%MP4%.T*$,U.$+V1$*W2$*X3$)Y5&NR3-M\4%(\6'L^4%)`5$K`5$Ja5$)a4%Ib6$Hc6$*c2%Fd8$+e4$Ce:$+fQ$,gP$-hN$.iL$/jJ$0kG$2lD$4m@$6n<$9o6$=p.$P%.$I&5$E'9$B(<$@)>$>*@$<+B$;,C$9-E$8.<$7/9$608$517$426$336$245$155$164$075$/85$/94$.:4%-<4%,>4%,@3$B@1$?A7$+A4%=B;$+CO$*DQ$*ER$*FS$*GT$*HU$)IW%)K9$JK7$)L7$LL5$)M6$MM5$)N5$NN4$OO3$OP4$)O4&PQ3')R3()W2%QU3(QZ2$)Y3&*\2%P[3'*^3%O_4$O`3$+`3%Na4$+b4$Mb4$,c4$Lc5$,d6$Jd6$-e7$He8$.fQ$.gP$/hN$0iM$1jJ$3kG$4lE$6mA$8n=$:o8$?p.$'%X,'.W&'1/%M10&L40%K61$'3.(K70$J81$'8-%J90$I:1%I<0$H=1%G?1%FA1&ED1%DF2$DG1$CH2%CJ1$BK2$BL1$AM2%@O2%?Q3$?R2%>T2%=V3$=W2$<X3%<Z2$;[3%:]3%9_3&8b3%7d4$7e3$6f4$6g3%5i4$5j3$4k4%3m4%3o3$>$1$:%9$8&>$6'B$4(E$3)H$1*K$0+M$/,O$/-P$..Q$-/8$I/7$-05$K06$,15$L15$,24$M24$N34$,33%O43%+53'+92$P62)+:3&,=2$O<3%O>2$,>3%N?3$-@3$M@4$-A4$LA4$.B5$JB6$/C7$GC8$/DO$0EM$1FK$3GH$4HE$5ID$3JG$1KK$0LM$/MP$.NR$-O6$JO7$,P5$LP5$+Q5$NQ4$+R4$*S4$OR4%*T3$PT4$)U4$QU3&RX3()V3,Q]4%Q_3$)_4%P`4$)a5$Oa5$*b5$Nb6$*c6$Mc6$+d7$Ld7$+e:$Ie9$,fV$-gT$-hS$.iQ$0jN$1kL$2lI$4mE$7n@$:o:$?p0$<$1$8%9$5&>$3'B$2(E$0)H$/*J$.+L$-,N$,-P$+.R$+/7$G/7$*06$I05$)15$K14$L23$)24%L34$(44$M43$N52$(53%'74$N63%O82&'83-O;3*'B4$(C3%NB4&(E4$ME5$)F4$LF6$)G5$KG7$)H6$JH8$*I7$HI9$*JW$+KV$,LU$-MT%.OR$0PP$1QO$3R:$LR4$5S6$9T0$KS4%KU3$JV4%IX4%HZ4$G[5$G\4$F]4$E^5$D_5$C`5$Ba5$@b7$>c8$<d9$:e:$6f=$-gD$-hC$-iA$-j?$-k=$-l;$-m8$-n4$-o,$0,($.-,$-..$,/0$+02%+23$*34'+73$+82$,91$,:0$.;-$/<*$/P*$.Q-$-R/$,S1$+T2$+U3$*V4'+Z3$+[2%,]0$-^.$._,$1`'$]=] }, sm = { h = 25, w = [=[8377877687-]=], c = {24,7,21,25,19,19,23,17,25,28,8}, r = [=[*$+$(%.$'&0$'')$.'*$&()$0(($&)($0))$%*)%1*((1/)%%,(+%4)$11('05)$&5(%06($'7)$/7)$'80$(9.$):,$-;$$)$($'%*$%&,&%)%$))(1&7.$%8/&)$*$'%.$&&0$%'1$%(($.()$%)'$'*$$/)((..($-/)$,0)$+1)$+2($*3($)4($(5($'6)$15&%&71$%82&)$+$'%.$&&0$%'2$%(($.()$%)'$'*%$/)(&.,($,-*$+.*%+0+$.1)$/2)$%3'$03(&$4)&/6)$%7($.7)$%82$&90$(:,$,;$$.$($-%)$,&*%+(+$*),$**&$)+'$(,'$(-&$'.'$&/'$&0&$%1'$.*(+$25$$36%-5)$.6(%+8.&&$1'&(''&,/$&-0$&.1$&/'$./*$&0&$/0)$%3(%%5)$01((/6)$%6(%.7)$&81$'9/$(:,$,;$$/$($,%+$*&-$)'*$(()$'))$'*($&+(%-,'$%-1$%.2$%/3$%0)$00($11((%1()06)$&7($/7)$'81$'90$):,$-;$$$$4&$'3$0('$$('%/)($%*%$/*'%.,'%-.($-/'$,0(%,2'$+3(%*5(%)7(%(9)$(:($)$,$(%.$'&0$&')$/')$&(($0(($&)'%1)(&&+(%0,($'-1$(./$(/.$'00$&1)$01($%2((12((%7)$07)$&82$'90$(:.$-;$$)$+$'%/$&&1$%')$/'($%(($$))$0((%1*'$$*(&1+(%$-)$0-)$%.($0.($%/3$&02$'11$)2($/2)$/3($.4)$.5($-6($+7*$&8.$&9,$&:)$&''$%((%&*'$&+&$&2'$%3(%&5'$&6&$]=] } }
-CF[5] = { name = "Arabic", big = { h = 81, w = [=[ON[b[U^__[E]=], c = {25,33,49,52,76,65,35,88,88,62,39}, r = [=[5I%$5J'$4K*$4L+$3M.$2N0$2O2$1P4$1Q5$0R7$0S8$/T:%.V;$-W;%-Y:$/Z8$0[6$2\3$3]2$5^/$6_.$8`+$9a)$;b'$<c%$5)$$3*'$1+)$0,+$/-,$...$-//$-00%,22&,53&,84$-93$-:4$.;3%/=2$/>3$0?2%0A3$1B2%2D1$2E2$3F1&4I1&5L0&6O0&7R/(8W.&8Z/&9]-,:f,':j+):p*%>r&$4)&$Q)'$2*($1+*$0,+$/--$Q*)'...$-/0%P.*&,11$O1+%,22%N3,$N4+$M5,$,43&L6-$,74$K7.$-83$J8/$-96$H91$-:K$.;J%/=I$/>H$0?G$0@F$1AE$1BD$2CC$2DB$2EA$3F?$3G>$4H;$4I8$4J1$5K0$5L1%6N0'7R0(8W/)9].,:f,*:m+(>r&$6)$$X)&$4*&$J*&$2+)$1,*$0-,$H+)&X*)'/.-$H.*$.//%I/)&-11%X.*(I2*%-32%,54$W3+&H4+&V6,$-63%G7-$U7-$-84$F8<$-95$E9=$.:S%/<R%0>P&1AN$1BM$2CL$2DK$3E=$PE+$3F<$RF'$4G:$4H9$4I6$5J0$5K1%6M0&7P0(8U/(9Z.):`-,:i,);o*&?r&$D$$$B%'$A&($?'*$=(,$<).$;*/$9+0$8,1$7-2$6.3$5/4$404$315$226$136$046$055$/65$/74$/82$.92$.:0$.;/$-<.$-=,$->+$-?,$,@/$,A1$,B3$,C6$,D9$,E;$,F<$+G=$,H<$,I=$-J<$.K<$/L;$0M:$2N7$3O5$6P2$8Q/$9R-$9S,$8T,$8U+$7V,$6W,$6X+$5Y+%4[+$4\*$3]+$3^*%2`+$2a,$2b-$2c0$Rc&$2dF$2eG%2gF$3hD%4jB$4kA$5l?$6m=$7n<$8o:$:p6$<q3$@r-$</)$:0-$91/$723$734$645$557$469$37:$38;$29<$2:=$1;>$0<?$0=@$/>A%/@.$>@2$.A-$@A1$.B,$BB/$CC.$-C,%-E+$DD-%EF,$,F+%EG-$,H*$+I+$FH,%+J*&GJ+'*M*&*P)&HN*+GV+$GW*$)S*)FX+$)Y+$EY,$)Z,$DZ-$)[-$C[.$)\.$B\/$)]1$?]1$)^G%*`E%*bD$*cC$+dB$+eA$+f@$,g>$-h<$-i;$.j9$0k5$2l2$5m,$*(%$))*$)*/$D*+$)+G%(-I''1I'&5J%'7H$*8E$-9B$2:0$E:*$D;+*CB,)CH-*CO.(CT/$DU.%DW/&DZ0%E\0&E_1%Fa1%Fc2%Ge2&Hh0$Hi/$Hj.$Ik,%Im+$Jn)$Jo($Jp'$Kq%$-)$$+*&$T*%$)+)$S+&$(,*$S,'$'-,$R-)$'.-$R.*$&/.$Q/,$%00%Q0-%%21$P2/$P30$$32%O42%$53%O61$N72$$74%N81$M92$%94&M:1%&<4$L<1$'=3$'>4$L=0%(?3%K?0%KA/$)A3%JB0$*C3%+E2$JC/&+F3$,G2$IF/%,H3$IH.$HI/$-I2%.K2$HJ.%HL-$/L1%GM.$0N1%1P0$GN-&1Q1$FQ-%2R0%2T1$FS,%EU-$3U0%4W0%EV,&EY+$5Y/%DZ,$6[/%7].$D[+&7^/$D^*$7_7$8`6$8a5$9b4%9d3$:e2%:g1$;h0&<k.%=m,$=n+$=o)$>p'$>q%$>r$$C)$$B*%$@+($?,)$=-+$<.-$;/.%;1/$:20%:41$952%973$884$895%7;6$7<7$7=*$?=/$6>+&@>/&5A,$@A0$5B+$AB/$AC0%4C,&3F-$BE0%BG1$3G,%CH0$2I-%CI1%1K.$DK1%1L-%DM2$0N.$EN1$0O-$EO2%/P.%.R/$FQ2%.S.$FS3$GT2$GU3$-T/&HV2$,W/%HW3%+Y0$+Z/$IY3%*[0%J[3%J]4$)]0%K^3$(_1$K_4$'`1%&b2$L`4&&c1$Mc4%%d2%Ne3%$f2%%h0$Og2%&i/$'j.$Pi0%Qk/$(k,%Ql.$)m*$*n)$Rm,%+o'$So*$,p&$Sp)$-q$$Tq&$Tr$$7'($5(-$3)1$2*3$1+5$0,7$/-9$..:$./;$-0<$,1>%+3@%*5A$*6,$863$)7+$:72$)8*$;81$<90$)9)%=:/$(;*&>;.&(>+$(?,$(@.$?>-&(A1$?A.$(BE%)DD&*GC%+IB%,KA$-L@$.M?$0N=$2O<$5P-$@P.$AQ-&AT.&AW/&AZ0&B]0%B_1%Ca1&Cd2$De1$Df2%Eh1$Ei0$Ej/$Fk-$Fl,$Fm+$Gn)$Go($Gp'$Hq%$Hr$$1+$$1,&$0-)$/.+$//-$.0/$.10$-22$-33$,45%+65$*76$+84$-92$/:/$0;-$2<+$3=)$5>&$6?%$1U%$1V&$0W)$/X+$/Y-$.Z/$.[1$-\3%,^5$+_6$+`5%,b3$.c0$/d/$1e,$2f+$4g($5h&$6i%$]=] }, sm = { h = 26, w = [=[1046425554-]=], c = {8,12,14,17,21,21,12,22,25,18,12}, r = [=[)/$$(0&$(1($'2*$&3+$'4)$(5($*6%$'&&$&''$&((%&*)$'+(%(-'$(.($)/''*3&$*4'%*6&(+;%$(%$$'&&$1%%&&''%&)($0(&%&*/$'+.%(-,$(.+$(/($)0'(*5&(*:%$'%%$&&&$.%%&&''%.(&$3%%'&)($.)*$&*2%',0$'-/$(.*$(/'$(0($)1'(*6&&*9%%-$$$+%&$*&'$)'($(()$'))$'*'$'+%$&,'$&-)$&.+%'0+$)1($*2&$)3&$)4%$(5%%(7.%)9,$):+$+;($*''$)()$()*$(*+$'+,$',&$,,($&-&$--'$&.%%..&%%0&$/0%&%1%&.3&$%4&$-4'$%5.%&7,$&8+$(9($%&-$%'.$$(/$$).$&*,$-+%)-1&'-5'$.6&$.7'&/:%$/;$$1&%$$&&%1'&$0('$0)($#((&0*'$$+(%/+'%/-&$%-(%&/'$..'%&0($.0&%'1'%(3'%-2&&)5)&*8'%+:%$+;$$+&%$*''&)*)%),%$,,'%(-&%,.($'/'$-/'%'0&%-1($&2'$&3&$.2(%%4'%/4(%/6)$$6'%#8($07(%$9&$19'$%:%$1:&$2;$$)%&$(&($''*$&(+$&),$+*'$%*%%%,&$,+&%%--%&/,%(1*$-2&&-5'&-8($.9'$.:&$.;%$'&%$&''$&(($%))$&*'$(+%$'3%$&4'$&5($%6)$'7&$(8%$]=] } }
 return CF
 end)()
 
@@ -808,8 +804,86 @@ p.g=g
 return p
 end
 S.CFONT_NAMES={id={'1. Modern Bulat','2. Klasik Serif','3. Tegas Bold','4. Geometris Slab','5. Angka Arab'},en={'1. Modern Rounded','2. Classic Serif','3. Bold Geometric','4. Geometric Slab','5. Arabic Numerals'},id_s={'Modern Bulat','Klasik Serif','Tegas Bold','Geometris Slab','Angka Arab'},en_s={'Modern Rounded','Classic Serif','Bold Geometric','Geometric Slab','Arabic Numerals'},}
+function S.parse_font_json(str)
+if not str or #str==0 then return nil end
+if ctx and ctx.json and ctx.json.decode then
+local ok,res=pcall(function()return ctx.json:decode(str)end)
+if ok and type(res)=='table' and res.big then return res end
+end
+local function extract_block(prefix)
+local p=str:find(prefix,1,true)
+if not p then return nil end
+local h=tonumber(str:match('"h"%s*:%s*(%d+)',p))
+local w=str:match('"w"%s*:%s*"([^"]+)"',p)
+local c_str=str:match('"c"%s*:%s*%[([%d%s,]+)%]',p)
+local r=str:match('"r"%s*:%s*"([^"]+)"',p)
+if not(h and w and c_str and r)then return nil end
+local c={}
+for num in c_str:gmatch('%d+')do c[#c+1]=tonumber(num)end
+r=r:gsub('\\\\','\\')
+return{h=h,w=w,c=c,r=r}
+end
+local big=extract_block('"big"')
+local sm=extract_block('"sm"')
+if big then
+return{name=str:match('"name"%s*:%s*"([^"]+)"')or 'Font',big=big,sm=sm}
+end
+return nil
+end
+function S.get_cfont(idx)
+idx=tonumber(idx)or 1
+if CF and CF[idx] then return CF[idx] end
+if idx>1 then
+local raw=S.read('cfont_'..idx..'.json')
+if raw then
+local parsed=S.parse_font_json(raw)
+if parsed then
+if not CF then CF={}end
+CF[idx]=parsed
+return parsed
+end
+end
+end
+return CF and CF[1]
+end
+function S.is_cfont_cached(idx)
+idx=tonumber(idx)or 1
+if idx==1 then return true end
+if CF and CF[idx] then return true end
+local raw=S.read('cfont_'..idx..'.json')
+return raw~=nil and #raw>50
+end
+S.CFONT_URL_PREFIX='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/fonts/cfont_'
+function S.download_cfont(idx,cb)
+idx=tonumber(idx)or 1
+if idx==1 or S.is_cfont_cached(idx)then
+local f=S.get_cfont(idx)
+if cb then cb(true,f)end
+return
+end
+if not(ctx and ctx.net and ctx.net.request)then
+if cb then cb(false,'Network unavailable')end
+return
+end
+local url=S.CFONT_URL_PREFIX..idx..'.json'
+pcall(function()
+ctx.net:request({url=url,method='GET',headers={['Accept']='application/json'},timeout_ms=12000,},function(c,resp)
+if type(resp)=='table' and type(resp.body)=='string' and #resp.body>100 then
+local parsed=S.parse_font_json(resp.body)
+if parsed and parsed.big then
+S.write('cfont_'..idx..'.json',resp.body)
+if not CF then CF={}end
+CF[idx]=parsed
+if cb then cb(true,parsed)end
+return
+end
+end
+if cb then cb(false,'Gagal mengunduh font')end
+end)
+end)
+end
 function S.big_clock(gg,hhmm,cx,y,h,cfont_idx)
-local fset=(CF and CF[cfont_idx or 1])or(CF and CF[1])
+local fset=S.get_cfont(cfont_idx)
 if not fset then
 S.center_text(gg,cx,y+(h - 30)//2,hhmm,'large')
 return
@@ -1214,8 +1288,8 @@ local ry=base_y+(n - 1)*lh+ref_gap
 local rw=S.text_w(ref or '','small')
 gg:text(math.floor((S.W - rw)/2),ry,ref or '',{font=S.font('small')})
 end
-S.APP_VERSION='1.2.9'
-S.APP_BUILD=129
+S.APP_VERSION='1.3.0'
+S.APP_BUILD=130
 S.UPDATE_URL='https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL='https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'
@@ -2644,7 +2718,7 @@ gg:rect(W - 6,track_top,4,track_h,{fill=true,color=0})
 gg:rect(W - 6,thumb_y,4,thumb_h,{fill=true,radius=2})
 end
 end
-function F.draw_cfont_modal(gg,cfg,now_info,draw_btn)
+function F.draw_cfont_modal(gg,cfg,now_info,draw_btn,cfont_downloading)
 local W,H=S.W,S.H
 local is_en=(cfg.lang=='en')
 local mx,my,mw,mh=20,110,W - 40,546
@@ -2667,8 +2741,8 @@ gg:line(cx - 7,cy - 7,cx+7,cy+7,{line_width=2})
 gg:line(cx - 7,cy+7,cx+7,cy - 7,{line_width=2})
 gg:line(mx+16,my+72,mx+mw - 16,my+72,{line_width=1})
 local fnames=is_en and S.CFONT_NAMES.en or S.CFONT_NAMES.id
-local fsubs_id={'Sans bulat halus','Serif elegan','Sans tebal tegas','Slab retro kokoh','Kaligrafi Islam Naskh'}
-local fsubs_en={'Smooth rounded sans','Classy serif','Bold display sans','Geometric slab','Islamic Naskh Script'}
+local fsubs_id={'Sans bulat halus (Bawaan)','Serif klasik elegan','Sans tebal tegas','Slab retro geometris','Kaligrafi Islam Naskh'}
+local fsubs_en={'Smooth rounded sans (Builtin)','Classic elegant serif','Bold display sans','Geometric retro slab','Islamic Naskh Script'}
 local cur_cf=cfg.cfont or 1
 local sample_time=(now_info and now_info.hhmm)or '12:34'
 for i=1,#fnames do
@@ -2677,6 +2751,8 @@ local rw=mw - 24
 local rh=72
 local rx=mx+12
 local is_sel=(cur_cf==i)
+local is_installed=S.is_cfont_cached(i)
+local is_dl=(cfont_downloading==i)
 if is_sel then
 S.round_rect(gg,rx,ry,rw,rh,10,nil,true,0)
 S.round_rect(gg,rx,ry,rw,rh,10,2)
@@ -2692,14 +2768,20 @@ gg:circle(cir_x,cir_y,5,{fill=true})
 end
 local fn=fnames[i]
 local fs=is_en and fsubs_en[i] or fsubs_id[i]
-gg:text(rx+38,ry+14,S.fit_text(fn,'medium',240),{font=S.font('medium')})
-gg:text(rx+38,ry+40,S.fit_text(fs,'small',240),{font=S.font('small')})
+gg:text(rx+38,ry+14,S.fit_text(fn,'medium',230),{font=S.font('medium')})
+gg:text(rx+38,ry+40,S.fit_text(fs,'small',230),{font=S.font('small')})
 local pw,ph=106,42
 local px=rx+rw - pw - 12
 local py=ry+(rh - ph)//2
 S.round_rect(gg,px,py,pw,ph,8,nil,true,0)
 S.round_rect(gg,px,py,pw,ph,8,is_sel and 2 or 1)
+if is_dl then
+S.center_text(gg,px+pw//2,py+12,is_en and 'Loading...' or 'Unduh...','small')
+elseif is_installed then
 S.big_clock(gg,sample_time,px+pw//2,py+(ph - 28)//2,28,i)
+else
+draw_btn(gg,px+8,py+6,pw - 16,ph - 12,is_en and 'Get' or 'Unduh',false,'small')
+end
 end
 draw_btn(gg,mx+20,my+mh - 54,mw - 40,44,is_en and 'Close' or 'Tutup',true,'medium')
 end
@@ -3171,6 +3253,7 @@ local screen='main'
 local prev_screen='main'
 local hijri_modal=false
 local cfont_modal=false
+local cfont_downloading=nil
 local quote_modal=false
 local update_modal=false
 local storage_modal=false
@@ -4048,7 +4131,7 @@ draw_hijri_modal(gg,now_info,info)
 end
 end
 if cfont_modal then
-F.draw_cfont_modal(gg,cfg,now_info,draw_btn)
+F.draw_cfont_modal(gg,cfg,now_info,draw_btn,cfont_downloading)
 end
 if quote_modal then
 F.draw_quote_modal(gg,cfg,draw_btn)
@@ -4155,12 +4238,31 @@ local num_fonts=#S.CFONT_NAMES.id
 for i=1,num_fonts do
 local ry=my+78+(i - 1)*78
 if y>=ry and y<ry+74 and x>=mx+12 and x<=mx+mw - 12 then
-cfg.cfont=i
-S.save_cfg(cfg)
 local is_en=(cfg.lang=='en')
 local fnames=is_en and S.CFONT_NAMES.en_s or S.CFONT_NAMES.id_s
+if i==1 or S.is_cfont_cached(i)then
+cfg.cfont=i
+S.save_cfg(cfg)
 status=(is_en and 'Clock font: ' or 'Gaya jam: ')..(fnames[i] or '')
 cfont_modal=false
+refresh()
+else
+cfont_downloading=i
+status=(is_en and 'Downloading font ' or 'Mengunduh font ')..(fnames[i] or '')..'...'
+refresh()
+S.download_cfont(i,function(ok,err)
+cfont_downloading=nil
+if ok then
+cfg.cfont=i
+S.save_cfg(cfg)
+status=(is_en and 'Font installed: ' or 'Font dipasang: ')..(fnames[i] or '')
+cfont_modal=false
+else
+status=is_en and 'Download failed: connect Wi-Fi' or 'Gagal unduh font: hubungkan Wi-Fi'
+end
+refresh()
+end)
+end
 return true
 end
 end

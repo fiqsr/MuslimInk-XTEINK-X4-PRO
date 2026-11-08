@@ -1219,8 +1219,96 @@ S.CFONT_NAMES = {
   en_s = { 'Modern Rounded', 'Classic Serif', 'Bold Geometric', 'Geometric Slab', 'Arabic Numerals' },
 }
 
+function S.parse_font_json(str)
+  if not str or #str == 0 then return nil end
+  if ctx and ctx.json and ctx.json.decode then
+    local ok, res = pcall(function() return ctx.json:decode(str) end)
+    if ok and type(res) == 'table' and res.big then return res end
+  end
+  local function extract_block(prefix)
+    local p = str:find(prefix, 1, true)
+    if not p then return nil end
+    local h = tonumber(str:match('"h"%s*:%s*(%d+)', p))
+    local w = str:match('"w"%s*:%s*"([^"]+)"', p)
+    local c_str = str:match('"c"%s*:%s*%[([%d%s,]+)%]', p)
+    local r = str:match('"r"%s*:%s*"([^"]+)"', p)
+    if not (h and w and c_str and r) then return nil end
+    local c = {}
+    for num in c_str:gmatch('%d+') do c[#c + 1] = tonumber(num) end
+    r = r:gsub('\\\\', '\\')
+    return { h = h, w = w, c = c, r = r }
+  end
+  local big = extract_block('"big"')
+  local sm = extract_block('"sm"')
+  if big then
+    return { name = str:match('"name"%s*:%s*"([^"]+)"') or 'Font', big = big, sm = sm }
+  end
+  return nil
+end
+
+function S.get_cfont(idx)
+  idx = tonumber(idx) or 1
+  if CF and CF[idx] then return CF[idx] end
+  if idx > 1 then
+    local raw = S.read('cfont_' .. idx .. '.json')
+    if raw then
+      local parsed = S.parse_font_json(raw)
+      if parsed then
+        if not CF then CF = {} end
+        CF[idx] = parsed
+        return parsed
+      end
+    end
+  end
+  return CF and CF[1]
+end
+
+function S.is_cfont_cached(idx)
+  idx = tonumber(idx) or 1
+  if idx == 1 then return true end
+  if CF and CF[idx] then return true end
+  local raw = S.read('cfont_' .. idx .. '.json')
+  return raw ~= nil and #raw > 50
+end
+
+S.CFONT_URL_PREFIX = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/api/fonts/cfont_'
+
+function S.download_cfont(idx, cb)
+  idx = tonumber(idx) or 1
+  if idx == 1 or S.is_cfont_cached(idx) then
+    local f = S.get_cfont(idx)
+    if cb then cb(true, f) end
+    return
+  end
+  if not (ctx and ctx.net and ctx.net.request) then
+    if cb then cb(false, 'Network unavailable') end
+    return
+  end
+  local url = S.CFONT_URL_PREFIX .. idx .. '.json'
+  pcall(function()
+    ctx.net:request({
+      url = url,
+      method = 'GET',
+      headers = { ['Accept'] = 'application/json' },
+      timeout_ms = 12000,
+    }, function(c, resp)
+      if type(resp) == 'table' and type(resp.body) == 'string' and #resp.body > 100 then
+        local parsed = S.parse_font_json(resp.body)
+        if parsed and parsed.big then
+          S.write('cfont_' .. idx .. '.json', resp.body)
+          if not CF then CF = {} end
+          CF[idx] = parsed
+          if cb then cb(true, parsed) end
+          return
+        end
+      end
+      if cb then cb(false, 'Gagal mengunduh font') end
+    end)
+  end)
+end
+
 function S.big_clock(gg, hhmm, cx, y, h, cfont_idx)
-  local fset = (CF and CF[cfont_idx or 1]) or (CF and CF[1])
+  local fset = S.get_cfont(cfont_idx)
   if not fset then
     S.center_text(gg, cx, y + (h - 30) // 2, hhmm, 'large')
     return
@@ -1764,8 +1852,8 @@ end
 
 ------------------------------------------------------------------ Auto-Updater Engine (GitHub Releases)
 
-S.APP_VERSION = '1.2.9'
-S.APP_BUILD = 129
+S.APP_VERSION = '1.3.0'
+S.APP_BUILD = 130
 S.UPDATE_URL = 'https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/version.json'
 S.PROJECT_GITHUB_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
 S.RELEASE_LATEST_URL = 'https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest'

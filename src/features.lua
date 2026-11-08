@@ -1570,7 +1570,7 @@ end
 
 ------------------------------------------------------------------ Modal: Clock & Counter Font Picker
 
-function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
+function F.draw_cfont_modal(gg, cfg, now_info, draw_btn, cfont_downloading)
   local W, H = S.W, S.H
   local is_en = (cfg.lang == 'en')
   local mx, my, mw, mh = 20, 110, W - 40, 546
@@ -1607,17 +1607,17 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
 
   local fnames = is_en and S.CFONT_NAMES.en or S.CFONT_NAMES.id
   local fsubs_id = {
-    'Sans bulat halus',
-    'Serif elegan',
+    'Sans bulat halus (Bawaan)',
+    'Serif klasik elegan',
     'Sans tebal tegas',
-    'Slab retro kokoh',
+    'Slab retro geometris',
     'Kaligrafi Islam Naskh'
   }
   local fsubs_en = {
-    'Smooth rounded sans',
-    'Classy serif',
+    'Smooth rounded sans (Builtin)',
+    'Classic elegant serif',
     'Bold display sans',
-    'Geometric slab',
+    'Geometric retro slab',
     'Islamic Naskh Script'
   }
 
@@ -1631,6 +1631,8 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
     local rh = 72
     local rx = mx + 12
     local is_sel = (cur_cf == i)
+    local is_installed = S.is_cfont_cached(i)
+    local is_dl = (cfont_downloading == i)
 
     -- Row card container
     if is_sel then
@@ -1652,16 +1654,23 @@ function F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
     -- Font Name & Subtitle (Fitted so it never overlaps right badge)
     local fn = fnames[i]
     local fs = is_en and fsubs_en[i] or fsubs_id[i]
-    gg:text(rx + 38, ry + 14, S.fit_text(fn, 'medium', 240), { font = S.font('medium') })
-    gg:text(rx + 38, ry + 40, S.fit_text(fs, 'small', 240), { font = S.font('small') })
+    gg:text(rx + 38, ry + 14, S.fit_text(fn, 'medium', 230), { font = S.font('medium') })
+    gg:text(rx + 38, ry + 40, S.fit_text(fs, 'small', 230), { font = S.font('small') })
 
-    -- Live Clock Sample Preview in contained pill badge
+    -- Live Clock Sample Preview or Action Button in contained pill badge
     local pw, ph = 106, 42
     local px = rx + rw - pw - 12
     local py = ry + (rh - ph) // 2
     S.round_rect(gg, px, py, pw, ph, 8, nil, true, 0)
     S.round_rect(gg, px, py, pw, ph, 8, is_sel and 2 or 1)
-    S.big_clock(gg, sample_time, px + pw // 2, py + (ph - 28) // 2, 28, i)
+
+    if is_dl then
+      S.center_text(gg, px + pw // 2, py + 12, is_en and 'Loading...' or 'Unduh...', 'small')
+    elseif is_installed then
+      S.big_clock(gg, sample_time, px + pw // 2, py + (ph - 28) // 2, 28, i)
+    else
+      draw_btn(gg, px + 8, py + 6, pw - 16, ph - 12, is_en and 'Get' or 'Unduh', false, 'small')
+    end
   end
 
   -- Bottom Done / Close button

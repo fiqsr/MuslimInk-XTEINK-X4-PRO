@@ -9,6 +9,7 @@ local screen = 'main'
 local prev_screen = 'main'
 local hijri_modal = false
 local cfont_modal = false
+local cfont_downloading = nil
 local quote_modal = false
 local update_modal = false
 local storage_modal = false
@@ -1075,7 +1076,7 @@ function on_draw(c, gg)
     end
 
     if cfont_modal then
-      F.draw_cfont_modal(gg, cfg, now_info, draw_btn)
+      F.draw_cfont_modal(gg, cfg, now_info, draw_btn, cfont_downloading)
     end
 
     if quote_modal then
@@ -1204,12 +1205,31 @@ local function check_cfont_modal_tap(x, y)
   for i = 1, num_fonts do
     local ry = my + 78 + (i - 1) * 78
     if y >= ry and y < ry + 74 and x >= mx + 12 and x <= mx + mw - 12 then
-      cfg.cfont = i
-      S.save_cfg(cfg)
       local is_en = (cfg.lang == 'en')
       local fnames = is_en and S.CFONT_NAMES.en_s or S.CFONT_NAMES.id_s
-      status = (is_en and 'Clock font: ' or 'Gaya jam: ') .. (fnames[i] or '')
-      cfont_modal = false
+      if i == 1 or S.is_cfont_cached(i) then
+        cfg.cfont = i
+        S.save_cfg(cfg)
+        status = (is_en and 'Clock font: ' or 'Gaya jam: ') .. (fnames[i] or '')
+        cfont_modal = false
+        refresh()
+      else
+        cfont_downloading = i
+        status = (is_en and 'Downloading font ' or 'Mengunduh font ') .. (fnames[i] or '') .. '...'
+        refresh()
+        S.download_cfont(i, function(ok, err)
+          cfont_downloading = nil
+          if ok then
+            cfg.cfont = i
+            S.save_cfg(cfg)
+            status = (is_en and 'Font installed: ' or 'Font dipasang: ') .. (fnames[i] or '')
+            cfont_modal = false
+          else
+            status = is_en and 'Download failed: connect Wi-Fi' or 'Gagal unduh font: hubungkan Wi-Fi'
+          end
+          refresh()
+        end)
+      end
       return true
     end
   end

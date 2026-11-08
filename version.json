@@ -1,6 +1,6 @@
 {
-  "version": "1.2.9",
-  "build": 129,
+  "version": "1.3.0",
+  "build": 130,
   "app_id": "muslimink",
   "name": "MuslimInk",
   "author": "fiqsr",
@@ -9,15 +9,15 @@
   "download_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest/download/muslimink.xtapp",
   "raw_package_url": "https://raw.githubusercontent.com/fiqsr/MuslimInk-XTEINK-X4-PRO/main/dist/muslimink.xtapp",
   "release_page_url": "https://github.com/fiqsr/MuslimInk-XTEINK-X4-PRO/releases/latest",
-  "size_bytes": 249872,
+  "size_bytes": 228592,
   "changelog_id": [
-    "Perbaikan Bug Lockscreen (Line 571): Memulihkan fungsi pemuat quote cache S.load_cached_quote pada lockscreen sehingga tampilan kartu kutipan ayat Al-Qur'an dan perhitungan tanggal Hijriah tampil normal tanpa error",
-    "Pengurangan Ukuran Ekstrem (~12 KB Lebih Ringan): Menghapus font jam Inline bergaris ganda yang memakan memori berlebih dan memodularisasi koleksi ayat Qur'an ke GitHub (api/quotes.json)",
-    "Ukuran Paket 249.8 KB (Lega 12 KB di Bawah Limit): Ukuran .xtapp kini hanya 249.872 byte, memberikan ruang performa dan stabilitas tinggi di Licorice OS X4 Pro"
+    "Arsitektur Font Modular On-Demand (Hemat ~21 KB): Hanya font bawaan (Modern Bulat) yang dikompilasi langsung ke dalam aplikasi. Font Klasik Serif, Tegas Bold, Geometris Slab, dan Angka Arab kini diunduh secara on-demand via GitHub (api/fonts/) dan dicache di penyimpanan perangkat.",
+    "Ukuran Paket Rekor Terendah 228.5 KB: Ukuran file muslimink.xtapp terpangkas drastis dari 249.8 KB menjadi hanya 228.5 KB (228,592 byte), menyisakan ruang bebas raksasa ~33.5 KB dari batas 256 KB.",
+    "Sinkronisasi Otomatis Lockscreen: Font yang telah diunduh di aplikasi otomatis dapat digunakan di lockscreen tanpa error maupun konsumsi memori berlebih."
   ],
   "changelog_en": [
-    "Lockscreen Line 571 Bug Fix: Retained quote cache loader S.load_cached_quote in lockscreen core, fully resolving the crash and rendering daily Quranic quotes flawlessly",
-    "Massive Size Reduction (~12 KB Lighter): Trimmed oversized Inline clock font and modularized quotes collection to GitHub (api/quotes.json)",
-    "Ultra Slim 249.8 KB Package (12 KB Buffer): The .xtapp bundle now stands at only 249,872 bytes for maximum speed and memory headroom on X4 Pro"
+    "Modular On-Demand Clock Fonts (~21 KB Saved): Only default Rounded font is baked in-app. Serif, Bold, Slab, and Arabic numerals are downloaded on-demand from GitHub (api/fonts/) and cached in local storage.",
+    "All-Time Record Slim 228.5 KB Package: File size slashed down to just 228,592 bytes (223.2 KB), giving a massive ~33.5 KB safety margin below the 256 KB limit.",
+    "Seamless Lockscreen Integration: Downloaded custom fonts automatically render on the lockscreen clock and next prayer cards with zero extra overhead."
   ]
 }

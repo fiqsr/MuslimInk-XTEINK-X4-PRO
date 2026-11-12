@@ -2088,113 +2088,108 @@ end
 
 -- ================================================================
 -- ABOUT MUSLIMINK: CLEAN, ELEGANT DEVELOPER SHOWCASE & QR PORTFOLIO
+-- Matches exact application theme, header, and Apple Inset Grouped cards
 -- ================================================================
 function F.draw_about_screen(gg, cfg, now_info, draw_btn)
   local W, H = S.W, S.H
   local is_en = (cfg.lang == 'en')
 
-  -- 1. Top Navigation Bar (y = 0..56)
+  -- 1. Fixed Top Header (Exact match with Settings & Main: Title on left, Clock + ☰ on right)
   gg:rect(0, 0, W, 56, { fill = true, color = 0 })
   gg:line(0, 56, W, 56, { line_width = 1 })
+  gg:text(24, 18, is_en and 'About MuslimInk' or 'Tentang MuslimInk', { font = S.font('large') })
+  if now_info and now_info.hhmm then
+    gg:text(W - 128, 20, now_info.hhmm, { font = S.font('medium') })
+  end
+  S.draw_hamburger_btn(gg, W - 50, 20)
 
-  -- Back button [ < Pengaturan ] / [ < Settings ]
-  local back_lbl = is_en and '< Settings' or '< Pengaturan'
-  draw_btn(gg, 16, 8, 136, 40, back_lbl, false, 'small')
+  -- 2. Card 1: App Identity & Architecture (y = 66, h = 138, 2 rows)
+  local c1_y = 66
+  local c1_h = 138
+  S.round_rect(gg, 20, c1_y, W - 40, c1_h, 14, nil, true, 0)
+  S.round_rect(gg, 20, c1_y, W - 40, c1_h, 14, 2)
 
-  -- Clock in Top Bar
-  local time_str = (now_info and now_info.hhmm) or ''
-  S.center_text(gg, W // 2 + 30, 16, time_str, 'medium')
+  -- Row 1: App Identity (y = 66..134, h = 68)
+  S.round_rect(gg, 34, c1_y + 10, 48, 48, 10, 1, true, 0)
+  S.draw_app_icon(gg, 34, c1_y + 10, 48)
 
-  -- Hamburger Menu Button on right
-  draw_btn(gg, W - 52, 8, 40, 40, '≡', false, 'medium')
-
-  -- 2. Hero Profile: Minimalist, Centered, Apple/Kindle aesthetic (y = 68..198)
-  local ix = (W - 54) // 2
-  local iy = 68
-  S.round_rect(gg, ix, iy, 54, 54, 12, 1, true, 0)
-  S.draw_app_icon(gg, ix + 3, iy + 3, 48)
-
-  S.center_text(gg, W // 2, 128, 'MuslimInk', 'large')
+  gg:text(94, c1_y + 14, 'MuslimInk', { font = S.font('medium') })
   local sub1 = (is_en and 'Version ' or 'Versi ') .. S.APP_VERSION .. '  •  fiqsr (Syafiq)'
-  S.center_text(gg, W // 2, 160, sub1, 'small')
-  local sub2 = is_en and 'Islamic Prayer & Companion OS for XTEINK X4 Pro' or 'Sistem Ibadah & E-Paper OS Khusus XTEINK X4 Pro'
-  S.center_text(gg, W // 2, 182, sub2, 'small')
+  gg:text(94, c1_y + 38, sub1, { font = S.font('small') })
 
-  -- 3. Centerpiece Showcase Card: Large 190x190 QR Code (y = 210..594, h = 384)
-  local card_y = 210
-  local card_h = 384
-  S.round_rect(gg, 24, card_y, W - 48, card_h, 16, nil, true, 0)
-  S.round_rect(gg, 24, card_y, W - 48, card_h, 16, 2)
+  -- Right badge [ SOLO DEV ] (filled black pill)
+  local b1_w = 90
+  gg:rect(W - 36 - b1_w, c1_y + 18, b1_w, 32, { fill = true, radius = 8 })
+  S.center_text(gg, W - 36 - b1_w // 2, c1_y + 24, 'SOLO DEV', 'small', nil, 0)
 
-  -- Card Header Capsule Badge
-  local badge_lbl = is_en and 'GITHUB REPOSITORY & PORTFOLIO' or 'REPOSITORI GITHUB & PORTOFOLIO'
-  local bw = S.text_w(badge_lbl, 'small') + 24
-  gg:rect((W - bw) // 2, card_y + 14, bw, 22, { fill = true, radius = 11 })
-  S.center_text(gg, W // 2, card_y + 16, badge_lbl, 'small', nil, 0)
+  -- 1px Hairline divider
+  gg:line(36, c1_y + 68, W - 36, c1_y + 68, { line_width = 1 })
 
-  -- Large 190x190 QR Code (Top Y = card_y + 46 = 256)
-  local qr_sz = 190
-  local qr_y = card_y + 46
+  -- Row 2: Architecture & Runtime (y = 134..204, h = 70)
+  gg:text(36, c1_y + 80, is_en and 'Architecture & Runtime' or 'Arsitektur & Runtime', { font = S.font('medium') })
+  gg:text(36, c1_y + 104, 'Native Lua 5.5 • C Graphics Engine', { font = S.font('small') })
+
+  -- Right badge [ < 250 KB ] (outline pill)
+  local b2_w = 96
+  S.round_rect(gg, W - 36 - b2_w, c1_y + 86, b2_w, 32, 8, 1)
+  S.center_text(gg, W - 36 - b2_w // 2, c1_y + 92, '< 250 KB', 'small')
+
+  -- 3. Card 2: GitHub Repository & Centered QR Code (y = 216, h = 320)
+  local c2_y = 216
+  local c2_h = 320
+  S.round_rect(gg, 20, c2_y, W - 40, c2_h, 14, nil, true, 0)
+  S.round_rect(gg, 20, c2_y, W - 40, c2_h, 14, 2)
+
+  -- Header Row of Card 2
+  gg:text(36, c2_y + 12, is_en and 'Repository & Portfolio' or 'Repositori & Portofolio', { font = S.font('medium') })
+  local b_gh = 'OPEN SOURCE • MIT'
+  local gh_w = S.text_w(b_gh, 'small') + 18
+  S.round_rect(gg, W - 36 - gh_w, c2_y + 10, gh_w, 26, 8, 1)
+  S.center_text(gg, W - 36 - gh_w // 2, c2_y + 14, b_gh, 'small')
+
+  -- 1px Hairline divider
+  gg:line(36, c2_y + 44, W - 36, c2_y + 44, { line_width = 1 })
+
+  -- Prominent Centered QR Code (176x176 px)
+  local qr_sz = 176
+  local qr_y = c2_y + 54
   S.draw_qr(gg, S.PROJECT_GITHUB_URL, W // 2, qr_y, qr_sz)
 
-  -- Under QR Description
-  local tip1 = is_en and 'Scan with phone camera to open repository,' or 'Pindai via kamera HP untuk membuka repositori,'
-  local tip2 = is_en and 'architecture docs, and open source codebase.' or 'dokumentasi arsitektur, dan kode sumber proyek.'
-  S.center_text(gg, W // 2, qr_y + qr_sz + 12, tip1, 'small')
-  S.center_text(gg, W // 2, qr_y + qr_sz + 30, tip2, 'small')
-
-  -- Repository URL
+  -- Under QR: URL & Guide text
   local gh_url = 'github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
-  S.center_text(gg, W // 2, qr_y + qr_sz + 52, gh_url, 'small')
+  S.center_text(gg, W // 2, qr_y + qr_sz + 12, gh_url, 'small')
+  local gh_tip = is_en and 'Scan via phone camera to open source code & releases' or 'Pindai via kamera HP untuk melihat kode sumber & rilis'
+  S.center_text(gg, W // 2, qr_y + qr_sz + 32, gh_tip, 'small')
 
-  -- Badges Row below URL
-  local b1_txt = 'OPEN SOURCE'
-  local b2_txt = 'MIT LICENSE'
-  local b1_w = S.text_w(b1_txt, 'small') + 18
-  local b2_w = S.text_w(b2_txt, 'small') + 18
-  local tot_b = b1_w + b2_w + 14
-  local bx1 = (W - tot_b) // 2
-  local bx2 = bx1 + b1_w + 14
-  local by_badge = card_y + card_h - 32
-  S.round_rect(gg, bx1, by_badge, b1_w, 22, 11, 1)
-  S.center_text(gg, bx1 + b1_w // 2, by_badge + 2, b1_txt, 'small')
-  S.round_rect(gg, bx2, by_badge, b2_w, 22, 11, 1)
-  S.center_text(gg, bx2 + b2_w // 2, by_badge + 2, b2_txt, 'small')
+  -- 4. Card 3: Key Specifications (y = 548, h = 156, 2 full-width rows)
+  local c3_y = 548
+  local c3_h = 156
+  S.round_rect(gg, 20, c3_y, W - 40, c3_h, 14, nil, true, 0)
+  S.round_rect(gg, 20, c3_y, W - 40, c3_h, 14, 2)
 
-  -- 4. Clean 3-Column Highlights Card (y = 608..706, h = 98)
-  local spec_y = 608
-  local spec_h = 98
-  S.round_rect(gg, 24, spec_y, W - 48, spec_h, 14, nil, true, 0)
-  S.round_rect(gg, 24, spec_y, W - 48, spec_h, 14, 1)
+  -- Row 1: Calculation Engine
+  gg:text(36, c3_y + 14, is_en and 'Calculation Engine' or 'Sistem Hisab & Astronomi', { font = S.font('medium') })
+  local sub_c1 = is_en and 'Kemenag RI (514 Cities) + Meeus Solar Offline' or 'Kemenag RI (514 Kota) + Meeus Solar Offline'
+  gg:text(36, c3_y + 40, sub_c1, { font = S.font('small') })
+  local b3_w = 106
+  S.round_rect(gg, W - 36 - b3_w, c3_y + 20, b3_w, 32, 8, 1)
+  S.center_text(gg, W - 36 - b3_w // 2, c3_y + 26, 'DUAL-HISAB', 'small')
 
-  local col_w = (W - 48) // 3
-  local c1 = 24 + col_w
-  local c2 = 24 + 2 * col_w
-  gg:line(c1, spec_y + 14, c1, spec_y + spec_h - 14, { line_width = 1 })
-  gg:line(c2, spec_y + 14, c2, spec_y + spec_h - 14, { line_width = 1 })
+  -- 1px Hairline divider
+  gg:line(36, c3_y + 78, W - 36, c3_y + 78, { line_width = 1 })
 
-  -- Col 1: Architecture & Lightweight
-  local col1_x = 24 + col_w // 2
-  S.center_text(gg, col1_x, spec_y + 14, is_en and 'SIZE' or 'UKURAN', 'small')
-  S.center_text(gg, col1_x, spec_y + 36, '< 250 KB', 'medium')
-  S.center_text(gg, col1_x, spec_y + 66, 'Boot 60ms', 'small')
+  -- Row 2: Standalone Lockscreen
+  gg:text(36, c3_y + 92, is_en and 'Standalone Lockscreen' or 'Layar Kunci Mandiri', { font = S.font('medium') })
+  local sub_c2 = is_en and '60s Background Daemon • Live Prayer Countdown' or 'Daemon Latar 60s • Live Prayer Countdown'
+  gg:text(36, c3_y + 118, sub_c2, { font = S.font('small') })
+  local b4_w = 106
+  S.round_rect(gg, W - 36 - b4_w, c3_y + 98, b4_w, 32, 8, 1)
+  S.center_text(gg, W - 36 - b4_w // 2, c3_y + 104, 'DAEMON 60S', 'small')
 
-  -- Col 2: Calculation Engine
-  local col2_x = c1 + col_w // 2
-  S.center_text(gg, col2_x, spec_y + 14, is_en and 'CALCULATION' or 'HISAB', 'small')
-  S.center_text(gg, col2_x, spec_y + 36, 'DUAL-ENGINE', 'medium')
-  S.center_text(gg, col2_x, spec_y + 66, is_en and '514 Cities + Meeus' or '514 Kota + Meeus', 'small')
-
-  -- Col 3: Standalone 60s Lockscreen
-  local col3_x = c2 + col_w // 2
-  S.center_text(gg, col3_x, spec_y + 14, is_en and 'LOCKSCREEN' or 'LAYAR KUNCI', 'small')
-  S.center_text(gg, col3_x, spec_y + 36, is_en and 'STANDALONE' or 'MANDIRI', 'medium')
-  S.center_text(gg, col3_x, spec_y + 66, 'Daemon 60s', 'small')
-
-  -- 5. Docked Bottom Action Button (y = 724..800)
-  gg:line(0, 724, W, 724, { line_width = 1 })
-  local done_lbl = is_en and '< Done / Back to Settings' or '< Selesai / Kembali ke Pengaturan'
-  draw_btn(gg, 24, 736, W - 48, 48, done_lbl, true, 'medium')
+  -- 5. Fixed Bottom Dock Bar (Exact match with Settings screen: Selesai / Done)
+  gg:rect(0, 726, W, 74, { fill = true, color = 0 })
+  gg:line(0, 726, W, 726, { line_width = 1 })
+  draw_btn(gg, 20, 736, W - 40, 52, is_en and 'Done' or 'Selesai', true, 'medium')
 end
 
 return F

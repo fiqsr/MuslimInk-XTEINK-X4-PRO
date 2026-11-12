@@ -1694,21 +1694,21 @@ end
 local function handle_tap_about(x, y)
   -- 1. Top App Bar (y = 0..56)
   if y <= 56 then
-    -- Back button [ < Pengaturan ] / [ < Settings ] (x = 12..160)
-    if x >= 12 and x <= 160 then
-      screen = 'settings'
-      return
-    end
     -- Hamburger ☰ button on top right
     if x >= W - 64 then
       drawer_open = true
       return
     end
+    -- Tapping left title area in header returns to settings
+    if x <= 240 then
+      screen = 'settings'
+      return
+    end
     return
   end
 
-  -- 2. Docked Bottom Button (y = 724..800)
-  if y >= 724 and y <= 800 then
+  -- 2. Fixed Bottom Dock with Done / Selesai button (y = 726..800)
+  if y >= 726 and y <= 800 then
     if x >= 20 and x <= W - 20 then
       screen = 'settings'
       return

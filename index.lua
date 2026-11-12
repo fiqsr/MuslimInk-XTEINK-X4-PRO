@@ -3125,73 +3125,66 @@ local W,H=S.W,S.H
 local is_en=(cfg.lang=='en')
 gg:rect(0,0,W,56,{fill=true,color=0})
 gg:line(0,56,W,56,{line_width=1})
-local back_lbl=is_en and '< Settings' or '< Pengaturan'
-draw_btn(gg,16,8,136,40,back_lbl,false,'small')
-local time_str=(now_info and now_info.hhmm)or ''
-S.center_text(gg,W//2+30,16,time_str,'medium')
-draw_btn(gg,W - 52,8,40,40,'≡',false,'medium')
-local ix=(W - 54)//2
-local iy=68
-S.round_rect(gg,ix,iy,54,54,12,1,true,0)
-S.draw_app_icon(gg,ix+3,iy+3,48)
-S.center_text(gg,W//2,128,'MuslimInk','large')
+gg:text(24,18,is_en and 'About MuslimInk' or 'Tentang MuslimInk',{font=S.font('large')})
+if now_info and now_info.hhmm then
+gg:text(W - 128,20,now_info.hhmm,{font=S.font('medium')})
+end
+S.draw_hamburger_btn(gg,W - 50,20)
+local c1_y=66
+local c1_h=138
+S.round_rect(gg,20,c1_y,W - 40,c1_h,14,nil,true,0)
+S.round_rect(gg,20,c1_y,W - 40,c1_h,14,2)
+S.round_rect(gg,34,c1_y+10,48,48,10,1,true,0)
+S.draw_app_icon(gg,34,c1_y+10,48)
+gg:text(94,c1_y+14,'MuslimInk',{font=S.font('medium')})
 local sub1=(is_en and 'Version ' or 'Versi ')..S.APP_VERSION..'  •  fiqsr (Syafiq)'
-S.center_text(gg,W//2,160,sub1,'small')
-local sub2=is_en and 'Islamic Prayer & Companion OS for XTEINK X4 Pro' or 'Sistem Ibadah & E-Paper OS Khusus XTEINK X4 Pro'
-S.center_text(gg,W//2,182,sub2,'small')
-local card_y=210
-local card_h=384
-S.round_rect(gg,24,card_y,W - 48,card_h,16,nil,true,0)
-S.round_rect(gg,24,card_y,W - 48,card_h,16,2)
-local badge_lbl=is_en and 'GITHUB REPOSITORY & PORTFOLIO' or 'REPOSITORI GITHUB & PORTOFOLIO'
-local bw=S.text_w(badge_lbl,'small')+24
-gg:rect((W - bw)//2,card_y+14,bw,22,{fill=true,radius=11})
-S.center_text(gg,W//2,card_y+16,badge_lbl,'small',nil,0)
-local qr_sz=190
-local qr_y=card_y+46
+gg:text(94,c1_y+38,sub1,{font=S.font('small')})
+local b1_w=90
+gg:rect(W - 36 - b1_w,c1_y+18,b1_w,32,{fill=true,radius=8})
+S.center_text(gg,W - 36 - b1_w//2,c1_y+24,'SOLO DEV','small',nil,0)
+gg:line(36,c1_y+68,W - 36,c1_y+68,{line_width=1})
+gg:text(36,c1_y+80,is_en and 'Architecture & Runtime' or 'Arsitektur & Runtime',{font=S.font('medium')})
+gg:text(36,c1_y+104,'Native Lua 5.5 • C Graphics Engine',{font=S.font('small')})
+local b2_w=96
+S.round_rect(gg,W - 36 - b2_w,c1_y+86,b2_w,32,8,1)
+S.center_text(gg,W - 36 - b2_w//2,c1_y+92,'< 250 KB','small')
+local c2_y=216
+local c2_h=320
+S.round_rect(gg,20,c2_y,W - 40,c2_h,14,nil,true,0)
+S.round_rect(gg,20,c2_y,W - 40,c2_h,14,2)
+gg:text(36,c2_y+12,is_en and 'Repository & Portfolio' or 'Repositori & Portofolio',{font=S.font('medium')})
+local b_gh='OPEN SOURCE • MIT'
+local gh_w=S.text_w(b_gh,'small')+18
+S.round_rect(gg,W - 36 - gh_w,c2_y+10,gh_w,26,8,1)
+S.center_text(gg,W - 36 - gh_w//2,c2_y+14,b_gh,'small')
+gg:line(36,c2_y+44,W - 36,c2_y+44,{line_width=1})
+local qr_sz=176
+local qr_y=c2_y+54
 S.draw_qr(gg,S.PROJECT_GITHUB_URL,W//2,qr_y,qr_sz)
-local tip1=is_en and 'Scan with phone camera to open repository,' or 'Pindai via kamera HP untuk membuka repositori,'
-local tip2=is_en and 'architecture docs, and open source codebase.' or 'dokumentasi arsitektur, dan kode sumber proyek.'
-S.center_text(gg,W//2,qr_y+qr_sz+12,tip1,'small')
-S.center_text(gg,W//2,qr_y+qr_sz+30,tip2,'small')
 local gh_url='github.com/fiqsr/MuslimInk-XTEINK-X4-PRO'
-S.center_text(gg,W//2,qr_y+qr_sz+52,gh_url,'small')
-local b1_txt='OPEN SOURCE'
-local b2_txt='MIT LICENSE'
-local b1_w=S.text_w(b1_txt,'small')+18
-local b2_w=S.text_w(b2_txt,'small')+18
-local tot_b=b1_w+b2_w+14
-local bx1=(W - tot_b)//2
-local bx2=bx1+b1_w+14
-local by_badge=card_y+card_h - 32
-S.round_rect(gg,bx1,by_badge,b1_w,22,11,1)
-S.center_text(gg,bx1+b1_w//2,by_badge+2,b1_txt,'small')
-S.round_rect(gg,bx2,by_badge,b2_w,22,11,1)
-S.center_text(gg,bx2+b2_w//2,by_badge+2,b2_txt,'small')
-local spec_y=608
-local spec_h=98
-S.round_rect(gg,24,spec_y,W - 48,spec_h,14,nil,true,0)
-S.round_rect(gg,24,spec_y,W - 48,spec_h,14,1)
-local col_w=(W - 48)//3
-local c1=24+col_w
-local c2=24+2*col_w
-gg:line(c1,spec_y+14,c1,spec_y+spec_h - 14,{line_width=1})
-gg:line(c2,spec_y+14,c2,spec_y+spec_h - 14,{line_width=1})
-local col1_x=24+col_w//2
-S.center_text(gg,col1_x,spec_y+14,is_en and 'SIZE' or 'UKURAN','small')
-S.center_text(gg,col1_x,spec_y+36,'< 250 KB','medium')
-S.center_text(gg,col1_x,spec_y+66,'Boot 60ms','small')
-local col2_x=c1+col_w//2
-S.center_text(gg,col2_x,spec_y+14,is_en and 'CALCULATION' or 'HISAB','small')
-S.center_text(gg,col2_x,spec_y+36,'DUAL-ENGINE','medium')
-S.center_text(gg,col2_x,spec_y+66,is_en and '514 Cities + Meeus' or '514 Kota + Meeus','small')
-local col3_x=c2+col_w//2
-S.center_text(gg,col3_x,spec_y+14,is_en and 'LOCKSCREEN' or 'LAYAR KUNCI','small')
-S.center_text(gg,col3_x,spec_y+36,is_en and 'STANDALONE' or 'MANDIRI','medium')
-S.center_text(gg,col3_x,spec_y+66,'Daemon 60s','small')
-gg:line(0,724,W,724,{line_width=1})
-local done_lbl=is_en and '< Done / Back to Settings' or '< Selesai / Kembali ke Pengaturan'
-draw_btn(gg,24,736,W - 48,48,done_lbl,true,'medium')
+S.center_text(gg,W//2,qr_y+qr_sz+12,gh_url,'small')
+local gh_tip=is_en and 'Scan via phone camera to open source code & releases' or 'Pindai via kamera HP untuk melihat kode sumber & rilis'
+S.center_text(gg,W//2,qr_y+qr_sz+32,gh_tip,'small')
+local c3_y=548
+local c3_h=156
+S.round_rect(gg,20,c3_y,W - 40,c3_h,14,nil,true,0)
+S.round_rect(gg,20,c3_y,W - 40,c3_h,14,2)
+gg:text(36,c3_y+14,is_en and 'Calculation Engine' or 'Sistem Hisab & Astronomi',{font=S.font('medium')})
+local sub_c1=is_en and 'Kemenag RI (514 Cities) + Meeus Solar Offline' or 'Kemenag RI (514 Kota) + Meeus Solar Offline'
+gg:text(36,c3_y+40,sub_c1,{font=S.font('small')})
+local b3_w=106
+S.round_rect(gg,W - 36 - b3_w,c3_y+20,b3_w,32,8,1)
+S.center_text(gg,W - 36 - b3_w//2,c3_y+26,'DUAL-HISAB','small')
+gg:line(36,c3_y+78,W - 36,c3_y+78,{line_width=1})
+gg:text(36,c3_y+92,is_en and 'Standalone Lockscreen' or 'Layar Kunci Mandiri',{font=S.font('medium')})
+local sub_c2=is_en and '60s Background Daemon • Live Prayer Countdown' or 'Daemon Latar 60s • Live Prayer Countdown'
+gg:text(36,c3_y+118,sub_c2,{font=S.font('small')})
+local b4_w=106
+S.round_rect(gg,W - 36 - b4_w,c3_y+98,b4_w,32,8,1)
+S.center_text(gg,W - 36 - b4_w//2,c3_y+104,'DAEMON 60S','small')
+gg:rect(0,726,W,74,{fill=true,color=0})
+gg:line(0,726,W,726,{line_width=1})
+draw_btn(gg,20,736,W - 40,52,is_en and 'Done' or 'Selesai',true,'medium')
 end
 return F
 end)()
@@ -4594,17 +4587,17 @@ end
 end
 local function handle_tap_about(x,y)
 if y<=56 then
-if x>=12 and x<=160 then
-screen='settings'
-return
-end
 if x>=W - 64 then
 drawer_open=true
 return
 end
+if x<=240 then
+screen='settings'
 return
 end
-if y>=724 and y<=800 then
+return
+end
+if y>=726 and y<=800 then
 if x>=20 and x<=W - 20 then
 screen='settings'
 return
